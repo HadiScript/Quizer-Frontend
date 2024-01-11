@@ -1,0 +1,87 @@
+.attempt {
+  color: #083344 !important;
+}
+
+.attempt .main-heading {
+  color: #083344 !important;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.card-shadow {
+  background-color: white !important;
+  z-index: 100;
+  padding: 20px;
+  border-radius: 20px;
+  width: 500px !important;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
+.card-shadow2 {
+  background-color: white !important;
+  z-index: 100;
+  padding: 20px;
+  /* border-radius: 20px; */
+  width: 800px !important;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
+.card-shadow q {
+  font-size: 14px;
+}
+
+.card-shadow p {
+  font-size: 15px;
+}
+
+.card-shadow .time-stamp {
+  font-size: 15px;
+}
+
+.attempt .card-shadow label {
+  font-size: 13px;
+}
+
+.my-shadow {
+  /* position: "absolute",
+    bottom: "50px",
+    right: "50px",
+    boxShadow: "0px 0px 100vw 100vh #083344", */
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  box-shadow: 30px 200px 100vw 100vh #0833444e;
+}
+
+.timer {
+  position: fixed;
+  /* position: absolute; */
+  right: 24px;
+  bottom: 24px;
+  height: 40px;
+  width: 150px;
+  z-index: 10000;
+  border-radius: 10px;
+  background-color: white !important;
+  color: back;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.timer span {
+  font-size: 15px;
+}
+
+.attempt .thankx .main {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.attempt .thankx .main-2 {
+  margin-top: -20px;
+  font-style: italic;
+}
+
+/* .attempt .ant-radio .ant-radio-checked {
+  color: red !important;
+  background-color: purple !important;
+} */

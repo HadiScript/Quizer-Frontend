@@ -1,0 +1,96 @@
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+
+import { DeleteOutlined, EditOutlined, HolderOutlined, SmallDashOutlined } from "@ant-design/icons";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { API } from "../../../helper/API";
+import { Button } from "antd";
+import { _useQuestions } from "../../../actions/_questions";
+import { useState } from "react";
+import AllQuestionModel from "./AllQuestionModel";
+
+const QuestionListEdit = ({ questions, setQuestions, quizId, from }) => {
+  const { deleteQuestion, loading } = _useQuestions();
+  const [allQuestionModal, setAllQuestionModal] = useState(false);
+
+  const deleteHandle = (quizId, itemId) => {
+    deleteQuestion(quizId, itemId);
+    // setQuestions(questions.filter((x) => x._id !== itemId));
+  };
+
+  const reOrderQuestions = async (x) => {
+    try {
+      const { data } = await axios.put(`${API}/quiz/question-reorder`, x);
+      toast.success("ReOrder");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error");
+    }
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const items = Array.from(questions);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    const startIndex = Math.min(result.source.index, result.destination.index);
+    const endIndex = Math.max(result.source.index, result.destination.index);
+
+    const updatedChapters = items.slice(startIndex, endIndex + 1);
+
+    setQuestions(items);
+
+    const bulkUpdateData = updatedChapters.map((chapter) => ({
+      id: chapter._id,
+      position: items.findIndex((item) => item._id === chapter._id),
+    }));
+    reOrderQuestions(bulkUpdateData);
+  };
+
+  return (
+    <>
+      {loading && <>loading...</>}
+     
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="questions">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {questions.slice(0, from === "modal" ? 6 : 100).map((chapter, index) => (
+                <Draggable key={chapter._id} draggableId={chapter._id} index={index}>
+                  {(provided) => (
+                    <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 ${from === "component" && "d-flex justify-content-between align-items-center mb-3"}`}>
+                      <div className="d-flex gap-2">
+                        <div {...provided.dragHandleProps}>
+                          <HolderOutlined />
+                        </div>
+                        {chapter.text.length > 50 ? chapter.text.substring(0, 50) + "..." : chapter.text}
+                      </div>
+                      <div className="d-flex justify-content-center align-items-center gap-3">
+                        <DeleteOutlined onClick={() => deleteHandle(quizId, chapter._id)} />
+                        <Button className="myBtn" icon={<EditOutlined />}>
+                          Options
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      {from === "modal" && questions.length > 6 && (
+        <div className="text-center myBtn mt-4 rounded-3 p-2" role="button" onClick={() => setAllQuestionModal(true)}>
+          see all
+        </div>
+      )}
+
+      <AllQuestionModel open={allQuestionModal} onClose={() => setAllQuestionModal(false)} quizId={quizId} questions={questions} setQuestions={setQuestions} />
+    </>
+  );
+};
+
+export default QuestionListEdit;

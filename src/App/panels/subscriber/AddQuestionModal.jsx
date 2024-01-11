@@ -1,0 +1,80 @@
+import { Button, Form, Input, Modal, Radio } from "antd";
+import React from "react";
+import Heading from "../../components/common/Heading";
+import { _useQuestions } from "../../../actions/_questions";
+
+const AddQuestionModal = ({ open, setOpen, quizId, setQuestions }) => {
+  const {
+    text,
+    setQuestionData,
+    questionType,
+    options,
+    correctAnswer,
+    loading,
+
+    // functions
+    addQuestion,
+    handleAddOption,
+    handleRemoveOption,
+    handleOptionChange,
+    handleCorrectChange,
+  } = _useQuestions();
+
+  return (
+    <Modal title={<Heading title={"Add Question"} />} footer={null} centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} width={2000}>
+      <div className="container">
+        <Form>
+          <div className="row">
+            <div className="col-xs-12 col-md-6">
+              <Form.Item label="Quiz Title">
+                <Input.TextArea placeholder="Enter Question Title" value={text} onChange={(e) => setQuestionData((prev) => ({ ...prev, text: e.target.value }))} />
+              </Form.Item>
+              <Form.Item label="Question Type">
+                <Radio.Group value={questionType} onChange={(e) => setQuestionData((prev) => ({ ...prev, questionType: e.target.value }))}>
+                  <Radio value="multiple-choice">Multiple Choice</Radio>
+                  <Radio value="short-answer">Short Answer</Radio>
+                </Radio.Group>
+              </Form.Item>
+
+              {questionType === "multiple-choice" && (
+                <Button className="my-3" onClick={handleAddOption}>
+                  Add Option
+                </Button>
+              )}
+              {questionType === "short-answer" && (
+                <Form.Item label="Answer" className="my-3">
+                  <Input placeholder="Enter Answer" value={correctAnswer} onChange={(e) => setQuestionData((prev) => ({ ...prev, correctAnswer: e.target.value }))} />
+                </Form.Item>
+              )}
+            </div>
+
+            {questionType === "multiple-choice" && (
+              <div className="col-xs-12 col-md-6">
+                {options.map((option, index) => (
+                  <div key={index} className="mb-3 d-flex align-items-center">
+                    <Input placeholder={`Option ${index + 1}`} value={option.text} onChange={(e) => handleOptionChange(index, e.target.value)} style={{ marginRight: "10px" }} />
+                    <input type="checkbox" checked={option.isCorrect} onChange={() => handleCorrectChange(index)} style={{ marginRight: "10px" }} />
+                    Correct
+                    {options.length > 2 && (
+                      <Button type="danger" onClick={() => handleRemoveOption(index)}>
+                        Remove
+                      </Button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </Form>
+      </div>
+
+      <div className="text-end">
+        <Button className="myBtn" loading={loading} onClick={() => addQuestion(quizId)}>
+          Add Question
+        </Button>
+      </div>
+    </Modal>
+  );
+};
+
+export default AddQuestionModal;

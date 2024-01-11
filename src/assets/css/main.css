@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "RethinkSans";
+  /* src: url("./font/RethinkSans-Italic-VariableFont_wght.ttf") format("truetype"), */
+  src: url("./fonts/RethinkSans-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "RethinkSans", sans-serif !important;
+}
+
+.zinc-800 {
+  color: #18181b;
+}
+
+.zinc-600 {
+  color: #52525b;
+}
+
+/* antd  */
+.ant-input:focus {
+  border-color: #000000 !important;
+}
+
+.ant-input:hover {
+  border-color: #000000 !important;
+}
+
+.ant-input-password:focus {
+  border-color: #000000 !important;
+}
+
+.ant-input-password:hover {
+  border-color: #000000 !important;
+}
+
+.ant-btn:hover {
+  border-color: #000000 !important;
+}
+
+.withoutQuestion {
+  border: 1px solid red !important;
+}
+
+.myBtn {
+  background-color: black;
+  color: white;
+}
+
+.deleteBtn {
+  background-color: black;
+  color: white;
+}
+
+.deleteBtn:hover {
+  color: rgb(246, 86, 86) !important;
+}
+
+.dottedBtn {
+  border-style: dashed !important;
+  border: 1px solid black;
+}
+
+.lightgrey-bg {
+  background-color: #d3d3d324;
+}

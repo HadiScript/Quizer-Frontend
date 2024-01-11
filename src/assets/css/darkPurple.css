@@ -1,0 +1,58 @@
+/* db - darkBlue */
+
+._db-900 {
+  color: #3b0764 !important;
+}
+
+._db-light {
+  color: #d8b4fe;
+}
+
+.main-dp_layout ._heading {
+  margin-bottom: 10px;
+  color: #3b0764;
+}
+
+.main-dp_layout ._heading b {
+  font-size: 20px;
+}
+
+.main-dp_layout ._heading .its-icon {
+  background-color: #d8b4fe;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 25px !important;
+}
+
+.main-dp_layout ._active {
+  font-weight: 600;
+  border-radius: 0px !important;
+  border-right: 2px solid #3b0764;
+  color: #3b0764 !important;
+  background-color: #f3e8ff !important;
+}
+
+.main-dp_layout ._active .its-icon {
+  background-color: #d8b4fe;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.nav-link {
+  color: #52525b !important;
+}
+
+._link {
+  text-decoration: none !important;
+}
+
+.its-icon {
+  background-color: #f2f2f27d;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.ant-float-btn-body {
+  background-color: #0c4a6e !important;
+  color: white !important;
+}
