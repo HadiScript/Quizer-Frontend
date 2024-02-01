@@ -1,9 +1,28 @@
 import { Button, Form, Input, Modal, Radio } from "antd";
-import React from "react";
 import Heading from "../../components/common/Heading";
 import { _useQuestions } from "../../../actions/_questions";
 
-const AddQuestionModal = ({ open, setOpen, quizId, setQuestions }) => {
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../../../assets/css/rich.css";
+
+var toolbarOptions = [
+  ["bold", "italic", "underline", "strike"], // toggled buttons
+  ["blockquote", "code-block"],
+
+  [{ list: "ordered" }, { list: "bullet" }],
+
+  [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+  [{ font: [] }],
+  [{ align: [] }],
+
+  ["clean"], // remove formatting button
+];
+
+const AddQuestionModal = ({ open, setOpen, quizId }) => {
   const {
     text,
     setQuestionData,
@@ -11,6 +30,7 @@ const AddQuestionModal = ({ open, setOpen, quizId, setQuestions }) => {
     options,
     correctAnswer,
     loading,
+    setText,
 
     // functions
     addQuestion,
@@ -26,8 +46,16 @@ const AddQuestionModal = ({ open, setOpen, quizId, setQuestions }) => {
         <Form>
           <div className="row">
             <div className="col-xs-12 col-md-6">
-              <Form.Item label="Quiz Title">
-                <Input.TextArea placeholder="Enter Question Title" value={text} onChange={(e) => setQuestionData((prev) => ({ ...prev, text: e.target.value }))} />
+              <Form.Item label="Question">
+                <ReactQuill
+                  placeholder="Type your question here"
+                  modules={{ toolbar: toolbarOptions }}
+                  theme="snow"
+                  value={text}
+                  onChange={setText}
+                  style={{ minHeight: "300px" }}
+                />
+                {/* <Input.TextArea placeholder="Enter Question Title" value={text} onChange={(e) => setQuestionData((prev) => ({ ...prev, text: e.target.value }))} /> */}
               </Form.Item>
               <Form.Item label="Question Type">
                 <Radio.Group value={questionType} onChange={(e) => setQuestionData((prev) => ({ ...prev, questionType: e.target.value }))}>

@@ -5,6 +5,8 @@ import { Errs } from "../../../helper/Errs";
 import QuizAttemptingComponent from "../../components/common/QuizAttemptingComponent";
 import toast from "react-hot-toast";
 import { _quizData } from "../../../data/_quiz";
+import OneByOneQuestions from "../OneByOneQuestions";
+import OneByOneOnBigScr from "../OneByOneOnBigScr";
 
 const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, remainingTime }) => {
   const [responses, setResponses] = useState([]);
@@ -39,10 +41,11 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
     fetchingQuiz();
   }, [creatorId, quizId, attemptId]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (x) => {
     const payload = {
       attemptId,
       responses,
+      submitType : x === "time-up" ? "time-up" : "within-time"
     };
 
     try {
@@ -79,7 +82,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
 
     // Auto-submit when time is up
     if (remainingTime === 0) {
-      handleSubmit();
+      handleSubmit("time-up");
     }
 
     return () => clearInterval(timer); // Cleanup
@@ -87,14 +90,34 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
 
   return (
     <>
-      <div style={{ minHeight: "100vh",}} className="d-flex justify-content-center align-items-start attempt">
-        {/* <div className="my-shadow"></div> */}
-        <div className="d-flex flex-column gap-4 card-shadow2">
-          <span className="main-heading text-center mb-4 border-bottom">{quizData.title}</span>
+      {/* <div className="my-shadow"></div> */}
 
-          <QuizAttemptingComponent quizData={quizData} attemptId={attemptId} onFinish={() => {}} handleSubmit={handleSubmit} responses={responses} setResponses={setResponses} />
+      {quizData?.displaySetting === "all-at-once" ? (
+        <>
+          <div className="d-flex justify-content-center align-items-start attempt">
+            <div style={{ minHeight: "100vh" }} className="d-flex flex-column  gap-4 card-shadow2">
+              <span className="main-heading text-center mb-4 border-bottom">{quizData.title}</span>
+              <QuizAttemptingComponent
+                quizData={quizData}
+                attemptId={attemptId}
+                onFinish={() => {}}
+                handleSubmit={handleSubmit}
+                responses={responses}
+                setResponses={setResponses}
+              />
+            </div>
+          </div>
+        </>
+      ) : quizData?.displaySetting === "one-by-one-1-col" ? (
+        <div className="d-flex justify-content-center align-items-start attempt">
+          <div style={{ minHeight: "100vh" }} className="d-flex flex-column  gap-4 card-shadow2">
+            <span className="main-heading text-center mb-4 border-bottom">{quizData.title}</span>
+            <OneByOneQuestions quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
+          </div>
         </div>
-      </div>
+      ) : (
+        quizData?.displaySetting === "one-by-one-2-col" && <OneByOneOnBigScr quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
+      )}
     </>
   );
 };

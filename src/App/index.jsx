@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./common-pages/Home";
 import Login from "./common-pages/Login";
 import Register from "./common-pages/Register";
@@ -13,6 +12,8 @@ import AttemptingQuestions from "./common-pages/AttemptingQuestions";
 import Thankx from "./common-pages/Thankx";
 import AttemptingQuiz from "./panels/subscriber/AttemptingQuiz";
 import GlobalSettings from "./panels/subscriber/GlobalSettings";
+import AttemptDashboard from "./panels/subscriber/AttemptDashboard";
+import Attempters from "./panels/subscriber/Attempters";
 
 const App = () => {
   return (
@@ -34,6 +35,8 @@ const App = () => {
         <Route path="create-quiz" element={<CreateQuiz />} />
         <Route path="quizes" element={<AllQuizes />} />
         <Route path="quize/:id" element={<QuizDetail />} />
+        <Route path="quize/:id/attempters" element={<Attempters />} />
+        <Route path="quize/attempt/:id" element={<AttemptDashboard />} />
         <Route path="global-settings" element={<GlobalSettings />} />
       </Route>
 

@@ -1,6 +1,6 @@
 // for all subs
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Errs } from "../helper/Errs";
 import axios from "axios";
@@ -9,7 +9,6 @@ import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 export const _useQuizCreatations = () => {
-  const [auth] = useAuth();
   const [quizData, setQuizData] = useState({
     title: "",
     requiredFields: ["Email"],
@@ -81,6 +80,7 @@ export const _useQuizCreatations = () => {
 
 export const _useAllMyQuizes = () => {
   const [auth] = useAuth();
+  const authToken = auth && auth?.token;
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
 
@@ -102,7 +102,7 @@ export const _useAllMyQuizes = () => {
     if (auth && auth.token) {
       fetchingMyQuizes();
     }
-  }, [auth && auth.token]);
+  }, [authToken]);
 
   return {
     loading,
@@ -113,6 +113,7 @@ export const _useAllMyQuizes = () => {
 export const _useQuizModifications = (quizId) => {
   const router = useNavigate();
   const [auth] = useAuth();
+  const authToken = auth && auth?.token;
   const [questions, setQuestions] = useState([]);
   const [_settings, _setSettings] = useState({
     quizTimer: 0,
@@ -168,54 +169,93 @@ export const _useQuizModifications = (quizId) => {
     setQuizData({ ...quizData, requiredFields: newFields });
   };
 
-  const fetchingQuizById = async (x) => {
+  // const fetchingQuizById = useCallback(
+  //   async (x) => {
+  //     setLoading(true);
+  //     try {
+  //       const res = await axios.get(`${API}/quiz/quiz-detail/${x}`);
+  // if (res.status === 200) {
+  //   setQuizData(res.data.quiz);
+  //   _setSettings(res.data.quiz.settings);
+  // }
+  //     } catch (error) {
+  //       Errs(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   },
+  //   [authToken, quizId]
+  // );
+
+  const fetchQuizById = useCallback(async () => {
+    if (!authToken || !quizId) return;
     setLoading(true);
     try {
-      const res = await axios.get(`${API}/quiz/quiz-detail/${x}`);
-      if (res.status === 200) {
-        setQuizData(res.data.quiz);
-        // setQuestions(res.data.quiz.questions);
-        _setSettings(res.data.quiz.settings);
+      const response = await axios.get(`${API}/quiz/quiz-detail/${quizId}`);
+      if (response.status === 200) {
+        setQuizData(response.data.quiz);
+        _setSettings(response.data.quiz.settings);
       }
     } catch (error) {
       Errs(error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [authToken, quizId, Errs]);
 
   useEffect(() => {
-    if (auth?.token && quizId) {
-      fetchingQuizById(quizId);
-    }
-  }, [auth && auth?.token, quizId]);
+    fetchQuizById();
+  }, [fetchQuizById]);
 
-  // update quiz
-  const handleSubmit = async (e, x) => {
-    e.preventDefault();
+  // const handleSubmit = async (e, x) => {
+  //   e.preventDefault();
+  //   if (!quizData.requiredFields.includes("Email")) {
+  //     alert("Email field is compulsory.");
+  //     return;
+  //   }
 
-    if (!quizData.requiredFields.includes("Email")) {
-      alert("Email field is compulsory.");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const res = await axios.put(`${API}/quiz/update/${x}`, quizData);
-      console.log(res);
-      if (res.status === 200) {
-        toast.success("Quiz is Updated");
-        fetchingQuizById(x);
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.put(`${API}/quiz/update/${x}`, quizData);
+  //     console.log(res);
+  //     if (res.status === 200) {
+  //       toast.success("Quiz is Updated");
+  //       fetchingQuizById(x);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     Errs(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const handleSubmit = useCallback(
+    async (e, x) => {
+      e.preventDefault();
+      if (!quizData.requiredFields.includes("Email")) {
+        alert("Email field is compulsory.");
+        return;
       }
-    } catch (error) {
-      console.log(error);
-      Errs(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  const deleteQuiz = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.put(`${API}/quiz/update/${x}`, quizData);
+        console.log(res);
+        if (res.status === 200) {
+          toast.success("Quiz is Updated");
+          fetchQuizById(x);
+        }
+      } catch (error) {
+        console.log(error);
+        Errs(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [quizData, fetchQuizById, Errs]
+  );
+
+  const deleteQuiz = useCallback(async () => {
     setLoading(true);
     try {
       let ok = window.confirm("Are you sure?");
@@ -228,16 +268,13 @@ export const _useQuizModifications = (quizId) => {
       }
     } catch (error) {
       console.log(error);
-      Errs(error);
+      Errs(error); // Ensure 'Errs' is properly handling errors
     } finally {
       setLoading(false);
     }
-  };
+  }, [quizId, router, Errs]);
 
-  // update quiz settings
-  const addQuizSettings = async () => {
-    // console.log(_settings, "here are the settings");
-    // return;
+  const addQuizSettings = useCallback(async () => {
     setLoading(true);
     try {
       const res = await axios.put(`${API}/quiz/settings/${quizId}`, _settings);
@@ -250,9 +287,7 @@ export const _useQuizModifications = (quizId) => {
     } finally {
       setLoading(false);
     }
-  };
-
-  console.log("question from quiz details", questions);
+  }, [quizId, Errs, _settings]);
 
   return {
     quizData,

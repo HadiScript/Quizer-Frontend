@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Button, Dropdown, Grid } from "antd";
 import { CopyOutlined, DeleteOutlined, SettingOutlined } from "@ant-design/icons";
 
@@ -38,7 +36,7 @@ const QuizOptions = ({ setSettingDrawer, deleteQuiz, setOpenLinkModal }) => {
         Copy link
       </Button>
       <Button className="deleteBtn " onClick={deleteQuiz} icon={<DeleteOutlined />}>
-        Delete Quiz And It's Questions
+        Delete Quiz And It&apos;s Questions
       </Button>
 
       <Button className="myBtn " onClick={() => setSettingDrawer(true)} icon={<SettingOutlined />}>

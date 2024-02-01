@@ -4,9 +4,11 @@ import axios from "axios";
 import { API } from "../helper/API";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/authContext";
+import moment from "moment";
 
 export const _useGlobalSettings = () => {
   const [auth] = useAuth();
+  const authToken = auth && auth?.token;
 
   const [_settings, _setSettings] = useState({
     quizTimer: 0,
@@ -37,7 +39,7 @@ export const _useGlobalSettings = () => {
     if (auth?.token) {
       gettingGlobalSettings();
     }
-  }, [auth && auth?.token]);
+  }, [authToken]);
 
   const onFinish = async () => {
     // console.log(_settings);
@@ -84,7 +86,17 @@ export const _useQuizSettings = (quizId) => {
     try {
       const res = await axios.get(`${API}/quiz/settings/${x}`);
       if (res.status === 200) {
-        _setSettings(res.data.settings);
+        const fetchedSettings = res.data.settings;
+        // _setSettings({
+        //   ...fetchedSettings,
+        //   quizAvailability: {
+        //     ...fetchedSettings.quizAvailability,
+        //     start: fetchedSettings.quizAvailability.start ? moment(fetchedSettings.quizAvailability.start) : null,
+        //     end: fetchedSettings.quizAvailability.end ? moment(fetchedSettings.quizAvailability.end) : null,
+        //   },
+        // });
+
+        _setSettings(fetchedSettings);
       }
     } catch (error) {
       console.log(error);
@@ -101,7 +113,19 @@ export const _useQuizSettings = (quizId) => {
   }, [auth?.token, quizId]);
 
   const addQuizSettings = async (x) => {
+    // console.log(_settings);
+    // return;
+
     setLoading(true);
+
+    // const updatedSettings = {
+    //   ..._settings,
+    //   quizAvailability: {
+    //     start: dateRange[0] ? dateRange[0].toISOString() : null,
+    //     end: dateRange[1] ? dateRange[1].toISOString() : null,
+    //   },
+    // };
+
     try {
       const res = await axios.put(`${API}/quiz/settings/${x}`, _settings);
       if (res.status === 200) {

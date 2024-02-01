@@ -1,7 +1,6 @@
 // AllQuestionModel
 
-import React from "react";
-import { Button, Card, ConfigProvider, Modal, Space } from "antd";
+import { Modal } from "antd";
 import QuestionListEdit from "./QuestionListEdit";
 
 const AllQuestionModel = ({ open, onClose, quizId, questions, setQuestions }) => {

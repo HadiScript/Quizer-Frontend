@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Card } from "antd";
 import { useParams } from "react-router-dom";
-import { BorderInnerOutlined, CopyOutlined, DeleteOutlined, DiffOutlined, SettingOutlined, SnippetsOutlined } from "@ant-design/icons";
+import { BorderInnerOutlined, DiffOutlined, SnippetsOutlined } from "@ant-design/icons";
 
 import CopyLinkModal from "./CopyLink";
 import AddQuestionModal from "./AddQuestionModal";
@@ -12,12 +12,13 @@ import CreateQuizForm from "../../components/panel/CreateQuizForm";
 import SettingsSidebar from "../../components/common/SettingsSidebar";
 import QuestionListEdit from "../../components/panel/QuestionListEdit";
 import QuizOptions from "../../components/panel/QuizOptions";
+import SubcriberLayout from "../../components/layouts/Layout";
 
 const QuizDetail = () => {
   const { id } = useParams();
   const { quizData, handleInputChange, handleRequiredFieldChange, handleAddField, handleRemoveField, handleSubmit, loading, deleteQuiz, handleMaxLimit } =
     _useQuizModifications(id);
-
+  
   const [addQuestionsModal, setAddQuestionsModal] = useState(false);
   const [settingDrawer, setSettingDrawer] = useState(false);
   const [openLinkModal, setOpenLinkModal] = useState(false);
@@ -25,8 +26,7 @@ const QuizDetail = () => {
   const { questions, setQuestions } = _useQuestions(id);
 
   return (
-    <>
-  
+    <SubcriberLayout from="quiz-detail" id={id}>
       <Heading title={quizData?.title} Icon={<BorderInnerOutlined className="its-icon" />} />
       <QuizOptions setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
 
@@ -77,7 +77,7 @@ const QuizDetail = () => {
       <AddQuestionModal open={addQuestionsModal} setOpen={setAddQuestionsModal} quizId={id} setQuestions={setQuestions} />
       <CopyLinkModal open={openLinkModal} setOpen={setOpenLinkModal} quizId={id} creatorId={quizData?.creator} />
       <SettingsSidebar open={settingDrawer} onClose={() => setSettingDrawer(false)} from="quizDetail" quizId={id} />
-    </>
+    </SubcriberLayout>
   );
 };
 

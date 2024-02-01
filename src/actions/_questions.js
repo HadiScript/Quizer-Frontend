@@ -118,7 +118,7 @@ let addQuestionInit = {
     { text: "", isCorrect: false },
     { text: "", isCorrect: false },
   ],
-  text: "", //question
+
   correctAnswer: "",
 
   questionType: "multiple-choice",
@@ -126,10 +126,12 @@ let addQuestionInit = {
 
 export const _useQuestions = (quizId) => {
   const [auth] = useAuth();
+  const authToken = auth && auth?.token;
 
   const [loading, setLoading] = useState(false);
   const [questionData, setQuestionData] = useState(addQuestionInit);
-  const { text, options, correctAnswer, questionType } = questionData;
+  const [text, setText] = useState();
+  const { options, correctAnswer, questionType } = questionData;
 
   const [questions, setQuestions] = useState([]);
 
@@ -173,7 +175,7 @@ export const _useQuestions = (quizId) => {
     if (auth?.token && quizId) {
       fetchingAllQuestions(quizId);
     }
-  }, [auth && auth?.token, quizId]);
+  }, [authToken, quizId]);
 
   // add question
   const addQuestion = async (quizId) => {
@@ -198,7 +200,7 @@ export const _useQuestions = (quizId) => {
     try {
       let ok = window.confirm("Are you sure?");
       if (ok) {
-        const res = await axios.delete(`${API}/quiz/question/${quizId}/${questionId}`);
+        await axios.delete(`${API}/quiz/question/${quizId}/${questionId}`);
         setQuestionData(questions.filter((x) => x._id !== questionId));
         fetchingAllQuestions(quizId);
       }
@@ -219,6 +221,7 @@ export const _useQuestions = (quizId) => {
     loading,
     questions,
     setQuestions,
+    setText,
 
     // functions
     deleteQuestion,

@@ -2,11 +2,14 @@ import { CloseOutlined, ExclamationCircleOutlined, LogoutOutlined, MenuOutlined 
 import { Drawer, Grid } from "antd";
 import React, { useState } from "react";
 import LeftCol from "./LeftCol";
+import { Link, useNavigate } from "react-router-dom";
 
 const { useBreakpoint } = Grid;
 
-const LayoutHeader = () => {
+const LayoutHeader = ({ from }) => {
   const points = Grid.useBreakpoint();
+
+  const router = useNavigate();
 
   const breakpoints = useBreakpoint();
   const [drawerVisibility, setDrawerVisibility] = useState(false);
@@ -18,9 +21,15 @@ const LayoutHeader = () => {
         {!breakpoints.md && <MenuOutlined onClick={() => setDrawerVisibility(true)} />}
         <span style={{ fontWeight: "600" }}>Welcome hadi</span>
         <div className="d-flex flex-row justify-content-center align-items-center gap-2" style={{ fontWeight: "600" }}>
-          <span className="d-flex flex-row justify-content-center align-items-center gap-1 border-end px-1 ">
-            <LogoutOutlined /> Logout
-          </span>
+          {from === "subscriber" ? (
+            <span className="d-flex flex-row justify-content-center align-items-center gap-1 border-end px-1 ">
+              <LogoutOutlined /> Logout
+            </span>
+          ) : (
+            <span role="button" onClick={() => router("/subscribe/quizes")} className="d-flex flex-row justify-content-center align-items-center gap-1 border-end px-1 ">
+              <LogoutOutlined /> Exit
+            </span>
+          )}
         </div>
       </div>
       <Drawer

@@ -38,13 +38,15 @@ const AttemptingQuestions = () => {
     fetchingQuiz();
   }, [creatorId, quizId, attemptId]);
 
+  console.log(quizData, "here is the quizData");
+
   return (
     <>
       <div style={{ minHeight: "100vh", marginTop: "100px", marginBottom: "100px" }} className="d-flex justify-content-center align-items-start p-2 attempt">
         <div className="my-shadow"></div>
         <div className="d-flex flex-column gap-4 card-shadow2">
           <span className="main-heading text-center mb-4">{quizData.title}</span>
-
+          {JSON.stringify(quizData)}
           <QuizAttemptingComponent quizData={quizData} attemptId={attemptId} onFinish={() => {}} />
         </div>
       </div>

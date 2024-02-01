@@ -1,7 +1,5 @@
 import { EditOutlined, MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Input, InputNumber } from "antd";
-import React, { useEffect, useState } from "react";
-import { _useQuizCreatations, _useQuizModifications } from "../../../actions/_quiz";
+import { Button, Input, InputNumber } from "antd";
 
 const CreateQuizForm = ({
   handleMaxLimit,

@@ -1,6 +1,6 @@
 // this component if for starting, attempting and scoring and thanks page
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import StartStep1 from "../../common-pages/quiz/start-step1";
 import StartStep2 from "../../common-pages/quiz/start-step2";
@@ -20,7 +20,6 @@ const AttemptingQuiz = () => {
 
   const [remainingTime, setRemainingTime] = useState(null);
   const [userInputs, setUserInputs] = useState({});
-  const [scrore, setScrore] = useState(null);
 
   useEffect(() => {
     const savedStep = sessionStorage.getItem("quizStep");

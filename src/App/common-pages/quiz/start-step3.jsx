@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
-// import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
-import { useWindow } from "../../../hooks/useWindow";
 
 const StartStep3 = () => {
-  const { resize } = useWindow();
 
   useEffect(() => {
     sessionStorage.removeItem("quizStep");

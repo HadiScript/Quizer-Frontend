@@ -11,6 +11,8 @@
 .main-db_layout ._heading {
   margin-bottom: 10px;
   color: #083344;
+  display: flex !important;
+  justify-content: start;
 }
 
 .main-db_layout ._heading b {
@@ -24,7 +26,9 @@
   width: 50px;
   border-radius: 50%;
   font-size: 25px !important;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-db_layout ._active {
@@ -83,4 +87,18 @@
 .ant-float-btn-body {
   background-color: #164e63 !important;
   color: white !important;
+}
+
+.ant-input-search-button {
+  background: #000 !important;
+  color: white;
+}
+
+
+.stats-box .box {
+  background-color: #93c5fd;
+  padding: 0.4rem;
+  margin: 10px 0px;
+  color: #083344 !important;
+  border-radius: 10px;
 }

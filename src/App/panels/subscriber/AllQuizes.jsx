@@ -1,15 +1,15 @@
-import React from "react";
 import Heading from "../../components/common/Heading";
 import { _useAllMyQuizes } from "../../../actions/_quiz";
 import { Card } from "antd";
 import { OrderedListOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import SubcriberLayout from "../../components/layouts/Layout";
 
 const AllQuizes = () => {
-  const { loading, list } = _useAllMyQuizes();
+  const { list } = _useAllMyQuizes();
   return (
-    <>
-      <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />}/>
+    <SubcriberLayout>
+      <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} />
 
       <div className="row ">
         {list?.map((x) => (
@@ -26,7 +26,7 @@ const AllQuizes = () => {
           </Link>
         ))}
       </div>
-    </>
+    </SubcriberLayout>
   );
 };
 

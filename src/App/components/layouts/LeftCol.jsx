@@ -1,17 +1,6 @@
-import {
-  AppstoreOutlined,
-  BackwardOutlined,
-  CommentOutlined,
-  DiffOutlined,
-  FolderOutlined,
-  LogoutOutlined,
-  OrderedListOutlined,
-  ProfileOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { AppstoreOutlined, DiffOutlined, LogoutOutlined, OrderedListOutlined, ProfileOutlined, SettingOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useActive from "../../../hooks/useActive";
 import { _useCommon } from "../../../actions/_common";
 
@@ -54,9 +43,40 @@ const menuList = [
   },
 ];
 
-const LeftCol = () => {
+const LeftCol = ({ from }) => {
+  const { id } = useParams();
   const { isActive } = useActive();
   const { logout } = _useCommon();
+
+  const QuizMenuList = [
+    {
+      gap: false,
+      name: "Attempt Dashboard",
+      path: `/subscribe/quize/attempt/${id}`,
+      Icon: <AppstoreOutlined />,
+    },
+    {
+      gap: false,
+      name: "Quiz",
+      path: `/subscribe/quize/${id}`,
+      Icon: <OrderedListOutlined />,
+    },
+
+    {
+      gap: false,
+      name: "Attempt Users",
+      path: `/subscribe/quize/${id}/attempters`,
+      Icon: <OrderedListOutlined />,
+    },
+
+
+    {
+      gap: true,
+      name: "Exit",
+      path: "/subscribe/quizes",
+      Icon: <SettingOutlined />,
+    },
+  ];
 
   return (
     <>
@@ -65,34 +85,52 @@ const LeftCol = () => {
       </div>
       <div className="py-1 ">
         <Menu>
-          {menuList.map((x, index) => (
+          {from == "subscriber"
+            ? menuList.map((x, index) => (
+                <Menu.Item
+                  key={index}
+                  className={`${x.gap ? "mt-4" : "mt-1"} ${isActive(x.path)}`}
+                  icon={
+                    <Link className="_link its-icon" to={x.path}>
+                      {x.Icon}
+                    </Link>
+                  }
+                >
+                  <Link className="_link" to={x.path}>
+                    {x.name}
+                  </Link>
+                </Menu.Item>
+              ))
+            : QuizMenuList.map((x, index) => (
+                <Menu.Item
+                  key={index}
+                  className={`${x.gap ? "mt-4" : "mt-1"} ${isActive(x.path)}`}
+                  icon={
+                    <Link className="_link its-icon" to={x.path}>
+                      {x.Icon}
+                    </Link>
+                  }
+                >
+                  <Link className="_link" to={x.path}>
+                    {x.name}
+                  </Link>
+                </Menu.Item>
+              ))}
+
+          {from === "subscriber" && (
             <Menu.Item
-              key={index}
-              className={`${x.gap ? "mt-4" : "mt-1"} ${isActive(x.path)}`}
+              key="99"
+              className="mt-4 nav-link"
+              onClick={logout}
               icon={
-                <Link className="_link its-icon" to={x.path}>
-                  {x.Icon}
-                </Link>
+                <div className="its-icon">
+                  <LogoutOutlined />
+                </div>
               }
             >
-              <Link className="_link" to={x.path}>
-                {x.name}
-              </Link>
+              <span> Logout</span>
             </Menu.Item>
-          ))}
-
-          <Menu.Item
-            key="99"
-            className="mt-4 nav-link"
-            onClick={logout}
-            icon={
-              <div className="its-icon">
-                <LogoutOutlined />
-              </div>
-            }
-          >
-            <span> Logout</span>
-          </Menu.Item>
+          )}
         </Menu>
       </div>
     </>

@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { Button, Form, Input, Select, DatePicker } from "antd";
+import { Button, Form, Input, Select, DatePicker, Radio, List } from "antd";
+import dayjs from "dayjs";
 
 const { RangePicker } = DatePicker;
 
 const SettingsForm = ({ _settings, _setSettings, onFinish, from = "globalSettings", quizId, loading }) => {
   const [dateRange, setDateRange] = useState([]);
 
-  const handleRangeChange = (dates, dateStrings) => {
+  useEffect(() => {
+    if (_settings?.quizAvailability?.start && _settings?.quizAvailability?.end) {
+      const start = dayjs(_settings?.quizAvailability?.start);
+      const end = dayjs(_settings?.quizAvailability?.end);
+      setDateRange([start, end]);
+    }
+  }, [_settings?.quizAvailability?.start, _settings?.quizAvailability?.end]);
+
+  const handleRangeChange = (dates) => {
     setDateRange(dates);
+    if (dates) {
+      _setSettings((pre) => ({
+        ...pre,
+        quizAvailability: {
+          start: dates[0],
+          end: dates[1],
+        },
+      }));
+    }
   };
 
   const handleSubmit = () => {
@@ -17,12 +35,7 @@ const SettingsForm = ({ _settings, _setSettings, onFinish, from = "globalSetting
       return;
     }
 
-    // if (from === "quizDetail") {
-    //   _setSettings((prev) => ({
-    //     ...prev,
-    //     quizAvailability: { ...prev.quizAvailability, start: dateRange ? dateRange[0].toISOString() : null, end: dateRange ? dateRange[1].toISOString() : null },
-    //   }));
-    // }
+    console.log("am going to sned a req");
 
     onFinish();
   };
@@ -81,20 +94,52 @@ const SettingsForm = ({ _settings, _setSettings, onFinish, from = "globalSetting
               <label htmlFor="title" className="form-label">
                 quizAvailability
               </label>
-              {/* default range value, casue infinite error thats i ignore this, for now */}
-              {/* <RangePicker value={defaultRangeValue} format="YYYY-MM-DD HH:mm" showTime onChange={handleRangeChange} /> */}
 
-              <RangePicker format="YYYY-MM-DD HH:mm" showTime onChange={handleRangeChange} />
+              <RangePicker format="YYYY-MM-DD HH:mm" showTime value={dateRange} onChange={handleRangeChange} />
             </div>
 
             <div className="mb-3 d-flex flex-column">
               <label htmlFor="title" className="form-label">
                 Display Setting
               </label>
-              <Select value={_settings?.displaySetting} onChange={(e) => _setSettings((prev) => ({ ...prev, displaySetting: e }))}>
-                <Select.Option value="all-at-once">All at once</Select.Option>
-                <Select.Option value="one-by-one">One by one</Select.Option>
-              </Select>
+              {
+                <Radio.Group value={_settings?.displaySetting} onChange={(e) => _setSettings((prev) => ({ ...prev, displaySetting: e.target.value }))} className="radio-list-group">
+                  <div className="d-flex justify-content-start gap-4">
+                    <List.Item className="radio-list-item">
+                      <Radio value={"all-at-once"} className="full-width-radio">
+                        <div>
+                          <div className="my-1" style={{ width: "50px", height: "2px", backgroundColor: "lightgrey" }} />
+                          <div className="my-1" style={{ width: "50px", height: "2px", backgroundColor: "lightgrey" }} />
+                          <div className="my-1" style={{ width: "50px", height: "2px", backgroundColor: "lightgrey" }} />
+                          <div className="my-1" style={{ width: "50px", height: "2px", backgroundColor: "lightgrey" }} />
+                          <div className="my-1" style={{ width: "50px", height: "2px", backgroundColor: "lightgrey" }} />
+                          <div className="my-1" style={{ width: "50px", height: "2px", backgroundColor: "lightgrey" }} />
+                        </div>
+                      </Radio>
+                    </List.Item>
+                    <List.Item className="radio-list-item">
+                      <Radio value={"one-by-one-1-col"} className="full-width-radio">
+                        <div>
+                          <div className="my-1" style={{ width: "50px", height: "2px", backgroundColor: "lightgrey" }} />
+                          <div className="my-1" style={{ width: "50px", height: "2px", backgroundColor: "lightgrey" }} />
+                          <div className="d-flex justify-content-between align-items-center">
+                            <div className="my-1" style={{ width: "20px", height: "2px", backgroundColor: "lightgrey" }} />
+                            <div className="my-1" style={{ width: "20px", height: "2px", backgroundColor: "lightgrey" }} />
+                          </div>
+                        </div>
+                      </Radio>
+                    </List.Item>
+                    <List.Item className="radio-list-item">
+                      <Radio value={"one-by-one-2-col"} className="full-width-radio">
+                        <div className="d-flex justify-content-between gap-2 align-items-center">
+                          <div className="d-flex justify-content-center" style={{ width: "45px", height: "40px", border: "1px solid lightgrey" }}></div>
+                          <div style={{ width: "45px", height: "40px", border: "1px solid lightgrey" }} />
+                        </div>
+                      </Radio>
+                    </List.Item>
+                  </div>
+                </Radio.Group>
+              }
             </div>
           </>
         )}

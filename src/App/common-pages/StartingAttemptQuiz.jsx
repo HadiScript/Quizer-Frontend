@@ -9,14 +9,12 @@ import { Button, Card, Col, Input, Row } from "antd";
 import "../../assets/css/Attempt.css";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import toast from "react-hot-toast";
-import { useQuizContext } from "../../context/quizContext";
 
 const StartingAttemptQuiz = () => {
   const router = useNavigate();
   const { creatorId, quizId } = useParams();
   const [loading, setLoading] = useState(false);
   const [userInputs, setUserInputs] = useState({});
-  const { setHasStarted } = useQuizContext();
 
   const [info, setInfo] = useState({
     title: "",
@@ -69,7 +67,6 @@ const StartingAttemptQuiz = () => {
       if (res.status === 201) {
         toast.success(res.data.message);
         router(`/attempting-quiz/${creatorId}/${quizId}/${res.data.attemptId}`);
-        setHasStarted(true);
       }
     } catch (error) {
       Errs(error);

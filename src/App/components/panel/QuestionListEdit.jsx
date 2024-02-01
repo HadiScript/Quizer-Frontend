@@ -1,6 +1,6 @@
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
-import { DeleteOutlined, EditOutlined, HolderOutlined, SmallDashOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, HolderOutlined } from "@ant-design/icons";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { API } from "../../../helper/API";
@@ -52,7 +52,7 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from }) => {
   return (
     <>
       {loading && <>loading...</>}
-     
+
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="questions">
           {(provided) => (
@@ -60,7 +60,11 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from }) => {
               {questions.slice(0, from === "modal" ? 6 : 100).map((chapter, index) => (
                 <Draggable key={chapter._id} draggableId={chapter._id} index={index}>
                   {(provided) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 ${from === "component" && "d-flex justify-content-between align-items-center mb-3"}`}>
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      className={`question-box mb-2 ${from === "component" && "d-flex justify-content-between align-items-center mb-3"}`}
+                    >
                       <div className="d-flex gap-2">
                         <div {...provided.dragHandleProps}>
                           <HolderOutlined />

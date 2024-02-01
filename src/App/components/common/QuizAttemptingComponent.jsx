@@ -11,6 +11,7 @@ const QuizAttemptingComponent = ({ quizData, handleSubmit, responses, setRespons
       if (response.questionId === questionId) {
         return {
           ...response,
+          question: questionId,
           selectedOption: isShortAnswer ? "" : value,
           answer: isShortAnswer ? value : "",
         };
@@ -70,9 +71,9 @@ const QuizAttemptingComponent = ({ quizData, handleSubmit, responses, setRespons
 
       {/* <div className="text-center">
       </div> */}
-        <Button className="myBtn" onClick={handleSubmit}>
-          Finish
-        </Button>
+      <Button className="myBtn" onClick={handleSubmit}>
+        Finish
+      </Button>
     </>
   );
 };

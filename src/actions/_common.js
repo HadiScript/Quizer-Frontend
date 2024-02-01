@@ -2,13 +2,12 @@ import { useState } from "react";
 import { Errs } from "../helper/Errs";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { API } from "../helper/API";
 import Cookies from "js-cookie";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 export const _useCommon = () => {
-  const [auth, setAuth] = useAuth();
+  const [setAuth] = useAuth();
   const [email, setEmail] = useState("subs2@gmail.com");
   const [password, setPassword] = useState("hadi..");
   const [loading, setLoading] = useState(false);

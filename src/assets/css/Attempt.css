@@ -85,3 +85,70 @@
   color: red !important;
   background-color: purple !important;
 } */
+
+.radio-list-group {
+  width: 100%;
+}
+
+.radio-list-group .radio-list-item {
+  display: block;
+
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 10px;
+
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.radio-list-group .radio-list-item:hover {
+  background-color: #f5f5f5;
+}
+
+.full-width-radio {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+}
+
+.full-width-radio .ant-radio {
+  margin-right: 8px;
+}
+
+.table-box {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.trend-area-chart {
+  width: 100%;
+  height: 400px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.trend-area-chart::-webkit-scrollbar {
+  height: 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 10px;
+}
+
+.trend-area-chart::-webkit-scrollbar-thumb:horizontal {
+  background: #164e63;
+  border-radius: 10px;
+}
+
+
+.table-box::-webkit-scrollbar {
+  width: 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 10px;
+}
+
+.table-box::-webkit-scrollbar-thumb:vertical {
+  background: #164e63;
+  border-radius: 10px;
+}
+

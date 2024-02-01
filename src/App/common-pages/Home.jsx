@@ -11,7 +11,7 @@ const Home = () => {
       <br />
       {auth?.user?.role === "subscriber" && (
         <Button>
-          <Link to={"/subscribe"}>subscriber</Link>
+          <Link to={"/subscribe/create-quiz"}>subscriber</Link>
         </Button>
       )}
       {auth?.user?.role === "admin" && <Button>Admin</Button>}
