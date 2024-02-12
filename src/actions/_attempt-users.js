@@ -25,7 +25,7 @@ export const useAttemptUsers = (quizId) => {
           pageSize: pagination.pageSize,
           email: searchEmail,
         },
-        withCredentials: true,
+        withCredentials: "include",
       });
       setData(response.data.data);
       setPagination({ ...pagination, total: response.data.total });
@@ -65,7 +65,7 @@ export const usePassFail = (quizId) => {
   const FetchUserPassOrFail = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${reportApi}/passing-ratio/${quizId}`, { withCredentials: true });
+      const response = await axios.get(`${reportApi}/passing-ratio/${quizId}`, { withCredentials: "include" });
       setData(response.data.result);
     } catch (error) {
       Errs(error);
@@ -83,7 +83,7 @@ export const useToughestQuestions = (quizId) => {
   const fetchingData = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`${reportApi}/toughest/${quizId}`, { withCredentials: true });
+      const { data } = await axios.get(`${reportApi}/toughest/${quizId}`, { withCredentials: "include" });
       // console.log(data, "form toughest questions");
       setList(data.result);
     } catch (error) {

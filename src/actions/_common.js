@@ -27,7 +27,7 @@ export const _useCommon = () => {
         password,
       },
 
-      withCredentials: true,
+      withCredentials: "include",
     });
 
     if (res.status === 200) {
@@ -48,7 +48,7 @@ export const _useCommon = () => {
         name,
       },
 
-      withCredentials: true,
+      withCredentials: "include",
     });
 
     if (res.status === 201) {
@@ -64,7 +64,7 @@ export const _useCommon = () => {
       url: `${authApi}/logout`,
       body: {},
 
-      withCredentials: true,
+      withCredentials: "include",
     });
 
     // Cookies.remove("auth");

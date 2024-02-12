@@ -18,7 +18,7 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
     console.log("here");
 
     try {
-      const res = await axios.get(`${reportApi}/responses/${current?._id}`, { withCredentials: true });
+      const res = await axios.get(`${reportApi}/responses/${current?._id}`, { withCredentials: "include" });
 
       if (res.status === 200) {
         setresponses(res.data.responses.responses);

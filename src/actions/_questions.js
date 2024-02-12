@@ -83,7 +83,7 @@ export const _useQuestions = (quizId, limits = 6, toughest = false) => {
           limits: limits,
           whichQuestions: toughest,
         },
-        withCredentials: true,
+        withCredentials: "include",
       });
       if (res.status === 200) {
         setQuestions(res.data.questions);
@@ -115,7 +115,7 @@ export const _useQuestions = (quizId, limits = 6, toughest = false) => {
           correctAnswer,
           type: questionType,
         },
-        { withCredentials: true }
+        { withCredentials: "include" }
       );
       if (res.status === 201) {
         fetchingAllQuestions(quizId);
@@ -137,7 +137,7 @@ export const _useQuestions = (quizId, limits = 6, toughest = false) => {
       let ok = window.confirm("Are you sure?");
       if (ok) {
         await axios.delete(`${questionApi}/${quizId}/${questionId}`, {
-          withCredentials: true,
+          withCredentials: "include",
         });
         setQuestionData(questions.filter((x) => x._id !== questionId));
         fetchingAllQuestions(quizId);
@@ -154,7 +154,7 @@ export const _useQuestions = (quizId, limits = 6, toughest = false) => {
   const fetchSingleQuestion = async (questionId) => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`${questionApi}/one/${questionId}`, { withCredentials: true });
+      const { data } = await axios.get(`${questionApi}/one/${questionId}`, { withCredentials: "include" });
       let question = data.question;
       setText(question.text);
       setQuestionData((prev) => ({ ...questionData, options: question.options, questionType: question.type }));
@@ -177,7 +177,7 @@ export const _useQuestions = (quizId, limits = 6, toughest = false) => {
           correctAnswer,
           type: questionType,
         },
-        { withCredentials: true }
+        { withCredentials: "include" }
       );
       fetchingAllQuestions(quizId);
       toast.success("Updated");
