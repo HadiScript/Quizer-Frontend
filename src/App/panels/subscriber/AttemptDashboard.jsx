@@ -33,7 +33,7 @@ const AttemptDashboard = () => {
 
       setLoading(true);
       try {
-        const res = await axios.get(`${reportApi}/${id}`, { withCredentials: "include" });
+        const res = await axios.get(`${reportApi}/${id}`, { withCredentials: true });
 
         if (isMounted) {
           setData((prev) => ({

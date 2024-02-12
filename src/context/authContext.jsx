@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
 
   const getCurrentSubs = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/auth/currentsubs", { withCredentials: "include" });
+      const res = await axios.get("http://localhost:8080/api/auth/currentsubs", { withCredentials: true });
 
       if (res.data) {
         setAuth(res.data);
