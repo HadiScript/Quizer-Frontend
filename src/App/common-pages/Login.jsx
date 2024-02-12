@@ -1,14 +1,14 @@
-import { Button, Card, Input } from "antd";
+import { Alert, Button, Card, Input } from "antd";
 import React, { useEffect } from "react";
 import { style } from "../../assets/css/style";
 import { _useCommon } from "../../actions/_common";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ isLogin }) => {
   const router = useNavigate();
 
-  const { loading, email, setEmail, password, setPassword, Login } = _useCommon();
+  const { loading, email, setEmail, password, setPassword, Login, errors } = _useCommon();
 
   const [auth] = useAuth();
 
@@ -18,9 +18,11 @@ const Login = () => {
     }
   }, [router, auth]);
 
-  return (
+  return isLogin ? (
+    router("/")
+  ) : (
     <>
-      <div style={{ minHeight: "100vh" }} className="d-flex justify-content-center align-items-center p-2">
+      <div style={{ minHeight: "100vh" }} className="d-flex  flex-column gap-4 justify-content-center align-items-center p-2">
         <Card style={{ width: "400px", boxShadow: style.boxShadow1 }}>
           <div>
             <h3 className="text-dark">Login</h3>
@@ -39,9 +41,8 @@ const Login = () => {
             </Button>
           </form>
         </Card>
+        <div>{errors}</div>
       </div>
-
-      {/* {JSON.stringify(auth)} */}
     </>
   );
 };

@@ -1,6 +1,7 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useCallback } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { redirect } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -10,42 +11,24 @@ const AuthProvider = ({ children }) => {
     token: "",
   });
 
-  useEffect(() => {
-    if (Cookies.get("auth")) {
-      setAuth(JSON.parse(Cookies.get("auth")));
+  const getCurrentSubs = useCallback(async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/api/auth/currentsubs", { withCredentials: true });
+
+      if (res.data) {
+        setAuth(res.data);
+      }
+    } catch (error) {
+      console.log(error, "from context");
+      return redirect("/");
     }
   }, []);
 
-  // if (window.process.server) {
-  //   axios.defaults.baseURL = process.env.API;
-  //   axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`;
-  // } else {
-  //   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API;
-  //   axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`;
-  // }
+  useEffect(() => {
+    getCurrentSubs();
+  }, [getCurrentSubs]);
 
-  // axios.interceptors.response.use(
-  //   function (response) {
-  //     // Do something before request is sent
-  //     return response;
-  //   },
-  //   function (error) {
-  //     // Do something with request error
-  //     let res = error.response;
-  //     if (res?.status === 401 && res.config && !res.config.__isRetryRequest) {
-  //       setAuth({
-  //         user: null,
-  //         token: "",
-  //       });
-  //       // console.log("running");
-  //       Cookies.remove("auth");
-  //       // router.push("/signin");
-  //       console.log("LOGOUT FORCECULLY ======> ");
-  //     }
-  //   }
-  // );
-
-  axios.defaults.headers.common["Cookies"] = auth.token;
+  // axios.defaults.headers.common["Cookies"] = auth.token;
 
   return <AuthContext.Provider value={[auth, setAuth]}>{children}</AuthContext.Provider>;
 };

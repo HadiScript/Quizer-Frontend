@@ -1,5 +1,6 @@
-import { EditOutlined, MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Input, InputNumber } from "antd";
+import { EditOutlined, MinusCircleOutlined, PlusOutlined, WarningOutlined } from "@ant-design/icons";
+import { Alert, Button, Input, InputNumber } from "antd";
+import Marquee from "react-fast-marquee";
 
 const CreateQuizForm = ({
   handleMaxLimit,
@@ -50,8 +51,17 @@ const CreateQuizForm = ({
               Attempt Limit
             </label>
             <br />
-            <InputNumber min={1} max={100} value={quizData?.maxAttempts} onChange={handleMaxLimit} />
+            <InputNumber min={0} max={100} value={quizData?.maxAttempts} onChange={handleMaxLimit} />
             <br />
+            <br />
+            {quizData?.maxAttempts === 0 && (
+              <Alert
+                showIcon
+                icon={<WarningOutlined />}
+                type="warning"
+                message={<Marquee gradient={false}>User can not attempt the quiz becouse of Attempt Limit, Please make it greater than zero.</Marquee>}
+              />
+            )}{" "}
           </div>
         )}
 

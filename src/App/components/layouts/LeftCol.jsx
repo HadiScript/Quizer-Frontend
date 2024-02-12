@@ -1,4 +1,4 @@
-import { AppstoreOutlined, DiffOutlined, LogoutOutlined, OrderedListOutlined, ProfileOutlined, SettingOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, DiffOutlined, LogoutOutlined, OrderedListOutlined, ProfileOutlined, QuestionOutlined, SettingOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link, useParams } from "react-router-dom";
 import useActive from "../../../hooks/useActive";
@@ -43,7 +43,7 @@ const menuList = [
   },
 ];
 
-const LeftCol = ({ from }) => {
+const LeftCol = ({ from = "notSubscriber" }) => {
   const { id } = useParams();
   const { isActive } = useActive();
   const { logout } = _useCommon();
@@ -64,11 +64,17 @@ const LeftCol = ({ from }) => {
 
     {
       gap: false,
+      name: "Questions",
+      path: `/subscribe/questions/${id}`,
+      Icon: <QuestionOutlined />,
+    },
+
+    {
+      gap: false,
       name: "Attempt Users",
       path: `/subscribe/quize/${id}/attempters`,
       Icon: <OrderedListOutlined />,
     },
-
 
     {
       gap: true,

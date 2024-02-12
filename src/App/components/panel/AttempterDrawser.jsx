@@ -2,9 +2,10 @@ import { Button, Divider, Drawer, List } from "antd";
 import axios from "axios";
 import moment from "moment";
 import React, { useState } from "react";
-import { API } from "../../../helper/API";
+import { API, attemptApi, reportApi } from "../../../helper/API";
 import { useParams } from "react-router-dom";
 import { Errs } from "../../../helper/Errs";
+import { gettingData } from "../../../helper/GetData";
 
 const AttempterDrawser = ({ open, setOpen, current }) => {
   const [showRes, setShowRes] = useState(false);
@@ -17,7 +18,7 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
     console.log("here");
 
     try {
-      const res = await axios.get(`${API}/quiz/responses/${current?._id}`);
+      const res = await axios.get(`${reportApi}/responses/${current?._id}`, { withCredentials: true });
 
       if (res.status === 200) {
         setresponses(res.data.responses.responses);
@@ -93,8 +94,8 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
                       <b>Q:</b>
                     </span>
 
-                    <div className="d-flex flex-column justify-content-start gap-2">
-                      <span>{item?.question?.text}</span>
+                    <div className="d-flex flex-column justify-content-start gap-2" style={{ maxWidth: "500px", }}>
+                      <span dangerouslySetInnerHTML={{ __html: item?.question?.text.replace(/h1|h2|h3|h4|h5|h6/g, "p") }}></span>
 
                       <span>{item?.selectedOption}</span>
                     </div>

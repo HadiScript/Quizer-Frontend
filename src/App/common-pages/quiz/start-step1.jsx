@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { API } from "../../../helper/API";
+import { API, attemptApi } from "../../../helper/API";
 import axios from "axios";
 import { Errs } from "../../../helper/Errs";
 import toast from "react-hot-toast";
-import { Button, Input } from "antd";
+import { Button, Input, Watermark } from "antd";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import moment from "moment";
 
 const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs, setUserInputs }) => {
-
   const [loading, setLoading] = useState(false);
   const [notAvailable, setNotAvailable] = useState(null);
 
@@ -25,9 +24,13 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
   const fetchingQuizInfo = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${API}/attempt/info-quiz/${creatorId}/${quizId}`);
-
-      setInfo(res.data.quizData);
+      const res = await axios.get(`${attemptApi}/info/${creatorId}/${quizId}`);
+      if (res.status === 200) {
+        setInfo(res.data.quizData);
+      } else if (res.status === 202) {
+        console.log("not ", res.data.notAvailable);
+        setNotAvailable(res.data.notAvailable);
+      }
     } catch (error) {
       console.log(error);
       Errs(error);
@@ -50,7 +53,7 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
     setLoading(true);
 
     try {
-      const res = await axios.post(`${API}/attempt/start-quiz`, { quizId, studentDetails: userInputs });
+      const res = await axios.post(`${attemptApi}/start`, { quizId, studentDetails: userInputs });
       if (res.status === 201) {
         toast.success(res.data.message);
         setStep(2);
@@ -67,6 +70,7 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
   return (
     <div style={{ minHeight: "100vh" }} className="d-flex justify-content-center align-items-center p-2 attempt">
       <div className="my-shadow"></div>
+
       <div className="d-flex flex-column gap-4 card-shadow">
         {loading && <p className="text-center">loading...</p>}
 
@@ -84,14 +88,14 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
 
         {!notAvailable && (
           <>
-            <span className="main-heading">{info.title}</span>
+            <span className="main-heading">{info?.title}</span>
             <q>
               In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on
               meaningful content.
             </q>
           </>
         )}
-        {!notAvailable && <div className="time-stamp"> Timelimit : {info.timeLimit} Minutes </div>}
+        {!notAvailable && <div className="time-stamp"> Timelimit : {info?.timeLimit} Minutes </div>}
 
         <form onSubmit={(e) => startQuiz(e)} className="d-flex flex-column gap-2">
           {info?.requiredFields?.map((field, index) => (
@@ -109,6 +113,9 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
           )}
         </form>
       </div>
+
+
+
     </div>
   );
 };

@@ -8,12 +8,9 @@ import QuizAttempTrend from "../../components/panel/QuizAttempTrend";
 import AttemptUserTable from "../../components/panel/AttemptUserTable";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { API } from "../../../helper/API";
-import { useAuth } from "../../../context/authContext";
+import { API, reportApi } from "../../../helper/API";
 
 const AttemptDashboard = () => {
-  const [auth] = useAuth();
-
   const { id } = useParams();
   const points = Grid.useBreakpoint();
   const [expand, setExpand] = useState(false);
@@ -32,11 +29,11 @@ const AttemptDashboard = () => {
     let isMounted = true;
 
     const fetched = async () => {
-      if (!auth?.token || !isMounted) return;
+      if (!isMounted) return;
 
       setLoading(true);
       try {
-        const res = await axios.get(`${API}/quiz/report/${id}`);
+        const res = await axios.get(`${reportApi}/${id}`, { withCredentials: true });
 
         if (isMounted) {
           setData((prev) => ({
@@ -54,7 +51,7 @@ const AttemptDashboard = () => {
       }
     };
 
-    if (auth?.token) fetched();
+    fetched();
 
     return () => {
       isMounted = false;
@@ -73,7 +70,7 @@ const AttemptDashboard = () => {
         </Col>
         {points.md && (
           <Col className="p-2" md={expandTrend ? 24 : 16} xs={24}>
-            <AttemptUserTable data={data?.attemptedUsers.slice(0, 10)} expand={expand} setExpand={setExpand} />
+            <AttemptUserTable from="table-box" data={data?.attemptedUsers.slice(0, 10)} expand={expand} setExpand={setExpand} />
           </Col>
         )}
       </Row>

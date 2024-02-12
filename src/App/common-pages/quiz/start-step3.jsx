@@ -2,11 +2,8 @@ import React, { useEffect } from "react";
 import Confetti from "react-confetti";
 
 const StartStep3 = () => {
-
-  useEffect(() => {
-    sessionStorage.removeItem("quizStep");
-    sessionStorage.removeItem("attemptId");
-  }, []);
+  sessionStorage.removeItem("quizStep");
+  sessionStorage.removeItem("attemptId");
 
   return (
     <div style={{ minHeight: "100vh" }} className="d-flex justify-content-center align-items-center p-2 attempt">

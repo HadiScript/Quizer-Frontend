@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Input, Radio } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../../assets/css/rich.css";
+
 const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
@@ -58,7 +62,8 @@ const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses }) 
       <div className="d-flex justify-content-start align-items-start gap-1 mb-5">
         <b style={{ width: "10%" }}>Q {currentQuestionIndex + 1}:</b>
         <div style={{ width: "90%" }}>
-          <p>{currentQuestion.text}</p>
+          <div className="mb-3"> <ReactQuill style={{ width: "100%" }} modules={{ toolbar: null }} readOnly theme="snow" value={currentQuestion.text} /></div>
+
           {currentQuestion.type === "short-answer" ? (
             <Input.TextArea onChange={(e) => handleOptionChange(currentQuestion._id, e.target.value, true)} />
           ) : (

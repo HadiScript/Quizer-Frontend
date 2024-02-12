@@ -1,14 +1,11 @@
 // quiz Dashboard
 
-import { useEffect, useState } from "react";
-import { API } from "../helper/API";
+import { useCallback, useEffect, useState } from "react";
+import { reportApi } from "../helper/API";
 import axios from "axios";
 import { Errs } from "../helper/Errs";
-import { useAuth } from "../context/authContext";
 
 export const useAttemptUsers = (quizId) => {
-  const [auth] = useAuth();
-
   // attempter/:quizId
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,18 +13,19 @@ export const useAttemptUsers = (quizId) => {
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
 
   useEffect(() => {
-    if (auth?.token) fetchQuizAttempts();
-  }, [pagination.current, pagination.pageSize, searchEmail, auth?.token]);
+    fetchQuizAttempts();
+  }, [pagination.current, pagination.pageSize, searchEmail]);
 
   const fetchQuizAttempts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API}/quiz/attempter/${quizId}`, {
+      const response = await axios.get(`${reportApi}/attempter/${quizId}`, {
         params: {
           page: pagination.current,
           pageSize: pagination.pageSize,
           email: searchEmail,
         },
+        withCredentials: true,
       });
       setData(response.data.data);
       setPagination({ ...pagination, total: response.data.total });
@@ -57,19 +55,17 @@ export const useAttemptUsers = (quizId) => {
 };
 
 export const usePassFail = (quizId) => {
-  const [auth] = useAuth();
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (auth?.token) FetchUserPassOrFail();
-  }, [auth?.token]);
+    FetchUserPassOrFail();
+  }, []);
 
   const FetchUserPassOrFail = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API}/quiz/passing-ratio/${quizId}`);
+      const response = await axios.get(`${reportApi}/passing-ratio/${quizId}`, { withCredentials: true });
       setData(response.data.result);
     } catch (error) {
       Errs(error);
@@ -78,4 +74,30 @@ export const usePassFail = (quizId) => {
   };
 
   return { data, loading };
+};
+
+export const useToughestQuestions = (quizId) => {
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchingData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const { data } = await axios.get(`${reportApi}/toughest/${quizId}`, { withCredentials: true });
+      // console.log(data, "form toughest questions");
+      setList(data.result);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [quizId]);
+
+  useEffect(() => {
+    if (quizId) {
+      fetchingData();
+    }
+  }, [fetchingData]);
+
+  return { list, loading };
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Errs } from "../helper/Errs";
 import axios from "axios";
-import { API } from "../helper/API";
+import { API, quizApi, userApi } from "../helper/API";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/authContext";
 import moment from "moment";
@@ -23,7 +23,7 @@ export const _useGlobalSettings = () => {
   const gettingGlobalSettings = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${API}/auth/settings`);
+      const res = await axios.get(`${userApi}/g/settings`, { withCredentials: true });
       if (res.status === 201) {
         _setSettings(res.data.globalSettings);
       }
@@ -42,11 +42,9 @@ export const _useGlobalSettings = () => {
   }, [authToken]);
 
   const onFinish = async () => {
-    // console.log(_settings);
-    // return;
     setLoading(true);
     try {
-      const res = await axios.put(`${API}/auth/settings`, _settings);
+      const res = await axios.put(`${userApi}/g/settings`, _settings, { withCredentials: true });
       if (res.status === 200) {
         toast.success(res.data.message);
         gettingGlobalSettings();
@@ -76,25 +74,15 @@ let initSettings = {
 };
 
 export const _useQuizSettings = (quizId) => {
-  const [auth] = useAuth();
-
   const [_settings, _setSettings] = useState(initSettings);
   const [loading, setLoading] = useState(false);
 
   const fetchingQuizSettings = async (x) => {
     setLoading(true);
     try {
-      const res = await axios.get(`${API}/quiz/settings/${x}`);
+      const res = await axios.get(`${quizApi}/s/${x}`, { withCredentials: true });
       if (res.status === 200) {
-        const fetchedSettings = res.data.settings;
-        // _setSettings({
-        //   ...fetchedSettings,
-        //   quizAvailability: {
-        //     ...fetchedSettings.quizAvailability,
-        //     start: fetchedSettings.quizAvailability.start ? moment(fetchedSettings.quizAvailability.start) : null,
-        //     end: fetchedSettings.quizAvailability.end ? moment(fetchedSettings.quizAvailability.end) : null,
-        //   },
-        // });
+        const fetchedSettings = res.data.settings.settings;
 
         _setSettings(fetchedSettings);
       }
@@ -107,10 +95,10 @@ export const _useQuizSettings = (quizId) => {
   };
 
   useEffect(() => {
-    if (auth?.token && quizId) {
+    if (quizId) {
       fetchingQuizSettings(quizId);
     }
-  }, [auth?.token, quizId]);
+  }, [quizId]);
 
   const addQuizSettings = async (x) => {
     // console.log(_settings);
@@ -127,7 +115,7 @@ export const _useQuizSettings = (quizId) => {
     // };
 
     try {
-      const res = await axios.put(`${API}/quiz/settings/${x}`, _settings);
+      const res = await axios.put(`${quizApi}/s/${x}`, _settings, { withCredentials: true });
       if (res.status === 200) {
         toast.success(res.data.message);
       }

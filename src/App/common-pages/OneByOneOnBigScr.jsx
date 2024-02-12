@@ -63,7 +63,7 @@ const OneByOneOnBigScr = ({ quizData, handleSubmit, responses, setResponses }) =
         <Col md={12} xs={24} className="px-5 border-end">
           <div className="d-flex justify-content-start align-items-start gap-2 pt-5">
             <b className="mt-2">Q:</b>
-            <ReactQuill style={{ width: "100%" }} modules={{ toolbar: null }} placeholder="Type your question here" readOnly theme="snow" value={currentQuestion.text} />
+            <ReactQuill style={{ width: "100%" }} modules={{ toolbar: null }} readOnly theme="snow" value={currentQuestion.text} />
             {/* <p style={{ fontSize: "20px" }}>{currentQuestion.text}</p> */}
           </div>
 

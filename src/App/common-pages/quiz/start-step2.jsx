@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API } from "../../../helper/API";
+import { API, attemptApi } from "../../../helper/API";
 import axios from "axios";
 import { Errs } from "../../../helper/Errs";
 import QuizAttemptingComponent from "../../components/common/QuizAttemptingComponent";
@@ -26,7 +26,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
 
   const fetchingQuiz = async () => {
     try {
-      const res = await axios.get(`${API}/attempt/get-quiz/${creatorId}/${quizId}`);
+      const res = await axios.get(`${attemptApi}/quiz/${creatorId}/${quizId}`);
       if (res.status === 200) {
         setQuizData(res.data);
         setRemainingTime(res.data.timeLimit * 60);
@@ -45,11 +45,11 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
     const payload = {
       attemptId,
       responses,
-      submitType : x === "time-up" ? "time-up" : "within-time"
+      submitType: x === "time-up" ? "time-up" : "within-time",
     };
 
     try {
-      const res = await axios.post(`${API}/attempt/finished-quiz`, payload);
+      const res = await axios.post(`${attemptApi}/finish`, payload);
       if (res.status === 200) {
         toast.success("finished");
         setStep(3);

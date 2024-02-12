@@ -1,12 +1,10 @@
 import SubcriberLayout from "../../components/layouts/Layout";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
-const SubscriberRoutes = () => {
-  return (
-    // <SubcriberLayout>
-    // </SubcriberLayout>
-    <Outlet />
-  );
+const SubscriberRoutes = ({ haveRight }) => {
+  const router = useNavigate();
+
+  return haveRight ? <Outlet /> : router("/");
 };
 
 export default SubscriberRoutes;

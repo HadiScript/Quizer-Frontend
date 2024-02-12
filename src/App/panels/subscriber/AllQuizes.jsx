@@ -1,6 +1,6 @@
 import Heading from "../../components/common/Heading";
 import { _useAllMyQuizes } from "../../../actions/_quiz";
-import { Card } from "antd";
+import { Alert, Card } from "antd";
 import { OrderedListOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import SubcriberLayout from "../../components/layouts/Layout";
@@ -23,6 +23,7 @@ const AllQuizes = () => {
                 <b>{x.questions.length}</b>
               </div>
             </Card>
+            {x.questions.length === 0 && <Alert className="mt-3" message="Please add question." type="warning" showIcon />}
           </Link>
         ))}
       </div>

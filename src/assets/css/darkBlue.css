@@ -62,12 +62,27 @@
 
 .main-db_layout .question-box {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
   padding: 10px;
   border-radius: 10px;
   background-color: #93c4fd66;
   color: #083344;
+}
+
+.main-db_layout .question-box .question-box1 {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+}
+
+.main-db_layout .question-box .question-box2 {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
 }
 
 .nav-link {
@@ -93,7 +108,6 @@
   background: #000 !important;
   color: white;
 }
-
 
 .stats-box .box {
   background-color: #93c5fd;

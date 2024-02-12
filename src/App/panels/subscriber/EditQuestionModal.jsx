@@ -1,10 +1,11 @@
 import { Button, Form, Input, Modal, Radio } from "antd";
 import Heading from "../../components/common/Heading";
-import { _useQuestions } from "../../../actions/_questions";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../../assets/css/rich.css";
+import { _useQuestions } from "../../../actions/_questions";
+import { useEffect } from "react";
 
 var toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -22,28 +23,15 @@ var toolbarOptions = [
   ["clean"], // remove formatting button
 ];
 
-const AddQuestionModal = ({
-  open,
-  setOpen,
-  quizId,
+const EditQuestionModal = ({ id, open, setOpen }) => {
+  const { fetchSingleQuestion, text, setText, options, handleOptionChange, handleCorrectChange, questionType, setQuestionData, handleAddOption, handleRemoveOption, editQuestion, loading } = _useQuestions();
 
-  text,
-  setQuestionData,
-  questionType,
-  options,
-  correctAnswer,
-  loading,
-  setText,
 
-  // functions
-  addQuestion,
-  handleAddOption,
-  handleRemoveOption,
-  handleOptionChange,
-  handleCorrectChange,
-}) => {
+  useEffect(() => { fetchSingleQuestion(id) }, [id])
+
+
   return (
-    <Modal title={<Heading title={"Add Question"} />} footer={null} centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} width={2000}>
+    <Modal title={<Heading title={"Edit Question"} />} footer={null} centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} width={2000}>
       <div className="container">
         <Form>
           <div className="row">
@@ -57,7 +45,6 @@ const AddQuestionModal = ({
                   onChange={setText}
                   style={{ minHeight: "300px" }}
                 />
-                {/* <Input.TextArea placeholder="Enter Question Title" value={text} onChange={(e) => setQuestionData((prev) => ({ ...prev, text: e.target.value }))} /> */}
               </Form.Item>
               <Form.Item label="Question Type">
                 <Radio.Group value={questionType} onChange={(e) => setQuestionData((prev) => ({ ...prev, questionType: e.target.value }))}>
@@ -99,12 +86,12 @@ const AddQuestionModal = ({
       </div>
 
       <div className="text-end">
-        <Button className="myBtn" loading={loading} onClick={() => addQuestion(quizId)}>
-          Add Question
+        <Button className="myBtn" loading={loading} onClick={() => editQuestion(id)}>
+          Edit Question
         </Button>
       </div>
     </Modal>
   );
 };
 
-export default AddQuestionModal;
+export default EditQuestionModal;

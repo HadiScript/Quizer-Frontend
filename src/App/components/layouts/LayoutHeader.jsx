@@ -41,7 +41,7 @@ const LayoutHeader = ({ from }) => {
         open={drawerVisibility}
         extra={<CloseOutlined onClick={() => setDrawerVisibility(false)} />}
       >
-        <LeftCol />
+        <LeftCol from={from} />
       </Drawer>
     </>
   );

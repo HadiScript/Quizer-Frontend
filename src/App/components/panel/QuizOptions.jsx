@@ -3,7 +3,7 @@ import { CopyOutlined, DeleteOutlined, SettingOutlined } from "@ant-design/icons
 
 const { useBreakpoint } = Grid;
 
-const QuizOptions = ({ setSettingDrawer, deleteQuiz, setOpenLinkModal }) => {
+const QuizOptions = ({ setSettingDrawer, deleteQuiz, setOpenLinkModal, ref3 }) => {
   const points = useBreakpoint();
 
   const items = [
@@ -31,7 +31,7 @@ const QuizOptions = ({ setSettingDrawer, deleteQuiz, setOpenLinkModal }) => {
   ];
 
   return points.md ? (
-    <div className="d-flex justify-content-end align-items-center gap-2">
+    <div ref={ref3} className="d-flex justify-content-end align-items-center gap-2">
       <Button className="dottedBtn" type="dashed" onClick={() => setOpenLinkModal(true)} icon={<CopyOutlined />}>
         Copy link
       </Button>

@@ -14,12 +14,16 @@ import AttemptingQuiz from "./panels/subscriber/AttemptingQuiz";
 import GlobalSettings from "./panels/subscriber/GlobalSettings";
 import AttemptDashboard from "./panels/subscriber/AttemptDashboard";
 import Attempters from "./panels/subscriber/Attempters";
+import { useAuth } from "../context/authContext";
+import AllQuestions from "./panels/subscriber/AllQuestions";
 
 const App = () => {
+  const [auth] = useAuth();
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/signin" element={<Login />} />
+      <Route path="/signin" element={<Login isLogin={auth?.user !== null} />} />
       <Route path="/signup" element={<Register />} />
 
       <Route path="/attempt-quiz/:creatorId/:quizId" element={<AttemptingQuiz />} />
@@ -31,13 +35,14 @@ const App = () => {
       {/* admin routes */}
 
       {/* subscriber routes */}
-      <Route path="/subscribe" element={<SubscriberRoutes />}>
+      <Route path="/subscribe" element={<SubscriberRoutes haveRight={auth?.user?.role === "subscriber"} />}>
         <Route path="create-quiz" element={<CreateQuiz />} />
         <Route path="quizes" element={<AllQuizes />} />
         <Route path="quize/:id" element={<QuizDetail />} />
         <Route path="quize/:id/attempters" element={<Attempters />} />
         <Route path="quize/attempt/:id" element={<AttemptDashboard />} />
         <Route path="global-settings" element={<GlobalSettings />} />
+        <Route path="questions/:id" element={<AllQuestions />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

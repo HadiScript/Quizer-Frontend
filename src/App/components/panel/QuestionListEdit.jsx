@@ -3,15 +3,19 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { DeleteOutlined, EditOutlined, HolderOutlined } from "@ant-design/icons";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { API } from "../../../helper/API";
-import { Button } from "antd";
+import { API, questionApi } from "../../../helper/API";
+import { Button, List } from "antd";
 import { _useQuestions } from "../../../actions/_questions";
-import { useState } from "react";
+import React, { useState } from "react";
 import AllQuestionModel from "./AllQuestionModel";
+import { gettingData } from "../../../helper/GetData";
+import AddQuestionModal from "../../panels/subscriber/AddQuestionModal";
+import EditQuestionModal from "../../panels/subscriber/EditQuestionModal";
 
-const QuestionListEdit = ({ questions, setQuestions, quizId, from }) => {
-  const { deleteQuestion, loading } = _useQuestions();
+const QuestionListEdit = ({ questions, setQuestions, quizId, from, deleteQuestion, loading }) => {
   const [allQuestionModal, setAllQuestionModal] = useState(false);
+  const [editQuestionModal, setEditQuestionModal] = useState(false);
+  const [currentId, setCurrentId] = useState('')
 
   const deleteHandle = (quizId, itemId) => {
     deleteQuestion(quizId, itemId);
@@ -20,7 +24,7 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from }) => {
 
   const reOrderQuestions = async (x) => {
     try {
-      const { data } = await axios.put(`${API}/quiz/question-reorder`, x);
+      const { data } = await axios.put(`${questionApi}/reorder`, x, { withCredentials: true });
       toast.success("ReOrder");
     } catch (error) {
       console.log(error);
@@ -49,6 +53,9 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from }) => {
     reOrderQuestions(bulkUpdateData);
   };
 
+
+
+
   return (
     <>
       {loading && <>loading...</>}
@@ -57,23 +64,25 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from }) => {
         <Droppable droppableId="questions">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {questions.slice(0, from === "modal" ? 6 : 100).map((chapter, index) => (
+              {questions.map((chapter, index) => (
                 <Draggable key={chapter._id} draggableId={chapter._id} index={index}>
                   {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      className={`question-box mb-2 ${from === "component" && "d-flex justify-content-between align-items-center mb-3"}`}
-                    >
-                      <div className="d-flex gap-2">
+                    <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 `}>
+                      <div className=" question-box1">
                         <div {...provided.dragHandleProps}>
                           <HolderOutlined />
                         </div>
-                        {chapter.text.length > 50 ? chapter.text.substring(0, 50) + "..." : chapter.text}
+                        {/* {gettingData(chapter?.text, from)} */}
+                        <div dangerouslySetInnerHTML={{ __html: gettingData(chapter?.text, from) }} />
                       </div>
-                      <div className="d-flex justify-content-center align-items-center gap-3">
+                      <div className="question-box2">
+                        {chapter.incorrectCount && <span> Incorrect Count: {chapter.incorrectCount} </span>}
+
                         <DeleteOutlined onClick={() => deleteHandle(quizId, chapter._id)} />
-                        <Button className="myBtn" icon={<EditOutlined />}>
+                        <Button className="myBtn" onClick={() => {
+                          setEditQuestionModal(true)
+                          setCurrentId(chapter._id)
+                        }} icon={<EditOutlined />}>
                           Options
                         </Button>
                       </div>
@@ -86,11 +95,14 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from }) => {
           )}
         </Droppable>
       </DragDropContext>
-      {from === "modal" && questions.length > 6 && (
+      {from === "modal" && (
         <div className="text-center myBtn mt-4 rounded-3 p-2" role="button" onClick={() => setAllQuestionModal(true)}>
           see all
         </div>
       )}
+
+      <EditQuestionModal id={currentId} open={editQuestionModal} setOpen={setEditQuestionModal} />
+
 
       <AllQuestionModel open={allQuestionModal} onClose={() => setAllQuestionModal(false)} quizId={quizId} questions={questions} setQuestions={setQuestions} />
     </>

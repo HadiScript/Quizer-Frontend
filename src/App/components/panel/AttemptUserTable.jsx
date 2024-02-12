@@ -17,8 +17,8 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
     <>
       <Card className={`${from === "component" ? "table-box" : ""}`}>
         <div className="d-flex flex-wrap justify-content-between align-items-start pb-2">
-         {from ==="component" ? <h6>Quiz Attempted User</h6> : <Heading title={"Attempt Users"} Icon={<UserOutlined className="its-icon" />} />}
-          {from === "component" && (
+          {from === "component" ? <h6>Quiz Attempted User</h6> : <Heading title={"Attempt Users"} Icon={<UserOutlined className="its-icon" />} />}
+          {from === "table-box" && (
             <div className="d-flex justify-content-between gap-3 align-items-center">
               <Button onClick={() => router(`/subscribe/quize/${id}/attempters`)} icon={<ExpandOutlined />} type="dashed">
                 Expend
@@ -30,15 +30,17 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
           )}
         </div>
 
-        <div className=" mt-5 mb-2">
-          <Input.Search
-            placeholder="Search by email"
-            enterButton="Search"
-            onSearch={handleSearch}
-            onChange={(e) => setSearchEmail(e.target.value)}
-            style={{ width: "100%", marginBottom: 20 }}
-          />
-        </div>
+        {from !== "component" && (
+          <div className=" mt-5 mb-2">
+            <Input.Search
+              placeholder="Search by email"
+              enterButton="Search"
+              onSearch={handleSearch}
+              onChange={(e) => setSearchEmail(e.target.value)}
+              style={{ width: "100%", marginBottom: 20 }}
+            />
+          </div>
+        )}
         <div className="table-responsive mt-4 mb-4">
           <table className="table">
             <thead>
@@ -57,7 +59,7 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
                   <th scope="row">{++index}</th>
                   <td>{x?.studentDetails?.Email}</td>
                   <td>{x.createdAt.slice(0, 10)}</td>
-                  <td> {x?.score >= 30 ? <Tag color="blue">Pass</Tag> : <Tag color="red">Fail</Tag>} </td>
+                  <td> {x?.isPass ? <Tag color="blue">Pass</Tag> : <Tag color="red">Fail</Tag>} </td>
                   <td
                     role="button"
                     onClick={() => {

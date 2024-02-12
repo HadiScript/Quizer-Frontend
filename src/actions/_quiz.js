@@ -4,9 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Errs } from "../helper/Errs";
 import axios from "axios";
-import { API } from "../helper/API";
+import { API, quizApi } from "../helper/API";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import doReq from "../hooks/doReq";
 
 export const _useQuizCreatations = () => {
   const [quizData, setQuizData] = useState({
@@ -44,6 +45,7 @@ export const _useQuizCreatations = () => {
     setQuizData({ ...quizData, requiredFields: newFields });
   };
 
+  // done
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -54,9 +56,8 @@ export const _useQuizCreatations = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post(`${API}/quiz/create-quiz`, quizData);
-      console.log(res);
-      if (res.status === 201) {
+      const res = await axios.post(`${quizApi}/create`, quizData, { withCredentials: true });
+      if (res.status === 200) {
         toast.success("Quiz is created!");
       }
     } catch (error) {
@@ -79,15 +80,14 @@ export const _useQuizCreatations = () => {
 };
 
 export const _useAllMyQuizes = () => {
-  const [auth] = useAuth();
-  const authToken = auth && auth?.token;
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
 
-  const fetchingMyQuizes = async () => {
+  // done
+  const fetchingMyQuizes = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${API}/quiz/all-my-quizes`);
+      const res = await axios.get(`${quizApi}/all`, { withCredentials: true });
       if (res.status === 200) {
         setList(res.data.quizzes);
       }
@@ -96,13 +96,11 @@ export const _useAllMyQuizes = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    if (auth && auth.token) {
-      fetchingMyQuizes();
-    }
-  }, [authToken]);
+    fetchingMyQuizes();
+  }, [fetchingMyQuizes]);
 
   return {
     loading,
@@ -112,8 +110,7 @@ export const _useAllMyQuizes = () => {
 
 export const _useQuizModifications = (quizId) => {
   const router = useNavigate();
-  const [auth] = useAuth();
-  const authToken = auth && auth?.token;
+
   const [questions, setQuestions] = useState([]);
   const [_settings, _setSettings] = useState({
     quizTimer: 0,
@@ -169,29 +166,12 @@ export const _useQuizModifications = (quizId) => {
     setQuizData({ ...quizData, requiredFields: newFields });
   };
 
-  // const fetchingQuizById = useCallback(
-  //   async (x) => {
-  //     setLoading(true);
-  //     try {
-  //       const res = await axios.get(`${API}/quiz/quiz-detail/${x}`);
-  // if (res.status === 200) {
-  //   setQuizData(res.data.quiz);
-  //   _setSettings(res.data.quiz.settings);
-  // }
-  //     } catch (error) {
-  //       Errs(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   },
-  //   [authToken, quizId]
-  // );
-
+  // done
   const fetchQuizById = useCallback(async () => {
-    if (!authToken || !quizId) return;
+    if (!quizId) return;
     setLoading(true);
     try {
-      const response = await axios.get(`${API}/quiz/quiz-detail/${quizId}`);
+      const response = await axios.get(`${quizApi}/${quizId}`, { withCredentials: true });
       if (response.status === 200) {
         setQuizData(response.data.quiz);
         _setSettings(response.data.quiz.settings);
@@ -201,34 +181,13 @@ export const _useQuizModifications = (quizId) => {
     } finally {
       setLoading(false);
     }
-  }, [authToken, quizId, Errs]);
+  }, [quizId, Errs]);
 
   useEffect(() => {
     fetchQuizById();
   }, [fetchQuizById]);
 
-  // const handleSubmit = async (e, x) => {
-  //   e.preventDefault();
-  //   if (!quizData.requiredFields.includes("Email")) {
-  //     alert("Email field is compulsory.");
-  //     return;
-  //   }
-
-  //   setLoading(true);
-  //   try {
-  //     const res = await axios.put(`${API}/quiz/update/${x}`, quizData);
-  //     console.log(res);
-  //     if (res.status === 200) {
-  //       toast.success("Quiz is Updated");
-  //       fetchingQuizById(x);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     Errs(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  // done
   const handleSubmit = useCallback(
     async (e, x) => {
       e.preventDefault();
@@ -239,7 +198,7 @@ export const _useQuizModifications = (quizId) => {
 
       setLoading(true);
       try {
-        const res = await axios.put(`${API}/quiz/update/${x}`, quizData);
+        const res = await axios.put(`${quizApi}/${x}`, quizData, { withCredentials: true });
         console.log(res);
         if (res.status === 200) {
           toast.success("Quiz is Updated");
@@ -255,12 +214,13 @@ export const _useQuizModifications = (quizId) => {
     [quizData, fetchQuizById, Errs]
   );
 
+  // done
   const deleteQuiz = useCallback(async () => {
     setLoading(true);
     try {
       let ok = window.confirm("Are you sure?");
       if (ok) {
-        const res = await axios.delete(`${API}/quiz/_delete/${quizId}`);
+        const res = await axios.delete(`${quizApi}/delete/${quizId}`, { withCredentials: true });
         if (res.status === 200) {
           toast.success(res.data.message);
           router("/subscribe/quizes");
@@ -274,10 +234,11 @@ export const _useQuizModifications = (quizId) => {
     }
   }, [quizId, router, Errs]);
 
+  // done
   const addQuizSettings = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.put(`${API}/quiz/settings/${quizId}`, _settings);
+      const res = await axios.put(`${quizApi}/s/${quizId}`, _settings, { withCredentials: true });
       if (res.status === 200) {
         toast.success(res.data.message);
       }

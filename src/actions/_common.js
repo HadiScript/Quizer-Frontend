@@ -5,41 +5,72 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { API, authApi } from "../helper/API";
+import doReq from "../hooks/doReq";
 
 export const _useCommon = () => {
-  const [setAuth] = useAuth();
+  const [auth, setAuth] = useAuth();
   const [email, setEmail] = useState("subs2@gmail.com");
   const [password, setPassword] = useState("hadi..");
-  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
 
   const router = useNavigate();
+  const { errors, loading, doRequest } = doReq();
 
   const Login = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    const res = await doRequest({
+      method: "post",
+      url: `${API}/api/auth/signin`,
+      body: {
+        email,
+        password,
+      },
 
-    try {
-      const res = await axios.post(`http://localhost:8000/auth/signin`, { email, password });
-      if (res.status === 200) {
-        // console.log(res.data);
-        Cookies.set("auth", JSON.stringify(res.data));
-        setAuth({ token: res.data.token, user: res.data.user });
-        toast.success("Login");
-        setEmail("");
-        setPassword("");
-      }
-    } catch (error) {
-      Errs(error);
-    } finally {
-      setLoading(false);
+      withCredentials: true,
+    });
+
+    if (res.status === 200) {
+      setAuth({ ...auth, user: res.data });
+      toast.success("Login");
+      router("/");
     }
   };
 
-  const logout = () => {
-    Cookies.remove("auth");
+  const Register = async (e) => {
+    e.preventDefault();
+    const res = await doRequest({
+      method: "post",
+      url: `${API}/api/auth/signup`,
+      body: {
+        email,
+        password,
+        name,
+      },
+
+      withCredentials: true,
+    });
+
+    if (res.status === 201) {
+      setAuth(res.data);
+      toast.success("Register");
+      router("/");
+    }
+  };
+
+  const logout = async () => {
+    const res = await doRequest({
+      method: "post",
+      url: `${authApi}/logout`,
+      body: {},
+
+      withCredentials: true,
+    });
+
+    // Cookies.remove("auth");
     router("/");
     setAuth({ token: "", user: null });
   };
 
-  return { Login, email, setEmail, password, setPassword, loading, logout };
+  return { Login, email, setEmail, password, setPassword, loading, logout, errors, name, setName, Register };
 };
