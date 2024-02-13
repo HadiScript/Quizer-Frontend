@@ -56,7 +56,7 @@ export const _useQuizCreatations = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post(`${quizApi}/create`, quizData, {  });
+      const res = await axios.post(`${quizApi}/create`, quizData, {});
       if (res.status === 200) {
         toast.success("Quiz is created!");
       }
@@ -87,7 +87,7 @@ export const _useAllMyQuizes = () => {
   const fetchingMyQuizes = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${quizApi}/all`, {  });
+      const res = await axios.get(`${quizApi}/all`, {});
       if (res.status === 200) {
         setList(res.data.quizzes);
       }
@@ -171,7 +171,7 @@ export const _useQuizModifications = (quizId) => {
     if (!quizId) return;
     setLoading(true);
     try {
-      const response = await axios.get(`${quizApi}/${quizId}`, {  });
+      const response = await axios.get(`${quizApi}/${quizId}`, { withCredentials: true });
       if (response.status === 200) {
         setQuizData(response.data.quiz);
         _setSettings(response.data.quiz.settings);
@@ -198,7 +198,7 @@ export const _useQuizModifications = (quizId) => {
 
       setLoading(true);
       try {
-        const res = await axios.put(`${quizApi}/${x}`, quizData, {  });
+        const res = await axios.put(`${quizApi}/${x}`, quizData, { withCredentials: true });
         console.log(res);
         if (res.status === 200) {
           toast.success("Quiz is Updated");
@@ -220,7 +220,7 @@ export const _useQuizModifications = (quizId) => {
     try {
       let ok = window.confirm("Are you sure?");
       if (ok) {
-        const res = await axios.delete(`${quizApi}/delete/${quizId}`, {  });
+        const res = await axios.delete(`${quizApi}/delete/${quizId}`, { withCredentials: true });
         if (res.status === 200) {
           toast.success(res.data.message);
           router("/subscribe/quizes");
@@ -238,7 +238,7 @@ export const _useQuizModifications = (quizId) => {
   const addQuizSettings = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.put(`${quizApi}/s/${quizId}`, _settings, {  });
+      const res = await axios.put(`${quizApi}/s/${quizId}`, _settings, { withCredentials: true });
       if (res.status === 200) {
         toast.success(res.data.message);
       }

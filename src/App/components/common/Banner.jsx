@@ -11,7 +11,7 @@ const Banner = () => {
   return (
 
     <div className="landing-page">
-      { JSON.stringify(cookies)}
+      {JSON.stringify(auth)}
       <h1>Quizer App</h1>
       <i>We are team of talented designers making websites with Bootstrap</i>
       <div className="d-flex justify-content-center align-items-center gap-4 mt-3">
