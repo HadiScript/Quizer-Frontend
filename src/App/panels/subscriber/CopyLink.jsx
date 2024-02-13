@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const CopyLinkModal = ({ open, setOpen, quizId, creatorId }) => {
   // const link = `https://quizer.cycarts.com/attempt-quiz/${creatorId}/${quizId}`;
-  const link = `http://localhost:5173/attempt-quiz/${creatorId}/${quizId}`;
+  const link = `https://quizer-frontend.vercel.app//attempt-quiz/${creatorId}/${quizId}`;
 
   const copyToClipboard = (text) => {
     navigator.clipboard
@@ -21,7 +21,7 @@ const CopyLinkModal = ({ open, setOpen, quizId, creatorId }) => {
 
   return (
     <Modal title={<Heading from="modal" title={"Copy Link"} />} footer={null} centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} width={500}>
-      <Input readOnly value={`http://localhost:5173/attempt-quiz/${creatorId}/${quizId}`} />
+      <Input readOnly value={`https://quizer-frontend.vercel.app/attempt-quiz/${creatorId}/${quizId}`} />
 
       <div className="text-end my-2">
         <Button onClick={() => copyToClipboard(link)} type="dashed" icon={<CopyOutlined />}>
