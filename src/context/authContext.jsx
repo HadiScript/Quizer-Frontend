@@ -1,8 +1,9 @@
 import { useState, useEffect, createContext, useContext, useCallback } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { redirect } from "react-router-dom";
-import { authApi } from "../helper/API";
+import Crypto from "crypto-js";
+
+export const APIKEY = "()()()()((()))&&**^^kkdflkheaori3uoiu23$!42^2%@#$^@$"
 
 const AuthContext = createContext();
 
@@ -12,24 +13,22 @@ const AuthProvider = ({ children }) => {
     token: "",
   });
 
-  const getCurrentSubs = useCallback(async () => {
-    try {
-      const res = await axios.get(`${authApi}/currentsubs`, { withCredentials: true });
+  useEffect(() => {
+    let user = Cookies.get("session");
 
-      if (res.data) {
-        setAuth(res.data);
+    let hi;
+    if (user) {
+      hi = Crypto.AES.decrypt(user, APIKEY);
+      if (hi) {
+        setAuth(JSON.parse(hi.toString(Crypto.enc.Utf8)));
       }
-    } catch (error) {
-      console.log(error, "from context");
-      return redirect("/");
     }
   }, []);
 
-  useEffect(() => {
-    getCurrentSubs();
-  }, [getCurrentSubs]);
 
-  axios.defaults.withCredentials = true;
+
+
+  axios.defaults.headers.common["session"] = auth.token;
 
   return <AuthContext.Provider value={[auth, setAuth]}>{children}</AuthContext.Provider>;
 };

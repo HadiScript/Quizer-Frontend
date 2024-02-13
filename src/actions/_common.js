@@ -3,11 +3,12 @@ import { Errs } from "../helper/Errs";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useAuth } from "../context/authContext";
+import { APIKEY, useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { API, authApi } from "../helper/API";
 import doReq from "../hooks/doReq";
 import { useCookies } from "react-cookie";
+import Crypto from "crypto-js";
 
 export const _useCommon = () => {
   const [cookies, removeCookie] = useCookies([]);
@@ -23,7 +24,8 @@ export const _useCommon = () => {
     e.preventDefault();
     try {
       const res = await axios.post(`${authApi}/signin`, { email, password }, { withCredentials: true });
-      setAuth({ ...auth, user: res.data });
+      setAuth({ ...auth, user: res.data.user, token: res.data.token });
+      Cookies.set("session", Crypto.AES.encrypt(JSON.stringify(res.data), APIKEY).toString());
       toast.success("Login");
       router("/");
     } catch (error) {
