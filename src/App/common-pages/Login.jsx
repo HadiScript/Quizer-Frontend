@@ -4,23 +4,27 @@ import { style } from "../../assets/css/style";
 import { _useCommon } from "../../actions/_common";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 
 const Login = ({ isLogin }) => {
   const router = useNavigate();
+  const [cookies, removeCookie] = useCookies([]);
 
   const { loading, email, setEmail, password, setPassword, Login, errors } = _useCommon();
 
   const [auth] = useAuth();
 
   useEffect(() => {
-    if (auth?.token) {
+    if (cookies?.session) {
       return router("/");
     }
   }, [router, auth]);
 
-  return isLogin ? (
-    router("/")
-  ) : (
+
+
+
+  return (
     <>
       <div style={{ minHeight: "100vh" }} className="d-flex  flex-column gap-4 justify-content-center align-items-center p-2">
         <Card style={{ width: "400px", boxShadow: style.boxShadow1 }}>

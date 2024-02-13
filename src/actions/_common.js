@@ -7,8 +7,10 @@ import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { API, authApi } from "../helper/API";
 import doReq from "../hooks/doReq";
+import { useCookies } from "react-cookie";
 
 export const _useCommon = () => {
+  const [cookies, removeCookie] = useCookies([]);
   const [auth, setAuth] = useAuth();
   const [email, setEmail] = useState("subs2@gmail.com");
   const [password, setPassword] = useState("hadi..");
@@ -47,6 +49,7 @@ export const _useCommon = () => {
 
   const logout = async () => {
     try {
+      // removeCookie("session");
       const res = await axios.post(`${authApi}/logout`, {}, { withCredentials: true });
       router("/");
       setAuth({ token: "", user: null });
