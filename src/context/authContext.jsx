@@ -2,6 +2,7 @@ import { useState, useEffect, createContext, useContext, useCallback } from "rea
 import axios from "axios";
 import Cookies from "js-cookie";
 import { redirect } from "react-router-dom";
+import { authApi } from "../helper/API";
 
 const AuthContext = createContext();
 
@@ -13,7 +14,7 @@ const AuthProvider = ({ children }) => {
 
   const getCurrentSubs = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/auth/currentsubs", { withCredentials: true });
+      const res = await axios.get(`${authApi}/currentsubs`, { withCredentials: true });
 
       if (res.data) {
         setAuth(res.data);
@@ -28,7 +29,7 @@ const AuthProvider = ({ children }) => {
     getCurrentSubs();
   }, [getCurrentSubs]);
 
-  axios.defaults.headers.common["Cookies"] = auth.token;
+  // axios.defaults.headers.common["Cookies"] = auth.token;
 
   return <AuthContext.Provider value={[auth, setAuth]}>{children}</AuthContext.Provider>;
 };

@@ -31,7 +31,7 @@ export const _useCommon = () => {
     });
 
     if (res.status === 200) {
-      console.log(res.data, "res")
+      console.log(res.data, "res");
       Cookies.set("session", res.data?.token);
       setAuth({ ...auth, user: res.data.user });
       toast.success("Login");
@@ -69,7 +69,7 @@ export const _useCommon = () => {
       withCredentials: true,
     });
 
-    // Cookies.remove("auth");
+    Cookies.remove("session");
     router("/");
     setAuth({ token: "", user: null });
   };
