@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
     getCurrentSubs();
   }, [getCurrentSubs]);
 
-  // axios.defaults.headers.common["Cookies"] = auth.token;
+  axios.defaults.withCredentials = true
 
   return <AuthContext.Provider value={[auth, setAuth]}>{children}</AuthContext.Provider>;
 };
