@@ -31,7 +31,9 @@ export const _useCommon = () => {
     });
 
     if (res.status === 200) {
-      setAuth({ ...auth, user: res.data });
+      console.log(res.data, "res")
+      Cookies.set("session", res.data?.token);
+      setAuth({ ...auth, user: res.data.user });
       toast.success("Login");
       router("/");
     }
