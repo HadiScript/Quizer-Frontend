@@ -23,7 +23,7 @@ export const _useGlobalSettings = () => {
   const gettingGlobalSettings = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${userApi}/g/settings`, { withCredentials: true });
+      const res = await axios.get(`${userApi}/g/settings`, {  });
       if (res.status === 201) {
         _setSettings(res.data.globalSettings);
       }
@@ -44,7 +44,7 @@ export const _useGlobalSettings = () => {
   const onFinish = async () => {
     setLoading(true);
     try {
-      const res = await axios.put(`${userApi}/g/settings`, _settings, { withCredentials: true });
+      const res = await axios.put(`${userApi}/g/settings`, _settings, {  });
       if (res.status === 200) {
         toast.success(res.data.message);
         gettingGlobalSettings();
@@ -80,7 +80,7 @@ export const _useQuizSettings = (quizId) => {
   const fetchingQuizSettings = async (x) => {
     setLoading(true);
     try {
-      const res = await axios.get(`${quizApi}/s/${x}`, { withCredentials: true });
+      const res = await axios.get(`${quizApi}/s/${x}`, {  });
       if (res.status === 200) {
         const fetchedSettings = res.data.settings.settings;
 
@@ -115,7 +115,7 @@ export const _useQuizSettings = (quizId) => {
     // };
 
     try {
-      const res = await axios.put(`${quizApi}/s/${x}`, _settings, { withCredentials: true });
+      const res = await axios.put(`${quizApi}/s/${x}`, _settings, {  });
       if (res.status === 200) {
         toast.success(res.data.message);
       }

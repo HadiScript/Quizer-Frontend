@@ -19,59 +19,41 @@ export const _useCommon = () => {
 
   const Login = async (e) => {
     e.preventDefault();
-    const res = await doRequest({
-      method: "post",
-      url: `${API}/api/auth/signin`,
-      body: {
-        email,
-        password,
-      },
-
-      withCredentials: true,
-    });
-
-    if (res.status === 200) {
-      console.log(res.data, "res");
-      Cookies.set("session", res.data?.token);
-      setAuth({ ...auth, user: res.data.user });
+    try {
+      const res = await axios.post(`${authApi}/signin`, { email, password }, { withCredentials: true });
+      setAuth({ ...auth, user: res.data });
       toast.success("Login");
       router("/");
+    } catch (error) {
+      Errs(errors);
+      console.log(error);
     }
   };
 
   const Register = async (e) => {
     e.preventDefault();
-    const res = await doRequest({
-      method: "post",
-      url: `${API}/api/auth/signup`,
-      body: {
-        email,
-        password,
-        name,
-      },
-
-      withCredentials: true,
-    });
-
-    if (res.status === 201) {
-      setAuth(res.data);
-      toast.success("Register");
-      router("/");
+    try {
+      const res = await axios.post(`${API}/api/auth/signup`, { email, password }, { withCredentials: true });
+      if (res.status === 201) {
+        setAuth(res.data);
+        toast.success("Register");
+        router("/");
+      }
+    } catch (error) {
+      Errs(errors);
+      console.log(error);
     }
   };
 
   const logout = async () => {
-    const res = await doRequest({
-      method: "post",
-      url: `${authApi}/logout`,
-      body: {},
-
-      withCredentials: true,
-    });
-
-    Cookies.remove("session");
-    router("/");
-    setAuth({ token: "", user: null });
+    try {
+      const res = await axios.post(`${authApi}/logout`, {}, { withCredentials: true });
+      router("/");
+      setAuth({ token: "", user: null });
+    } catch (error) {
+      Errs(errors);
+      console.log(error);
+    }
   };
 
   return { Login, email, setEmail, password, setPassword, loading, logout, errors, name, setName, Register };

@@ -9,7 +9,7 @@ const doReq = () => {
     setLoading(true);
 
     try {
-      const res = await axios[method](url, body, { withCredentials: true });
+      const res = await axios[method](url, body, {  });
       return res;
     } catch (error) {
       console.log(error);
