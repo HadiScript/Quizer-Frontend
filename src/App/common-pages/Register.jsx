@@ -2,9 +2,10 @@ import { Button, Card, Input } from "antd";
 import React from "react";
 import { _useCommon } from "../../actions/_common";
 import { style } from "../../assets/css/style";
+import { GoogleOutlined } from "@ant-design/icons";
 
 const Register = () => {
-  const { loading, errors, Register, name, setName, email, setEmail, password, setPassword } = _useCommon();
+  const { Register, name, setName, email, setEmail, password, setPassword, signupwithgoogle } = _useCommon();
   return (
     <>
       <div style={{ minHeight: "100vh" }} className="d-flex  flex-column gap-4 justify-content-center align-items-center p-2">
@@ -24,12 +25,16 @@ const Register = () => {
             <label className="text-secondary">Password</label>
             <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
 
-            <Button onClick={(e) => Register(e)} className="bg-dark text-light mt-3" loading={loading}>
+            <Button onClick={(e) => Register(e)} className="bg-dark text-light mt-3" >
               Register
+            </Button>
+
+            <Button onClick={(e) => signupwithgoogle()} icon={<GoogleOutlined />} className="bg-danger text-light mt-3" >
+              Continue with Google
             </Button>
           </form>
         </Card>
-        <div>{errors}</div>
+
       </div>
     </>
   );

@@ -18,7 +18,7 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
     console.log("here");
 
     try {
-      const res = await axios.get(`${reportApi}/responses/${current?._id}`, {  });
+      const res = await axios.get(`${reportApi}/responses/${current?._id}`, {});
 
       if (res.status === 200) {
         setresponses(res.data.responses.responses);
@@ -70,6 +70,7 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
             </Button>
           )}
 
+
           {showRes && (
             <List
               className="mt-4"
@@ -82,11 +83,12 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
                 <List.Item
                   actions={[
                     <div key={item?._id}>
-                      Correct Answer is <b>{item?.question?.options.find((x) => x.isCorrect).text}</b>
+                      Correct Answer is <b>{item?.question?.options.find((x) => x.isCorrect)?.text}</b>
                     </div>,
                   ]}
                   style={{
-                    border: `1px solid ${item?.selectedOption === item?.question?.options.find((x) => x.isCorrect).text ? "lightgrey" : "red"}`,
+                    overflowX: "scroll",
+                    border: `1px solid ${item?.selectedOption === item?.question?.options.find((x) => x.isCorrect)?.text ? "lightgrey" : "red"}`,
                   }}
                 >
                   <div className="d-flex justify-content-start gap-2">
@@ -95,7 +97,7 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
                     </span>
 
                     <div className="d-flex flex-column justify-content-start gap-2" style={{ maxWidth: "500px", }}>
-                      <span dangerouslySetInnerHTML={{ __html: item?.question?.text.replace(/h1|h2|h3|h4|h5|h6/g, "p") }}></span>
+                      <span dangerouslySetInnerHTML={{ __html: item?.question?.text?.replace(/h1|h2|h3|h4|h5|h6/g, "p") }}></span>
 
                       <span>{item?.selectedOption}</span>
                     </div>

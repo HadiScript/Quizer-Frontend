@@ -15,6 +15,7 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
     title: "",
     timeLimit: "",
     requiredFields: [],
+    quizInstructions: null
   });
 
   const handleInputChange = (field, value) => {
@@ -89,15 +90,12 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
         {!notAvailable && (
           <>
             <span className="main-heading">{info?.title}</span>
-            <q>
-              In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on
-              meaningful content.
-            </q>
+            <p dangerouslySetInnerHTML={{ __html: info.quizInstructions }} />
           </>
         )}
-        {!notAvailable && <div className="time-stamp"> Timelimit : {info?.timeLimit} Minutes </div>}
+        {!notAvailable && <div className="time-stamp" style={{ width: "100%" }}> Timelimit : {info?.timeLimit} Minutes </div>}
 
-        <form onSubmit={(e) => startQuiz(e)} className="d-flex flex-column gap-2">
+        <form onSubmit={(e) => startQuiz(e)} className="d-flex flex-column gap-2 "  style={{ width: "100%" }}>
           {info?.requiredFields?.map((field, index) => (
             <React.Fragment key={index}>
               <label className="text-secondary mt-2">{field}</label>

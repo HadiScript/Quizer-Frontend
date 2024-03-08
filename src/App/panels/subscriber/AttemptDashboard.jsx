@@ -33,7 +33,7 @@ const AttemptDashboard = () => {
 
       setLoading(true);
       try {
-        const res = await axios.get(`${reportApi}/${id}`, {  });
+        const res = await axios.get(`${reportApi}/${id}`, {});
 
         if (isMounted) {
           setData((prev) => ({
@@ -60,7 +60,7 @@ const AttemptDashboard = () => {
 
   return (
     <SubcriberLayout from="quiz-detail">
-      <Heading Icon={<AppstoreOutlined className="its-icon" />} title={"Quiz Attempt Dashboard" + loading && "..."} />
+      <Heading Icon={<AppstoreOutlined className="its-icon" />} title={"Quiz Attempt Dashboard"} />
 
       <QuizAttemptStats averageScore={data.averageScore} totalAttempts={data.totalAttempts} points={points} expand={expand} setExpand={setExpand} />
 
@@ -70,7 +70,7 @@ const AttemptDashboard = () => {
         </Col>
         {points.md && (
           <Col className="p-2" md={expandTrend ? 24 : 16} xs={24}>
-            <AttemptUserTable from="table-box" data={data?.attemptedUsers.slice(0, 10)} expand={expand} setExpand={setExpand} />
+            <AttemptUserTable loading={loading} from="table-box" data={data?.attemptedUsers.slice(0, 10)} expand={expand} setExpand={setExpand} />
           </Col>
         )}
       </Row>

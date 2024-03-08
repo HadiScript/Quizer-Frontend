@@ -42,7 +42,7 @@ const AttemptingQuiz = () => {
       {step === 2 && attemptId !== "" && (
         <StartStep2 step={step} setStep={setStep} creatorId={creatorId} quizId={quizId} attemptId={attemptId} remainingTime={remainingTime} setRemainingTime={setRemainingTime} />
       )}
-      {step === 3 && <StartStep3 step={step} setStep={setStep} />}
+      {step === 3 && <StartStep3 step={step} setStep={setStep} attemptId={attemptId} quizId={quizId} setAttemptId={setAttemptId} />}
       {step !== 3 && <Timer remainingTime={remainingTime} />}
     </>
   );

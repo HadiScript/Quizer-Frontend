@@ -1,10 +1,11 @@
 import { DeleteOutlined, ExpandOutlined, ExportOutlined, FolderOpenOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Input, Tag } from "antd";
+import { Button, Card, Input, Tag, Tooltip } from "antd";
 
 import { useState } from "react";
 import AttempterDrawser from "./AttempterDrawser";
 import { useNavigate, useParams } from "react-router-dom";
 import Heading from "../common/Heading";
+import { TableLoading } from "../loadings";
 
 const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEmail, loading = false }) => {
   const { id } = useParams();
@@ -20,12 +21,15 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
           {from === "component" ? <h6>Quiz Attempted User</h6> : <Heading title={"Attempt Users"} Icon={<UserOutlined className="its-icon" />} />}
           {from === "table-box" && (
             <div className="d-flex justify-content-between gap-3 align-items-center">
+
               <Button onClick={() => router(`/subscribe/quize/${id}/attempters`)} icon={<ExpandOutlined />} type="dashed">
                 Expend
               </Button>
-              <Button icon={<ExportOutlined />} className="myBtn">
-                Export Data
-              </Button>
+              <Tooltip placement="top" title="Currently not available!">
+                <Button icon={<ExportOutlined />} className="myBtn">
+                  Export Data
+                </Button>
+              </Tooltip>
             </div>
           )}
         </div>
@@ -41,7 +45,8 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
             />
           </div>
         )}
-        <div className="table-responsive mt-4 mb-4">
+
+        {loading ? <TableLoading /> : <div className="table-responsive mt-4 mb-4">
           <table className="table">
             <thead>
               <tr>
@@ -77,7 +82,9 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
             </tbody>
           </table>
         </div>
-      </Card>
+        }
+
+      </Card >
 
       <AttempterDrawser open={open} setOpen={setOpen} current={current} />
     </>

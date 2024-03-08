@@ -1,26 +1,12 @@
 import { Button, Form, Input, Modal, Radio } from "antd";
 import Heading from "../../components/common/Heading";
-import { _useQuestions } from "../../../actions/_questions";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../../assets/css/rich.css";
+import { toolbarOptions } from "../../../helper/ToolBarOptions";
 
-var toolbarOptions = [
-  ["bold", "italic", "underline", "strike"], // toggled buttons
-  ["blockquote", "code-block"],
 
-  [{ list: "ordered" }, { list: "bullet" }],
-
-  [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-  [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-  [{ font: [] }],
-  [{ align: [] }],
-
-  ["clean"], // remove formatting button
-];
 
 const AddQuestionModal = ({
   open,
@@ -33,7 +19,6 @@ const AddQuestionModal = ({
   options,
   correctAnswer,
   loading,
-  setText,
 
   // functions
   addQuestion,
@@ -54,7 +39,9 @@ const AddQuestionModal = ({
                   modules={{ toolbar: toolbarOptions }}
                   theme="snow"
                   value={text}
-                  onChange={setText}
+                  onChange={
+                    (e) => setQuestionData((prev) => ({ ...prev, text: e }))
+                  }
                   style={{ minHeight: "300px" }}
                 />
                 {/* <Input.TextArea placeholder="Enter Question Title" value={text} onChange={(e) => setQuestionData((prev) => ({ ...prev, text: e.target.value }))} /> */}

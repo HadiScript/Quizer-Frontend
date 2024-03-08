@@ -1,17 +1,19 @@
-import { Alert, Button, Card, Input } from "antd";
-import React, { useEffect } from "react";
+import { Button, Card, Input, } from "antd";
+import { useEffect } from "react";
 import { style } from "../../assets/css/style";
 import { _useCommon } from "../../actions/_common";
 import { useAuth } from "../../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { GoogleOutlined } from "@ant-design/icons";
 
 
-const Login = ({ isLogin }) => {
+const Login = () => {
   const router = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
 
-  const { loading, email, setEmail, password, setPassword, Login, errors } = _useCommon();
+
+  const { email, setEmail, password, setPassword, Login, loginwithgoogle } = _useCommon();
 
   const [auth] = useAuth();
 
@@ -20,7 +22,6 @@ const Login = ({ isLogin }) => {
       return router("/");
     }
   }, [router, auth]);
-
 
 
 
@@ -40,12 +41,17 @@ const Login = ({ isLogin }) => {
             <label className="text-secondary">Password</label>
             <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
 
-            <Button onClick={(e) => Login(e)} className="bg-dark text-light mt-3" loading={loading}>
+            <Button onClick={(e) => Login(e)} className="bg-dark text-light mt-3" >
               Login
             </Button>
+            <Button onClick={(e) => loginwithgoogle()} icon={<GoogleOutlined />} className="bg-danger text-light mt-3" >
+              Continue with Google
+            </Button>
           </form>
+
+          <p className="mt-2">Don't have account? <Link to={'/signup'} className="_link">Register</Link> </p>
+
         </Card>
-        <div>{errors}</div>
       </div>
     </>
   );

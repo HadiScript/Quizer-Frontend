@@ -1,32 +1,49 @@
+import { Button, } from "antd";
+import React, { useState } from "react";
 import Heading from "../../components/common/Heading";
+import QuizGrid from "../../components/panel/QuizGrid";
+import { InsertRowAboveOutlined, OrderedListOutlined, TableOutlined, } from "@ant-design/icons";
 import { _useAllMyQuizes } from "../../../actions/_quiz";
-import { Alert, Card } from "antd";
-import { OrderedListOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
 import SubcriberLayout from "../../components/layouts/Layout";
+import QuizTable from "../../components/panel/QuizTable";
 
 const AllQuizes = () => {
-  const { list } = _useAllMyQuizes();
+  const { list, loading } = _useAllMyQuizes();
+  const [showIn, setShowIn] = useState(localStorage.getItem('showIn') || 'grid')
+
+  const changeHandler = (x) => {
+    let fromlocal = localStorage.getItem('showIn');
+    if (fromlocal) {
+      setShowIn(x);
+      localStorage.removeItem('showIn');
+      localStorage.setItem('showIn', x);
+    } else {
+      localStorage.setItem('showIn', x);
+      setShowIn(x)
+    }
+  }
+
+  const ShowInIcons = () => showIn === 'grid' ?
+    <Button icon={<TableOutlined />} onClick={() => changeHandler('table')} /> :
+    <Button icon={<InsertRowAboveOutlined />} onClick={() => changeHandler('grid')} />
+
+
   return (
     <SubcriberLayout>
-      <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} />
+      <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} desc={`${list.length}/10 Questions`} />
+      <div className="text-end mb-2">
+        <ShowInIcons />
+      </div>
 
       <div className="row ">
-        {list?.map((x) => (
-          <Link to={`/subscribe/quize/${x._id}`} role="button" key={x._id} className="col-xs-12 col-md-4 mb-5 _link">
-            <Card hoverable className={`${x.questions.length === 0 && "withoutQuestion"}`}>
-              <h5>{x.title}</h5>
-              <div className="d-flex justify-content-start align-items-center gap-2 ">
-                <div>
-                  <QuestionCircleOutlined />
-                </div>
-                <b>{x.questions.length}</b>
-              </div>
-            </Card>
-            {x.questions.length === 0 && <Alert className="mt-3" message="Please add question." type="warning" showIcon />}
-          </Link>
-        ))}
+        {showIn === 'grid' ?
+          <QuizGrid list={list} loading={loading} />
+          :
+          <QuizTable list={list} loading={loading} />
+        }
       </div>
+
+
     </SubcriberLayout>
   );
 };

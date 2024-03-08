@@ -7,14 +7,22 @@
 
 .leftColumn {
   left: 0;
-  width: 20%; /* Adjust as per md={4} */
+  width: 20%;
 }
 
 .centerColumn {
   padding: 10px;
   margin-left: 16.6%;
-  /* Adjust as per left column width */
-  /* margin-right: 20%; Adjust as per right column width */
+}
+
+.create-quiz-ai {
+  width: 650px !important;
+}
+
+.create-quiz-ai .heading {
+  font-size: 50px;
+  font-weight: bold;
+  color: #083344;
 }
 
 @media screen and (max-width: 768px) {
@@ -26,6 +34,14 @@
   .centerColumn {
     margin-left: 0;
     margin-right: 0;
+  }
+
+  .create-quiz-ai {
+    width: 400px !important;
+  }
+
+  .create-quiz-ai .heading {
+    font-size: 30px;
   }
 }
 

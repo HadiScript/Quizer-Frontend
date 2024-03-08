@@ -1,6 +1,12 @@
-import { EditOutlined, MinusCircleOutlined, PlusOutlined, WarningOutlined } from "@ant-design/icons";
+import { EditOutlined, FastForwardOutlined, MinusCircleOutlined, PlusOutlined, WarningOutlined, } from "@ant-design/icons";
 import { Alert, Button, Input, InputNumber } from "antd";
 import Marquee from "react-fast-marquee";
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../../../assets/css/rich.css";
+import { toolbarOptions } from "../../../helper/ToolBarOptions";
+
 
 const CreateQuizForm = ({
   handleMaxLimit,
@@ -13,16 +19,25 @@ const CreateQuizForm = ({
   handleSubmit,
   from = "creation",
   quizId,
+  setQuizData,
+  generateAIInstructions
 }) => {
+
+
+
   return (
-    <div className={`${from === "modifications" ? "mt-0" : "container mt-3"}`}>
+    <div className={`${from === "modifications" ? "mt-0" : from === "withAI" ? "" : "container mt-3"}`}>
       <form onSubmit={from === "modifications" ? (e) => handleSubmit(e, quizId) : handleSubmit}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
             Quiz Title
           </label>
           <Input.TextArea id="title" name="title" value={quizData.title} onChange={handleInputChange} />
+
         </div>
+
+        {from === 'withAI' && <Alert className="mb-3" type="info" message="We are working on it." description="Please use the most specific quiz name (e:g ReactJs or Qaumtum Physics). In the next level you will describe the level of quiz" />}
+        {/* {from === 'withAI' && <Alerting type msg={"Please use the most specific quiz name (e:g ReactJs or Qaumtum Physics). In the next level you will describe the level of quiz"} />} */}
 
         <div className="mb-3">
           <label className="form-label">Required Fields</label>
@@ -52,6 +67,7 @@ const CreateQuizForm = ({
             </label>
             <br />
             <InputNumber min={0} max={100} value={quizData?.maxAttempts} onChange={handleMaxLimit} />
+
             <br />
             <br />
             {quizData?.maxAttempts === 0 && (
@@ -61,7 +77,7 @@ const CreateQuizForm = ({
                 type="warning"
                 message={<Marquee gradient={false}>User can not attempt the quiz becouse of Attempt Limit, Please make it greater than zero.</Marquee>}
               />
-            )}{" "}
+            )}
           </div>
         )}
 
@@ -70,11 +86,28 @@ const CreateQuizForm = ({
             Time Limit (minutes)
           </label>
           <Input id="timeLimit" name="timeLimit" type="number" value={quizData.timeLimit} onChange={handleInputChange} />
+          <small>Time Limit must be greator than zero.</small>
         </div>
 
-        <Button className="myBtn" icon={<EditOutlined />} loading={loading} htmlType="submit">
+        {from !== "withAI" && from === "modifications" && <div className="mb-3">
+          <div className="d-flex justify-content-between mb-3 align-items-center">
+            <label htmlFor="timeLimit" className="form-label">Quiz Instructions</label>
+            <Button className="myBtn" onClick={generateAIInstructions} loading={loading} >Generate with AI</Button>
+          </div>
+          <ReactQuill
+            placeholder="Please type here quiz instruction"
+            modules={{ toolbar: toolbarOptions }}
+            theme="snow"
+            value={quizData.quizInstructions}
+            onChange={e => setQuizData(prev => ({ ...prev, quizInstructions: e }))}
+          />
+        </div>}
+
+
+
+        {from !== "withAI" && <Button className="myBtn" icon={<EditOutlined />} loading={loading} htmlType="submit">
           {from === "modifications" ? "Edit" : "Create Quiz"}
-        </Button>
+        </Button>}
       </form>
     </div>
   );

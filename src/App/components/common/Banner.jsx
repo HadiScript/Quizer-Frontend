@@ -3,15 +3,13 @@ import "../../../assets/css/landing.css";
 import { CompassOutlined, DoubleRightOutlined, LoginOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/authContext";
-import { useCookies } from "react-cookie";
 
 const Banner = () => {
   const [auth] = useAuth();
-  const [cookies] = useCookies()
   return (
 
     <div className="landing-page">
-      {JSON.stringify(auth)}
+      {/* {JSON.stringify(auth)} */}
       <h1>Quizer App</h1>
       <i>We are team of talented designers making websites with Bootstrap</i>
       <div className="d-flex justify-content-center align-items-center gap-4 mt-3">

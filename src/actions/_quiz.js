@@ -1,20 +1,32 @@
 // for all subs
+import { useQuery, useQueryClient } from "react-query";
 
 import { useCallback, useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { Errs } from "../helper/Errs";
 import axios from "axios";
 import { API, quizApi } from "../helper/API";
-import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import doReq from "../hooks/doReq";
+import Alerting from "../App/components/common/Alerting";
+import { useFetchList, useFetchOne } from "./queryActions";
+
+let initValues = {
+  title: "",
+  requiredFields: ["Email"],
+  timeLimit: 30,
+  quizInstructions: null,
+};
+
+// For AI
+let initValuesQuestions = {
+  questionNumbers: 0,
+  level1: "",
+  level2: "",
+};
 
 export const _useQuizCreatations = () => {
-  const [quizData, setQuizData] = useState({
-    title: "",
-    requiredFields: ["Email"],
-    timeLimit: 30,
-  });
+  const queryClient = useQueryClient();
+  const [quizData, setQuizData] = useState(initValues);
+  const [questionsDataAi, setQuestionsDataAi] = useState(initValuesQuestions);
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
@@ -46,7 +58,7 @@ export const _useQuizCreatations = () => {
   };
 
   // done
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, from = "withoutAI") => {
     e.preventDefault();
 
     if (!quizData.requiredFields.includes("Email")) {
@@ -54,11 +66,16 @@ export const _useQuizCreatations = () => {
       return;
     }
 
+    let body = from === "withoutAI" ? quizData : { ...quizData, questionsDataAi };
+    let url = from === "withoutAI" ? `${quizApi}/create` : `${API}/api/ai/`;
+
     setLoading(true);
     try {
-      const res = await axios.post(`${quizApi}/create`, quizData, {});
+      const res = await axios.post(url, body, {});
       if (res.status === 200) {
-        toast.success("Quiz is created!");
+        setQuizData(initValues);
+        Alerting({ msg: "Quiz Created!", type: "success" });
+        queryClient.invalidateQueries("quizList");
       }
     } catch (error) {
       console.log(error);
@@ -76,36 +93,15 @@ export const _useQuizCreatations = () => {
     handleRemoveField,
     handleSubmit,
     loading,
+    setQuizData,
+    questionsDataAi,
+    setQuestionsDataAi,
   };
 };
 
 export const _useAllMyQuizes = () => {
-  const [loading, setLoading] = useState(false);
-  const [list, setList] = useState([]);
-
-  // done
-  const fetchingMyQuizes = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(`${quizApi}/all`, {});
-      if (res.status === 200) {
-        setList(res.data.quizzes);
-      }
-    } catch (error) {
-      Errs(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchingMyQuizes();
-  }, [fetchingMyQuizes]);
-
-  return {
-    loading,
-    list,
-  };
+  const { data, isLoading } = useFetchList("quizList", `${quizApi}/all`);
+  return { list: data?.quizzes || [], loading: isLoading };
 };
 
 export const _useQuizModifications = (quizId) => {
@@ -130,6 +126,7 @@ export const _useQuizModifications = (quizId) => {
     requiredFields: ["Email"],
     timeLimit: 30,
     maxAttempts: 1,
+    quizInstructions: null,
   });
 
   const [loading, setLoading] = useState(false);
@@ -172,6 +169,7 @@ export const _useQuizModifications = (quizId) => {
     setLoading(true);
     try {
       const response = await axios.get(`${quizApi}/${quizId}`, { withCredentials: true });
+      console.log(response.data, "from other");
       if (response.status === 200) {
         setQuizData(response.data.quiz);
         _setSettings(response.data.quiz.settings);
@@ -191,6 +189,8 @@ export const _useQuizModifications = (quizId) => {
   const handleSubmit = useCallback(
     async (e, x) => {
       e.preventDefault();
+      // console.log(quizData);
+      // return;
       if (!quizData.requiredFields.includes("Email")) {
         alert("Email field is compulsory.");
         return;
@@ -201,7 +201,7 @@ export const _useQuizModifications = (quizId) => {
         const res = await axios.put(`${quizApi}/${x}`, quizData, { withCredentials: true });
         console.log(res);
         if (res.status === 200) {
-          toast.success("Quiz is Updated");
+          Alerting({ msg: "Quiz updated!", type: "success" });
           fetchQuizById(x);
         }
       } catch (error) {
@@ -222,7 +222,7 @@ export const _useQuizModifications = (quizId) => {
       if (ok) {
         const res = await axios.delete(`${quizApi}/delete/${quizId}`, { withCredentials: true });
         if (res.status === 200) {
-          toast.success(res.data.message);
+          Alerting({ msg: "Quiz and its related question deleted", type: "success" });
           router("/subscribe/quizes");
         }
       }
@@ -240,7 +240,7 @@ export const _useQuizModifications = (quizId) => {
     try {
       const res = await axios.put(`${quizApi}/s/${quizId}`, _settings, { withCredentials: true });
       if (res.status === 200) {
-        toast.success(res.data.message);
+        Alerting({ msg: "Setting updated!", type: "success" });
       }
     } catch (error) {
       Errs(error);
@@ -249,6 +249,24 @@ export const _useQuizModifications = (quizId) => {
       setLoading(false);
     }
   }, [quizId, Errs, _settings]);
+
+  const generateAIInstructions = async () => {
+    setLoading(true);
+    try {
+      const { data } = await axios.post(`${API}/api/ai/generate-instructions`, {
+        name: quizData.title,
+        attempts: quizData.maxAttempts,
+        requiredFields: quizData.requiredFields,
+        timeLimit: quizData.timeLimit,
+      });
+
+      setQuizData({ ...quizData, quizInstructions: data });
+    } catch (error) {
+      Errs(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return {
     quizData,
@@ -266,5 +284,7 @@ export const _useQuizModifications = (quizId) => {
     _settings,
     addQuizSettings,
     handleMaxLimit,
+    setQuizData,
+    generateAIInstructions,
   };
 };

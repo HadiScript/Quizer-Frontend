@@ -4,8 +4,12 @@ import Heading from "../../components/common/Heading";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../../assets/css/rich.css";
-import { _useQuestions } from "../../../actions/_questions";
+import { _useQuestionTest, addQuestionInitValues } from "../../../actions/_questions";
 import { useEffect } from "react";
+import { useQuery } from "react-query";
+import { Errs } from "../../../helper/Errs";
+import { questionApi } from "../../../helper/API";
+import axios from "axios";
 
 var toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -23,15 +27,54 @@ var toolbarOptions = [
   ["clean"], // remove formatting button
 ];
 
-const EditQuestionModal = ({ id, open, setOpen }) => {
-  const { fetchSingleQuestion, text, setText, options, handleOptionChange, handleCorrectChange, questionType, setQuestionData, handleAddOption, handleRemoveOption, editQuestion, loading } = _useQuestions();
+const EditQuestionModal = ({ id, open, handleCloseModel }) => {
+  const {
+
+    questionData,
+    setQuestionData,
+    handleAddOption,
+    handleRemoveOption,
+    handleOptionChange,
+    handleCorrectChange,
+    editQuestion,
+    isEdit
+  } = _useQuestionTest()
+  const { options, correctAnswer, questionType, text, } = questionData
 
 
-  useEffect(() => { fetchSingleQuestion(id) }, [id])
+
+
+  const { data, isLoading } = useQuery(
+    ["singleQuestion", id,],
+    () =>
+      axios
+        .get(`${questionApi}/one/${id}`, { withCredentials: true, })
+        .then((res) => res.data.question),
+    {
+      // staleTime: Infinity,
+      enabled: !!id && open,
+      onError: (error) => Errs(error),
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setQuestionData({ ...data, questionType: data.type })
+
+    }
+  }, [data]);
+
+
+
+  const closeModel = () => {
+    handleCloseModel();
+    setQuestionData(addQuestionInitValues)
+  }
+
 
 
   return (
-    <Modal title={<Heading title={"Edit Question"} />} footer={null} centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} width={2000}>
+    <Modal title={<Heading title={"Edit Question"} />} footer={null} centered open={open} onOk={closeModel} onCancel={closeModel} width={2000}>
       <div className="container">
         <Form>
           <div className="row">
@@ -42,7 +85,8 @@ const EditQuestionModal = ({ id, open, setOpen }) => {
                   modules={{ toolbar: toolbarOptions }}
                   theme="snow"
                   value={text}
-                  onChange={setText}
+                  // onChange={setText}
+                  onChange={(e) => setQuestionData((prev) => ({ ...prev, text: e }))}
                   style={{ minHeight: "300px" }}
                 />
               </Form.Item>
@@ -86,7 +130,7 @@ const EditQuestionModal = ({ id, open, setOpen }) => {
       </div>
 
       <div className="text-end">
-        <Button className="myBtn" loading={loading} onClick={() => editQuestion(id)}>
+        <Button className="myBtn" loading={isEdit} onClick={() => editQuestion(id)}>
           Edit Question
         </Button>
       </div>

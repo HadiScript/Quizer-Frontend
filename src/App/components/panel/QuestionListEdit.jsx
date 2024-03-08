@@ -4,27 +4,30 @@ import { DeleteOutlined, EditOutlined, HolderOutlined } from "@ant-design/icons"
 import toast from "react-hot-toast";
 import axios from "axios";
 import { API, questionApi } from "../../../helper/API";
-import { Button, List } from "antd";
-import { _useQuestions } from "../../../actions/_questions";
+import { Button, List, Pagination, Tag } from "antd";
 import React, { useState } from "react";
 import AllQuestionModel from "./AllQuestionModel";
 import { gettingData } from "../../../helper/GetData";
 import AddQuestionModal from "../../panels/subscriber/AddQuestionModal";
 import EditQuestionModal from "../../panels/subscriber/EditQuestionModal";
+import { BasicLoading } from "../loadings";
 
-const QuestionListEdit = ({ questions, setQuestions, quizId, from, deleteQuestion, loading }) => {
+const QuestionListEdit = ({ questions, setQuestions, quizId, from, deleteQuestion, loading, sortByToughest,
+  pagination,
+  handleTableChange,
+  searchTerm,
+  setSearchTerm, }) => {
   const [allQuestionModal, setAllQuestionModal] = useState(false);
   const [editQuestionModal, setEditQuestionModal] = useState(false);
-  const [currentId, setCurrentId] = useState('')
+  const [currentId, setCurrentId] = useState(null)
 
   const deleteHandle = (quizId, itemId) => {
-    deleteQuestion(quizId, itemId);
-    // setQuestions(questions.filter((x) => x._id !== itemId));
+    deleteQuestion(itemId);
   };
 
   const reOrderQuestions = async (x) => {
     try {
-      const { data } = await axios.put(`${questionApi}/reorder`, x, {  });
+      const { data } = await axios.put(`${questionApi}/reorder`, x, {});
       toast.success("ReOrder");
     } catch (error) {
       console.log(error);
@@ -54,54 +57,71 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from, deleteQuestio
   };
 
 
+  const handleCloseModel = () => {
+    setCurrentId(null);
+    setEditQuestionModal(false)
+  }
+
 
 
   return (
     <>
-      {loading && <>loading...</>}
 
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="questions">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {questions.map((chapter, index) => (
-                <Draggable key={chapter._id} draggableId={chapter._id} index={index}>
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 `}>
-                      <div className=" question-box1">
-                        <div {...provided.dragHandleProps}>
-                          <HolderOutlined />
+
+      {
+        loading ? <BasicLoading /> : <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="questions">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {questions.map((chapter, index) => (
+                  <Draggable key={chapter._id} draggableId={chapter._id} index={index}>
+                    {(provided) => (
+                      <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 `}>
+                        <div className=" question-box1">
+                          <div {...provided.dragHandleProps}>
+                            <HolderOutlined />
+                          </div>
+                          {/* {gettingData(chapter?.text, from)} */}
+                          <div dangerouslySetInnerHTML={{ __html: gettingData(chapter?.text, from) }} />
                         </div>
-                        {/* {gettingData(chapter?.text, from)} */}
-                        <div dangerouslySetInnerHTML={{ __html: gettingData(chapter?.text, from) }} />
-                      </div>
-                      <div className="question-box2">
-                        {chapter.incorrectCount && <span> Incorrect Count: {chapter.incorrectCount} </span>}
+                        <div className="question-box2">
+                          {chapter.incorrectCount && <Tag> Incorrect Count: {chapter.incorrectCount} </Tag>}
 
-                        <DeleteOutlined onClick={() => deleteHandle(quizId, chapter._id)} />
-                        <Button className="myBtn" onClick={() => {
-                          setEditQuestionModal(true)
-                          setCurrentId(chapter._id)
-                        }} icon={<EditOutlined />}>
-                          Options
-                        </Button>
+                          {
+                            !sortByToughest && <>
+                              <DeleteOutlined onClick={() => deleteHandle(quizId, chapter._id)} />
+                              <Button className="myBtn" onClick={() => {
+                                setEditQuestionModal(true)
+                                setCurrentId(chapter._id)
+                              }} icon={<EditOutlined />}>
+                                Options
+                              </Button>
+                            </>
+                          }
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      }
+
+      {from === 'page' && <div className="my-3">
+        <Pagination total={pagination.total} current={pagination.current} pageSize={pagination.pageSize} onChange={handleTableChange} />
+      </div>
+      }
+
       {from === "modal" && (
         <div className="text-center myBtn mt-4 rounded-3 p-2" role="button" onClick={() => setAllQuestionModal(true)}>
           see all
         </div>
       )}
 
-      <EditQuestionModal id={currentId} open={editQuestionModal} setOpen={setEditQuestionModal} />
+      <EditQuestionModal id={currentId} open={editQuestionModal} handleCloseModel={handleCloseModel} />
 
 
       <AllQuestionModel open={allQuestionModal} onClose={() => setAllQuestionModal(false)} quizId={quizId} questions={questions} setQuestions={setQuestions} />

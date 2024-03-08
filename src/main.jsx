@@ -10,11 +10,23 @@ import "./assets/css/main.css";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./context/authContext";
 
+
+import { QueryClient, QueryClientProvider } from "react-query";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const queryClient = new QueryClient();
+
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <AuthProvider>
-      <Toaster />
-      <App />
-    </AuthProvider>
+    <GoogleOAuthProvider
+      clientId={`779716474567-ga0p4osg530hq2rg4vbqi8q4pi0ute41.apps.googleusercontent.com`}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Toaster />
+          <App />
+        </AuthProvider>
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
   </BrowserRouter>
 );

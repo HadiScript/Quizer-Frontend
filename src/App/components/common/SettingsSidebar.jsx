@@ -6,7 +6,6 @@ import { _useQuizSettings } from "../../../actions/_settings";
 const SettingsSidebar = ({
   onClose,
   open,
-
   quizId,
 }) => {
   const { loading, addQuizSettings, _setSettings, _settings } = _useQuizSettings(quizId);

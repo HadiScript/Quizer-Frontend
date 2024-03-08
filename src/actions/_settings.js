@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { Errs } from "../helper/Errs";
 import axios from "axios";
-import { API, quizApi, userApi } from "../helper/API";
-import toast from "react-hot-toast";
+import { quizApi, userApi } from "../helper/API";
 import { useAuth } from "../context/authContext";
-import moment from "moment";
+import Alerting from "../App/components/common/Alerting";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 export const _useGlobalSettings = () => {
   const [auth] = useAuth();
   const authToken = auth && auth?.token;
 
   const [_settings, _setSettings] = useState({
-    quizTimer: 0,
     mode: "",
     passingScore: 0,
     scoringType: "",
@@ -29,7 +28,7 @@ export const _useGlobalSettings = () => {
       }
     } catch (error) {
       Errs(error);
-      console.log(error);
+      // console.log(error);
     } finally {
       setLoading(false);
     }
@@ -46,12 +45,12 @@ export const _useGlobalSettings = () => {
     try {
       const res = await axios.put(`${userApi}/g/settings`, _settings, {});
       if (res.status === 200) {
-        toast.success(res.data.message);
+        Alerting({ msg: "Setting updated!", type: "success" });
         gettingGlobalSettings();
       }
     } catch (error) {
       Errs(error);
-      console.log(error);
+      // console.log(error);
     } finally {
       setLoading(false);
     }
@@ -61,74 +60,55 @@ export const _useGlobalSettings = () => {
 };
 
 let initSettings = {
-  quizTimer: 0,
   quizAvailability: {
+    //pre
     start: null,
     end: null,
   },
-  displaySetting: "",
+  displaySetting: "", //pre
   mode: "",
   passingScore: 0,
-  scoringType: "",
-  showScore: false,
+  scoringType: "", //pre
+  showScore: false, // pre
+  showCertificate: false,
+  certificateId: "",
 };
 
 export const _useQuizSettings = (quizId) => {
+  const queryClient = useQueryClient();
   const [_settings, _setSettings] = useState(initSettings);
   const [loading, setLoading] = useState(false);
 
-  const fetchingQuizSettings = async (x) => {
-    setLoading(true);
-    try {
-      const res = await axios.get(`${quizApi}/s/${x}`, { withCredentials: true });
-      if (res.status === 200) {
-        const fetchedSettings = res.data.settings.settings;
-
-        _setSettings(fetchedSettings);
-      }
-    } catch (error) {
-      console.log(error);
-      Errs(error);
-    } finally {
-      setLoading(false);
+  const { data, isLoading } = useQuery(
+    ["quizSettings", quizId],
+    () => axios.get(`${quizApi}/s/${quizId}`, { withCredentials: true }).then((res) => res.data.settings),
+    {
+      staleTime: Infinity,
+      enabled: !!quizId,
+      onError: (error) => Errs(error),
     }
-  };
+  );
 
   useEffect(() => {
-    if (quizId) {
-      fetchingQuizSettings(quizId);
+    if (data) {
+      _setSettings(data.settings);
     }
-  }, [quizId]);
+  }, [data]);
 
-  const addQuizSettings = async (x) => {
-    // console.log(_settings);
-    // return;
+  const addQuizSettingsMutation = useMutation(({ id }) => axios.put(`${quizApi}/s/${id}`, _settings, { withCredentials: true }), {
+    onSuccess: () => {
+      Alerting({ msg: "Quiz setting updated!" });
+      queryClient.invalidateQueries(["quizSettings", quizId]);
+    },
+    onError: (error) => Errs(error),
+  });
 
-    setLoading(true);
-
-    // const updatedSettings = {
-    //   ..._settings,
-    //   quizAvailability: {
-    //     start: dateRange[0] ? dateRange[0].toISOString() : null,
-    //     end: dateRange[1] ? dateRange[1].toISOString() : null,
-    //   },
-    // };
-
-    try {
-      const res = await axios.put(`${quizApi}/s/${x}`, _settings, {withCredentials : true});
-      if (res.status === 200) {
-        toast.success(res.data.message);
-      }
-    } catch (error) {
-      Errs(error);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+  const addQuizSettings = (id) => {
+    addQuizSettingsMutation.mutate({ id });
   };
 
   return {
-    loading,
+    loading: addQuizSettingsMutation.isLoading,
     _settings,
     _setSettings,
     addQuizSettings,

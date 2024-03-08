@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Errs } from "../helper/Errs";
 import axios from "axios";
-import { API, questionApi } from "../helper/API";
-import { useAuth } from "../context/authContext";
-import toast from "react-hot-toast";
+import { questionApi } from "../helper/API";
+import Alerting from "../App/components/common/Alerting";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
-let addQuestionInit = {
+export let addQuestionInitValues = {
   options: [
     { text: "", isCorrect: false },
     { text: "", isCorrect: false },
@@ -14,16 +14,14 @@ let addQuestionInit = {
   correctAnswer: "",
 
   questionType: "multiple-choice",
+
+  text: "",
 };
 
-export const _useQuestions = (quizId, limits = 6, toughest = false) => {
-  const [loading, setLoading] = useState(false);
-  const [questionData, setQuestionData] = useState(addQuestionInit);
-  const [text, setText] = useState();
-  const { options, correctAnswer, questionType } = questionData;
-  const [singleQuestion, setSingleQuestion] = useState({});
-
+export const useQuizStates = () => {
   const [questions, setQuestions] = useState([]);
+  const [questionData, setQuestionData] = useState(addQuestionInitValues);
+  const { options } = questionData;
 
   const handleAddOption = () => {
     if (options.length < 5) {
@@ -71,141 +69,140 @@ export const _useQuestions = (quizId, limits = 6, toughest = false) => {
     }));
   };
 
-  // done
-  const fetchingAllQuestions = async (x) => {
-    if (!x) {
-      return;
-    }
-    setLoading(true);
-    try {
-      const res = await axios.get(`${questionApi}/${x}`, {
-        params: {
-          limits: limits,
-          whichQuestions: toughest,
-        },
-        withCredentials: true,
-      });
-      if (res.status === 200) {
-        setQuestions(res.data.questions);
-      }
-    } catch (error) {
-      console.log(error);
-      Errs(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (quizId) {
-      fetchingAllQuestions(quizId);
-    }
-  }, [quizId, toughest]);
-
-  // done
-  // add question
-  const addQuestion = async (quizId) => {
-    setLoading(true);
-    try {
-      const res = await axios.post(
-        `${questionApi}/${quizId}`,
-        {
-          options,
-          text,
-          correctAnswer,
-          type: questionType,
-        },
-        { withCredentials: true }
-      );
-      if (res.status === 201) {
-        fetchingAllQuestions(quizId);
-        toast.success(res.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      Errs(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // done
-  // delete question
-  const deleteQuestion = async (quizId, questionId) => {
-    setLoading(true);
-    try {
-      let ok = window.confirm("Are you sure?");
-      if (ok) {
-        await axios.delete(`${questionApi}/${quizId}/${questionId}`, { withCredentials: true });
-        setQuestionData(questions.filter((x) => x._id !== questionId));
-        fetchingAllQuestions(quizId);
-        toast.success(`${questionId} has deleted.`);
-      }
-    } catch (error) {
-      console.log(error);
-      Errs(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchSingleQuestion = async (questionId) => {
-    setLoading(true);
-    try {
-      const { data } = await axios.get(`${questionApi}/one/${questionId}`, { withCredentials: true });
-      let question = data.question;
-      setText(question.text);
-      setQuestionData((prev) => ({ ...questionData, options: question.options, questionType: question.type }));
-    } catch (error) {
-      Errs(error);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const editQuestion = async (questionId) => {
-    setLoading(true);
-    try {
-      const res = await axios.put(
-        `${questionApi}/one/${questionId}`,
-        {
-          options,
-          text,
-          correctAnswer,
-          type: questionType,
-        },
-        { withCredentials: true }
-      );
-      fetchingAllQuestions(quizId);
-      toast.success("Updated");
-    } catch (error) {
-      console.log(error);
-      Errs(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return {
-    text,
-    setQuestionData,
-    questionType,
-    options,
-    correctAnswer,
-    loading,
     questions,
     setQuestions,
-    setText,
-
-    // functions
-    deleteQuestion,
-    addQuestion,
+    questionData,
+    setQuestionData,
     handleAddOption,
     handleRemoveOption,
     handleOptionChange,
     handleCorrectChange,
-    fetchSingleQuestion,
+  };
+};
+
+export const _useQuestionTest = (quizId, limits = 10, toughest = false) => {
+  const queryClient = useQueryClient();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 6, total: 0 });
+  const handleTableChange = (x) => {
+    setPagination((pre) => ({ ...pre, current: x }));
+  };
+
+  const {
+    questions,
+    setQuestions,
+    questionData,
+    setQuestionData,
+    handleAddOption,
+    handleRemoveOption,
+    handleOptionChange,
+    handleCorrectChange,
+  } = useQuizStates();
+
+  const { data, isLoading } = useQuery(
+    ["questions", quizId, limits, toughest, pagination.pageSize, pagination.current, searchTerm],
+    () =>
+      axios
+        .get(`${questionApi}/${quizId}`, {
+          params: {
+            // limits: limits,
+            whichQuestions: toughest,
+            page: pagination.current,
+            pageSize: pagination.pageSize,
+            searchTerm: searchTerm,
+          },
+          withCredentials: true,
+        })
+        .then((res) => res.data.questions),
+    {
+      staleTime: Infinity,
+      enabled: !!quizId,
+      onError: (error) => Errs(error),
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setQuestions(data);
+    }
+  }, [data]);
+
+  // delete question
+  const deleteQuestionMutation = useMutation(
+    ({ quizId, questionId }) => axios.delete(`${questionApi}/${quizId}/${questionId}`, { withCredentials: true }),
+    {
+      onSuccess: () => {
+        Alerting({ msg: "Deleted!" });
+        queryClient.invalidateQueries(["questions", quizId]);
+      },
+      onError: (error) => Errs(error),
+    }
+  );
+
+  const deleteQuestion = (questionId) => {
+    if (window.confirm("Are you sure?")) {
+      deleteQuestionMutation.mutate({ quizId, questionId });
+    }
+  };
+
+  // add question
+  const addQuestionMutation = useMutation(
+    ({ quizId }) => axios.post(`${questionApi}/${quizId}`, { ...questionData, type: questionData.questionType }, { withCredentials: true }),
+    {
+      onSuccess: () => {
+        Alerting({ msg: "Question Added" });
+        queryClient.invalidateQueries(["questions", quizId]);
+        queryClient.invalidateQueries(["statsSummary"]);
+      },
+      onError: (error) => Errs(error),
+    }
+  );
+
+  const addQuestion = (quizId) => {
+    addQuestionMutation.mutate({ quizId });
+  };
+
+  // edit questions
+  // add question
+  const editQuestionMutation = useMutation(
+    ({ questionId }) =>
+      axios.put(`${questionApi}/one/${questionId}`, { ...questionData, type: questionData.questionType }, { withCredentials: true }),
+    {
+      onSuccess: () => {
+        Alerting({ msg: "Question Updated!" });
+        queryClient.invalidateQueries(["questions", quizId]);
+      },
+      onError: (error) => Errs(error),
+    }
+  );
+
+  const editQuestion = (questionId) => {
+    editQuestionMutation.mutate({ questionId });
+  };
+
+  return {
+    // fn
+    deleteQuestion,
+    addQuestion,
     editQuestion,
+
+    // states
+    loading: isLoading,
+    isAdded: addQuestionMutation.isLoading,
+    isEdit: editQuestionMutation.isLoading,
+    questions,
+    setQuestions,
+    questionData,
+    setQuestionData,
+    handleAddOption,
+    handleRemoveOption,
+    handleOptionChange,
+    handleCorrectChange,
+
+    pagination,
+    handleTableChange,
+    searchTerm,
+    setSearchTerm,
   };
 };

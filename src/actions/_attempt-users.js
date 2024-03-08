@@ -1,9 +1,41 @@
-// quiz Dashboard
+// quiz Dashboard, and
 
 import { useCallback, useEffect, useState } from "react";
 import { reportApi } from "../helper/API";
 import axios from "axios";
 import { Errs } from "../helper/Errs";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import Alerting from "../App/components/common/Alerting";
+
+export const useAttemptUsersTest = (quizId) => {
+  const qClient = useQueryClient();
+
+  const { data, isLoading } = useQuery(
+    ["attemptusers", quizId],
+    () => axios.get(`${reportApi}/attempter/${quizId}`).then((res) => res.data.data),
+    {
+      staleTime: Infinity,
+      enabled: !!quizId,
+      onError: (error) => Errs(error),
+    }
+  );
+
+  const deleteUserMutation = useMutation(({ id }) => axios.delete(`deleteuserapi/${id}`), {
+    onSuccess: () => {
+      Alerting({ msg: "user has been deleted!" });
+      qClient.invalidateQueries("attemptusers");
+    },
+  });
+
+  const deleteUser = (x) => {
+    deleteUserMutation.mutate({ id });
+  };
+
+  return {
+    data,
+    isLoading,
+  };
+};
 
 export const useAttemptUsers = (quizId) => {
   // attempter/:quizId
@@ -99,4 +131,28 @@ export const useToughestQuestions = (quizId) => {
   }, [fetchingData]);
 
   return { list, loading };
+};
+
+export const useSummary = () => {
+  const { data, isLoading } = useQuery(["statsSummary"], () => axios.get(`${reportApi}/?from=summary`).then((res) => res.data), {
+    staleTime: Infinity,
+    onError: (error) => Errs(error),
+  });
+
+  return {
+    data,
+    isLoading,
+  };
+};
+
+export const useSummaryForGraph = () => {
+  const { data, isLoading } = useQuery(["attemptSummary"], () => axios.get(`${reportApi}/?from=graph`).then((res) => res.data), {
+    staleTime: Infinity,
+    onError: (error) => Errs(error),
+  });
+
+  return {
+    data,
+    isLoading,
+  };
 };

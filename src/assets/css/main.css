@@ -66,3 +66,38 @@ body {
 .lightgrey-bg {
   background-color: #d3d3d324;
 }
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(204, 204, 204, 0.5); /* semi-transparent black */
+  z-index: 2; /* allows clicks to pass through to underlying elements; remove if you want to block all interactions */
+}
+
+.premium_settings_container {
+  position: relative;
+  padding: 10px;
+  margin-bottom: 10px;
+  /* display: inline-block; */
+}
+
+.preBtn {
+  background-color: #93c5fd !important;
+  color: #083344 !important;
+  font-weight: bold;
+}
+
+.successfullpayment {
+  max-width: 800px;
+}
+
+.successfullpayment .main {
+  font-size: x-large;
+  font-weight: 600;
+}

@@ -7,9 +7,11 @@ import toast from "react-hot-toast";
 import { _quizData } from "../../../data/_quiz";
 import OneByOneQuestions from "../OneByOneQuestions";
 import OneByOneOnBigScr from "../OneByOneOnBigScr";
+import { useQueryClient } from "react-query";
 
 const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, remainingTime }) => {
   const [responses, setResponses] = useState([]);
+  const queryClient = useQueryClient()
 
   const [quizData, setQuizData] = useState({});
 
@@ -54,6 +56,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
         toast.success("finished");
         setStep(3);
         setRemainingTime(null);
+        queryClient.invalidateQueries(["attemptSummary"]);
       }
     } catch (error) {
       Errs(error);
@@ -80,7 +83,6 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
         setRemainingTime(remainingTime - 1);
       }, 1000);
 
-    // Auto-submit when time is up
     if (remainingTime === 0) {
       handleSubmit("time-up");
     }
@@ -90,8 +92,6 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
 
   return (
     <>
-      {/* <div className="my-shadow"></div> */}
-
       {quizData?.displaySetting === "all-at-once" ? (
         <>
           <div className="d-flex justify-content-center align-items-start attempt">
@@ -100,7 +100,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
               <QuizAttemptingComponent
                 quizData={quizData}
                 attemptId={attemptId}
-                onFinish={() => {}}
+                onFinish={() => { }}
                 handleSubmit={handleSubmit}
                 responses={responses}
                 setResponses={setResponses}

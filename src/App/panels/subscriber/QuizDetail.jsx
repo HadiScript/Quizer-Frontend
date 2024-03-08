@@ -6,7 +6,7 @@ import { BorderInnerOutlined, DiffOutlined, SnippetsOutlined } from "@ant-design
 import CopyLinkModal from "./CopyLink";
 import AddQuestionModal from "./AddQuestionModal";
 import Heading from "../../components/common/Heading";
-import { _useQuestions } from "../../../actions/_questions";
+import { _useQuestionTest } from "../../../actions/_questions";
 import { _useQuizModifications } from "../../../actions/_quiz";
 import CreateQuizForm from "../../components/panel/CreateQuizForm";
 import SettingsSidebar from "../../components/common/SettingsSidebar";
@@ -22,7 +22,7 @@ const QuizDetail = () => {
   const ref3 = useRef(null);
 
   const { id } = useParams();
-  const { quizData, handleInputChange, handleRequiredFieldChange, handleAddField, handleRemoveField, handleSubmit, loading, deleteQuiz, handleMaxLimit } =
+  const { quizData, handleInputChange, handleRequiredFieldChange, handleAddField, handleRemoveField, handleSubmit, loading, deleteQuiz, handleMaxLimit, setQuizData, generateAIInstructions } =
     _useQuizModifications(id);
 
   const [addQuestionsModal, setAddQuestionsModal] = useState(false);
@@ -34,22 +34,17 @@ const QuizDetail = () => {
   const {
     questions,
     setQuestions,
-    text,
-    setQuestionData,
-    questionType,
-    options,
-    correctAnswer,
     loading: QuestionLoading,
-    setText,
-
-    // functions
     deleteQuestion,
-    addQuestion,
+    questionData,
+    setQuestionData,
     handleAddOption,
     handleRemoveOption,
     handleOptionChange,
     handleCorrectChange,
-  } = _useQuestions(id);
+    addQuestion,
+    isAdded,
+  } = _useQuestionTest(id,)
 
   return (
     <SubcriberLayout from="quiz-detail" id={id}>
@@ -77,6 +72,8 @@ const QuizDetail = () => {
               from="modifications"
               handleMaxLimit={handleMaxLimit}
               quizId={id}
+              setQuizData={setQuizData}
+              generateAIInstructions={generateAIInstructions}
             />
           </Card>
         </div>
@@ -102,13 +99,13 @@ const QuizDetail = () => {
 
       {/* add question modal */}
       <AddQuestionModal
+
         loading={QuestionLoading}
-        text={text}
+        text={questionData.text}
         setQuestionData={setQuestionData}
-        questionType={questionType}
-        options={options}
-        correctAnswer={correctAnswer}
-        setText={setText}
+        questionType={questionData.questionType}
+        options={questionData.options}
+        correctAnswer={questionData.correctAnswer}
         addQuestion={addQuestion}
         handleAddOption={handleAddOption}
         handleRemoveOption={handleRemoveOption}
@@ -118,6 +115,7 @@ const QuizDetail = () => {
         setOpen={setAddQuestionsModal}
         quizId={id}
         setQuestions={setQuestions}
+
       />
       <CopyLinkModal open={openLinkModal} setOpen={setOpenLinkModal} quizId={id} creatorId={quizData?.creator} />
       <SettingsSidebar open={settingDrawer} onClose={() => setSettingDrawer(false)} from="quizDetail" quizId={id} />
