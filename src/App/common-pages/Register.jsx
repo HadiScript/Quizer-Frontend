@@ -5,7 +5,7 @@ import { style } from "../../assets/css/style";
 import { GoogleOutlined } from "@ant-design/icons";
 
 const Register = () => {
-  const { Register, name, setName, email, setEmail, password, setPassword, signupwithgoogle } = _useCommon();
+  const { Register, name, setName, email, setEmail, password, setPassword, signupwithgoogle, loading } = _useCommon();
   return (
     <>
       <div style={{ minHeight: "100vh" }} className="d-flex  flex-column gap-4 justify-content-center align-items-center p-2">
@@ -25,7 +25,7 @@ const Register = () => {
             <label className="text-secondary">Password</label>
             <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
 
-            <Button onClick={(e) => Register(e)} className="bg-dark text-light mt-3" >
+            <Button loading={loading} onClick={(e) => Register(e)} className="bg-dark text-light mt-3" >
               Register
             </Button>
 

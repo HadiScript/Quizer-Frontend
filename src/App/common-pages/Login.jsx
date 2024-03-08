@@ -13,7 +13,7 @@ const Login = () => {
   const [cookies, removeCookie] = useCookies([]);
 
 
-  const { email, setEmail, password, setPassword, Login, loginwithgoogle } = _useCommon();
+  const { email, setEmail, password, setPassword, Login, loginwithgoogle, loading } = _useCommon();
 
   const [auth] = useAuth();
 
@@ -41,7 +41,7 @@ const Login = () => {
             <label className="text-secondary">Password</label>
             <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
 
-            <Button onClick={(e) => Login(e)} className="bg-dark text-light mt-3" >
+            <Button loading={loading} onClick={(e) => Login(e)} className="bg-dark text-light mt-3" >
               Login
             </Button>
             <Button onClick={(e) => loginwithgoogle()} icon={<GoogleOutlined />} className="bg-danger text-light mt-3" >

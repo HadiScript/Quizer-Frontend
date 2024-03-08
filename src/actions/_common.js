@@ -24,6 +24,7 @@ export const _useCommon = () => {
 
   const Login = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post(`${authApi}/signin`, { email, password }, { withCredentials: true });
       setAuth({ ...auth, user: res.data.user, token: res.data.token });
@@ -32,11 +33,14 @@ export const _useCommon = () => {
       router("/");
     } catch (error) {
       Errs(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const Register = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post(`${API}/api/auth/signup`, { email, password, name }, { withCredentials: true });
       Alerting({ msg: "Register Successfully, you can login now." });
@@ -44,13 +48,14 @@ export const _useCommon = () => {
     } catch (error) {
       Errs(error);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const logout = async () => {
     try {
-      // removeCookie("session");
-      const res = await axios.post(`${authApi}/logout`, {}, { withCredentials: true });
+      Cookies.remove("session");
       router("/");
       setAuth({ token: "", user: null });
     } catch (error) {

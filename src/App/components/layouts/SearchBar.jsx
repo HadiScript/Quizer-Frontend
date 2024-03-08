@@ -17,8 +17,6 @@ const SearchBard = () => {
         (optionA?.value ?? '').toLowerCase().localeCompare((optionB?.value ?? '').toLowerCase())
       }
     >
-
-
       <Select.Option className="py-2" value="questions">Questions </Select.Option>
       <Select.Option className="py-2" value="quiz">Quiz</Select.Option>
       <Select.Option className="py-2" value="quizzes">Quizzes</Select.Option>

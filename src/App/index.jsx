@@ -23,6 +23,10 @@ import { QuizzesProvider } from "../context/quizesContext";
 import Pass from "./common-pages/pass";
 import Fail from "./common-pages/fail";
 import Templates from "./panels/subscriber/Templates";
+import { _routes } from "../data/_routes";
+
+
+const { home, login, register, AttemptQuiz, stripePass, stripeFail, subs, subsDashboard, profile, createQuiz, createQuizAi, Quizzes, SingleQuiz, AttemptersUser, AttemptsStats, Questions, globalSettings } = _routes;
 
 const App = () => {
   const [auth] = useAuth();
@@ -30,36 +34,36 @@ const App = () => {
   return (
 
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/signin" element={<Login isLogin={auth?.user !== null} />} />
-      <Route path="/signup" element={<Register />} />
+      <Route path={home} element={<Home />} />
+      <Route path={login} element={<Login isLogin={auth?.user !== null} />} />
+      <Route path={register} element={<Register />} />
 
-      <Route path="/attempt-quiz/:creatorId/:quizId" element={<AttemptingQuiz />} />
+      <Route path={AttemptQuiz()} element={<AttemptingQuiz />} />
 
       <Route path="/start-quiz/:creatorId/:quizId" element={<StartingAttemptQuiz />} />
       <Route path="/attempting-quiz/:creatorId/:quizId/:attemptId" element={<AttemptingQuestions />} />
       <Route path="/thank-you" element={<Thankx />} />
 
-      <Route path="/pass?" element={<Pass />} />
-      <Route path="/fail" element={<Fail />} />
+      <Route path={stripePass} element={<Pass />} />
+      <Route path={stripeFail} element={<Fail />} />
 
       {/* admin routes */}
 
       {/* subscriber routes */}
-      <Route path="/subscribe" element={<SubscriberRoutes haveRight={auth?.user?.role === "subscriber"} />}>
-        <Route path="" element={<SubscriberDashboard />} />
-        <Route path="profile" element={<SubscriberProfile />} />
+      <Route path={subs} element={<SubscriberRoutes haveRight={auth?.user?.role === "subscriber"} />}>
+        <Route path={subsDashboard} element={<SubscriberDashboard />} />
+        <Route path={profile} element={<SubscriberProfile />} />
 
-        <Route path="create-quiz" element={<CreateQuiz />} />
-        <Route path="create-quiz-ai" element={<CreateQuizAI />} />
-        <Route path="quizes" element={<AllQuizes />} />
-        <Route path="quize/:id" element={<QuizDetail />} />
+        <Route path={createQuiz} element={<CreateQuiz />} />
+        <Route path={createQuizAi} element={<CreateQuizAI />} />
+        <Route path={Quizzes} element={<AllQuizes />} />
+        <Route path={SingleQuiz()} element={<QuizDetail />} />
         {/* <Route path="quize/:id/templates" element={<Templates />} /> */}
         {/* subscribe/quize/65c1d83b9ab27bb310d933f1 */}
-        <Route path="quize/:id/attempters" element={<Attempters />} />
-        <Route path="quize/attempt/:id" element={<AttemptDashboard />} />
-        <Route path="global-settings" element={<GlobalSettings />} />
-        <Route path="questions/:id" element={<AllQuestions />} />
+        <Route path={AttemptersUser()} element={<Attempters />} />
+        <Route path={AttemptsStats()} element={<AttemptDashboard />} />
+        <Route path={globalSettings} element={<GlobalSettings />} />
+        <Route path={Questions()} element={<AllQuestions />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
