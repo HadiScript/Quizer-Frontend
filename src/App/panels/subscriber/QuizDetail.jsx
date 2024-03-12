@@ -48,6 +48,7 @@ const QuizDetail = () => {
 
   return (
     <SubcriberLayout from="quiz-detail" id={id}>
+      {/* {loading ? "...." : ""} */}
       <Heading title={quizData?.title} Icon={<BorderInnerOutlined className="its-icon" />} />
       <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
 
@@ -99,7 +100,6 @@ const QuizDetail = () => {
 
       {/* add question modal */}
       <AddQuestionModal
-
         loading={QuestionLoading}
         text={questionData.text}
         setQuestionData={setQuestionData}

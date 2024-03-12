@@ -50,7 +50,6 @@ const SettingsForm = ({ _settings, _setSettings, onFinish, from = "globalSetting
     <>
       <Form name="_settings" onFinish={handleSubmit} layout="vertical">
 
-
         <div className="mb-3 d-flex flex-column">
           <label htmlFor="title" className="form-label">
             Quiz Mode

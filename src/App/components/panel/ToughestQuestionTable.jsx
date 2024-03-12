@@ -17,7 +17,6 @@ const ToughestQuestionTable = ({ from = "dashboard", setToughestQuestions, tough
     } else if (!e.target.checked) {
       setToughestQuestions(toughestQuestions.filter(x => x !== e.target.value))
     }
-
   }
 
 
@@ -25,7 +24,6 @@ const ToughestQuestionTable = ({ from = "dashboard", setToughestQuestions, tough
   return (
     <Card className="table-box m-1" style={{ height: 350, overflowY: "scroll", overflowX: "hidden" }}>
       <h6>Toughest Questions </h6>
-
       <List
         loading={loading}
         itemLayout="vertical"

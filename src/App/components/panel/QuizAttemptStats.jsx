@@ -1,10 +1,10 @@
-import { CheckOutlined, ExpandAltOutlined } from "@ant-design/icons";
+import { CheckOutlined, ExpandAltOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Row } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import PeiChartPassOrFail from "./PeiChartPassOrFail";
 import ToughestQuestionTable from "./ToughestQuestionTable";
 
-const QuizAttemptStats = ({ points, averageScore, totalAttempts }) => {
+const QuizAttemptStats = ({ points, averageScore, totalAttempts, resultForPeiChart, isLoading }) => {
   const { id } = useParams();
   const router = useNavigate();
   return (
@@ -12,6 +12,7 @@ const QuizAttemptStats = ({ points, averageScore, totalAttempts }) => {
       <Row>
         <Col md={8} xs={24}>
           <Card className="m-1" style={{ height: 350 }}>
+            {isLoading && <LoadingOutlined />}
             <div className="d-flex flex-column justify-content-start stats-box">
               <div className="box d-flex justify-content-start align-items-start _heading">
                 <CheckOutlined className="its-icon" />
@@ -39,7 +40,7 @@ const QuizAttemptStats = ({ points, averageScore, totalAttempts }) => {
         </Col>
         <Col md={8} xs={24}>
           <Card className="m-1">
-            <PeiChartPassOrFail />
+            <PeiChartPassOrFail resultForPeiChart={resultForPeiChart} isLoading={isLoading} />
           </Card>
         </Col>
         <Col md={8} xs={24}>

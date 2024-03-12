@@ -2,33 +2,36 @@ import { useState, useEffect, createContext, useContext, useCallback } from "rea
 import axios from "axios";
 import Cookies from "js-cookie";
 import Crypto from "crypto-js";
+import { useNavigate } from "react-router-dom";
 
 export const APIKEY = "()()()()((()))&&**^^kkdflkheaori3uoiu23$!42^2%@#$^@$"
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  const navigate = useNavigate()
   const [auth, setAuth] = useState({
     user: null,
     token: "",
   });
 
   useEffect(() => {
-    let user = Cookies.get("session");
-
-    let hi;
+    const user = Cookies.get("session");
     if (user) {
-      hi = Crypto.AES.decrypt(user, APIKEY);
-      if (hi) {
-        setAuth(JSON.parse(hi.toString(Crypto.enc.Utf8)));
+      const decryptedUser = Crypto.AES.decrypt(user, APIKEY).toString(Crypto.enc.Utf8);
+      const parsedUser = JSON.parse(decryptedUser);
+      if (parsedUser.token) {
+        setAuth(parsedUser);
       }
+    } else {
+      navigate('/')
     }
   }, []);
 
 
-
-
-  axios.defaults.headers.common["session"] = auth.token;
+  useEffect(() => {
+    axios.defaults.headers.common["session"] = auth.token;
+  }, [auth.token]);
 
   return <AuthContext.Provider value={[auth, setAuth]}>{children}</AuthContext.Provider>;
 };

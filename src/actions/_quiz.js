@@ -99,9 +99,21 @@ export const _useQuizCreatations = () => {
   };
 };
 
+// export const _useAllMyQuizes = () => {
+//   const { data, isLoading } = useFetchList("quizList", () => axios.get(`${quizApi}/all`).then((res) => res.data?.quizzes));
+//   return { list: data || [], loading: isLoading };
+// };
+
 export const _useAllMyQuizes = () => {
-  const { data, isLoading } = useFetchList("quizList", `${quizApi}/all`);
-  return { list: data?.quizzes || [], loading: isLoading };
+  const { data, isLoading } = useQuery(["quizList"], () => axios.get(`${quizApi}/all`).then((res) => res.data.quizzes), {
+    staleTime: Infinity,
+    onError: (error) => Errs(error),
+  });
+
+  return {
+    list: data,
+    loading: isLoading,
+  };
 };
 
 export const _useQuizModifications = (quizId) => {
@@ -169,7 +181,6 @@ export const _useQuizModifications = (quizId) => {
     setLoading(true);
     try {
       const response = await axios.get(`${quizApi}/${quizId}`, { withCredentials: true });
-      console.log(response.data, "from other");
       if (response.status === 200) {
         setQuizData(response.data.quiz);
         _setSettings(response.data.quiz.settings);

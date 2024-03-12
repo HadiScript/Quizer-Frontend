@@ -77,7 +77,7 @@ const ProfileUpdate = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading} className='myBtn' icon={<LockOutlined />}>
+          <Button htmlType="submit" loading={loading} className='myBtn' icon={<LockOutlined />}>
             Update Password
           </Button>
         </Form.Item>

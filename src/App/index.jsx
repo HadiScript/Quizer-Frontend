@@ -29,13 +29,13 @@ import { _routes } from "../data/_routes";
 const { home, login, register, AttemptQuiz, stripePass, stripeFail, subs, subsDashboard, profile, createQuiz, createQuizAi, Quizzes, SingleQuiz, AttemptersUser, AttemptsStats, Questions, globalSettings } = _routes;
 
 const App = () => {
-  const [auth] = useAuth();
+
 
   return (
 
     <Routes>
       <Route path={home} element={<Home />} />
-      <Route path={login} element={<Login isLogin={auth?.user !== null} />} />
+      <Route path={login} element={<Login />} />
       <Route path={register} element={<Register />} />
 
       <Route path={AttemptQuiz()} element={<AttemptingQuiz />} />
@@ -50,7 +50,7 @@ const App = () => {
       {/* admin routes */}
 
       {/* subscriber routes */}
-      <Route path={subs} element={<SubscriberRoutes haveRight={auth?.user?.role === "subscriber"} />}>
+      <Route path={subs} element={<SubscriberRoutes />}>
         <Route path={subsDashboard} element={<SubscriberDashboard />} />
         <Route path={profile} element={<SubscriberProfile />} />
 

@@ -35,6 +35,8 @@ const Register = () => {
           </form>
         </Card>
 
+        <p className="mt-2">Don't have account? <Link to={'/login'} className="_link">Login</Link> </p>
+
       </div>
     </>
   );

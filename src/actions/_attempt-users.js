@@ -85,28 +85,6 @@ export const useAttemptUsers = (quizId) => {
   };
 };
 
-export const usePassFail = (quizId) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    FetchUserPassOrFail();
-  }, []);
-
-  const FetchUserPassOrFail = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${reportApi}/passing-ratio/${quizId}`);
-      setData(response.data.result);
-    } catch (error) {
-      Errs(error);
-    }
-    setLoading(false);
-  };
-
-  return { data, loading };
-};
-
 export const useToughestQuestions = (quizId) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -115,7 +93,6 @@ export const useToughestQuestions = (quizId) => {
     setLoading(true);
     try {
       const { data } = await axios.get(`${reportApi}/toughest/${quizId}`);
-      // console.log(data, "form toughest questions");
       setList(data.result);
     } catch (error) {
       console.log(error);
@@ -133,6 +110,20 @@ export const useToughestQuestions = (quizId) => {
   return { list, loading };
 };
 
+export const usePerQuizSummary = (quizId) => {
+  const { data, isLoading } = useQuery(["perQuizSummary", quizId], () => axios.get(`${reportApi}/${quizId}`).then((res) => res.data), {
+    staleTime: Infinity,
+    enabled: !!quizId,
+    onError: (error) => Errs(error),
+  });
+
+  return {
+    data,
+    isLoading,
+  };
+};
+
+// Main dashboard
 export const useSummary = () => {
   const { data, isLoading } = useQuery(["statsSummary"], () => axios.get(`${reportApi}/?from=summary`).then((res) => res.data), {
     staleTime: Infinity,

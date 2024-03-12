@@ -8,6 +8,7 @@ const Home = () => {
   const [auth] = useAuth();
   return (
     <>
+
       <Banner />
     </>
   );

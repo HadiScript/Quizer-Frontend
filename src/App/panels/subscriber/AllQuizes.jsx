@@ -30,7 +30,7 @@ const AllQuizes = () => {
 
   return (
     <SubcriberLayout>
-      <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} desc={`${list.length}/10 Questions`} />
+      <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} desc={`${loading ? "loading... " : list.length}/10 Questions`} />
       <div className="text-end mb-2">
         <ShowInIcons />
       </div>

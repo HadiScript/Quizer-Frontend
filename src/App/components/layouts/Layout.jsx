@@ -5,6 +5,7 @@ import LayoutHeader from "./LayoutHeader";
 import "../../../assets/css/layout.css";
 import "../../../assets/css/darkBlue.css";
 import Sidebar from "./Sidebar";
+import { useAuth } from "../../../context/authContext";
 
 const SubcriberLayout = ({ children, from = "subscriber", }) => {
 

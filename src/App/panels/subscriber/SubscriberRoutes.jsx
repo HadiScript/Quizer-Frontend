@@ -1,17 +1,10 @@
-import { useEffect } from "react";
-import SubcriberLayout from "../../components/layouts/Layout";
-import { Outlet, useNavigate } from "react-router-dom";
 
-const SubscriberRoutes = ({ haveRight }) => {
-  const router = useNavigate();
+import { LoadingOutlined } from "@ant-design/icons";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../../../context/authContext";
 
-  useEffect(() => {
-    if (!haveRight) {
-      return router('/')
-    }
-  }, [router])
-
-  return <Outlet />;
+const SubscriberRoutes = () => {
+  return <Outlet />
 };
 
 export default SubscriberRoutes;

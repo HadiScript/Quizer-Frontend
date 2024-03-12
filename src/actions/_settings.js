@@ -8,7 +8,8 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 
 export const _useGlobalSettings = () => {
   const [auth] = useAuth();
-  const authToken = auth && auth?.token;
+
+  const queryClient = useQueryClient();
 
   const [_settings, _setSettings] = useState({
     mode: "",
@@ -17,46 +18,34 @@ export const _useGlobalSettings = () => {
     showScore: null,
   });
 
-  const [loading, setLoading] = useState(false);
-
-  const gettingGlobalSettings = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(`${userApi}/g/settings`, {});
-      if (res.status === 201) {
-        _setSettings(res.data.globalSettings);
-      }
-    } catch (error) {
-      Errs(error);
-      // console.log(error);
-    } finally {
-      setLoading(false);
+  const { data, isLoading } = useQuery(
+    ["globalSettings"],
+    () => axios.get(`${userApi}/g/settings`, { withCredentials: true }).then((res) => res.data.globalSettings),
+    {
+      staleTime: Infinity,
+      onError: (error) => Errs(error),
     }
-  };
+  );
 
   useEffect(() => {
-    if (auth?.token) {
-      gettingGlobalSettings();
+    if (data) {
+      _setSettings(data);
     }
-  }, [authToken]);
+  }, [data]);
 
-  const onFinish = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.put(`${userApi}/g/settings`, _settings, {});
-      if (res.status === 200) {
-        Alerting({ msg: "Setting updated!", type: "success" });
-        gettingGlobalSettings();
-      }
-    } catch (error) {
-      Errs(error);
-      // console.log(error);
-    } finally {
-      setLoading(false);
-    }
+  const addQuizSettingsMutation = useMutation(() => axios.put(`${userApi}/g/settings`, _settings, { withCredentials: true }), {
+    onSuccess: () => {
+      Alerting({ msg: "Quiz setting updated!" });
+      queryClient.invalidateQueries(["globalSettings"]);
+    },
+    onError: (error) => Errs(error),
+  });
+
+  const onFinish = () => {
+    addQuizSettingsMutation.mutate();
   };
 
-  return { onFinish, loading, _settings, _setSettings };
+  return { onFinish, loading: isLoading || addQuizSettingsMutation?.isLoading, _settings, _setSettings };
 };
 
 let initSettings = {

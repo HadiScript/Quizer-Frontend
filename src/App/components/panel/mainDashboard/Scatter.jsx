@@ -77,6 +77,7 @@ const QuizPerAttempts = () => {
 
           <Tooltip />
           <Legend />
+          {/* <Bar dataKey="attemptsCount" fill="#083344"  /> */}
           <Line type="monotone" dataKey="attemptsCount" stroke="#083344" activeDot={{ r: 8 }} />
         </LineChart>
 
