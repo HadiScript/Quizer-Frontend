@@ -98,21 +98,16 @@ export const _useQuestionTest = (quizId, limits, toughest = false) => {
 
   const queryKey = ["questions", quizId, limits, toughest, searchTerm];
 
-  const { isLoading } = useQuery(
+  const { isLoading, data, error } = useQuery(
     queryKey,
-    () =>
-      axios
-        .get(`${questionApi}/${quizId}`, {
-          params: {
-            limits,
-            whichQuestions: toughest,
-            searchTerm: searchTerm,
-          },
-          withCredentials: true,
-        })
-        .then((res) => {
-          setQuestions(res.data.questions);
-        }),
+    () => axios.get(`${questionApi}/${quizId}`, {
+      params: {
+        limits,
+        whichQuestions: toughest,
+        searchTerm: searchTerm,
+      },
+      withCredentials: true,
+    }).then((res) => res.data.questions),
     {
       enabled: !!quizId,
       onError: (error) => Errs(error),
@@ -182,7 +177,7 @@ export const _useQuestionTest = (quizId, limits, toughest = false) => {
     loading: isLoading,
     isAdded: addQuestionMutation.isLoading,
     isEdit: editQuestionMutation.isLoading,
-    questions,
+    questions : data,
     setQuestions,
     questionData,
     setQuestionData,

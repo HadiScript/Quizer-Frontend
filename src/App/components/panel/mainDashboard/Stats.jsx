@@ -1,16 +1,9 @@
-import { AimOutlined, CheckOutlined, DashboardOutlined, LoadingOutlined, QuestionCircleOutlined, QuestionOutlined } from "@ant-design/icons"
-import { Card } from "antd"
+import { AimOutlined, CheckOutlined, LoadingOutlined, } from "@ant-design/icons"
 import Heading from "../../common/Heading"
-import { useEffect } from "react"
-import axios from "axios"
-import { reportApi } from "../../../../helper/API"
 import { useSummary } from "../../../../actions/_attempt-users"
 
 const Stats = () => {
-
   const { data, isLoading } = useSummary();
-
-
 
   return (
     <div className="m-1 border rounded-3 py-2 px-3" style={{ height: 450 }}>

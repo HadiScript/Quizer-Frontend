@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { API, attemptApi } from "../../../helper/API";
 import axios from "axios";
 import { Errs } from "../../../helper/Errs";
@@ -11,6 +11,7 @@ import { useQueryClient } from "react-query";
 
 const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, remainingTime }) => {
   const [responses, setResponses] = useState([]);
+  const [loading, setLoading] = useState(false)
   const queryClient = useQueryClient()
 
   const [quizData, setQuizData] = useState({});
@@ -44,6 +45,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
   }, [creatorId, quizId, attemptId]);
 
   const handleSubmit = async (x) => {
+    setLoading(true)
     const payload = {
       attemptId,
       responses,
@@ -61,6 +63,8 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
     } catch (error) {
       Errs(error);
       console.log(error);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -82,12 +86,10 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
       setInterval(() => {
         setRemainingTime(remainingTime - 1);
       }, 1000);
-
     if (remainingTime === 0) {
       handleSubmit("time-up");
     }
-
-    return () => clearInterval(timer); // Cleanup
+    return () => clearInterval(timer);
   }, [remainingTime]);
 
   return (
@@ -98,6 +100,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
             <div style={{ minHeight: "100vh" }} className="d-flex flex-column  gap-4 card-shadow2">
               <span className="main-heading text-center mb-4 border-bottom">{quizData.title}</span>
               <QuizAttemptingComponent
+                submitLoading={loading}
                 quizData={quizData}
                 attemptId={attemptId}
                 onFinish={() => { }}
@@ -112,11 +115,11 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
         <div className="d-flex justify-content-center align-items-start attempt">
           <div style={{ minHeight: "100vh" }} className="d-flex flex-column  gap-4 card-shadow2">
             <span className="main-heading text-center mb-4 border-bottom">{quizData.title}</span>
-            <OneByOneQuestions quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
+            <OneByOneQuestions submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
           </div>
         </div>
       ) : (
-        quizData?.displaySetting === "one-by-one-2-col" && <OneByOneOnBigScr quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
+        quizData?.displaySetting === "one-by-one-2-col" && <OneByOneOnBigScr submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
       )}
     </>
   );

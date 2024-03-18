@@ -103,7 +103,7 @@ const QuizDetail = () => {
 
       {/* add question modal */}
       <AddQuestionModal
-        loading={QuestionLoading}
+        loading={isAdded}
         text={questionData.text}
         setQuestionData={setQuestionData}
         questionType={questionData.questionType}

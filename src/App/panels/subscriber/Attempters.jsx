@@ -8,9 +8,6 @@ import AttemptUserTable from "../../components/panel/AttemptUserTable";
 const Attempters = () => {
   const { id } = useParams();
   const { data, handleSearch, setSearchEmail, handleTableChange, loading, pagination } = useAttemptUsers(id);
-  // const { data, isLoading } = useAttemptUsersTest(id);
-
-
 
   return (
     <SubcriberLayout from="quiz-detail">

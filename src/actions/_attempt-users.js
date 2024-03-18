@@ -38,52 +38,101 @@ export const useAttemptUsersTest = (quizId) => {
 };
 
 export const useAttemptUsers = (quizId) => {
-  // attempter/:quizId
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [searchEmail, setSearchEmail] = useState("");
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
 
-  useEffect(() => {
-    fetchQuizAttempts();
-  }, [pagination.current, pagination.pageSize, searchEmail]);
-
-  const fetchQuizAttempts = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${reportApi}/attempter/${quizId}`, {
-        params: {
-          page: pagination.current,
-          pageSize: pagination.pageSize,
-          email: searchEmail,
-        },
-      });
-      setData(response.data.data);
-      setPagination({ ...pagination, total: response.data.total });
-    } catch (error) {
-      Errs(error);
-    }
-    setLoading(false);
+  const fetchQuizAttempts = async ({ queryKey }) => {
+    const [_key, { page, pageSize, email }] = queryKey;
+    const response = await axios.get(`${reportApi}/attempter/${quizId}`, {
+      params: {
+        page,
+        pageSize,
+        email,
+      },
+    });
+    return response.data;
   };
 
-  const handleTableChange = (x) => {
-    setPagination((pre) => ({ ...pre, current: x }));
+  const { data, error, isLoading, isFetching } = useQuery(
+    ["quizAttempters", { page: pagination.current, pageSize: pagination.pageSize, email: searchEmail }],
+    fetchQuizAttempts,
+    {
+      keepPreviousData: true,
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 30 * 60 * 1000,
+      onSuccess: (data) => {
+        setPagination((prev) => ({ ...prev, total: data.total }));
+      },
+    }
+  );
+
+  const handleTableChange = (page) => {
+    setPagination((prev) => ({ ...prev, current: page }));
   };
 
   const handleSearch = () => {
-    setPagination({ ...pagination, current: 1 });
-    fetchQuizAttempts();
+    setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
   return {
-    data,
+    data: data?.data || [],
     setSearchEmail,
     handleSearch,
     handleTableChange,
-    loading,
+    loading: isLoading || isFetching,
     pagination,
+    error,
   };
 };
+
+// export const useAttemptUsers = (quizId) => {
+//   const [data, setData] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [searchEmail, setSearchEmail] = useState("");
+//   const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
+
+//   useEffect(() => {
+//     if (quizId) {
+//       fetchQuizAttempts();
+//     }
+//   }, [pagination.current, pagination.pageSize, searchEmail]);
+
+//   const fetchQuizAttempts = async () => {
+//     setLoading(true);
+//     try {
+//       const response = await axios.get(`${reportApi}/attempter/${quizId}`, {
+//         params: {
+//           page: pagination.current,
+//           pageSize: pagination.pageSize,
+//           email: searchEmail,
+//         },
+//       });
+//       setData(response.data.data);
+//       setPagination({ ...pagination, total: response.data.total });
+//     } catch (error) {
+//       Errs(error);
+//     }
+//     setLoading(false);
+//   };
+
+//   const handleTableChange = (x) => {
+//     setPagination((pre) => ({ ...pre, current: x }));
+//   };
+
+//   const handleSearch = () => {
+//     setPagination({ ...pagination, current: 1 });
+//     fetchQuizAttempts();
+//   };
+
+//   return {
+//     data,
+//     setSearchEmail,
+//     handleSearch,
+//     handleTableChange,
+//     loading,
+//     pagination,
+//   };
+// };
 
 export const useToughestQuestions = (quizId) => {
   const [list, setList] = useState([]);

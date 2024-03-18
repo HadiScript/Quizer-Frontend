@@ -49,7 +49,8 @@ const AddQuestionModal = ({
               <Form.Item label="Question Type">
                 <Radio.Group value={questionType} onChange={(e) => setQuestionData((prev) => ({ ...prev, questionType: e.target.value }))}>
                   <Radio value="multiple-choice">Multiple Choice</Radio>
-                  <Radio value="short-answer">Short Answer</Radio>
+                  {/* remove for temp */}
+                  {/* <Radio value="short-answer">Short Answer</Radio> */}
                 </Radio.Group>
               </Form.Item>
 

@@ -44,7 +44,7 @@ export const _useQuizCreatations = () => {
   };
 
   const handleAddField = () => {
-    if (data.requiredFields.length >= 4) {
+    if (quizData.requiredFields.length >= 4) {
       Alerting({ msg: "You can add Requried Field upto 4." });
     } else {
       setQuizData({ ...quizData, requiredFields: [...quizData.requiredFields, ""] });

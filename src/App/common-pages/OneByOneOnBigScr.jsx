@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../assets/css/rich.css";
 
-const OneByOneOnBigScr = ({ quizData, handleSubmit, responses, setResponses }) => {
+const OneByOneOnBigScr = ({ quizData, handleSubmit, responses, setResponses, submitLoading }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
@@ -68,7 +68,7 @@ const OneByOneOnBigScr = ({ quizData, handleSubmit, responses, setResponses }) =
           </div>
 
           <div className="d-flex justify-content-between align-items-center mt-5">
-            <Button className="myBtn" icon={<RightOutlined />} onClick={goToNextQuestion} disabled={!isOptionSelected}>
+            <Button loading={submitLoading} className="myBtn" icon={<RightOutlined />} onClick={goToNextQuestion} disabled={!isOptionSelected}>
               {currentQuestionIndex === quizData.questions.length - 1 ? "Submit" : "Next"}
             </Button>
             {currentQuestionIndex > 0 && (

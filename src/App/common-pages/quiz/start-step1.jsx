@@ -95,11 +95,11 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
         )}
         {!notAvailable && <div className="time-stamp" style={{ width: "100%" }}> Timelimit : {info?.timeLimit} Minutes </div>}
 
-        <form onSubmit={(e) => startQuiz(e)} className="d-flex flex-column gap-2 "  style={{ width: "100%" }}>
+        <form onSubmit={(e) => startQuiz(e)} className="d-flex flex-column gap-2 " style={{ width: "100%" }}>
           {info?.requiredFields?.map((field, index) => (
             <React.Fragment key={index}>
               <label className="text-secondary mt-2">{field}</label>
-              <Input value={userInputs[field]} onChange={(e) => handleInputChange(field, e.target.value)} />
+              <Input type="email" required value={userInputs[field]} onChange={(e) => handleInputChange(field, e.target.value)} />
             </React.Fragment>
           ))}
           {!notAvailable && (

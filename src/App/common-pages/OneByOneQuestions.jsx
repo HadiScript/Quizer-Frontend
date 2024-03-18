@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../assets/css/rich.css";
 
-const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses }) => {
+const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses, submitLoading }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
@@ -83,7 +83,7 @@ const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses }) 
           {currentQuestionIndex === quizData.questions.length - 1 ? "Submit" : "Next"}
         </Button>
         {currentQuestionIndex > 0 && (
-          <Button icon={<LeftOutlined />} onClick={goToPreviousQuestion}>
+          <Button loading={submitLoading} icon={<LeftOutlined />} onClick={goToPreviousQuestion}>
             Previous
           </Button>
         )}
