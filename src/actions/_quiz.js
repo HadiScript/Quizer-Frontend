@@ -44,7 +44,11 @@ export const _useQuizCreatations = () => {
   };
 
   const handleAddField = () => {
-    setQuizData({ ...quizData, requiredFields: [...quizData.requiredFields, ""] });
+    if (data.requiredFields.length >= 4) {
+      Alerting({ msg: "You can add Requried Field upto 4." });
+    } else {
+      setQuizData({ ...quizData, requiredFields: [...quizData.requiredFields, ""] });
+    }
   };
 
   const handleRemoveField = (index) => {
@@ -98,11 +102,6 @@ export const _useQuizCreatations = () => {
     setQuestionsDataAi,
   };
 };
-
-// export const _useAllMyQuizes = () => {
-//   const { data, isLoading } = useFetchList("quizList", () => axios.get(`${quizApi}/all`).then((res) => res.data?.quizzes));
-//   return { list: data || [], loading: isLoading };
-// };
 
 export const _useAllMyQuizes = () => {
   const { data, isLoading } = useQuery(["quizList"], () => axios.get(`${quizApi}/all`).then((res) => res.data.quizzes), {
@@ -200,13 +199,10 @@ export const _useQuizModifications = (quizId) => {
   const handleSubmit = useCallback(
     async (e, x) => {
       e.preventDefault();
-      // console.log(quizData);
-      // return;
       if (!quizData.requiredFields.includes("Email")) {
         alert("Email field is compulsory.");
         return;
       }
-
       setLoading(true);
       try {
         const res = await axios.put(`${quizApi}/${x}`, quizData, { withCredentials: true });

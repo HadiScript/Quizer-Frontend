@@ -44,12 +44,13 @@ const QuizDetail = () => {
     handleCorrectChange,
     addQuestion,
     isAdded,
-  } = _useQuestionTest(id,)
+  } = _useQuestionTest(id, 6)
+
+
 
   return (
     <SubcriberLayout from="quiz-detail" id={id}>
-      {/* {loading ? "...." : ""} */}
-      <Heading title={quizData?.title} Icon={<BorderInnerOutlined className="its-icon" />} />
+      <Heading title={loading ? "..." : quizData?.title} Icon={<BorderInnerOutlined className="its-icon" />} />
       <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
 
       <div className="row mt-4">
@@ -61,7 +62,7 @@ const QuizDetail = () => {
             </div>
           </Card>
 
-          <Card className="mt-5 lightgrey-bg" ref={ref1}>
+          <Card className="mt-2 lightgrey-bg" ref={ref1}>
             <CreateQuizForm
               quizData={quizData}
               loading={loading}
@@ -78,6 +79,8 @@ const QuizDetail = () => {
             />
           </Card>
         </div>
+
+
         <div className="col-xs-12 col-md-6 p-1" ref={ref2}>
           <Card className="detailed-card">
             <div className="d-flex justify-content-start align-items-center gap-2">
@@ -86,7 +89,7 @@ const QuizDetail = () => {
             </div>
           </Card>
 
-          <Card className="mt-5 light-bg">
+          <Card className="mt-2 light-bg">
             <div className="d-flex justify-content-end">
               <Button onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
             </div>

@@ -12,11 +12,18 @@ import AddQuestionModal from "../../panels/subscriber/AddQuestionModal";
 import EditQuestionModal from "../../panels/subscriber/EditQuestionModal";
 import { BasicLoading } from "../loadings";
 
-const QuestionListEdit = ({ questions, setQuestions, quizId, from, deleteQuestion, loading, sortByToughest,
-  pagination,
-  handleTableChange,
+const QuestionListEdit = ({
+  questions,
+  setQuestions,
+  quizId,
+  from,
+  deleteQuestion,
+  loading,
+  sortByToughest,
   searchTerm,
-  setSearchTerm, }) => {
+  setSearchTerm,
+
+}) => {
   const [allQuestionModal, setAllQuestionModal] = useState(false);
   const [editQuestionModal, setEditQuestionModal] = useState(false);
   const [currentId, setCurrentId] = useState(null)
@@ -56,18 +63,13 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from, deleteQuestio
     reOrderQuestions(bulkUpdateData);
   };
 
-
   const handleCloseModel = () => {
     setCurrentId(null);
     setEditQuestionModal(false)
   }
 
-
-
   return (
     <>
-
-
       {
         loading ? <BasicLoading /> : <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="questions">
@@ -81,8 +83,8 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from, deleteQuestio
                           <div {...provided.dragHandleProps}>
                             <HolderOutlined />
                           </div>
-                          {/* {gettingData(chapter?.text, from)} */}
-                          <div dangerouslySetInnerHTML={{ __html: gettingData(chapter?.text, from) }} />
+                          {/* <p dangerouslySetInnerHTML={{ __html: chapter?.text }}></p> */}
+                          <p dangerouslySetInnerHTML={{ __html: gettingData(chapter?.text, from) }} ></p>
                         </div>
                         <div className="question-box2">
                           {chapter.incorrectCount && <Tag> Incorrect Count: {chapter.incorrectCount} </Tag>}
@@ -110,10 +112,7 @@ const QuestionListEdit = ({ questions, setQuestions, quizId, from, deleteQuestio
         </DragDropContext>
       }
 
-      {from === 'page' && <div className="my-3">
-        <Pagination total={pagination.total} current={pagination.current} pageSize={pagination.pageSize} onChange={handleTableChange} />
-      </div>
-      }
+
 
       {from === "modal" && (
         <div className="text-center myBtn mt-4 rounded-3 p-2" role="button" onClick={() => setAllQuestionModal(true)}>

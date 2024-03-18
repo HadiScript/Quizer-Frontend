@@ -3,7 +3,7 @@ import { Errs } from "../helper/Errs";
 import axios from "axios";
 import { questionApi } from "../helper/API";
 import Alerting from "../App/components/common/Alerting";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "react-query";
 
 export let addQuestionInitValues = {
   options: [
@@ -81,14 +81,7 @@ export const useQuizStates = () => {
   };
 };
 
-export const _useQuestionTest = (quizId, limits = 10, toughest = false) => {
-  const queryClient = useQueryClient();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 6, total: 0 });
-  const handleTableChange = (x) => {
-    setPagination((pre) => ({ ...pre, current: x }));
-  };
-
+export const _useQuestionTest = (quizId, limits, toughest = false) => {
   const {
     questions,
     setQuestions,
@@ -100,33 +93,31 @@ export const _useQuestionTest = (quizId, limits = 10, toughest = false) => {
     handleCorrectChange,
   } = useQuizStates();
 
-  const { data, isLoading } = useQuery(
-    ["questions", quizId, limits, toughest, pagination.pageSize, pagination.current, searchTerm],
+  const queryClient = useQueryClient();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const queryKey = ["questions", quizId, limits, toughest, searchTerm];
+
+  const { isLoading } = useQuery(
+    queryKey,
     () =>
       axios
         .get(`${questionApi}/${quizId}`, {
           params: {
-            // limits: limits,
+            limits,
             whichQuestions: toughest,
-            page: pagination.current,
-            pageSize: pagination.pageSize,
             searchTerm: searchTerm,
           },
           withCredentials: true,
         })
-        .then((res) => res.data.questions),
+        .then((res) => {
+          setQuestions(res.data.questions);
+        }),
     {
-      staleTime: Infinity,
       enabled: !!quizId,
       onError: (error) => Errs(error),
     }
   );
-
-  useEffect(() => {
-    if (data) {
-      setQuestions(data);
-    }
-  }, [data]);
 
   // delete question
   const deleteQuestionMutation = useMutation(
@@ -200,8 +191,6 @@ export const _useQuestionTest = (quizId, limits = 10, toughest = false) => {
     handleOptionChange,
     handleCorrectChange,
 
-    pagination,
-    handleTableChange,
     searchTerm,
     setSearchTerm,
   };

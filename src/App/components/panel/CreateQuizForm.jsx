@@ -27,6 +27,7 @@ const CreateQuizForm = ({
 
   return (
     <div className={`${from === "modifications" ? "mt-0" : from === "withAI" ? "" : "container mt-3"}`}>
+
       <form onSubmit={from === "modifications" ? (e) => handleSubmit(e, quizId) : handleSubmit}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
@@ -37,7 +38,6 @@ const CreateQuizForm = ({
         </div>
 
         {from === 'withAI' && <Alert className="mb-3" type="info" message="We are working on it." description="Please use the most specific quiz name (e:g ReactJs or Qaumtum Physics). In the next level you will describe the level of quiz" />}
-        {/* {from === 'withAI' && <Alerting type msg={"Please use the most specific quiz name (e:g ReactJs or Qaumtum Physics). In the next level you will describe the level of quiz"} />} */}
 
         <div className="mb-3">
           <label className="form-label">Required Fields</label>

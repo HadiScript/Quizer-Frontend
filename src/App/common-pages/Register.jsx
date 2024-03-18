@@ -1,8 +1,8 @@
 import { Button, Card, Input } from "antd";
-import React from "react";
 import { _useCommon } from "../../actions/_common";
 import { style } from "../../assets/css/style";
 import { GoogleOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const { Register, name, setName, email, setEmail, password, setPassword, signupwithgoogle, loading } = _useCommon();

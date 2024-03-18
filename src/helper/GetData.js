@@ -1,14 +1,13 @@
 export const gettingData = (text, from) => {
-  // alert(from);
   if (!text) {
     return "Question Deleted";
   }
-  let str1 = text.length > 20 ? text.substring(0, from === "page" ? 100 : 20) + "..." : text;
 
-  // console.log(str1);
-  if (str1.includes("pre")) {
+  if (text.includes("pre")) {
     return "code";
   }
 
-  return str1.replace(/h1|h2|h3|h4|h5|h6/g, "p");
+  let str1 = text.replace(/h1|h2|h3|h4|h5|h6/g, "p");
+
+  return str1.length > 20 ? str1.substring(0, from === "page" ? 200 : 100) + "..." : str1;
 };

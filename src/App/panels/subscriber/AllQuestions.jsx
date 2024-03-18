@@ -6,7 +6,7 @@ import Heading from "../../components/common/Heading";
 import { _useQuestionTest, } from "../../../actions/_questions";
 import QuestionListEdit from "../../components/panel/QuestionListEdit";
 import AddQuestionModal from "./AddQuestionModal";
-import { Button, } from "antd";
+import { Button, Input, } from "antd";
 import { BasicLoading } from "../../components/loadings";
 
 const AllQuestions = () => {
@@ -27,14 +27,13 @@ const AllQuestions = () => {
     handleCorrectChange,
     addQuestion,
     isAdded,
-    pagination,
-    handleTableChange,
     searchTerm,
     setSearchTerm,
 
   } = _useQuestionTest(id, 100, sortByToughest)
 
   const { options, correctAnswer, questionType, text, } = questionData
+
 
 
   return (
@@ -50,14 +49,29 @@ const AllQuestions = () => {
         <Button type="dashed" onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
       </div>
 
+      <div className=" mt-5 mb-2">
+        <Input.Search
+          placeholder="Search Question"
+          enterButton="Search"
+          onSearch={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ width: "100%", marginBottom: 20 }}
+        />
+      </div>
+
       {
         loading ? <BasicLoading /> : <QuestionListEdit
-          pagination={pagination}
-          handleTableChange={handleTableChange}
+
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
-          sortByToughest={sortByToughest} deleteQuestion={deleteQuestion} loading={loading} questions={questions} setQuestions={setQuestions} quizId={id} from={"page"} />
-
+          sortByToughest={sortByToughest}
+          deleteQuestion={deleteQuestion}
+          loading={loading}
+          questions={questions}
+          setQuestions={setQuestions}
+          quizId={id}
+          from={"page"}
+        />
       }
 
       <AddQuestionModal
