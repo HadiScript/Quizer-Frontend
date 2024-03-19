@@ -16,11 +16,11 @@ const Register = () => {
           </div>
 
           <form onSubmit={(e) => Register(e)} className="d-flex flex-column gap-2 mt-5">
-            <label className="text-secondary">Email</label>
-            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name:" />
+            <label className="text-secondary">Name</label>
+            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
 
             <label className="text-secondary">Email</label>
-            <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email:" />
+            <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
 
             <label className="text-secondary">Password</label>
             <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
@@ -35,7 +35,7 @@ const Register = () => {
           </form>
         </Card>
 
-        <p className="mt-2">Don't have account? <Link to={'/login'} className="_link">Login</Link> </p>
+        <p className="mt-2">Don't have account? <Link to={'/signin'} className="_link">Login</Link> </p>
 
       </div>
     </>

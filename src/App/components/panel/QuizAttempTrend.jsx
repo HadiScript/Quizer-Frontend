@@ -20,15 +20,7 @@ const QuizAttempTrend = ({ attempts, expandTrend, setExpandTrend }) => {
       <div className="trend-area-chart">
         <ResponsiveContainer width={expandTrend ? "100%" : 800}>
           <AreaChart
-            // width={500}
-            // height={400} 
             data={attempts}
-            // margin={{
-            //   top: 10,
-            //   right: 30,
-            //   left: 0,
-            //   bottom: 0,
-            // }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />

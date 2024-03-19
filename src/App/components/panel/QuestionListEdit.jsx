@@ -4,7 +4,7 @@ import { DeleteOutlined, EditOutlined, HolderOutlined } from "@ant-design/icons"
 import toast from "react-hot-toast";
 import axios from "axios";
 import { API, questionApi } from "../../../helper/API";
-import { Button, List, Pagination, Tag } from "antd";
+import { Button, Empty, List, Pagination, Tag } from "antd";
 import React, { useState } from "react";
 import AllQuestionModel from "./AllQuestionModel";
 import { gettingData } from "../../../helper/GetData";
@@ -71,11 +71,11 @@ const QuestionListEdit = ({
   return (
     <>
       {
-        loading ? <BasicLoading /> : <DragDropContext onDragEnd={onDragEnd}>
+        questions?.length === 0 ? <Empty /> : loading ? <BasicLoading /> : <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="questions">
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
-                {questions.map((chapter, index) => (
+                {questions?.map((chapter, index) => (
                   <Draggable key={chapter._id} draggableId={chapter._id} index={index}>
                     {(provided) => (
                       <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 `}>

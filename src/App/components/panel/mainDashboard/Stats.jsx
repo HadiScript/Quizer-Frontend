@@ -14,21 +14,21 @@ const Stats = () => {
           <CheckOutlined className="its-icon" />
           <div>
             <span>Quizzes</span>
-            <h4>{data?.summary?.totalQuizzes}</h4>
+            <h4>{data?.summary?.totalQuizzes || 0}</h4>
           </div>
         </div>
         <div className="box d-flex justify-content-start align-items-start _heading">
           <CheckOutlined className="its-icon" />
           <div>
             <span>Questions</span>
-            <h4>{data?.summary?.totalQuestions}</h4>
+            <h4>{data?.summary?.totalQuestions || 0}</h4>
           </div>
         </div>
         <div className="box d-flex justify-content-start align-items-start _heading">
           <CheckOutlined className="its-icon" />
           <div>
             <span>Attempters</span>
-            <h4>{data?.summary?.totalAttempts}</h4>
+            <h4>{data?.summary?.totalAttempts || 0}</h4>
           </div>
         </div>
       </div>

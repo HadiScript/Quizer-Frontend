@@ -1,5 +1,5 @@
 import { DeleteOutlined, ExpandOutlined, ExportOutlined, FolderOpenOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Input, Tag, Tooltip } from "antd";
+import { Button, Card, Empty, Input, Tag, Tooltip } from "antd";
 
 import { useState } from "react";
 import AttempterDrawser from "./AttempterDrawser";
@@ -59,7 +59,7 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
               </tr>
             </thead>
             <tbody>
-              {data.map((x, index) => (
+              {data?.map((x, index) => (
                 <tr key={index}>
                   <th scope="row">{++index}</th>
                   <td>{x?.studentDetails?.Email}</td>

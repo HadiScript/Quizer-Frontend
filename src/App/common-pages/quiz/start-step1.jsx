@@ -99,7 +99,23 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
           {info?.requiredFields?.map((field, index) => (
             <React.Fragment key={index}>
               <label className="text-secondary mt-2">{field}</label>
-              <Input type="email" required value={userInputs[field]} onChange={(e) => handleInputChange(field, e.target.value)} />
+              {field === 'Email' ? (
+                <Input
+                  type="email"
+                  required
+                  value={userInputs[field]}
+                  onChange={(e) => handleInputChange(field, e.target.value)}
+                  pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                  title="Please enter a valid email address."
+                />
+              ) : (
+                <Input
+                  type="text"
+                  required
+                  value={userInputs[field]}
+                  onChange={(e) => handleInputChange(field, e.target.value)}
+                />
+              )}
             </React.Fragment>
           ))}
           {!notAvailable && (

@@ -15,8 +15,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 
 export const _useCommon = () => {
   const [auth, setAuth] = useAuth();
-  const [email, setEmail] = useState("subs2@gmail.com");
-  const [password, setPassword] = useState("hadi..");
+  const [email, setEmail] = useState("tester2@gmail.com");
+  const [password, setPassword] = useState("123123");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -70,7 +70,17 @@ export const _useCommon = () => {
         "pk_test_51OoMlkSFAU5oOmtKALyvW0CGiaMYcs971yt0KytArSwyWGVV3Xj28RfSPTPrT95EoUAsizg5KcCqBS35LJwcck0j00sYcOwND8"
       );
 
-      const { data } = await axios.put(`${API}/api/user/to/premium`, { subscriptionType: type });
+      console.log(auth?.token, "here is")
+
+      const { data } = await axios.put(
+        `${API}/api/user/to/premium`,
+        { subscriptionType: type },
+        {
+          headers: {
+            session: auth?.token,
+          },
+        }
+      );
       const some = load_strip.redirectToCheckout({
         sessionId: data.sessionId,
       });

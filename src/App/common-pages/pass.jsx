@@ -15,8 +15,14 @@ const Pass = () => {
 
   const successfullPayment = async () => {
     try {
-      const { data } = await axios.get(`${userApi}/successfull-payment?session_id=${session_id}`, { withCredentials: true });
-      setAuth({ ...auth, user: data.user });
+      const { data } = await axios.get(`${userApi}/successfull-payment?session_id=${session_id}`, {
+        headers: {
+          session: auth?.token
+        }
+      });
+      setAuth({
+        ...auth, user: data.user
+      });
       let token = Crypto.AES.decrypt(Cookies.get("session"), APIKEY);
       Cookies.remove("session");
       let aa = JSON.parse(token.toString(Crypto.enc.Utf8));
