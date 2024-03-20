@@ -72,7 +72,10 @@ const CreateQuizAI = () => {
 
 
         </div>
-        <UpdateToPremium />
+        <div className="overlay">
+          <Button className='preBtn' icon={<RiseOutlined />}>Working on it...</Button>
+        </div>
+        {/* <UpdateToPremium /> */}
       </div>
     </SubcriberLayout>
   )
