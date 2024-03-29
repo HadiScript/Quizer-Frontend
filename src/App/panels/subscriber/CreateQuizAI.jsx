@@ -5,7 +5,7 @@ import CreateQuizForm from "../../components/panel/CreateQuizForm"
 import { _useQuizCreatations } from "../../../actions/_quiz"
 import QuestionInfoAI from "../../components/panel/QuestionInfoAI"
 import { Button } from "antd"
-import { CheckCircleOutlined, StepBackwardOutlined, StepForwardOutlined } from "@ant-design/icons"
+import { CheckCircleOutlined, RiseOutlined, StepBackwardOutlined, StepForwardOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import UpdateToPremium from "../../components/common/UpdateToPremium"
 

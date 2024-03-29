@@ -23,8 +23,6 @@ const Login = () => {
     }
   }, [router, auth]);
 
-
-
   return (
     <>
       <div style={{ minHeight: "100vh" }} className="d-flex  flex-column gap-4 justify-content-center align-items-center p-2">

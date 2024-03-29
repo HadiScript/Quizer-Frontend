@@ -6,6 +6,10 @@ import App from "./App";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/main.css";
+// import './assets/ui/aos.css'
+import './assets/ui/style.min.css'
+import './assets/ui/swiper.min.css'
+
 
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./context/authContext";

@@ -7,7 +7,7 @@ const Logo = ({ from = "sidebar" }) => {
   return (
     <>
       {auth?.user?.logo ?
-        <img src={toImageUrl(auth?.user?.logo)} style={{ maxHeight: "50px", width: from === "sidebar" ? "auto" : "100px" }} /> : from === "settings" ? null : <h5>Hadi Elearning</h5>
+        <img src={toImageUrl(auth?.user?.logo)} style={{ maxHeight: "50px", width: from === "sidebar" ? "auto" : "100px" }} /> : from === "settings" ? null : <h3>Quizer App</h3>
       }
     </>
   )

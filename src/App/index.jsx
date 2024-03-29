@@ -34,9 +34,11 @@ const App = () => {
   return (
 
     <Routes>
-      <Route path={home} element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path={login} element={<Login />} />
       <Route path={register} element={<Register />} />
+      {/* <Route path={stripePass} element={<Pass />} />
+      <Route path={stripeFail} element={<Fail />} /> */}
 
       <Route path={AttemptQuiz()} element={<AttemptingQuiz />} />
 
@@ -44,8 +46,6 @@ const App = () => {
       <Route path="/attempting-quiz/:creatorId/:quizId/:attemptId" element={<AttemptingQuestions />} />
       <Route path="/thank-you" element={<Thankx />} />
 
-      <Route path={stripePass} element={<Pass />} />
-      <Route path={stripeFail} element={<Fail />} />
 
       {/* admin routes */}
 
