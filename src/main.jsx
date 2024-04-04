@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import App from "./App";
 
@@ -22,7 +22,7 @@ const queryClient = new QueryClient();
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <HashRouter>
     <GoogleOAuthProvider
       clientId={`779716474567-ga0p4osg530hq2rg4vbqi8q4pi0ute41.apps.googleusercontent.com`}>
       <QueryClientProvider client={queryClient}>
@@ -32,5 +32,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </AuthProvider>
       </QueryClientProvider>
     </GoogleOAuthProvider>
-  </BrowserRouter>
+  </HashRouter>
 );
