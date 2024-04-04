@@ -40,7 +40,7 @@ const App = () => {
       {/* <Route path={stripePass} element={<Pass />} />
       <Route path={stripeFail} element={<Fail />} /> */}
 
-      <Route path={AttemptQuiz()} element={<AttemptingQuiz />} />
+      <Route path='/attempt-quiz/:creatorId/:quizId' element={<AttemptingQuiz />} />
 
       <Route path="/start-quiz/:creatorId/:quizId" element={<StartingAttemptQuiz />} />
       <Route path="/attempting-quiz/:creatorId/:quizId/:attemptId" element={<AttemptingQuestions />} />
