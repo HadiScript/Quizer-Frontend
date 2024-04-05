@@ -17,7 +17,7 @@ function Home() {
     <div style={{ minHeight: "100vh" }} className='d-flex flex-column justify-content-center align-items-center gap-4'>
       <h1>رجوع الی القرآن</h1>
       <Button className='myBtn' icon={<ArrowRightOutlined />}>
-        <Link className='_link' to={`https://quizer-frontend.vercel.app/#/attempt-quiz/65eacb6994a7d2e77016054f/660da5fbf2b0c1286ad6c564`}>
+        <Link className='_link' to={`/attempt-quiz/65eacb6994a7d2e77016054f/660da5fbf2b0c1286ad6c564`}>
           Instructions of Quiz
         </Link>
       </Button>
