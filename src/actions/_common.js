@@ -11,12 +11,10 @@ import { useCookies } from "react-cookie";
 import Crypto from "crypto-js";
 import Alerting from "../App/components/common/Alerting";
 import { loadStripe } from "@stripe/stripe-js";
-import { useGoogleLogin } from "@react-oauth/google";
+// import { useGoogleLogin } from "@react-oauth/google";
 
 export const _useCommon = () => {
   const [auth, setAuth] = useAuth();
-
-
 
   const [email, setEmail] = useState("ali@g.ai");
   const [password, setPassword] = useState("123123");
@@ -93,35 +91,37 @@ export const _useCommon = () => {
     }
   };
 
-  async function handleGoogleLoginSuccess(tokenResponse) {
-    const accessToken = tokenResponse.access_token;
-    // console.log(accessToken)
-    try {
-      const res = await axios.post(`${authApi}/signin/g`, { googleAccessToken: accessToken }, { withCredentials: true });
-      setAuth({ ...auth, user: res.data.user, token: res.data.token });
-      Cookies.set("session", Crypto.AES.encrypt(JSON.stringify(res.data), APIKEY).toString());
-      Alerting({ msg: "Login" });
-      router("/");
-    } catch (error) {
-      // console.log(error, "from login");
-      Errs(error);
-    }
-  }
-  const loginwithgoogle = useGoogleLogin({ onSuccess: handleGoogleLoginSuccess });
+  // async function handleGoogleLoginSuccess(tokenResponse) {
+  //   const accessToken = tokenResponse.access_token;
+  //   // console.log(accessToken)
+  //   try {
+  //     const res = await axios.post(`${authApi}/signin/g`, { googleAccessToken: accessToken }, { withCredentials: true });
+  //     setAuth({ ...auth, user: res.data.user, token: res.data.token });
+  //     Cookies.set("session", Crypto.AES.encrypt(JSON.stringify(res.data), APIKEY).toString());
+  //     Alerting({ msg: "Login" });
+  //     router("/");
+  //   } catch (error) {
+  //     // console.log(error, "from login");
+  //     Errs(error);
+  //   }
+  // }
+  // const loginwithgoogle = useGoogleLogin({ onSuccess: handleGoogleLoginSuccess });
+  const loginwithgoogle = () => {};
 
-  async function handlesignupwithgoogle(tokenResponse) {
-    const accessToken = tokenResponse.access_token;
-    // console.log(accessToken)
-    try {
-      const res = await axios.post(`${authApi}/signup/g`, { googleAccessToken: accessToken }, { withCredentials: true });
-      Alerting({ msg: "Register Successfully, you can login now." });
-      router("/signin");
-    } catch (error) {
-      // console.log(error, "from login");
-      Errs(error);
-    }
-  }
-  const signupwithgoogle = useGoogleLogin({ onSuccess: handlesignupwithgoogle });
+  // async function handlesignupwithgoogle(tokenResponse) {
+  //   const accessToken = tokenResponse.access_token;
+  //   // console.log(accessToken)
+  //   try {
+  //     const res = await axios.post(`${authApi}/signup/g`, { googleAccessToken: accessToken }, { withCredentials: true });
+  //     Alerting({ msg: "Register Successfully, you can login now." });
+  //     router("/signin");
+  //   } catch (error) {
+  //     // console.log(error, "from login");
+  //     Errs(error);
+  //   }
+  // }
+  // const signupwithgoogle = useGoogleLogin({ onSuccess: handlesignupwithgoogle });
+  const signupwithgoogle = () => {};
 
   const updatePassword = async (currentPassword, newPassword) => {
     setLoading(true);

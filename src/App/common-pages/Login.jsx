@@ -17,11 +17,11 @@ const Login = () => {
 
   const [auth] = useAuth();
 
-  useEffect(() => {
-    if (cookies?.session) {
-      return router("/");
-    }
-  }, [router, auth]);
+  // useEffect(() => {
+  //   if (cookies?.session) {
+  //     return router("/");
+  //   }
+  // }, [router, auth]);
 
   return (
     <>

@@ -2,14 +2,12 @@ import { useState, useEffect, createContext, useContext, useCallback } from "rea
 import axios from "axios";
 import Cookies from "js-cookie";
 import Crypto from "crypto-js";
-import { useNavigate } from "react-router-dom";
 
 export const APIKEY = "()()()()((()))&&**^^kkdflkheaori3uoiu23$!42^2%@#$^@$"
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const navigate = useNavigate()
   const [auth, setAuth] = useState({
     user: null,
     token: "",
@@ -23,8 +21,6 @@ const AuthProvider = ({ children }) => {
       if (parsedUser.token) {
         setAuth(parsedUser);
       }
-    } else {
-      navigate('/')
     }
   }, []);
 
