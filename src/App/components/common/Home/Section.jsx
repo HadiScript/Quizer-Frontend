@@ -21,8 +21,8 @@ const Section = () => {
       <section className="home-2 home-slider" id="home">
         <div className=" d-none d-md-block box">
           <div className="wave -one"></div>
-          <div className="wave -two"></div>
-          <div className="wave -three"></div>
+          {/* <div className="wave -two"></div> */}
+          {/* <div className="wave -three"></div> */}
         </div>
         <Container>
           <Row className="align-items-center justify-content-between">
