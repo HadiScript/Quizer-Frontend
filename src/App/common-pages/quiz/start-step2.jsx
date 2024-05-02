@@ -46,6 +46,15 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
 
   const handleSubmit = async (x) => {
     setLoading(true)
+
+    const emptyResponses = responses.some(response => response.selectedOption === "");
+    if (emptyResponses) {
+      toast.error("I think you missed a question, Please review it. All questions must be answered before submitting.", { position: "bottom-left" });
+      setLoading(false);
+      return;
+    }
+
+
     const payload = {
       attemptId,
       responses,
