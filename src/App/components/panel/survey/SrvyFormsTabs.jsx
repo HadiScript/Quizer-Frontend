@@ -12,7 +12,7 @@ const SrvyFormsTabs = () => {
   const { pathname } = useLocation()
   const router = useNavigate();
 
-  const link = `http://localhost:5173/attempt-survey/${slug}/${auth?.user?.userId}`
+  const link = `https://quizer-frontend.vercel.app/attempt-survey/${slug}/${auth?.user?.userId}`
 
 
   const copyToClipboard = (text) => {
