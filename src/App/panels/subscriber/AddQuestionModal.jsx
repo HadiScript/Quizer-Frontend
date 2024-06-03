@@ -1,9 +1,9 @@
 import { Button, Form, Input, Modal, Radio } from "antd";
-import Heading from "../../components/common/Heading";
+// import Heading from "../../components/common/Heading";
+import Heading from '../../components/common/Heading'
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "../../../assets/css/rich.css";
 import { toolbarOptions } from "../../../helper/ToolBarOptions";
 
 
@@ -28,7 +28,15 @@ const AddQuestionModal = ({
   handleCorrectChange,
 }) => {
   return (
-    <Modal title={<Heading title={"Add Question"} />} footer={null} centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} width={2000}>
+    <Modal
+      title={<Heading title={"Add Question"} desc={"Please add a question that should has atleast 2 options and atleast one should be correct"} />}
+      footer={null}
+      centered
+      open={open}
+      onOk={() => setOpen(false)}
+      onCancel={() => setOpen(false)}
+      width={2000}
+    >
       <div className="container">
         <Form>
           <div className="row">

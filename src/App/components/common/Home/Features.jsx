@@ -1,104 +1,89 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Row, Col } from 'antd';
 
-import features from "../../../../assets/images/features.png";
+import Tetris from './technology-comp/Tetris';
+import Column from './technology-comp/Column';
+import Coordinate from './technology-comp/Coordinate';
+import Building from './technology-comp/Building';
 
-const Features = () => {
+const pageData = [
+  {
+    title: 'Create Quiz',
+    content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
+    Bg: Tetris,
+  },
+  {
+    title: 'Dashboards',
+    content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
+    Bg: Column,
+  },
+  {
+    title: 'Settings',
+    content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
+    Bg: Coordinate,
+  },
+  {
+    title: 'Display Settings',
+    content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
+    full: true,
+    Bg: Building,
+  },
+];
+
+const Features = ({ isMobile }) => {
+  const [hover, setHover] = useState(null);
+
+  const onMouseEnter = (title) => setHover(title);
+  const onMouseLeave = () => setHover(null);
+
   return (
-    <React.Fragment>
-      <section className="section features" id="features">
-        <Container>
-          <Row className="justify-content-center">
-            <Col lg={12}>
-              <div className="sec-hd">
-                <span className="heading"></span>
-                <h2 className="sec-title">Features for our app</h2>
-                <span className="heading"></span>
-              </div>
-            </Col>
-          </Row>
-          <Row className="justify-content-center align-items-center">
-            <Col lg={4} md={10} data-aos="fade-right">
-              <div className="features-box text-end">
-                <div className="features-icon float-end ms-2">
-                  <i className="uil uil-users-alt"></i>
-                </div>
-                <div className="pe-3 me-5">
-                  <h5 className="f-15 text-uppercase">Digital ordering</h5>
-                  <p className="text-muted mt-3">
-                    The European languages a members the same family their separate tence type specimen book.
-                  </p>
-                </div>
-              </div>
+    <div key="features" id="features" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "100px", marginBottom: "100px" }}>
+      <div className="home-page feature8">
+        <div className='feature8-title-wrapper'>
+          <h1 style={{ fontWeight: "600" }}>What you will get</h1>
+        </div>
+        <Row className="d-flex flex-wrap">
+          {pageData.map((item, i) => (
+            <Col
+              key={i.toString()}
+              md={item.full ? 24 : 8}
+              xs={24}
+              className="px-2 py-2"
+            >
+              <div
+                className={`border rounded-3 page2-item${item.full ? ' full' : ''}`}
+                onMouseEnter={() => onMouseEnter(item.title)}
+                onMouseLeave={onMouseLeave}
+                style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  height: '300px', // Fixed height
+                  background: hover === item.title ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
+                  transition: 'background 0.3s',
+                  // display: "flex",
+                  // justifyContent: "center",
+                  // alignItems: "center"
+                }}
+              >
+                <div className="" style={{ position: 'absolute', bottom: '2px', right: 0, zIndex: -1 }}>
+                  {item.Bg && React.createElement(item.Bg, {
+                    hover: !isMobile && hover === item.title,
+                    isMobile,
+                  })}
 
-              <div className="features-box mt-5 text-end">
-                <div className="features-icon float-end ms-2">
-                  <i className="uil uil-envelope-minus"></i>
+                  {/* asd */}
                 </div>
-                <div className="pe-3 me-5">
-                  <h5 className="f-15 text-uppercase">Marketing</h5>
-                  <p className="text-muted mt-3">
-                    If you are going passage Ipsum you need to be sure there publising desk anything embarrassing.
-                  </p>
-                </div>
-              </div>
+                <div style={{ padding: '20px', maxWidth: "400px" }}>
+                  <h4>{item.title}</h4>
+                  <p >{item.content}</p>
 
-              <div className="features-box mt-5 text-end">
-                <div className="features-icon float-end ms-2">
-                  <i className="uil uil-mobile-android-alt"></i>
-                </div>
-                <div className="pe-3 me-5">
-                  <h5 className="f-15 text-uppercase">POS integration</h5>
-                  <p className="text-muted mt-3">
-                    The languages only differ in thamar their and their a tha most common cure words consectetur.
-                  </p>
                 </div>
               </div>
             </Col>
-            <Col lg={4}>
-              <div className="text-center">
-                <img src={features} className="img-fluid" data-aos="zoom-in" alt="" />
-              </div>
-            </Col>
-            <Col lg={4} md={10} data-aos="fade-left">
-              <div className="features-box">
-                <div className="features-icon float-start me-2">
-                  <i className="uil uil-calender"></i>
-                </div>
-                <div className="ps-3 ms-5">
-                  <h5 className="f-15 text-uppercase">Logistics</h5>
-                  <p className="text-muted mt-3">
-                    The European languages a members the same family their separate tence type specimen book.
-                  </p>
-                </div>
-              </div>
-              <div className="features-box mt-5">
-                <div className="features-icon float-start me-2">
-                  <i className="uil uil-bolt"></i>
-                </div>
-                <div className="ps-3 ms-5">
-                  <h5 className="f-15 text-uppercase">Data Management</h5>
-                  <p className="text-muted mt-3">
-                    If you are going passage Ipsum you need to be sure there publising desk anything embarrassing.
-                  </p>
-                </div>
-              </div>
-              <div className="features-box mt-5">
-                <div className="features-icon float-start me-2">
-                  <i className="uil uil-feedback"></i>
-                </div>
-                <div className="ps-3 ms-5">
-                  <h5 className="f-15 text-uppercase">Analytics</h5>
-                  <p className="text-muted mt-3">
-                    The languages only differ in thamar their and their a tha most common cure words consectetur.
-                  </p>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-    </React.Fragment>
+          ))}
+        </Row>
+      </div>
+    </div>
   );
 };
 

@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import { useAuth } from "../../../context/authContext";
 import "../../../assets/css/layout.css";
 import SearchBard from "./SearchBar";
+import { _useCommon } from "../../../actions/_common";
 
 
 const { useBreakpoint } = Grid;
@@ -15,6 +16,7 @@ const LayoutHeader = ({ from }) => {
 
   const router = useNavigate();
   const [auth] = useAuth();
+  const { logout } = _useCommon()
 
   const breakpoints = useBreakpoint();
   const [drawerVisibility, setDrawerVisibility] = useState(false);
@@ -22,13 +24,13 @@ const LayoutHeader = ({ from }) => {
   return (
     <>
       <div className="pb-2 pt-2 border-bottom d-flex flex-row justify-content-between align-items-center ">
-        {!breakpoints.md && <MenuOutlined onClick={() => setDrawerVisibility(true)} />}
-        {breakpoints.lg && <span style={{ fontWeight: "600" }}>Welcome {auth?.user?.name}</span>}
+        {!breakpoints.lg && <MenuOutlined onClick={() => setDrawerVisibility(true)} />}
+        {breakpoints.lg && <span style={{ fontWeight: "600" }} className="text-capitalize ">Welcome {auth?.user?.name}</span>}
 
         <SearchBard />
         {breakpoints.lg && <div className="d-flex flex-row justify-content-center align-items-center gap-2" style={{ fontWeight: "600" }}>
           {from === "subscriber" ? (
-            <span className="d-flex flex-row justify-content-center align-items-center gap-1 border-end px-1 ">
+            <span onClick={logout}  role="button" className="d-flex flex-row justify-content-center align-items-center gap-1 border-end px-1 ">
               <LogoutOutlined /> Logout
             </span>
           ) : (

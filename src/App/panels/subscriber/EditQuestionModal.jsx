@@ -1,9 +1,8 @@
-import { Button, Form, Input, Modal, Radio } from "antd";
+import { Button, Form, Input, Modal, Radio, Checkbox } from "antd";
 import Heading from "../../components/common/Heading";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "../../../assets/css/rich.css";
 import { _useQuestionTest, addQuestionInitValues } from "../../../actions/_questions";
 import { useEffect } from "react";
 import { useQuery } from "react-query";
@@ -59,6 +58,7 @@ const EditQuestionModal = ({ id, open, handleCloseModel }) => {
 
   useEffect(() => {
     if (data) {
+      console.log(data, "from here ")
       setQuestionData({ ...data, questionType: data.type })
 
     }
@@ -93,7 +93,7 @@ const EditQuestionModal = ({ id, open, handleCloseModel }) => {
               <Form.Item label="Question Type">
                 <Radio.Group value={questionType} onChange={(e) => setQuestionData((prev) => ({ ...prev, questionType: e.target.value }))}>
                   <Radio value="multiple-choice">Multiple Choice</Radio>
-                  <Radio value="short-answer">Short Answer</Radio>
+                  {/* <Radio value="short-answer">Short Answer</Radio> */}
                 </Radio.Group>
               </Form.Item>
 
@@ -102,11 +102,17 @@ const EditQuestionModal = ({ id, open, handleCloseModel }) => {
                   Add Option
                 </Button>
               )}
-              {questionType === "short-answer" && (
+
+              <Checkbox className="mx-2" checked={questionData?.disable} onChange={(e) => setQuestionData((prev) => ({ ...prev, disable: e.target.checked }))}>Disable Question</Checkbox>
+
+
+
+
+              {/* {questionType === "short-answer" && (
                 <Form.Item label="Answer" className="my-3">
                   <Input placeholder="Enter Answer" value={correctAnswer} onChange={(e) => setQuestionData((prev) => ({ ...prev, correctAnswer: e.target.value }))} />
                 </Form.Item>
-              )}
+              )} */}
             </div>
 
             {questionType === "multiple-choice" && (

@@ -1,60 +1,31 @@
-import { useEffect, useState, useRef } from "react";
-import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import React from 'react'
-import { useAuth } from "../../../../context/authContext";
-import { Button } from "antd";
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../../../context/authContext'
+import { Button } from 'antd';
+import { LoginOutlined } from '@ant-design/icons';
 
-const Navbar1 = () => {
-  const [auth] = useAuth()
+const Navbar = () => {
+  const [auth] = useAuth();
 
-
-  const [activeItem, setActiveItem] = useState("Home");
-
-  const [navClass, setnavClass] = useState("");
-
-  // navbar Scroll
-
-  useEffect(() => {
-    window.addEventListener("scroll", scrollNavigation, true);
-  });
-
-  function scrollNavigation() {
-    var scrollup = document.documentElement.scrollTop;
-    if (scrollup > 50) {
-      setnavClass("nav-sticky");
-    } else {
-      setnavClass("");
-    }
-  }
-
-  // toggle
-
-  const navMenuRef = useRef(null);
-
-  const toggleNavMenu = () => {
-    navMenuRef.current.classList.toggle("collapse");
-  };
 
   return (
-    <nav className="fixed-top container d-flex justify-content-between align-items-center border-bottom" style={{ height: "50px" }}>
-      <h5>Quizlet</h5>
-      <div className="d-none d-md-flex align-items-center gap-2" >
+    <div className='header3 container mx-auto py-3 d-flex justify-content-between align-items-center'>
+      <h2>Quizer Logo</h2>
+      <div className='d-flex justify-content-start align-items-center gap-3'>
+        <span role='button'>Home</span>
+        <span role='button'>How it works?</span>
+        <span role='button'>Features</span>
+        <span role='button'>Gallery</span>
+        {!auth?.token && <Link to={'/signup'}>
+          <button className='button'>Get Started Free</button>
+        </Link>}
 
-        <span>Home</span>
-        <span>About</span>
-        <span>Features</span>
-        <span>Price</span>
-        {auth?.token ? <Button className="myBtn"><Link to='/subscribe/'>Dashboard</Link></Button> : <Button className="myBtn"><Link to='/signin'>Login</Link></Button>}
-
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
+        {auth?.token && auth?.user?.role === "subscriber" && <Link to={'/subscribe'}>
+          <Button className='button' icon={<LoginOutlined />} >Dashboard</Button>
+        </Link>}
       </div>
-    </nav>
-  );
-};
+    </div>
+  )
+}
 
-export default Navbar1;
+export default Navbar

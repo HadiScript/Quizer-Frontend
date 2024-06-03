@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Heading from "../common/Heading";
 import { TableLoading } from "../loadings";
 
-const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEmail, loading = false }) => {
+const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, loading = false }) => {
   const { id } = useParams();
   const [current, setCurrent] = useState({});
   const [open, setOpen] = useState(false);
@@ -16,10 +16,10 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
 
   return (
     <>
-      <Card className={`${from === "component" ? "table-box" : ""}`}>
-        <div className="d-flex flex-wrap justify-content-between align-items-start pb-2">
-          {from === "component" ? <h6>Quiz Attempted User</h6> : <Heading title={"Attempt Users"} Icon={<UserOutlined className="its-icon" />} />}
-          {from === "table-box" && (
+      <div className={`${from !== "page" ? "table-box" : ""}`}>
+        <div className="d-flex flex-wrap justify-content-between align-items-start">
+          {from !== "page" ? <h6>Highest Score </h6> : <Heading title={"Attempt Users"} Icon={<UserOutlined className="its-icon" />} />}
+          {from !== "page" && (
             <div className="d-flex justify-content-between gap-3 align-items-center">
 
               <Button onClick={() => router(`/subscribe/quize/${id}/attempters`)} icon={<ExpandOutlined />} type="dashed">
@@ -34,7 +34,7 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
           )}
         </div>
 
-        {from !== "component" && (
+        {from === "page" && (
           <div className=" mt-5 mb-2">
             <Input.Search
               placeholder="Search by email"
@@ -52,10 +52,10 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
               <tr>
                 <th scope="col">{loading ? "..." : "#"}</th>
                 <th scope="col">Email</th>
-                <th scope="col">Attempt At</th>
-                <th scope="col">Status</th>
+                {from === "page" && <th scope="col">Attempt At</th>}
+                {from === "page" ? <th scope="col">Status</th> : <th scope="col">Score</th>}
                 <th scope="col"></th>
-                <th scope="col"></th>
+                {from === "page" && <th scope="col"></th>}
               </tr>
             </thead>
             <tbody>
@@ -63,8 +63,11 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
                 <tr key={index}>
                   <th scope="row">{++index}</th>
                   <td>{x?.studentDetails?.Email}</td>
-                  <td>{x.createdAt.slice(0, 10)}</td>
-                  <td> {x?.isPass ? <Tag color="blue">Pass</Tag> : <Tag color="red">Fail</Tag>} </td>
+                  {from === "page" && <td>{x?.createdAt.slice(0, 10)}</td>}
+                  {from === "page" ? <td> {x?.isPass ? <Tag color="blue">Pass</Tag> : <Tag color="red">Fail</Tag>} </td> :
+
+                    <td> {x?.score?.toFixed(2)} </td>
+                  }
                   <td
                     role="button"
                     onClick={() => {
@@ -74,9 +77,9 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
                   >
                     <FolderOpenOutlined />
                   </td>
-                  <td role="button">
+                  {from === "page" && <td role="button">
                     <DeleteOutlined />
-                  </td>
+                  </td>}
                 </tr>
               ))}
             </tbody>
@@ -84,7 +87,7 @@ const AttemptUserTable = ({ from = "component", data, handleSearch, setSearchEma
         </div>
         }
 
-      </Card >
+      </div >
 
       <AttempterDrawser open={open} setOpen={setOpen} current={current} />
     </>

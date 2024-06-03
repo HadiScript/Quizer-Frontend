@@ -50,20 +50,20 @@ const SettingsForm = ({ _settings, _setSettings, onFinish, from = "globalSetting
     <>
       <Form name="_settings" onFinish={handleSubmit} layout="vertical">
 
-        <div className="mb-3 d-flex flex-column">
+        <Form.Item className="mb-3 " required>
           <label htmlFor="title" className="form-label">
-            Quiz Mode
+            <b>Quiz Mode</b>
           </label>
           <Select value={_settings?.mode} onChange={(e) => _setSettings((prev) => ({ ...prev, mode: e }))}>
             <Select.Option value="practice">Practice</Select.Option>
             <Select.Option value="exam">Exam</Select.Option>
           </Select>
           <small>In practise mode, user would see the answers</small>
-        </div>
+        </Form.Item>
 
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
-            Passing Score
+            <b>Passing Score</b>
           </label>
           <Input value={_settings?.passingScore} onChange={(e) => _setSettings((prev) => ({ ...prev, passingScore: e.target.value }))} type="number" />
           <small>Passing score consider in Percentage {_settings.passingScore + "%"}</small>

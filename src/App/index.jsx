@@ -24,14 +24,49 @@ import Pass from "./common-pages/pass";
 import Fail from "./common-pages/fail";
 import Templates from "./panels/subscriber/Templates";
 import { _routes } from "../data/_routes";
+import CreateHomePage from "./panels/subscriber/CreateHomePage";
+import DetailHomePage from "./panels/subscriber/DetailHomePage";
+import { theme } from "antd";
+import CreateSurvey from "./panels/subscriber/survey/CreateSurvey";
+import Surveys from "./panels/subscriber/survey/Surveys";
+import SurveyDetail from "./panels/subscriber/survey/SurveyDetail";
+import FieldsForm from "./components/panel/survey/FieldsForm";
+import SrvyFields from "./panels/subscriber/survey/SrvyFields";
+import SrvyAttempt from "./common-pages/survey/SrvyAttempt";
 
 
-const { home, login, register, AttemptQuiz, stripePass, stripeFail, subs, subsDashboard, profile, createQuiz, createQuizAi, Quizzes, SingleQuiz, AttemptersUser, AttemptsStats, Questions, globalSettings } = _routes;
+const {
+  home,
+  login,
+  register,
+  AttemptQuiz,
+  stripePass,
+  stripeFail,
+  subs,
+  subsDashboard,
+  profile,
+  createQuiz,
+  createQuizAi,
+  Quizzes,
+  SingleQuiz,
+  AttemptersUser,
+  AttemptsStats,
+  Questions,
+  globalSettings,
+  CreateHome,
+  SingleHomePage,
+  createSurvey,
+  surveys,
+  surveyDetail,
+  serveyFields
+} = _routes;
 
 const App = () => {
 
+  const { token } = theme.useToken()
 
   return (
+
 
     <Routes>
       <Route path="/" element={<Home />} />
@@ -40,10 +75,15 @@ const App = () => {
       {/* <Route path={stripePass} element={<Pass />} />
       <Route path={stripeFail} element={<Fail />} /> */}
 
-      <Route path='/attempt-quiz/:creatorId/:quizId' element={<AttemptingQuiz />} />
 
+      {/* attempts */}
+      <Route path='/attempt-quiz/:creatorId/:quizId' element={<AttemptingQuiz />} />
+      <Route path='/attempt-survey/:slug/:id' element={<SrvyAttempt />} />
+      {/* 
       <Route path="/start-quiz/:creatorId/:quizId" element={<StartingAttemptQuiz />} />
-      <Route path="/attempting-quiz/:creatorId/:quizId/:attemptId" element={<AttemptingQuestions />} />
+      <Route path="/attempting-quiz/:creatorId/:quizId/:attemptId" element={<AttemptingQuestions />} /> */}
+      {/* <Route path="survey/thank-you" element={<Thankx />} /> */}
+      {/* for survey */}
       <Route path="/thank-you" element={<Thankx />} />
 
 
@@ -53,6 +93,8 @@ const App = () => {
       <Route path={subs} element={<SubscriberRoutes />}>
         <Route path={subsDashboard} element={<SubscriberDashboard />} />
         <Route path={profile} element={<SubscriberProfile />} />
+        <Route path={CreateHome} element={<CreateHomePage />} />
+        <Route path={SingleHomePage()} element={<DetailHomePage />} />
 
         <Route path={createQuiz} element={<CreateQuiz />} />
         <Route path={createQuizAi} element={<CreateQuizAI />} />
@@ -64,10 +106,20 @@ const App = () => {
         <Route path={AttemptsStats()} element={<AttemptDashboard />} />
         <Route path={globalSettings} element={<GlobalSettings />} />
         <Route path={Questions()} element={<AllQuestions />} />
+
+
+        <Route path={createSurvey} element={<CreateSurvey />} />
+        <Route path={surveys} element={<Surveys />} />
+
+        <Route path={surveyDetail()} element={<SurveyDetail />} />
+        <Route path={serveyFields()} element={<SrvyFields />} />
+
+
       </Route>
 
       <Route path="*" element={<NotFound />} />
-    </Routes>
+    </Routes >
+
   );
 };
 

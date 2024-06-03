@@ -8,6 +8,8 @@ import { _quizData } from "../../../data/_quiz";
 import OneByOneQuestions from "../OneByOneQuestions";
 import OneByOneOnBigScr from "../OneByOneOnBigScr";
 import { useQueryClient } from "react-query";
+import Timer from "./timer";
+import { Affix } from "antd";
 
 const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, remainingTime }) => {
   const [responses, setResponses] = useState([]);
@@ -17,13 +19,28 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
   const [quizData, setQuizData] = useState({});
 
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      event.returnValue = "Are you sure you want to leave?";
-      return "Are you sure you want to leave?";
+    const handleKeydown = (event) => {
+      if (
+        (event.key === "F5") ||
+        (event.ctrlKey && event.key === "r") ||
+        (event.metaKey && event.key === "r")
+      ) {
+        event.preventDefault();
+        event.returnValue = "Refreshing is disabled.";
+        return false;
+      }
     };
-    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
+
+    window.addEventListener("keydown", handleKeydown);
+    window.addEventListener("contextmenu", handleContextMenu);
+
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("keydown", handleKeydown);
+      window.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
 
@@ -48,6 +65,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
     setLoading(true)
 
     const emptyResponses = responses.some(response => response.selectedOption === "");
+    console.log(emptyResponses, "here is")
     if (emptyResponses) {
       toast.error("I think you missed a question, Please review it. All questions must be answered before submitting.", { position: "bottom-left" });
       setLoading(false);
@@ -107,7 +125,12 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
         <>
           <div className="d-flex justify-content-center align-items-start attempt">
             <div style={{ minHeight: "100vh" }} className="d-flex flex-column  gap-4 card-shadow2">
-              <span className="main-heading text-center mb-4 border-bottom">{quizData.title}</span>
+              <div className="border-bottom d-flex flex-wrap justify-content-between align-items-center pb-4">
+                <span className="main-heading text-center">{quizData.title}</span>
+                <Affix offsetTop={10}>
+                  <Timer remainingTime={remainingTime} />
+                </Affix>
+              </div>
               <QuizAttemptingComponent
                 submitLoading={loading}
                 quizData={quizData}
@@ -116,6 +139,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
                 handleSubmit={handleSubmit}
                 responses={responses}
                 setResponses={setResponses}
+                remainingTime={remainingTime}
               />
             </div>
           </div>
@@ -123,13 +147,28 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
       ) : quizData?.displaySetting === "one-by-one-1-col" ? (
         <div className="d-flex justify-content-center align-items-start attempt">
           <div style={{ minHeight: "100vh" }} className="d-flex flex-column  gap-4 card-shadow2">
-            <span className="main-heading text-center mb-4 border-bottom">{quizData.title}</span>
+            <div className="border-bottom d-flex flex-wrap justify-content-between align-items-center pb-4">
+              <span className="main-heading text-center">{quizData.title}</span>
+              <Affix offsetTop={10}>
+                <Timer remainingTime={remainingTime} />
+              </Affix>
+            </div>
             <OneByOneQuestions submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
           </div>
         </div>
       ) : (
-        quizData?.displaySetting === "one-by-one-2-col" && <OneByOneOnBigScr submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
+        quizData?.displaySetting === "one-by-one-2-col" && <>
+          <div className="container border-bottom d-flex flex-wrap justify-content-between align-items-center pb-4">
+            <span className="main-heading text-center">{quizData.title}</span>
+            <Affix offsetTop={10}>
+              <Timer remainingTime={remainingTime} />
+            </Affix>
+          </div>
+          <OneByOneOnBigScr submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
+
+        </>
       )}
+
     </>
   );
 };

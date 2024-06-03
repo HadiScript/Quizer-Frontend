@@ -4,7 +4,6 @@ import Marquee from "react-fast-marquee";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "../../../assets/css/rich.css";
 import { toolbarOptions } from "../../../helper/ToolBarOptions";
 
 
@@ -26,21 +25,25 @@ const CreateQuizForm = ({
 
 
   return (
-    <div className={`${from === "modifications" ? "mt-0" : from === "withAI" ? "" : "container mt-3"}`}>
+    <div className={`${from === "modifications" ? "mt-0" : from === "withAI" ? "" : "p-2  mt-4"}`}>
 
       <form onSubmit={from === "modifications" ? (e) => handleSubmit(e, quizId) : handleSubmit}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
-            Quiz Title
+            <b>Quiz Title</b>
           </label>
-          <Input.TextArea id="title" name="title" value={quizData.title} onChange={handleInputChange} />
-
+          <Input
+            count={{
+              show: true,
+              max: 30,
+            }}
+            id="title" name="title" value={quizData.title} onChange={handleInputChange} required />
         </div>
 
         {from === 'withAI' && <Alert className="mb-3" type="info" message="We are working on it." description="Please use the most specific quiz name (e:g ReactJs or Qaumtum Physics). In the next level you will describe the level of quiz" />}
 
         <div className="mb-3">
-          <label className="form-label">Required Fields</label>
+          <label className="form-label"><b>Required Fields</b></label>
           <br />
           <div className="row ">
             {quizData.requiredFields.map((field, index) => (
@@ -83,7 +86,7 @@ const CreateQuizForm = ({
 
         <div className="mb-3">
           <label htmlFor="timeLimit" className="form-label">
-            Time Limit (minutes)
+            <b>Time Limit (minutes)</b>
           </label>
           <Input id="timeLimit" name="timeLimit" type="number" value={quizData.timeLimit} onChange={handleInputChange} />
           <small>Time Limit must be greator than zero.</small>

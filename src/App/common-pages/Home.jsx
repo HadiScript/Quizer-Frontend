@@ -1,41 +1,69 @@
-import '../../assets/css/home.css'
+import '../../assets/less/antMotionStyle.less';
+import { Content110DataSource, Banner50DataSource, Nav30DataSource } from '../../data/data.source';
+import Banner from '../components/common/Home/Banner';
+import CTA from '../components/common/Home/CTA';
+import Navbar from '../components/common/Home/Navbar';
+import Features from '../components/common/Home/Features';
+import Footer from '../components/common/Home/Footer';
+import Point from '../components/common/Home/Point';
+import HowItWorks from '../components/common/Home/HowItWorks';
+import QuizComponents from '../components/common/Home/QuizComponents';
+import useResponsive from '../../hooks/useBreakpoints';
 
-import Navbar1 from "../components/common/Home/Navbar";
-import Section from "../components/common/Home/Section";
-import AboutUs from "../components/common/Home/AboutUs";
-import Features from "../components/common/Home/Features";
-import Work from '../components/common/Home/Work';
-import Pricing from '../components/common/Home/Pricing';
-import Application from '../components/common/Home/Application';
-import { Button } from 'antd';
-import { Link } from 'react-router-dom';
-import { ArrowRightOutlined } from '@ant-design/icons';
 
 
-function Home() {
+const Home = () => {
+  const { isMobile } = useResponsive()
   return (
-    <div style={{ minHeight: "100vh" }} className='d-flex flex-column justify-content-center align-items-center gap-4'>
-      {/* <h1>رجوع الی القرآن</h1>
-      <Button className='myBtn' icon={<ArrowRightOutlined />}>
-        <Link className='_link' to={`/attempt-quiz/65eacb6994a7d2e77016054f/660da5fbf2b0c1286ad6c564`}>
-          Instructions of Quiz
-        </Link>
-      </Button> */}
+    <div className="templates-wrapper">
+
+
+      <Navbar
+        id="navbar"
+        key="navbar"
+        dataSource={Nav30DataSource}
+        isMobile={isMobile}
+      />
 
 
 
-      <Navbar1 />
-      <Section />
-      {/* <AboutUs />
-      <Features /> */}
-      {/*     <Work />
-      <Pricing />
-      <Application /> */}
-      {/* <Team /> */}
-      {/* <Contact /> */}
-      {/* <Footer /> */}
+
+      <Banner
+        id="banner"
+        key="banner"
+        dataSource={Banner50DataSource}
+        isMobile={isMobile}
+      />
+
+      <HowItWorks />
+
+      <Features key="features" id="features" isMobile={isMobile} />
+
+      <QuizComponents />
+
+      <CTA
+        id="cta"
+        key="cta"
+        dataSource={Content110DataSource}
+        isMobile={isMobile}
+      />
+      <Footer
+        id="footer2"
+        key="footer2"
+      />
+
+      <Point
+        key="list"
+        data={['navbar', 'banner', 'HowItWorks', 'features', 'quiz-component', 'cta', 'footer2']}
+        size="point-large"
+        position="point-left"
+      />
+
+
+
+
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

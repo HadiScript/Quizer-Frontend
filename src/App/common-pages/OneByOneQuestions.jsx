@@ -4,7 +4,6 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "../../assets/css/rich.css";
 
 const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses, submitLoading }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

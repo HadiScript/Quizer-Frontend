@@ -14,6 +14,7 @@ import QuestionListEdit from "../../components/panel/QuestionListEdit";
 import QuizOptions from "../../components/panel/QuizOptions";
 import SubcriberLayout from "../../components/layouts/Layout";
 import QuizDetailTour from "../../components/panel-tours/QuizDetailTour";
+import BgHeading from "../../components/common/BgHeading";
 
 const QuizDetail = () => {
 
@@ -50,7 +51,8 @@ const QuizDetail = () => {
 
   return (
     <SubcriberLayout from="quiz-detail" id={id}>
-      <Heading title={loading ? "..." : quizData?.title} Icon={<BorderInnerOutlined className="its-icon" />} />
+      <BgHeading title={loading ? "..." : quizData?.title} />
+      <div className="mt-4" />
       <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
 
       <div className="row mt-4">

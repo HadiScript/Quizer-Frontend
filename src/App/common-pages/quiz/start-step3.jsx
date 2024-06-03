@@ -44,10 +44,9 @@ const StartStep3 = ({ attemptId, quizId, setStep, setAttemptId }) => {
   }
 
   useEffect(() => {
-    console.log("gove me run")
+    // console.log("gove me run")
     if (attemptId && quizId) {
-      console.log("gove me run2")
-
+      // console.log("gove me run2")
       getData();
     }
   }, [quizId, attemptId])

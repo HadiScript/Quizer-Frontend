@@ -3,7 +3,7 @@ import { API, attemptApi } from "../../../helper/API";
 import axios from "axios";
 import { Errs } from "../../../helper/Errs";
 import toast from "react-hot-toast";
-import { Button, Input, Watermark } from "antd";
+import { Button, Form, Input, Watermark } from "antd";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import moment from "moment";
 
@@ -49,8 +49,8 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
     }
   }, [creatorId, quizId]);
 
-  const startQuiz = async (e) => {
-    e.preventDefault();
+  const startQuiz = async () => {
+    // e.preventDefault();
     setLoading(true);
 
     try {
@@ -93,39 +93,59 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
             <p dangerouslySetInnerHTML={{ __html: info.quizInstructions }} />
           </>
         )}
-        {!notAvailable && <div className="time-stamp" style={{ width: "100%" }}> Timelimit : {info?.timeLimit} Minutes </div>}
+        {!notAvailable && <div className="time-stamp" style={{ width: "100%" }}>
+          <div>
+            Timelimit : {info?.timeLimit} Minutes
+          </div>
+          <div className="mt-2">
+            <small> Note* Please avoid to refresh page</small>
+          </div>
 
-        <form onSubmit={(e) => startQuiz(e)} className="d-flex flex-column gap-2 " style={{ width: "100%" }}>
+        </div>}
+
+        <Form
+          // form={form}
+          onFinish={startQuiz}
+          className="d-flex flex-column gap-2"
+          style={{ width: '100%' }}
+        >
           {info?.requiredFields?.map((field, index) => (
             <React.Fragment key={index}>
               <label className="text-secondary mt-2">{field}</label>
-              {field === 'Email' ? (
+              <Form.Item
+                name={field}
+                rules={[
+                  { required: true, message: `${field} is required` },
+                  field === 'Email' ? { type: 'email', message: 'Please enter a valid email' } : {},
+                  field === 'Phone Number'
+                    ? {
+                      pattern: /^[0-9]+$/,
+                      message: 'Please enter a valid phone number',
+                    }
+                    : {},
+                ]}
+              >
                 <Input
-                  type="email"
-                  required
+                  type={field === 'Email' ? 'email' : 'text'}
                   value={userInputs[field]}
                   onChange={(e) => handleInputChange(field, e.target.value)}
-                  pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                  title="Please enter a valid email address."
                 />
-              ) : (
-                <Input
-                  type="text"
-                  required
-                  value={userInputs[field]}
-                  onChange={(e) => handleInputChange(field, e.target.value)}
-                />
-              )}
+              </Form.Item>
             </React.Fragment>
           ))}
           {!notAvailable && (
             <div className="text-center">
-              <Button onClick={(e) => startQuiz(e)} icon={<ClockCircleOutlined />} className="myBtn text-light mt-3" loading={loading}>
+              <Button
+                htmlType="submit"
+                icon={<ClockCircleOutlined />}
+                className="myBtn text-light mt-3"
+                loading={loading}
+              >
                 Start Quiz
               </Button>
             </div>
           )}
-        </form>
+        </Form>
       </div>
 
 

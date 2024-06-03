@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "../../assets/css/rich.css";
 
 const OneByOneOnBigScr = ({ quizData, handleSubmit, responses, setResponses, submitLoading }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

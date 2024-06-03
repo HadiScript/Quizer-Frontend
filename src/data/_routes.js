@@ -15,10 +15,19 @@ export const _routes = {
 
   createQuiz: "/subscribe/create-quiz",
   createQuizAi: "/subscribe/create-quiz-ai",
-  Quizzes: "/subscribe/quizes",
-  SingleQuiz: (id = ":id") => `/subscribe/quize/${id}`,
-  AttemptersUser: (id = ":id") => `/subscribe/quize/${id}/attempters`,
-  AttemptsStats: (id = ":id") => `/subscribe/quize/attempt/${id}`,
+  Quizzes: "/subscribe/quizzes",
+  SingleQuiz: (id = ":id") => `/subscribe/quizzes/${id}`,
+  AttemptersUser: (id = ":id") => `/subscribe/quizzes/${id}/attempters`,
+  AttemptsStats: (id = ":id") => `/subscribe/quizzes/attempt/${id}`,
   globalSettings: `/subscribe/global-settings`,
   Questions: (id = ":id") => `/subscribe/questions/${id}`,
+  CreateHome: `/subscribe/my-home`,
+  SingleHomePage: (slug = ":slug") => `/subscribe/my-home/${slug}`,
+
+  createSurvey: "/subscribe/create-survey",
+  surveys: "/subscribe/surveys",
+  surveyDetail: (slug = ":slug") => `/subscribe/surveys/${slug}`,
+  serveyFields: (slug = ":slug") => `/subscribe/surveys/${slug}/fields`,
+
+  // surveys/66584372326767d33c44f5b7
 };

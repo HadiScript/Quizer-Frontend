@@ -25,7 +25,7 @@
   color: #083344;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   /* Adjust breakpoint as needed */
   .leftColumn,
   .rightColumn {

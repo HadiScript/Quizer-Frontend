@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { AimOutlined, AppstoreOutlined, DiffOutlined, LogoutOutlined, OrderedListOutlined, ProfileOutlined, QuestionOutlined, SettingOutlined, SnippetsOutlined } from "@ant-design/icons";
+import { AimOutlined, AppstoreOutlined, DiffOutlined, LogoutOutlined, OrderedListOutlined, ProfileOutlined, QuestionOutlined, SettingOutlined, FileAddOutlined, StarOutlined, FileSearchOutlined } from "@ant-design/icons";
 
 
 const WhichNavLink = ({ from }) => {
@@ -10,13 +10,13 @@ const WhichNavLink = ({ from }) => {
     {
       gap: false,
       name: "Attempt Dashboard",
-      path: `/subscribe/quize/attempt/${id}`,
+      path: `/subscribe/quizzes/attempt/${id}`,
       Icon: <AppstoreOutlined />,
     },
     {
       gap: false,
       name: "Quiz",
-      path: `/subscribe/quize/${id}`,
+      path: `/subscribe/quizzes/${id}`,
       Icon: <OrderedListOutlined />,
     },
 
@@ -30,14 +30,14 @@ const WhichNavLink = ({ from }) => {
     {
       gap: false,
       name: "Attempt Users",
-      path: `/subscribe/quize/${id}/attempters`,
+      path: `/subscribe/quizzes/${id}/attempters`,
       Icon: <OrderedListOutlined />,
     },
 
     {
       gap: true,
       name: "Exit",
-      path: "/subscribe/quizes",
+      path: "/subscribe/quizzes",
       Icon: <LogoutOutlined />,
     },
   ];
@@ -51,8 +51,8 @@ const WhichNavLink = ({ from }) => {
     },
     {
       gap: true,
-      name: "Quizes",
-      path: "/subscribe/quizes",
+      name: "Quizzes",
+      path: "/subscribe/quizzes",
       Icon: <OrderedListOutlined />,
     },
     {
@@ -73,6 +73,29 @@ const WhichNavLink = ({ from }) => {
       path: "/subscribe/global-settings",
       Icon: <SettingOutlined />,
     },
+
+    {
+      gap: true,
+      name: "Surveys",
+      path: '/subscribe/surveys',
+      Icon: <FileSearchOutlined />,
+    },
+    {
+      gap: false,
+      name: "Create Survey",
+      path: "/subscribe/create-survey",
+      Icon: <FileAddOutlined />,
+    },
+
+
+
+    {
+      gap: true,
+      name: "Create Home Page",
+      path: '/subscribe/my-home',
+      Icon: <StarOutlined />,
+    },
+
     {
       gap: true,
       name: "Profile",

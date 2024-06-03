@@ -8,6 +8,8 @@ export const userApi = `${API}/api/user`;
 export const questionApi = `${API}/api/question`;
 export const attemptApi = `${API}/api/attempt`;
 export const reportApi = `${API}/api/report`;
+export const homeApi = `${API}/api/home`;
+export const surveyApi = `${API}/api/survey`;
 
 // 779716474567-ga0p4osg530hq2rg4vbqi8q4pi0ute41.apps.googleusercontent.com
 // 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

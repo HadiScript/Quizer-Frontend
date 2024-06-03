@@ -6,6 +6,8 @@ import { InsertRowAboveOutlined, OrderedListOutlined, TableOutlined, } from "@an
 import { _useAllMyQuizes } from "../../../actions/_quiz";
 import SubcriberLayout from "../../components/layouts/Layout";
 import QuizTable from "../../components/panel/QuizTable";
+import BgHeading from "../../components/common/BgHeading";
+import CreateQuizCTA from "../../components/common/CreateQuizCTA";
 
 const AllQuizes = () => {
   const { list, loading } = _useAllMyQuizes();
@@ -30,17 +32,32 @@ const AllQuizes = () => {
 
   return (
     <SubcriberLayout>
-      <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} desc={`${loading ? "loading... " : list.length}/10 Questions`} />
-      <div className="text-end mb-2">
+      {/* <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} desc={`${loading ? "loading... " : list.length}/10 Questions`} /> */}
+      <BgHeading
+        title={"All Quizes"}
+        desc={`${loading ? "loading... " : list?.length}/10 Questions`}
+      // AlertDesc={list.length === 0 && "Please Add Your First Quiz"}
+
+      />
+
+
+
+      <div className="text-end mb-2 mt-4">
         <ShowInIcons />
       </div>
 
-      <div className="row ">
-        {showIn === 'grid' ?
-          <QuizGrid list={list} loading={loading} />
-          :
-          <QuizTable list={list} loading={loading} />
+      <div className="row">
+        {
+          list?.length > 0 ? <>
+            {showIn === 'grid' ?
+              <QuizGrid list={list} loading={loading} />
+              :
+              <QuizTable list={list} loading={loading} />
+            }
+          </>
+            : <CreateQuizCTA />
         }
+
       </div>
 
 

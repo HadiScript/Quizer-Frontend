@@ -1,15 +1,21 @@
+import { Button, Result } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Thankx = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    // Replace the current entry in the history stack
-    navigate("/thank-you", { replace: true });
-  }, [navigate]);
+  return <div style={{ minHeight: "100vh" }} className="d-flex justify-content-center align-items-center">
+    <Result
+      status="success"
+      title="Thank You For Submitting Survey"
+      // subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+      extra={[
 
-  return <div>Thankx</div>;
-};
+        <Button onClick={()=>navigate(-1)} className="myBtn" key="buy">Go Back</Button>,
+      ]}
+    />
+  </div>
+}
 
 export default Thankx;

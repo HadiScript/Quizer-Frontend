@@ -22,10 +22,10 @@ const QuizTable = ({ list, loading }) => {
           {
             list?.map((x, index) => <tr key={x._id}>
               <th scope="row">{++index}</th>
-              <td><Link className="_link" to={`/subscribe/quize/${x._id}`}>{x.title}</Link></td>
+              <td><Link className="_link" to={`/subscribe/quizzes/${x._id}`}>{x.title}</Link></td>
               <td>{x.questions?.length}</td>
               {!points.xs && <td>{x.createdAt?.slice(0, 10)}</td>}
-              <td> <Link className="_link" to={`/subscribe/quize/${x._id}`}><ExpandAltOutlined role="button" /></Link> </td>
+              <td> <Link className="_link" to={`/subscribe/quizzes/${x._id}`}><ExpandAltOutlined role="button" /></Link> </td>
             </tr>
             )
           }

@@ -11,10 +11,17 @@ const Attempters = () => {
 
   return (
     <SubcriberLayout from="quiz-detail">
-      <AttemptUserTable loading={loading} handleSearch={handleSearch} setSearchEmail={setSearchEmail} from="page" data={data} />
+      <AttemptUserTable loading={loading} handleSearch={handleSearch} setSearchEmail={setSearchEmail} from="page" data={data?.data} />
 
       <div className="my-3">
-        <Pagination total={pagination.total} current={pagination.current} pageSize={pagination.pageSize} onChange={handleTableChange} />
+        {/* {JSON.stringify(data)} */}
+
+        <Pagination total={data?.pagination.total} current={data?.pagination?.page} onChange={handleTableChange}
+
+          // showSizeChanger
+          // showQuickJumper
+          showTotal={() => `Total ${data?.pagination.total} items`}
+        />
       </div>
     </SubcriberLayout>
   );

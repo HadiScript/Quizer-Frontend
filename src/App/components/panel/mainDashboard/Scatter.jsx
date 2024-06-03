@@ -12,6 +12,8 @@ import {
   ResponsiveContainer,
   LineChart,
   Line,
+  AreaChart,
+  Area,
 } from 'recharts';
 import Heading from '../../common/Heading';
 import { DashboardOutlined } from '@ant-design/icons';
@@ -31,15 +33,22 @@ const QuizPerAttempts = () => {
       {
         data?.quizSummary.length === 0 ? <Empty /> :
           <ResponsiveContainer >
-            <LineChart data={data?.quizSummary} >
+            <AreaChart data={data?.quizSummary} >
+              <defs>
+                <linearGradient id="colorJobs" x1="0" y1="0" x2="0" y2="1" spreadMethod="reflect">
+                  <stop offset="0%" stopColor="#083344" stopOpacity={0.8} />
+                  <stop offset="100%" stopColor="#7dd3fc" stopOpacity={0} />
+                </linearGradient>
+              </defs>
 
               <XAxis dataKey="title" />
               <Brush dataKey="title" height={30} stroke="#083344" />
 
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="attemptsCount" stroke="#083344" activeDot={{ r: 8 }} />
-            </LineChart>
+              <Area type="monotone" dataKey="attemptsCount" stroke="#083344" fillOpacity={1} fill="url(#colorJobs)" />
+              {/* <Line type="monotone" dataKey="attemptsCount" stroke="#083344" activeDot={{ r: 8 }} /> */}
+            </AreaChart>
 
           </ResponsiveContainer>
       }

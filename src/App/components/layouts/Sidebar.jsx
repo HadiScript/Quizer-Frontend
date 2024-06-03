@@ -18,6 +18,7 @@ const Sidebar = ({ from = "notSubscriber" }) => {
       <div className={"text-start px-3 mt-3 mb-4"}>
         <Logo />
       </div>
+
       <div className="py-1 ">
         <Menu>
           {
@@ -55,6 +56,8 @@ const Sidebar = ({ from = "notSubscriber" }) => {
           )}
         </Menu>
       </div>
+
+
     </>
   );
 };

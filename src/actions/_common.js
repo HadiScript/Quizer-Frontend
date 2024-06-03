@@ -24,7 +24,7 @@ export const _useCommon = () => {
   const router = useNavigate();
 
   const Login = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setLoading(true);
     try {
       const res = await axios.post(`${authApi}/signin`, { email, password }, { withCredentials: true });
@@ -40,7 +40,7 @@ export const _useCommon = () => {
   };
 
   const Register = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setLoading(true);
     try {
       const res = await axios.post(`${API}/api/auth/signup`, { email, password, name }, { withCredentials: true });

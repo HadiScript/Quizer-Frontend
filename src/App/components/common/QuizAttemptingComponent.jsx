@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "../../../assets/css/rich.css";
 
 const QuizAttemptingComponent = ({ quizData, handleSubmit, responses, setResponses, submitLoading }) => {
   const router = useNavigate();

@@ -19,7 +19,7 @@ const PremuimSettings = (
       <div className='premium_settings_container'>
         <div className="mb-3 d-flex flex-column">
           <label htmlFor="title" className="form-label">
-            Show Score
+            <b>Show Score</b>
           </label>
           <Select value={_settings.showScore} onChange={(e) => _setSettings((prev) => ({ ...prev, showScore: e }))}>
             <Select.Option value={true}>Yes</Select.Option>
@@ -32,7 +32,7 @@ const PremuimSettings = (
 
         <div className="mb-3 d-flex flex-column">
           <label htmlFor="title" className="form-label">
-            Scoring Type
+           <b>Scoring Type</b>
           </label>
           <Select value={_settings?.scoringType} onChange={(e) => _setSettings((prev) => ({ ...prev, scoringType: e }))}>
             <Select.Option value="grade">Grade</Select.Option>

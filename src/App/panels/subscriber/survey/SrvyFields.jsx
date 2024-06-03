@@ -1,0 +1,70 @@
+import { useEffect, useState } from 'react'
+import SrvyLayout from '../../../components/layouts/survey-detail-dashboard/SrvyLayout'
+import BgHeading from '../../../components/common/BgHeading'
+import SrvyFormsTabs from '../../../components/panel/survey/SrvyFormsTabs'
+import FieldsForm from '../../../components/panel/survey/FieldsForm'
+import { useServeyFields, useUpdateSurveyFields } from '../../../../actions/_survey'
+import { useParams } from 'react-router-dom'
+import { Modal } from 'antd'
+import SurveyPreview from '../../../components/panel/survey/SurveyPreview'
+import { TableLoading } from '../../../components/loadings'
+
+
+const surveyFields = [
+  {
+    type: 'text',
+    label: 'Name',
+    required: true
+  },
+  {
+    type: 'email',
+    label: 'Email',
+    required: true
+  },
+]
+
+const SrvyFields = () => {
+  const { slug } = useParams();
+  const [openPreview, setOpenPreview] = useState(false);
+
+
+  const { updateSurveyFields, isLoading: updateLoading } = useUpdateSurveyFields(slug)
+  const { data, isLoading: fetechingDataLoading } = useServeyFields(slug)
+
+  const [fields, setFields] = useState(surveyFields);
+
+  useEffect(() => {
+    setFields(data)
+  }, [data])
+
+  return (
+    <SrvyLayout>
+      <BgHeading title={slug} />
+      <SrvyFormsTabs />
+      {fetechingDataLoading
+        ?
+        <div className='mt-3'>
+          <TableLoading />
+        </div>
+        :
+        <FieldsForm
+          updateLoading={updateLoading}
+          fetechingDataLoading={fetechingDataLoading}
+          updateSurveyFields={updateSurveyFields}
+          setOpenPreview={setOpenPreview}
+          fields={fields}
+          setFields={setFields}
+          data={data}
+        />
+      }
+
+      <Modal width={'80%'} footer={null} open={openPreview} onCancel={() => setOpenPreview(false)}>
+        <div className='d-flex justify-content-center'>
+          <SurveyPreview fields={fields} />
+        </div>
+      </Modal>
+    </SrvyLayout>
+  )
+}
+
+export default SrvyFields

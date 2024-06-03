@@ -4,6 +4,7 @@ import axios from "axios";
 import { questionApi } from "../helper/API";
 import Alerting from "../App/components/common/Alerting";
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 
 export let addQuestionInitValues = {
   options: [
@@ -16,6 +17,8 @@ export let addQuestionInitValues = {
   questionType: "multiple-choice",
 
   text: "",
+
+  disable: false,
 };
 
 export const useQuizStates = () => {
@@ -81,7 +84,7 @@ export const useQuizStates = () => {
   };
 };
 
-export const _useQuestionTest = (quizId, limits, toughest = false) => {
+export const _useQuestionTest = (quizId, limits, toughest = false, sortedBy = "all") => {
   const {
     questions,
     setQuestions,
@@ -96,18 +99,22 @@ export const _useQuestionTest = (quizId, limits, toughest = false) => {
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const queryKey = ["questions", quizId, limits, toughest, searchTerm];
+  const queryKey = ["questions", quizId, limits, toughest, searchTerm, sortedBy];
 
   const { isLoading, data, error } = useQuery(
     queryKey,
-    () => axios.get(`${questionApi}/${quizId}`, {
-      params: {
-        limits,
-        whichQuestions: toughest,
-        searchTerm: searchTerm,
-      },
-      withCredentials: true,
-    }).then((res) => res.data.questions),
+    () =>
+      axios
+        .get(`${questionApi}/${quizId}`, {
+          params: {
+            limits,
+            whichQuestions: toughest,
+            searchTerm: searchTerm,
+            sortedBy,
+          },
+          withCredentials: true,
+        })
+        .then((res) => res.data.questions),
     {
       enabled: !!quizId,
       onError: (error) => Errs(error),
@@ -146,6 +153,14 @@ export const _useQuestionTest = (quizId, limits, toughest = false) => {
   );
 
   const addQuestion = (quizId) => {
+    // console.log(questionData, "here is the question data.");
+    if (!questionData.text) return toast.error("Please add question");
+
+    if (questionData?.options.some((option) => option.text.trim() === "")) return toast.error("Please add option");
+
+    // Check if at least one option is correct
+    if (!questionData?.options.some((option) => option.isCorrect)) return toast.error("Atleast one option should be true");
+
     addQuestionMutation.mutate({ quizId });
   };
 
@@ -164,6 +179,16 @@ export const _useQuestionTest = (quizId, limits, toughest = false) => {
   );
 
   const editQuestion = (questionId) => {
+    if (!questionData.text) return toast.error("Please add question");
+
+    if (questionData?.options.some((option) => option.text.trim() === "")) return toast.error("Please add option");
+
+    // Check if at least one option is correct
+    if (!questionData?.options.some((option) => option.isCorrect)) return toast.error("Atleast one option should be true");
+
+    // console.log(questionData, "for disable");
+    // return;
+
     editQuestionMutation.mutate({ questionId });
   };
 
@@ -177,7 +202,8 @@ export const _useQuestionTest = (quizId, limits, toughest = false) => {
     loading: isLoading,
     isAdded: addQuestionMutation.isLoading,
     isEdit: editQuestionMutation.isLoading,
-    questions : data,
+    questions: data,
+
     setQuestions,
     questionData,
     setQuestionData,

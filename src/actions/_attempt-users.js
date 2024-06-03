@@ -6,6 +6,7 @@ import axios from "axios";
 import { Errs } from "../helper/Errs";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import Alerting from "../App/components/common/Alerting";
+import toast from "react-hot-toast";
 
 export const useAttemptUsersTest = (quizId) => {
   const qClient = useQueryClient();
@@ -39,49 +40,44 @@ export const useAttemptUsersTest = (quizId) => {
 
 export const useAttemptUsers = (quizId) => {
   const [searchEmail, setSearchEmail] = useState("");
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+  const [pagination, setPagination] = useState({ page: 1, pageSize: 10 });
 
-  const fetchQuizAttempts = async ({ queryKey }) => {
-    const [_key, { page, pageSize, email }] = queryKey;
+  const fetchQuizAttempts = async () => {
     const response = await axios.get(`${reportApi}/attempter/${quizId}`, {
       params: {
-        page,
-        pageSize,
-        email,
+        page: pagination?.page,
+        pageSize: pagination?.pageSize,
+        email: searchEmail,
       },
     });
+
     return response.data;
   };
 
-  const { data, error, isLoading, isFetching } = useQuery(
-    ["quizAttempters", { page: pagination.current, pageSize: pagination.pageSize, email: searchEmail }],
-    fetchQuizAttempts,
-    {
-      keepPreviousData: true,
-      staleTime: 5 * 60 * 1000,
-      cacheTime: 30 * 60 * 1000,
-      onSuccess: (data) => {
-        setPagination((prev) => ({ ...prev, total: data.total }));
-      },
-    }
+  const { data, error, isLoading } = useQuery(
+    ["quizAttempters", { page: pagination.page, pageSize: pagination.pageSize, email: searchEmail }],
+    fetchQuizAttempts
   );
 
-  const handleTableChange = (page) => {
-    setPagination((prev) => ({ ...prev, current: page }));
+  const handleTableChange = (page, pageSize) => {
+    setPagination((prev) => ({ ...prev, page, pageSize }));
   };
 
   const handleSearch = () => {
-    setPagination((prev) => ({ ...prev, current: 1 }));
+    setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
+  if (error) {
+    return toast.error("There is an error while fetching data");
+  }
+
   return {
-    data: data?.data || [],
+    data: data,
     setSearchEmail,
     handleSearch,
     handleTableChange,
-    loading: isLoading || isFetching,
+    loading: isLoading,
     pagination,
-    error,
   };
 };
 
@@ -165,6 +161,42 @@ export const usePerQuizSummary = (quizId) => {
     enabled: !!quizId,
     onError: (error) => Errs(error),
   });
+
+  return {
+    data,
+    isLoading,
+  };
+};
+
+export const usePerQuizAvgTime = (quizId) => {
+  const { data, isLoading } = useQuery(
+    ["perQuizAvgTime", quizId],
+    () => axios.get(`${reportApi}/avg-time/${quizId}`).then((res) => res.data),
+    {
+      staleTime: Infinity,
+      enabled: !!quizId,
+      onError: (error) => Errs(error),
+    }
+  );
+
+  console.log(data, "here is the thins");
+
+  return {
+    data,
+    isLoading,
+  };
+};
+
+export const useCompletionRate = (quizId) => {
+  const { data, isLoading } = useQuery(
+    ["perQuizCompleteionRate", quizId],
+    () => axios.get(`${reportApi}/completion-rate/${quizId}`).then((res) => res.data),
+    {
+      staleTime: Infinity,
+      enabled: !!quizId,
+      onError: (error) => Errs(error),
+    }
+  );
 
   return {
     data,

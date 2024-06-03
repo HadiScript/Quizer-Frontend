@@ -12,7 +12,7 @@ const BasicInfo = () => {
 
   return (
     <div className="mt-3">
-      <div className="lightgrey-bg rounded-3 p-2">
+      <div className="p-3">
         <Heading title={"Update to Premuim Account"} Icon={<CheckCircleOutlined className="its-icon" />} desc={"In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available."} />
         {
           auth?.user?.type !== 'premium' ? <>

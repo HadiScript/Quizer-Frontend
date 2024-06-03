@@ -79,7 +79,7 @@ const QuestionListEdit = ({
                   <Draggable key={chapter._id} draggableId={chapter._id} index={index}>
                     {(provided) => (
                       <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 `}>
-                        <div className=" question-box1">
+                        <div className="question-box1">
                           <div {...provided.dragHandleProps}>
                             <HolderOutlined />
                           </div>
@@ -92,6 +92,7 @@ const QuestionListEdit = ({
                           {
                             !sortByToughest && <>
                               <DeleteOutlined onClick={() => deleteHandle(quizId, chapter._id)} />
+
                               <Button className="myBtn" onClick={() => {
                                 setEditQuestionModal(true)
                                 setCurrentId(chapter._id)
@@ -100,6 +101,8 @@ const QuestionListEdit = ({
                               </Button>
                             </>
                           }
+
+                          {chapter?.disable && <Button className="text-danger">Disabled</Button>}
                         </div>
                       </div>
                     )}
