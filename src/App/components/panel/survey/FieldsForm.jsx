@@ -72,12 +72,12 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
   };
 
   const onFinish = async () => {
-    console.log(fields, "here isthe fields")
-    // try {
-    //   await updateSurveyFields(fields);
-    // } catch (error) {
-    //   console.error('Submission error:', error);
-    // }
+    // console.log(fields, "here isthe fields")
+    try {
+      await updateSurveyFields(fields);
+    } catch (error) {
+      console.error('Submission error:', error);
+    }
   };
 
   return (
