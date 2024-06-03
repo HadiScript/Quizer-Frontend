@@ -3,18 +3,20 @@ import { Form, Input, Radio, Select, Checkbox, Button, InputNumber, Slider, Rate
 import BgHeading from '../../common/BgHeading';
 import { FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
 
-const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 const customIcons = {
-  1: <FrownOutlined />,
-  2: <FrownOutlined />,
-  3: <MehOutlined />,
-  4: <SmileOutlined />,
-  5: <SmileOutlined />,
+  1: <FrownOutlined className='rate-icons mx-2' />,
+  2: <FrownOutlined className='rate-icons mx-2' />,
+  3: <MehOutlined className='rate-icons mx-2' />,
+  4: <SmileOutlined className='rate-icons mx-2' />,
+  5: <SmileOutlined className='rate-icons mx-2' />,
 };
 
 
 const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = false }) => {
   const [form] = Form.useForm();
+
+  console.log(fields)
 
   const onFinish = (values) => {
     if (!preview) {
@@ -25,8 +27,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
       }));
       submiting(formattedResponses)
     }
-    // console.log('Form Values:', values);
-    // console.log(fields, "here")
+
   };
 
   const renderField = (field, index) => {
@@ -40,8 +41,10 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             key={index}
             rules={[{ required: field.required, message: `${field.label} is Required` }]}
 
+
+
           >
-            <Input type={field.type} placeholder={`Enter ${field.label}`} />
+            <Input type={field.type}  className='survey-text ' />
           </Form.Item>
         );
       case 'radio':
@@ -69,7 +72,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             key={index}
             rules={[{ required: field.required, message: `${field.label} is Required` }]}
           >
-            <Select placeholder={`Select ${field.label}`}>
+            <Select placeholder={`Choose one`}>
 
               {field.options.map((option, idx) => (
                 <Select.Option key={idx} value={option.value}>{option.label}</Select.Option>
@@ -102,7 +105,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             key={index}
             rules={[{ required: field.required, message: `${field.label} is Required` }]}
           >
-            <Slider  range defaultValue={[field.min, field.max]} min={field.min} max={field.max} />
+            <Slider range defaultValue={[field.min, field.max]} min={field.min} max={field.max} />
           </Form.Item>
         );
       case 'date':
@@ -125,7 +128,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             key={index}
             rules={[{ required: field.required, message: `${field.label} is Required` }]}
           >
-            <Rate style={{color : "#0e7490"}} tooltips={desc} defaultValue={field.value} character={({ index = 0 }) => customIcons[index + 1]} />
+            <Rate style={{ color: "#0e7490" }} tooltips={desc} defaultValue={field.value} character={({ index = 0 }) => customIcons[index + 1]} />
           </Form.Item>
         );
       default:
@@ -139,7 +142,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
       <div className='mt-4' >
 
 
-        {fields?.map((field, index) => <div className='lightgrey-bg d-flex flex-column my-3 p-3 rounded-3'>
+        {fields?.map((field, index) => <div className='bg-white d-flex flex-column my-3 p-3 rounded-3'>
           {renderField(field, index)}
         </div>)}
       </div>

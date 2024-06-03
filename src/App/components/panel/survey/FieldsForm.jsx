@@ -71,6 +71,8 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
     setFields(updatedFields);
   };
 
+
+
   const onFinish = async () => {
     // console.log(fields, "here isthe fields")
     try {
@@ -159,12 +161,12 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
                     </Space>
                   )}
 
-                  {field.type === 'rate' && (
+                  {/* {field.type === 'rate' && (
                     <Rate
                       value={field.value} // Ensure your field object has a value property for rate
                       onChange={value => handleFieldChange(index, { target: { name: 'value', value } })}
                     />
-                  )}
+                  )} */}
                 </Col>
               </Row>
 

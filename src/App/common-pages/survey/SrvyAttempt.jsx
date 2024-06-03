@@ -12,17 +12,17 @@ const SrvyAttempt = () => {
 
 
   return (
-    <div className="survey">
-      <div className="its-container border-start border-end ">
+    <div className="survey lightgrey-bg">
+      <div className="its-container  ">
         <BgHeading title={data?.title} desc={data?.description} />
         {/* SrvyAttempt {isLoading && <>please wait...</>} {JSON.stringify(data)} */}
 
-        <SurveyPreview
+        {fetchingLoading ? <></> : <SurveyPreview
           fields={data?.fields}
           preview={false}
           submiting={submiting}
           submittingLoading={submittingLoading}
-        />
+        />}
       </div>
     </div>
   )
