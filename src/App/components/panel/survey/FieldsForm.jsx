@@ -1,4 +1,4 @@
-import { Form, Input, Button, Select, Space, Checkbox, Radio, InputNumber, Row, Col, Collapse, } from 'antd';
+import { Form, Input, Button, Select, Space, Checkbox, Radio, InputNumber, Row, Col, Collapse, Rate, } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -27,10 +27,14 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
   const handleTypeChange = (value, index) => {
     const updatedFields = [...fields];
     updatedFields[index].type = value;
-    if (value === 'radio' || value === 'dropdown' || value === 'checkbox') {
+    if (["radio", "dropdown", "checkbox"].includes(value)) {
       updatedFields[index].options = [{ label: '', value: '' }];
     } else {
       updatedFields[index].options = [];
+    }
+    if (value === 'rate') {
+      updatedFields[index].value = 0; // Initialize with default rate value
+      updatedFields[index].maxRate = 5; // Default max rate
     }
     setFields(updatedFields);
   };
@@ -68,14 +72,12 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
   };
 
   const onFinish = async () => {
-    try {
-
-
-
-      await updateSurveyFields(fields);
-    } catch (error) {
-      console.error('Submission error:', error);
-    }
+    console.log(fields, "here isthe fields")
+    // try {
+    //   await updateSurveyFields(fields);
+    // } catch (error) {
+    //   console.error('Submission error:', error);
+    // }
   };
 
   return (
@@ -99,6 +101,7 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
                     <Option value="checkbox">Checkbox</Option>
                     <Option value="range">Range</Option>
                     <Option value="date">Date</Option>
+                    <Option value="rate">Rate</Option>
                   </Select>
                   <Input
                     name="label"
@@ -154,6 +157,13 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
                         placeholder="Max Value"
                       />
                     </Space>
+                  )}
+
+                  {field.type === 'rate' && (
+                    <Rate
+                      value={field.value} // Ensure your field object has a value property for rate
+                      onChange={value => handleFieldChange(index, { target: { name: 'value', value } })}
+                    />
                   )}
                 </Col>
               </Row>

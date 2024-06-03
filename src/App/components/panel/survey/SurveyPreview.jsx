@@ -1,6 +1,17 @@
 import React from 'react';
-import { Form, Input, Radio, Select, Checkbox, Button, InputNumber, Slider } from 'antd';
+import { Form, Input, Radio, Select, Checkbox, Button, InputNumber, Slider, Rate } from 'antd';
 import BgHeading from '../../common/BgHeading';
+import { FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
+
+const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+const customIcons = {
+  1: <FrownOutlined />,
+  2: <FrownOutlined />,
+  3: <MehOutlined />,
+  4: <SmileOutlined />,
+  5: <SmileOutlined />,
+};
+
 
 const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = false }) => {
   const [form] = Form.useForm();
@@ -42,9 +53,11 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             rules={[{ required: field.required, message: `${field.label} is Required` }]}
           >
             <Radio.Group>
-              {field.options.map((option, idx) => (
-                <Radio key={idx} value={option.value}>{option.label}</Radio>
-              ))}
+              <div className="d-flex flex-column">
+                {field.options.map((option, idx) => (
+                  <Radio key={idx} value={option.value}>{option.label}</Radio>
+                ))}
+              </div>
             </Radio.Group>
           </Form.Item>
         );
@@ -57,6 +70,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             rules={[{ required: field.required, message: `${field.label} is Required` }]}
           >
             <Select placeholder={`Select ${field.label}`}>
+
               {field.options.map((option, idx) => (
                 <Select.Option key={idx} value={option.value}>{option.label}</Select.Option>
               ))}
@@ -72,9 +86,11 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             rules={[{ required: field.required, message: `${field.label} is Required` }]}
           >
             <Checkbox.Group style={{ width: '100%' }}>
-              {field.options.map((option, idx) => (
-                <Checkbox key={idx} value={option.value}>{option.label}</Checkbox>
-              ))}
+              <div className='d-flex flex-column'>
+                {field.options.map((option, idx) => (
+                  <Checkbox key={idx} value={option.value}>{option.label}</Checkbox>
+                ))}
+              </div>
             </Checkbox.Group>
           </Form.Item>
         );
@@ -86,7 +102,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             key={index}
             rules={[{ required: field.required, message: `${field.label} is Required` }]}
           >
-            <Slider range defaultValue={[field.min, field.max]} min={field.min} max={field.max} />
+            <Slider  range defaultValue={[field.min, field.max]} min={field.min} max={field.max} />
           </Form.Item>
         );
       case 'date':
@@ -100,18 +116,32 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             <Input type="date" />
           </Form.Item>
         );
+
+      case 'rate':
+        return (
+          <Form.Item
+            name={field._id}
+            label={field.label}
+            key={index}
+            rules={[{ required: field.required, message: `${field.label} is Required` }]}
+          >
+            <Rate style={{color : "#0e7490"}} tooltips={desc} defaultValue={field.value} character={({ index = 0 }) => customIcons[index + 1]} />
+          </Form.Item>
+        );
       default:
         return null;
     }
   };
 
   return (
-    <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{}}>
+    <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{}} >
       {preview && <BgHeading title={"Preview"} />}
       <div className='mt-4' >
 
 
-        {fields?.map((field, index) => renderField(field, index))}
+        {fields?.map((field, index) => <div className='lightgrey-bg d-flex flex-column my-3 p-3 rounded-3'>
+          {renderField(field, index)}
+        </div>)}
       </div>
       <Form.Item>
         <Button loading={submittingLoading} className='myBtn' htmlType='submit'>Submit Survey</Button>

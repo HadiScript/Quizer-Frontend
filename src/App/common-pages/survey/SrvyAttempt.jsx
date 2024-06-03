@@ -13,7 +13,7 @@ const SrvyAttempt = () => {
 
   return (
     <div className="survey">
-      <div className="its-container border-start border-end">
+      <div className="its-container border-start border-end ">
         <BgHeading title={data?.title} desc={data?.description} />
         {/* SrvyAttempt {isLoading && <>please wait...</>} {JSON.stringify(data)} */}
 

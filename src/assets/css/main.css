@@ -112,6 +112,53 @@ h1 {
   font-weight: bold !important;
 }
 
+.ant-radio-wrapper:hover .ant-radio-inner,
+.ant-radio-checked .ant-radio-inner {
+  color: red !important;
+  border-color: 2px solid #0e7490 !important;
+}
+
+.ant-radio-checked .ant-radio-inner::after {
+  /* background-color: red !important; */
+  /* background-color: #0e7490; Color of the inner circle */
+}
+
+.ant-checkbox-inner::after {
+  border-color: #0e7490;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #0e7490;
+  border-color: #0e7490;
+}
+
+/* .ant-slider-track,
+.ant-slider-dot-active {
+  background-color: #0e7490 !important;
+}
+
+.ant-slider-handle {
+  border: solid 0.01rem #0e7490 !important;
+} */
+
+.ant-slider-track,
+.ant-slider-dot-active {
+  background-color: #0e7490 !important; /* Color of the slider track */
+}
+
+.ant-slider-handle:not(.ant-tooltip-open) {
+  border-color: #0e7490 !important; /* Color of the slider handle */
+}
+
+.ant-slider-handle:focus,
+.ant-slider-handle:hover {
+  border-color: #0e7490 !important; /* Color of the handle on hover/focus */
+}
+
+.ant-slider-handle:active {
+  box-shadow: 0 0 0 5px rgba(14, 116, 144, 0.5) !important; /* Shadow color when active */
+}
+
 /* antd ends */
 
 /* premium  start*/
