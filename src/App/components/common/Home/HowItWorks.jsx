@@ -1,5 +1,5 @@
-import React from 'react';
-import '../../../../assets/css/items.css'
+
+import '../../../../assets/css/Items.css'
 
 const topics = [
   { number: "1", title: "Create Quiz" },
