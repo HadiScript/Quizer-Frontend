@@ -33,6 +33,8 @@ import SurveyDetail from "./panels/subscriber/survey/SurveyDetail";
 import FieldsForm from "./components/panel/survey/FieldsForm";
 import SrvyFields from "./panels/subscriber/survey/SrvyFields";
 import SrvyAttempt from "./common-pages/survey/SrvyAttempt";
+import SrvyStats from "./panels/subscriber/survey/SrvyStats";
+import Responses from "./panels/subscriber/survey/Responses";
 
 
 const {
@@ -58,7 +60,9 @@ const {
   createSurvey,
   surveys,
   surveyDetail,
-  serveyFields
+  serveyFields,
+  serveyStats,
+  serveyResponses
 } = _routes;
 
 const App = () => {
@@ -113,6 +117,8 @@ const App = () => {
 
         <Route path={surveyDetail()} element={<SurveyDetail />} />
         <Route path={serveyFields()} element={<SrvyFields />} />
+        <Route path={serveyStats()} element={<SrvyStats />} />
+        <Route path={serveyResponses()} element={<Responses />} />
 
 
       </Route>

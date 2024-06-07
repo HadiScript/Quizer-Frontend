@@ -217,3 +217,138 @@ export const _useSubmitSurvey = (slug, id) => {
     isLoading,
   };
 };
+
+// DASHBOARD
+export const useDashboardData1 = (slug) => {
+  const fetchData = async () => {
+    const { data } = await axios.get(`${surveyApi}/dashboard/${slug}`);
+
+    return data;
+  };
+
+  const { data, isLoading, error } = useQuery("responseByDate", fetchData, {
+    enabled: !!slug,
+    staleTime: Infinity,
+  });
+
+  if (error) {
+    console.log(error);
+    Errs(error);
+  }
+
+  return {
+    data,
+    isLoading,
+  };
+};
+
+export const useSrvyStats = (slug) => {
+  const fetchData = async () => {
+    const { data } = await axios.get(`${surveyApi}/dashboard/${slug}/stats`);
+
+    return data;
+  };
+
+  const { data, isLoading, error } = useQuery("srvyStats", fetchData, {
+    enabled: !!slug,
+    staleTime: Infinity,
+  });
+
+  if (error) {
+    console.log(error);
+    Errs(error);
+  }
+
+  return {
+    data,
+    isLoading,
+  };
+};
+
+export const useAllFieldsData = (slug) => {
+  const fetchData = async () => {
+    const { data } = await axios.get(`${surveyApi}/dashboard/${slug}/all-fields`);
+
+    return data;
+  };
+
+  const { data, isLoading, error } = useQuery("allFieldsData", fetchData, {
+    enabled: !!slug,
+    staleTime: Infinity,
+  });
+
+  if (error) {
+    console.log(error);
+    Errs(error);
+  }
+
+  return {
+    data,
+    isLoading,
+  };
+};
+
+export const useResponses = (slug) => {
+  const [search, setSearch] = useState("");
+  const [pagination, setPagination] = useState({ page: 1, pageSize: 10 });
+
+  const fetchData = async () => {
+    const response = await axios.get(`${surveyApi}/dashboard/${slug}/reponses`, {
+      params: {
+        page: pagination?.page,
+        pageSize: pagination?.pageSize,
+        search: search,
+      },
+    });
+
+    return response.data;
+  };
+
+  const { data, error, isLoading } = useQuery(
+    ["srvyResponses", { page: pagination.page, pageSize: pagination.pageSize, search }],
+    fetchData
+  );
+
+  const handleTableChange = (page, pageSize) => {
+    setPagination((prev) => ({ ...prev, page, pageSize }));
+  };
+
+  const handleSearch = () => {
+    setPagination((prev) => ({ ...prev, page: 1 }));
+  };
+
+  if (error) {
+    return toast.error("There is an error while fetching data");
+  }
+
+  return {
+    data,
+    setSearch,
+    handleSearch,
+    handleTableChange,
+    loading: isLoading,
+    pagination,
+  };
+};
+
+export const useSrvyOverview = (slug) => {
+  const fetchData = async () => {
+    const { data } = await axios.get(`${surveyApi}/dashboard/${slug}/overview`);
+    return data;
+  };
+
+  const { data, isLoading, error } = useQuery("srvyOverview", fetchData, {
+    enabled: !!slug,
+    staleTime: Infinity,
+  });
+
+  if (error) {
+    console.log(error);
+    Errs(error);
+  }
+
+  return {
+    data,
+    isLoading,
+  };
+};

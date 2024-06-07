@@ -88,7 +88,10 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
       <Space direction="vertical" style={{ width: '100%' }}>
         {fields?.map((field, index) => (
           <Collapse key={index} style={{ width: '100%', marginBottom: 8 }} className='lightgrey-bg mt-3 '>
-            <Collapse.Panel header={<b className='text-capitalize'>{field.type}</b>} >
+            <Collapse.Panel header={<div className='d-flex justify-content-between align-items-center'>
+              <b> {field.label}</b>
+              <b className='text-capitalize'>{field.type}</b>
+            </div>} >
               <Row>
                 <Col lg={12} xs={24} className='d-flex flex-column gap-3'>
                   <Select

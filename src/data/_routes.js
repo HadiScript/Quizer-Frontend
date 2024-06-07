@@ -26,8 +26,10 @@ export const _routes = {
 
   createSurvey: "/subscribe/create-survey",
   surveys: "/subscribe/surveys",
-  surveyDetail: (slug = ":slug") => `/subscribe/surveys/${slug}`,
+  surveyDetail: (slug = ":slug") => `/subscribe/surveys/${slug}/detail`,
   serveyFields: (slug = ":slug") => `/subscribe/surveys/${slug}/fields`,
+  serveyStats: (slug = ":slug") => `/subscribe/surveys/${slug}/stats`,
+  serveyResponses: (slug = ":slug") => `/subscribe/surveys/${slug}/responses`,
 
   // surveys/66584372326767d33c44f5b7
 };

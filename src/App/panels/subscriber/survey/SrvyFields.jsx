@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import { Modal } from 'antd'
 import SurveyPreview from '../../../components/panel/survey/SurveyPreview'
 import { TableLoading } from '../../../components/loadings'
+import SrvyFloatBtns from '../../../components/panel/survey/SrvyFloatBtns'
 
 
 const surveyFields = [
@@ -37,6 +38,15 @@ const SrvyFields = () => {
     setFields(data)
   }, [data])
 
+  const onFinish = async () => {
+    // console.log(fields, "here isthe fields")
+    try {
+      await updateSurveyFields(fields);
+    } catch (error) {
+      console.error('Submission error:', error);
+    }
+  };
+
   return (
     <SrvyLayout>
       <BgHeading title={slug} />
@@ -58,11 +68,15 @@ const SrvyFields = () => {
         />
       }
 
-      <Modal width={'80%'} footer={null} open={openPreview} onCancel={() => setOpenPreview(false)}>
+      <Modal footer={null} open={openPreview} onCancel={() => setOpenPreview(false)}>
         <div className='d-flex justify-content-center'>
           <SurveyPreview fields={fields} />
         </div>
       </Modal>
+
+      <div className="d-none d-md-block">
+        <SrvyFloatBtns setOpenPreview={setOpenPreview} updateLoading={updateLoading} updateSurveyFields={onFinish} />
+      </div>
     </SrvyLayout>
   )
 }

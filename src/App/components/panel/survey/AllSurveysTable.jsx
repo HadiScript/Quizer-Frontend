@@ -17,7 +17,7 @@ const AllSurveysTable = ({ data, loading }) => {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
-        <Link className="text-decoration-none" to={`/subscribe/surveys/${record.slug}`}>Dashboard</Link>
+        <Link className="text-decoration-none" to={`/subscribe/surveys/${record.slug}/detail`}>Dashboard</Link>
       ),
     },
   ];
