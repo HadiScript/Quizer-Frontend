@@ -1,27 +1,48 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
-import { LoadingOutlined } from "@ant-design/icons";
+import { Pie } from "@ant-design/plots";
+import { useMemo } from "react";
 
-const COLORS = ["#06b6d4", "#164e63"];
 
 const PeiChartPassOrFail = ({ resultForPeiChart, isLoading }) => {
 
+
+  const config = useMemo(() => ({
+    data: resultForPeiChart,
+    title: "Pass Fail",
+    angleField: 'value',
+
+    legend: true,
+    innerRadius: 0.6,
+
+    labels: [
+      { text: 'name', style: { fontSize: 10, fontWeight: 'bold' } },
+      {
+        text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
+        style: {
+          fontSize: 9,
+          dy: 12,
+          color : "red"
+        },
+      },
+    ],
+    style: {
+      stroke: '#fff',
+      inset: 1,
+      radius: 10,
+      fill: ({ name }) => {
+        if (name === 'Pass') {
+
+          return '#155e75';
+        }
+        return '#991b1b';
+      },
+    },
+
+  }), [resultForPeiChart]);
+
   return (
     <div>
-      <div style={{ width: "100%", height: 300 }}>
-        {isLoading && <LoadingOutlined />}
-        <ResponsiveContainer>
-          <PieChart>
-            <Tooltip />
-            <Legend />
-            <Pie dataKey="value" data={resultForPeiChart} fill="#8884d8" label>
-              {resultForPeiChart?.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-          </PieChart>
 
-        </ResponsiveContainer>
-      </div>
+      <Pie height={300} {...config} />
     </div>
   );
 };

@@ -352,3 +352,36 @@ export const useSrvyOverview = (slug) => {
     isLoading,
   };
 };
+
+// Main dashboard
+export const useMainSrvySummary = () => {
+  const { data, isLoading } = useQuery(
+    ["mainSrvySummary"],
+    () => axios.get(`${surveyApi}/dashboard/main/?from=summary`).then((res) => res.data),
+    {
+      staleTime: Infinity,
+      onError: (error) => Errs(error),
+    }
+  );
+
+  return {
+    data,
+    isLoading,
+  };
+};
+
+export const useMainSrvySummaryForGraph = () => {
+  const { data, isLoading } = useQuery(
+    ["mainSrvySummaryForGraph"],
+    () => axios.get(`${surveyApi}/dashboard/main/?from=graph`).then((res) => res.data),
+    {
+      staleTime: Infinity,
+      onError: (error) => Errs(error),
+    }
+  );
+
+  return {
+    data,
+    isLoading,
+  };
+};

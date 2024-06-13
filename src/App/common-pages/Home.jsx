@@ -9,6 +9,7 @@ import Point from '../components/common/Home/Point';
 import HowItWorks from '../components/common/Home/HowItWorks';
 import QuizComponents from '../components/common/Home/QuizComponents';
 import useResponsive from '../../hooks/useBreakpoints';
+import FormComponents from '../components/common/Home/FormComponents';
 
 
 
@@ -19,7 +20,7 @@ const Home = () => {
 
 
       <Navbar
-        id="navbar"
+        id="Navbar"
         key="navbar"
         dataSource={Nav30DataSource}
         isMobile={isMobile}
@@ -29,7 +30,7 @@ const Home = () => {
 
 
       <Banner
-        id="banner"
+        id="Banner"
         key="banner"
         dataSource={Banner50DataSource}
         isMobile={isMobile}
@@ -37,24 +38,22 @@ const Home = () => {
 
       <HowItWorks />
 
-      <Features key="features" id="features" isMobile={isMobile} />
+      <Features key="features" id="Features" isMobile={isMobile} />
 
+      <FormComponents />
       <QuizComponents />
 
       <CTA
-        id="cta"
+        id="CTA"
         key="cta"
         dataSource={Content110DataSource}
         isMobile={isMobile}
       />
-      <Footer
-        id="footer2"
-        key="footer2"
-      />
+      <Footer />
 
       <Point
         key="list"
-        data={['navbar', 'banner', 'HowItWorks', 'features', 'quiz-component', 'cta', 'footer2']}
+        data={['Navbar', 'Banner', 'How it works?', 'Features', 'Form Components', 'Screenshots', 'Footer']}
         size="point-large"
         position="point-left"
       />

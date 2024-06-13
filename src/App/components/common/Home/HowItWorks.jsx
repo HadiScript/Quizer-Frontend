@@ -13,32 +13,40 @@ const topics = [
 
 const HowItWorks = () => {
   return (
-    <main key={"HowItWorks"} id='HowItWorks' className='item-container'>
+    <div style={{ marginTop: "100px", marginBottom: "100px" }}>
+      <div className='feature8-title-wrapper'>
+        <h1 style={{ fontWeight: "600" }}>How it works?</h1>
+        <p>  Ant Design 5.0 enable extendable algorithm, make custom theme easier</p>
+      </div>
+      <main key={"HowItWorks"} id='How it works?' className='item-container'>
 
-      <h1 style={{ fontWeight: "600" }} className='text-center'>How it works?</h1>
 
-      {topics.map((val, index) => {
-        let className = 'item item--top';
-        if (val.direction === 'bottom-left') {
-          className = 'item item--bottom item--left';
-        } else if (val.direction === 'bottom-right') {
-          className = 'item item--bottom';
-        }
 
-        return (
-          <div key={index} className={className} >
-            <div className="item__number">{val.number}</div>
-            <div className="item__topic">
-              <div className="item__topic__title" dangerouslySetInnerHTML={{ __html: val.title }} />
-              <div className="item__topic__author">
 
-                <span>{val.author}</span>
+        {topics.map((val, index) => {
+          let className = 'item item--top';
+          if (val.direction === 'bottom-left') {
+            className = 'item item--bottom item--left';
+          } else if (val.direction === 'bottom-right') {
+            className = 'item item--bottom';
+          }
+
+          return (
+            <div key={index} className={className} >
+              <div className="item__number">{val.number}</div>
+              <div className="item__topic">
+                <div className="item__topic__title" dangerouslySetInnerHTML={{ __html: val.title }} />
+                <div className="item__topic__author">
+
+                  <span>{val.author}</span>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </main>
+          );
+        })}
+      </main>
+
+    </div>
   );
 };
 

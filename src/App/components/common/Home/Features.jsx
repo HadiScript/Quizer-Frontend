@@ -23,7 +23,7 @@ const pageData = [
     Bg: Coordinate,
   },
   {
-    title: 'Display Settings',
+    title: 'Create your Forms',
     content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
     full: true,
     Bg: Building,
@@ -41,6 +41,7 @@ const Features = ({ isMobile }) => {
       <div className="home-page feature8">
         <div className='feature8-title-wrapper'>
           <h1 style={{ fontWeight: "600" }}>What you will get</h1>
+          <p>  Ant Design 5.0 enable extendable algorithm, make custom theme easier</p>
         </div>
         <Row className="d-flex flex-wrap">
           {pageData.map((item, i) => (

@@ -11,15 +11,6 @@ const DateLineCharts = ({ data }) => {
       fill: '#0e7490',
     },
     shapeField: 'smooth',
-    // axis: {
-    //   y: { labelFormatter: '~s' },
-    // },
-    // line: {
-    //   style: {
-    //     stroke: '#083344',
-    //     strokeWidth: 2,
-    //   },
-    // },
   };
 
   return (

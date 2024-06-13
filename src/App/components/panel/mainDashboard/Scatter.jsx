@@ -1,53 +1,47 @@
-import { Card, Empty } from 'antd';
+import { Empty } from 'antd';
 import {
-  BarChart,
-  Bar,
   Brush,
-  ReferenceLine,
   XAxis,
-  YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
-  LineChart,
-  Line,
   AreaChart,
   Area,
 } from 'recharts';
 import Heading from '../../common/Heading';
 import { DashboardOutlined } from '@ant-design/icons';
-import { useSummaryForGraph } from '../../../../actions/_attempt-users';
 
 
 
 
-const QuizPerAttempts = () => {
 
-  const { data } = useSummaryForGraph();
+const QuizPerAttempts = ({ data, from, primaryColor, secondaryColor }) => {
+
   return (
-    <div className='px-3 ' style={{ width: '100%', height: 450, }}>
+    <div id={primaryColor} className={`px-3 ${from === "quiz" && "border-end"}`} style={{ width: '100%', height: 450, }}>
+
+
       <div className='d-flex justify-content-between align-items-center'>
-        <Heading title={"Quizzes per attempts"} Icon={<DashboardOutlined className="its-icon" />} />
+        <Heading title={from === "quiz" ? "Quizzes per attempts" : "Survey per attempts"} Icon={<DashboardOutlined className="its-icon" />} />
       </div>
       {
-        data?.quizSummary.length === 0 ? <Empty /> :
+        data?.length === 0 ? <Empty /> :
           <ResponsiveContainer >
-            <AreaChart data={data?.quizSummary} >
+            <AreaChart data={data} >
               <defs>
                 <linearGradient id="colorJobs" x1="0" y1="0" x2="0" y2="1" spreadMethod="reflect">
-                  <stop offset="0%" stopColor="#083344" stopOpacity={0.8} />
-                  <stop offset="100%" stopColor="#7dd3fc" stopOpacity={0} />
+                  <stop offset="0%" stopColor={primaryColor} stopOpacity={0.8} />
+                  <stop offset="100%" stopColor={secondaryColor} stopOpacity={0} />
                 </linearGradient>
               </defs>
 
               <XAxis dataKey="title" />
-              <Brush dataKey="title" height={30} stroke="#083344" />
+              <Brush dataKey="title" height={30} stroke={primaryColor} />
 
               <Tooltip />
               <Legend />
-              <Area type="monotone" dataKey="attemptsCount" stroke="#083344" fillOpacity={1} fill="url(#colorJobs)" />
-              {/* <Line type="monotone" dataKey="attemptsCount" stroke="#083344" activeDot={{ r: 8 }} /> */}
+              <Area type="monotone" dataKey="attemptsCount" stroke={primaryColor} fillOpacity={1} fill="url(#colorJobs)" />
+
             </AreaChart>
 
           </ResponsiveContainer>

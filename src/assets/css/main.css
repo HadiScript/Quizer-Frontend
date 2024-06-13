@@ -220,3 +220,70 @@ h1 {
 /* image grid start */
 
 /* end of image grid */
+
+/* HOME PAGE (LANDING PAGE) */
+
+.light-bg {
+  background-color: #ecf3fe;
+}
+
+.form-component-item {
+  height: 400px;
+  min-width: 250px;
+}
+
+.form-component-item .heading {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.form-component-item .survey-text {
+  background-color: transparent !important;
+}
+
+.form-component {
+  overflow-x: scroll;
+}
+
+.form-component::-webkit-scrollbar {
+  width: 12px;
+}
+
+.form-component::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.11); */
+  border-radius: 10px;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #155e75;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #155e75;
+}
+
+/* srvy-stats */
+
+.srvy-stats {
+  height: 100vh;
+}
+
+.most-selected-data {
+  height: 300px;
+}
+.average-rating-data {
+  height: 300px;
+  overflow-y: scroll;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'rc-scroll-anim/lib/ScrollLink';
+import { Tooltip } from 'antd';
 
 export default function Point(props) {
   const { data, size, position, type, stroke } = props;
@@ -9,12 +10,14 @@ export default function Point(props) {
     }
     const className = `point ${type} ${stroke} ${size}`.trim();
     return (
-      <Link
-        key={item}
-        className={className}
-        to={item}
-        toHash={false}
-      />
+      <Tooltip placement="right" title={item}>
+        <Link
+          key={item}
+          className={className}
+          to={item}
+          toHash={false}
+        />
+      </Tooltip>
     );
   }).filter((item) => item);
   const wrapperClass = `point-wrapper ${position} ${size}`.trim();

@@ -16,10 +16,10 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
 
   return (
     <>
-      <div className={`${from !== "page" ? "table-box" : ""}`}>
+      <div className={` ""}`}>
         <div className="d-flex flex-wrap justify-content-between align-items-start">
-          {from !== "page" ? <h6>Highest Score </h6> : <Heading title={"Attempt Users"} Icon={<UserOutlined className="its-icon" />} />}
-          {from !== "page" && (
+          {from !== "page" ? <h6> <b>Highest Score</b> </h6> : <Heading title={"Attempt Users"} Icon={<UserOutlined className="its-icon" />} />}
+          {/* {from !== "page" && (
             <div className="d-flex justify-content-between gap-3 align-items-center">
 
               <Button onClick={() => router(`/subscribe/quize/${id}/attempters`)} icon={<ExpandOutlined />} type="dashed">
@@ -31,7 +31,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
                 </Button>
               </Tooltip>
             </div>
-          )}
+          )} */}
         </div>
 
         {from === "page" && (

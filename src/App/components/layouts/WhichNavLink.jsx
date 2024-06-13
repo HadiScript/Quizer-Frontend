@@ -96,12 +96,12 @@ const WhichNavLink = ({ from }) => {
       Icon: <StarOutlined />,
     },
 
-    {
-      gap: true,
-      name: "Profile",
-      path: "/subscribe/profile",
-      Icon: <ProfileOutlined />,
-    },
+    // {
+    //   gap: true,
+    //   name: "Profile",
+    //   path: "/subscribe/profile",
+    //   Icon: <ProfileOutlined />,
+    // },
     // {
     //   gap: false,
     //   name: "Make a request",

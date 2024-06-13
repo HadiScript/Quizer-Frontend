@@ -10,7 +10,7 @@ const customLabel = (_, datum) => (
   </div>
 );
 
-const StatsPeiCharts = ({ data, isLoading }) => {
+const StatsPeiCharts = ({ data, isLoading, small = false }) => {
   const config = {
     title: "Fields",
     data,
@@ -45,7 +45,7 @@ const StatsPeiCharts = ({ data, isLoading }) => {
   return (
     <div>
       {/* {JSON.stringify(data)} */}
-      <Pie height={400} {...config} />
+      <Pie height={small ? 300 : 400} {...config} />
     </div>
   )
 }

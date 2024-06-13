@@ -1,4 +1,4 @@
-import { Col, Grid, Layout, Menu, Row, } from "antd";
+import { Col, Grid, Row, } from "antd";
 
 import LayoutHeader from "./LayoutHeader";
 
@@ -19,7 +19,7 @@ const SubcriberLayout = ({ children, from = "subscriber", }) => {
 
       <Row style={{ minHeight: "100vh" }} className={"main-db_layout"}>
         {from !== 'create-quiz-ai' &&
-          <Col lg={4} xs={0} className="fixedColumn leftColumn border-end">
+          <Col lg={4} xs={0} className="fixedColumn leftColumn border-end lightgrey-bg">
             <Sidebar from={from} />
           </Col>
         }
@@ -39,6 +39,8 @@ const SubcriberLayout = ({ children, from = "subscriber", }) => {
         }
 
       </Row >
+
+
     </>
   );
 };

@@ -2,15 +2,18 @@ import { Button, } from "antd";
 import React, { useState } from "react";
 import Heading from "../../components/common/Heading";
 import QuizGrid from "../../components/panel/QuizGrid";
-import { InsertRowAboveOutlined, OrderedListOutlined, TableOutlined, } from "@ant-design/icons";
+import { InsertRowAboveOutlined, OrderedListOutlined, PlusCircleOutlined, TableOutlined, } from "@ant-design/icons";
 import { _useAllMyQuizes } from "../../../actions/_quiz";
 import SubcriberLayout from "../../components/layouts/Layout";
 import QuizTable from "../../components/panel/QuizTable";
 import BgHeading from "../../components/common/BgHeading";
 import CreateQuizCTA from "../../components/common/CreateQuizCTA";
+import { AllQuizLoading } from "../../components/loadings";
+import { useNavigate } from "react-router-dom";
 
 const AllQuizes = () => {
   const { list, loading } = _useAllMyQuizes();
+  const router = useNavigate()
   const [showIn, setShowIn] = useState(localStorage.getItem('showIn') || 'grid')
 
   const changeHandler = (x) => {
@@ -42,20 +45,22 @@ const AllQuizes = () => {
 
 
 
-      <div className="text-end mb-2 mt-4">
+      <div className="d-flex justify-content-between align-items-center mb-2 mt-4">
+        <Button onClick={() => router("/subscribe/create-quiz")} className="myBtn" icon={<PlusCircleOutlined />}>Create Quiz</Button>
         <ShowInIcons />
       </div>
 
       <div className="row">
         {
-          list?.length > 0 ? <>
-            {showIn === 'grid' ?
-              <QuizGrid list={list} loading={loading} />
-              :
-              <QuizTable list={list} loading={loading} />
-            }
-          </>
-            : <CreateQuizCTA />
+          loading ? <AllQuizLoading /> :
+            list?.length > 0 ? <>
+              {showIn === 'grid' ?
+                <QuizGrid list={list} loading={loading} />
+                :
+                <QuizTable list={list} loading={loading} />
+              }
+            </>
+              : <CreateQuizCTA />
         }
 
       </div>

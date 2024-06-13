@@ -20,12 +20,12 @@ const Sidebar = ({ from = "notSubscriber" }) => {
       </div>
 
       <div className="py-1 ">
-        <Menu>
+        <Menu style={{ backgroundColor: "transparent" }}>
           {
             list.map((x, index) => (
               <Menu.Item
                 key={index}
-                className={`${x.gap ? "mt-4" : "mt-1"} ${isActive(x.path)}`}
+                className={` ${isActive(x.path)}`}
                 icon={
                   <Link className="_link its-icon" to={x.path}>
                     {x.Icon}
@@ -40,7 +40,7 @@ const Sidebar = ({ from = "notSubscriber" }) => {
           }
 
 
-          {from === "subscriber" && (
+          {/* {from === "subscriber" && (
             <Menu.Item
               key="99"
               className="mt-4 nav-link"
@@ -53,7 +53,7 @@ const Sidebar = ({ from = "notSubscriber" }) => {
             >
               <span> Logout</span>
             </Menu.Item>
-          )}
+          )} */}
         </Menu>
       </div>
 

@@ -47,7 +47,8 @@ const SearchBard = () => {
       open={isDropdownOpen}
       showSearch
       style={{
-        width: (points.xs || points.sm) && "80%",
+        width: points.lg ? "90%" : "70%",
+        // width: (points.xs || points.sm) && "70%" ,
       }}
       placeholder="Press cntrl + k"
       // optionFilterProp="children"
