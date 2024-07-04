@@ -35,7 +35,7 @@ const SrvyFormsTabs = () => {
           <div
             role="button"
             className="py-2 px-4 rounded-3"
-            onClick={() => router(`/subscribe/surveys/${slug}`)}
+            onClick={() => router(`/subscribe/surveys/${slug}/detail`)}
             style={!pathname.includes("fields") ? { backgroundColor: "#083344", color: "white" } : {}}
           >
             Edit Detail

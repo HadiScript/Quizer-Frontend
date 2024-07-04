@@ -1,6 +1,7 @@
 
 
 import { Area } from "@ant-design/plots";
+import { Empty } from "antd";
 import { useMemo } from "react";
 
 const QuizAttempTrend = ({ attempts, }) => {
@@ -19,7 +20,13 @@ const QuizAttempTrend = ({ attempts, }) => {
 
   return (
     <>
-      <Area height={400} {...config} />
+      {attempts?.length === 0 ? <div style={{ height: 400 }}>
+        <h6 className="my-3 px-3"><b>Response By Date</b></h6>
+        <Empty />
+      </div> :
+        <Area height={400} {...config} />
+      }
+
     </>
   )
 }

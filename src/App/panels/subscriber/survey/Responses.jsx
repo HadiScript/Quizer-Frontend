@@ -1,16 +1,17 @@
 import { useParams } from "react-router-dom"
-import { useResponses } from "../../../../actions/_survey"
+import { useBasicInfoServey, useResponses } from "../../../../actions/_survey"
 import BgHeading from "../../../components/common/BgHeading"
 import SrvyLayout from "../../../components/layouts/survey-detail-dashboard/SrvyLayout"
 import { Input, Pagination, Table } from "antd"
 import moment from "moment"
 import { useState } from "react"
-import { FolderOutlined } from "@ant-design/icons"
+import { EyeOutlined, FolderOutlined } from "@ant-design/icons"
 import ResponsesDrawer from "../../../components/panel/survey/ResponsesDrawer"
 
 const Responses = () => {
   const { slug } = useParams();
   const { data, handleTableChange, loading, handleSearch, setSearch } = useResponses(slug);
+  const { data: basicData, isLoading: fetechingData } = useBasicInfoServey(slug);
   const [current, setCurrent] = useState("")
   const [open, setOpen] = useState(false)
 
@@ -27,7 +28,7 @@ const Responses = () => {
       render: text => moment(text).format("MMM Do YY")
     },
     {
-      title: 'Actions',
+      title: 'View',
       dataIndex: '_id',
       render: (text) => <div
         role="button"
@@ -36,14 +37,14 @@ const Responses = () => {
           setCurrent(text)
         }}
       >
-        <FolderOutlined />
+        <EyeOutlined />
       </div>
     }
   ];
 
   return (
     <SrvyLayout >
-      <BgHeading title={"Responses"} />
+      <BgHeading title={"Responses of" + " " + basicData?.title} desc={"Find all the responses to the survey added by the users."} />
 
       <div className="d-flex flex-column gap-4 mt-4 mb-4">
 

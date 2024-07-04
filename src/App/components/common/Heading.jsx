@@ -10,7 +10,7 @@ const Heading = ({ title, Icon, from = "pages", desc }) => {
             <b>{title}</b>
           </div>
           <span>
-            <i>{desc ? desc : 'Tailwind includes an expertly-crafted'} </i>
+            <i>{desc ? desc : ''} </i>
           </span>
         </div>
       </div>

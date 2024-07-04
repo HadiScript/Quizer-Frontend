@@ -14,7 +14,9 @@ const DateLineCharts = ({ data }) => {
   };
 
   return (
-    <Area height={400} {...config} />
+    <>
+      <Area height={400} {...config} />
+    </>
   )
 }
 

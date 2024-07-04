@@ -67,7 +67,6 @@ const {
 
 const App = () => {
 
-  const { token } = theme.useToken()
 
   return (
 
@@ -97,7 +96,7 @@ const App = () => {
       <Route path={subs} element={<SubscriberRoutes />}>
         <Route path={subsDashboard} element={<SubscriberDashboard />} />
         <Route path={profile} element={<SubscriberProfile />} />
-        <Route path={CreateHome} element={<CreateHomePage />} />
+        {/* <Route path={CreateHome} element={<CreateHomePage />} /> */}
         <Route path={SingleHomePage()} element={<DetailHomePage />} />
 
         <Route path={createQuiz} element={<CreateQuiz />} />

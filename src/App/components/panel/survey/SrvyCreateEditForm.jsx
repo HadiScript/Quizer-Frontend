@@ -17,7 +17,7 @@ const SrvyCreateEditForm = ({ submit, isLoading, data, fetechingData }) => {
   }, [data]);
 
   return (
-    <div className='mt-4'>
+    <div className=''>
 
       {fetechingData && <>loading...</>}
 

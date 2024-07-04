@@ -11,7 +11,7 @@ const Surveys = () => {
     <SubcriberLayout>
 
 
-      <BgHeading title={"Surveys"} />
+      <BgHeading title={"Surveys"} desc={"Here is the list of all the surveys created."} />
       <div className="mt-4 mb-2">
         <Input.Search
           placeholder="Search by Title"

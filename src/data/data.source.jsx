@@ -107,11 +107,11 @@ export const Banner50DataSource = {
   childWrapper: {
     className: 'banner5-title-wrapper',
     children: [
-      { name: 'title', children: 'Quiz Making App', className: 'banner5-title' },
+      { name: 'title', children: 'Sawal App', className: 'banner5-title' },
       {
         name: 'explain',
         className: 'banner5-explain',
-        children: 'Create, Customize and Analyze your Quizzes With Ease',
+        children: 'Create, customize, and analyze quizzes and surveys with a snap of your fingers.',
       },
       {
         name: 'content',

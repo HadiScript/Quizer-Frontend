@@ -133,8 +133,6 @@ const RangeComponent = () => {
 
 const FormComponents = () => {
 
-
-
   return (
     <div id="Form Components" style={{ marginTop: "100px", marginBottom: "100px" }}>
       <div className='feature8-title-wrapper'>
@@ -149,8 +147,6 @@ const FormComponents = () => {
         <InputComponent />
         <SelectComponent />
         <RangeComponent />
-
-
       </div>
 
 

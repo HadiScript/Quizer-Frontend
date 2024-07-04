@@ -19,13 +19,13 @@ const SubcriberLayout = ({ children, from = "subscriber", }) => {
 
       <Row style={{ minHeight: "100vh" }} className={"main-db_layout"}>
         {from !== 'create-quiz-ai' &&
-          <Col lg={4} xs={0} className="fixedColumn leftColumn border-end lightgrey-bg">
+          <Col lg={4} xs={0} className="fixedColumn leftColumn border-end ">
             <Sidebar from={from} />
           </Col>
         }
 
         {
-          from !== "create-quiz-ai" && <Col lg={20} xs={24} className="centerColumn ">
+          from !== "create-quiz-ai" && <Col lg={20} xs={24} className="centerColumn lightgrey-bg  ">
             <LayoutHeader from={from} />
             <div className={`py-3  ${points?.lg ? "px-2" : ""} `}> {children}</div>
           </Col>

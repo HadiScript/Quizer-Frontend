@@ -25,7 +25,7 @@ const CreateQuizForm = ({
 
 
   return (
-    <div className={`${from === "modifications" ? "mt-0" : from === "withAI" ? "" : "p-2  mt-4"}`}>
+    <div className={`${from === "modifications" ? "mt-0" : from === "withAI" ? "" : ""}`}>
 
       <form onSubmit={from === "modifications" ? (e) => handleSubmit(e, quizId) : handleSubmit}>
         <div className="mb-3">

@@ -18,7 +18,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
     <>
       <div className={` ""}`}>
         <div className="d-flex flex-wrap justify-content-between align-items-start">
-          {from !== "page" ? <h6> <b>Highest Score</b> </h6> : <Heading title={"Attempt Users"} Icon={<UserOutlined className="its-icon" />} />}
+          {from !== "page" ? <h6 className="px-3"> <b>Highest Score</b> </h6> : <Heading title={"Quiz users"} desc={"Here is the list of all the users who have attempted the quiz."} Icon={<UserOutlined className="its-icon" />} />}
           {/* {from !== "page" && (
             <div className="d-flex justify-content-between gap-3 align-items-center">
 
@@ -58,6 +58,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
                 {from === "page" && <th scope="col"></th>}
               </tr>
             </thead>
+
             <tbody>
               {data?.map((x, index) => (
                 <tr key={index}>
@@ -86,6 +87,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
           </table>
         </div>
         }
+        {data?.length === 0 && <Empty />}
 
       </div >
 

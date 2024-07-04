@@ -2,7 +2,7 @@ import { Col, Empty, Row } from "antd"
 import BgHeading from "../../../components/common/BgHeading"
 import SrvyLayout from "../../../components/layouts/survey-detail-dashboard/SrvyLayout"
 
-import { useDashboardData1, useSrvyOverview, useSrvyStats } from "../../../../actions/_survey"
+import { useBasicInfoServey, useDashboardData1, useSrvyOverview, useSrvyStats } from "../../../../actions/_survey"
 import { useParams } from "react-router-dom"
 import DateLineCharts from "../../../components/panel/survey/DateLineCharts"
 import StatsPeiCharts from "../../../components/panel/survey/StatsPeiCharts"
@@ -21,12 +21,10 @@ import {
   AreaChart,
 } from 'recharts';
 
-
-
-
 const SrvyStats = () => {
   const { slug } = useParams();
   const { data: data1, isLoading: loading1, } = useDashboardData1(slug);
+  const { data: basicData, isLoading: fetechingData } = useBasicInfoServey(slug);
   const { data, isLoading } = useSrvyStats(slug);
 
   const { data: overviewData, loading: overviewLoading } = useSrvyOverview(slug)
@@ -50,29 +48,31 @@ const SrvyStats = () => {
 
   }, [overviewData])
 
-
-
-  // console.log("overview", mostSelectedData)
-
   return (
     <SrvyLayout>
-
       <Row className="srvy-stats" >
         <Col lg={16} xs={24}>
           <div className="m-1" >
-            <BgHeading title={"Survey Stats"} />
+            <BgHeading title={"Stats of" + " " + basicData?.title} desc={"Analyze your survey stats easily with these graphical representations"} />
             <SrvyFilters />
             <Row className="my-4">
-              <Col lg={8} xs={24} >
+              <Col lg={10} xs={24} >
                 <div className="border rounded-2 p-2 m-1" >
                   <StatsPeiCharts data={data} isLoading={isLoading} />
                 </div>
 
               </Col>
 
-              <Col lg={16} xs={24} >
+              <Col lg={14} xs={24} >
                 <div className="border rounded-2 p-2 m-1" >
-                  <DateLineCharts data={data1} loading={loading1} />
+                  {data1?.length === 0 ?
+                    <div style={{ height: "400px" }}>
+                      <h6><b>Response By Date</b></h6>
+                      <Empty />
+                    </div>
+                    :
+                    <DateLineCharts data={data1} loading={loading1} />
+                  }
                 </div>
               </Col>
             </Row >
@@ -82,21 +82,27 @@ const SrvyStats = () => {
         <Col lg={8} xs={24} >
           <div className="border rounded-3 p-2 most-selected-data"  >
             <Heading title={"Most Selected Data"} />
-            <ResponsiveContainer>
-              <AreaChart
-                data={mostSelectedData}
-                margin={{
-                  bottom: 70
-                }}
-              >
-                <XAxis dataKey="name" />
-                <Tooltip />
-                <ReferenceLine y={0} stroke="#000" />
-                <Brush dataKey="name" height={30} stroke="#3289a0" />
-                <Area type="monotone" dataKey="option" fill="#3289a0" />
-                <Area type="monotone" dataKey="value" fill="#3289a0" />
-              </AreaChart>
-            </ResponsiveContainer>
+            {mostSelectedData?.length > 0 ?
+
+              <ResponsiveContainer>
+                <AreaChart
+                  data={mostSelectedData}
+                  margin={{
+                    bottom: 70
+                  }}
+                >
+                  <XAxis dataKey="name" />
+                  <Tooltip />
+                  <ReferenceLine y={0} stroke="#000" />
+                  <Brush dataKey="name" height={30} stroke="#3289a0" />
+                  <Area type="monotone" dataKey="option" fill="#3289a0" />
+                  <Area type="monotone" dataKey="value" fill="#3289a0" />
+                </AreaChart>
+              </ResponsiveContainer>
+
+              : <Empty />
+            }
+
           </div>
 
           <div className="border rounded-3 p-2 mt-1 average-rating-data"  >

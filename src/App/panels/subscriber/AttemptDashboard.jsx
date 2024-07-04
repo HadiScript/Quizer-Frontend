@@ -14,6 +14,17 @@ import { SmallStatsBox } from "../../components/panel/mainDashboard/Stats";
 import { TbTimeDuration0 } from "react-icons/tb";
 import PeiChartPassOrFail from "../../components/panel/PeiChartPassOrFail";
 
+
+const ItsStats = ({ title, number, icon }) => {
+  return <div className="d-flex gap-3 align-items-center">
+    <div> {icon}</div>
+    <div className="row">
+      <div className="col-6">asd</div>
+      <div className="col-6">asd</div>
+    </div>
+  </div>
+}
+
 const AttemptDashboard = () => {
   const { id } = useParams();
   const points = Grid.useBreakpoint();
@@ -22,43 +33,47 @@ const AttemptDashboard = () => {
   const { data, isLoading } = usePerQuizSummary(id)
 
 
+
+
+
   const { data: avgTimeData, isLoading: avgLoading } = usePerQuizAvgTime(id)
   // const { data: completionData, isLoading: completionLoading } = useCompletionRate(id)
 
 
   return (
     <SubcriberLayout from="quiz-detail">
-      <BgHeading title={"Quiz Attempt Dashboard"} />
-      {/* <div className="d-flex justify-content-end mb-2 mt-4">
+      <BgHeading title={"Quiz attempts"} desc={"Analyze quiz results easily through these graphical representations."} />
+      <div className="d-flex justify-content-end mb-2 mt-4">
         <Button icon={<ClockCircleOutlined />} type="dashed">Average Time Spent: <b className="mx-2">{avgTimeData?.averageTimeSpent}</b></Button>
-      </div> */}
+      </div>
+
 
       <Row className="mt-4">
         <Col lg={16} xs={24} className="px-2">
           <Row className="">
-            <Col lg={12} xs={24} className="px-1 border rounded-3">
-              <div className="p-2 d-flex flex-column gap-3">
+            <Col lg={12} xs={24} className="bg-white px-1 border rounded-3">
+              <div className=" p-2 d-flex flex-column gap-3">
                 <h6><b>Stats</b></h6>
-                <SmallStatsBox title={"Average Time Spent"} number={avgTimeData?.averageTimeSpent} icon={<TbTimeDuration0 size={18} />} />
-                <SmallStatsBox title={"Average score"} number={data?.averageScore} icon={<TbTimeDuration0 size={18} />} />
-                <SmallStatsBox title={"Total Attempts"} number={data?.totalAttempts} icon={<TbTimeDuration0 size={18} />} />
-                <SmallStatsBox title={"Average Time Spent"} number={data?.averageScore} icon={<TbTimeDuration0 size={18} />} />
+                <ItsStats title={"Average Time Spent"} number={avgTimeData?.averageTimeSpent} icon={<TbTimeDuration0 size={25} />} />
+                <ItsStats title={"Average score"} number={data?.averageScore?.toFixed(2)} icon={<TbTimeDuration0 size={25} />} />
+                <ItsStats title={"Total Attempts"} number={data?.totalAttempts} icon={<TbTimeDuration0 size={25} />} />
+                <ItsStats title={"Average Time Spent"} number={data?.averageScore?.toFixed(2)} icon={<TbTimeDuration0 size={25} />} />
               </div>
             </Col>
 
             <Col lg={12} xs={24} className="px-1 ">
-              <div className="border rounded-3">
+              <div className="bg-white border rounded-3">
                 <PeiChartPassOrFail resultForPeiChart={data?.result} />
               </div>
             </Col>
 
-            <Col className="px-1 mt-2 border rounded-3" lg={24} xs={24}>
+            <Col className="bg-white px-1 mt-2 border rounded-3" lg={24} xs={24}>
               <QuizAttempTrend attempts={data?.attempts} expandTrend={expandTrend} setExpandTrend={setExpandTrend} />
             </Col>
           </Row>
         </Col>
         <Col lg={8} xs={24} className="px-2">
-          <div className="px-1 py-3 border rounded-3" style={{ height: '100%' }}>
+          <div className="bg-white px-1 py-3 border rounded-3" style={{ height: '100%' }}>
             <AttemptUserTable data={data?.highestScore} from="dashboard" />
           </div>
         </Col>

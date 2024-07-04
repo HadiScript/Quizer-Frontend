@@ -3,7 +3,7 @@ import SrvyLayout from '../../../components/layouts/survey-detail-dashboard/Srvy
 import BgHeading from '../../../components/common/BgHeading'
 import SrvyFormsTabs from '../../../components/panel/survey/SrvyFormsTabs'
 import FieldsForm from '../../../components/panel/survey/FieldsForm'
-import { useServeyFields, useUpdateSurveyFields } from '../../../../actions/_survey'
+import { useBasicInfoServey, useServeyFields, useUpdateSurveyFields } from '../../../../actions/_survey'
 import { useParams } from 'react-router-dom'
 import { Modal } from 'antd'
 import SurveyPreview from '../../../components/panel/survey/SurveyPreview'
@@ -28,7 +28,7 @@ const SrvyFields = () => {
   const { slug } = useParams();
   const [openPreview, setOpenPreview] = useState(false);
 
-
+  const { data: basic, isLoading: fetechingData } = useBasicInfoServey(slug);
   const { updateSurveyFields, isLoading: updateLoading } = useUpdateSurveyFields(slug)
   const { data, isLoading: fetechingDataLoading } = useServeyFields(slug)
 
@@ -49,7 +49,7 @@ const SrvyFields = () => {
 
   return (
     <SrvyLayout>
-      <BgHeading title={slug} />
+      <BgHeading title={basic?.title} />
       <SrvyFormsTabs />
       {fetechingDataLoading
         ?
@@ -68,7 +68,7 @@ const SrvyFields = () => {
         />
       }
 
-      <Modal footer={null} open={openPreview} onCancel={() => setOpenPreview(false)}>
+      <Modal footer={null} style={{top : "-10px"}} width={750} open={openPreview} onCancel={() => setOpenPreview(false)}>
         <div className='d-flex justify-content-center'>
           <SurveyPreview fields={fields} />
         </div>

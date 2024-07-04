@@ -7,7 +7,7 @@ const PeiChartPassOrFail = ({ resultForPeiChart, isLoading }) => {
 
   const config = useMemo(() => ({
     data: resultForPeiChart,
-    title: "Pass Fail",
+    title: "Success Rate",
     angleField: 'value',
 
     legend: true,
@@ -20,7 +20,7 @@ const PeiChartPassOrFail = ({ resultForPeiChart, isLoading }) => {
         style: {
           fontSize: 9,
           dy: 12,
-          color : "red"
+          color: "red"
         },
       },
     ],

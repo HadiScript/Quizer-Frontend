@@ -178,7 +178,7 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
 
           </Collapse>
         ))}
-        <Button type="dashed" onClick={addField} icon={<PlusOutlined />} style={{ width: '100%' }}>
+        <Button type="dashed" onClick={addField} icon={<PlusOutlined />} className='mt-2' style={{ width: '100%' }}>
           Add Field
         </Button>
       </Space>

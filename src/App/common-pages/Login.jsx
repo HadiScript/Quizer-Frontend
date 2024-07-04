@@ -15,7 +15,7 @@ const Login = () => {
   const { email, setEmail, password, setPassword, Login, loginwithgoogle, loading } = _useCommon();
 
   const onFinish = (values) => {
-    Login(); 
+    Login();
   };
 
 
@@ -32,11 +32,11 @@ const Login = () => {
 
       <Row style={{ minHeight: "100vh" }} className="auth">
         <Col className="left" lg={18} xs={24}></Col>
-        <Col lg={6} xs={24}>
+        <Col lg={6} xs={24}  >
           <div style={{ minHeight: "100vh" }} className="d-flex flex-column gap-4 justify-content-center align-items-center px-3">
             <div style={{ width: "100%" }}>
               <h2 className="">Login</h2>
-              <small className="text-secondary">In publishing and graphic design, Lorem ipsum is a placeholder.</small>
+              {/* <small className="text-secondary">In publishing and graphic design, Lorem ipsum is a placeholder.</small> */}
             </div>
 
             <Form

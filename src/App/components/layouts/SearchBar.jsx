@@ -41,6 +41,7 @@ const SearchBard = () => {
 
   return (
     <Select
+
       ref={searchInputRef}
       value={searchItem}
       onChange={handleChange}
@@ -48,6 +49,7 @@ const SearchBard = () => {
       showSearch
       style={{
         width: points.lg ? "90%" : "70%",
+        
         // width: (points.xs || points.sm) && "70%" ,
       }}
       placeholder="Press cntrl + k"

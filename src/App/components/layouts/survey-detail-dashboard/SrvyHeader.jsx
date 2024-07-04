@@ -22,7 +22,7 @@ const SrvyHeader = () => {
         <Link style={pathname.includes("stats") ? whichActive() : {}} to={`/subscribe/surveys/${slug}/stats`} role="button" className="d-flex gap-2 align-items-center _link text-dark"> <DashboardOutlined />  Stats  </Link>
         <Link style={pathname.includes("responses") ? whichActive() : {}} to={`/subscribe/surveys/${slug}/responses`} role="button" className="d-flex gap-2 align-items-center _link text-dark"> <FaList />  Attempters  </Link>
 
-        <div role="button" onClick={() => router('/subscribe/surveys/')} className="d-flex gap-2 align-items-center"> <ImExit /> Exit</div>
+        <div role="button" onClick={() => router('/subscribe/surveys')} className="d-flex gap-2 align-items-center"> <ImExit /> Exit</div>
       </div>
     </div>
   )

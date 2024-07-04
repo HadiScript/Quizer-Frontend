@@ -39,7 +39,6 @@ const StatsPeiCharts = ({ data, isLoading, small = false }) => {
         offset: (t) => t * 0.8 + 0.1,
       },
     },
-    // color: ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
   };
 
   return (

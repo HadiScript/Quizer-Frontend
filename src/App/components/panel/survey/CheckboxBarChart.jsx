@@ -9,12 +9,16 @@ const CheckboxBarChart = ({ data }) => {
     xField: 'name',
     yField: "value",
     slider: {
-      x: {}
+      x: { value: [0, 5] }
     },
 
-    shapeField: 'column25D',
+    // shapeField: 'column25D',
     style: {
-      fill: '#0891b2',
+      radiusTopLeft: 10,
+      radiusTopRight: 10,
+      fill: ({ }) => {
+        return '#155e75';
+      },
     },
     label: false,
   }), [data]);

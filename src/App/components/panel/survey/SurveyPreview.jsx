@@ -44,7 +44,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
 
 
           >
-            <Input type={field.type}  className='survey-text ' />
+            <Input type={field.type} className='survey-text ' />
           </Form.Item>
         );
       case 'radio':
@@ -138,8 +138,8 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
 
   return (
     <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{}} >
-      {preview && <BgHeading title={"Preview"} />}
       <div className='mt-4' >
+        {preview && <BgHeading title={"Preview"} desc={"Here is the preview of your form"} />}
 
 
         {fields?.map((field, index) => <div className='bg-white d-flex flex-column my-3 p-3 rounded-3'>

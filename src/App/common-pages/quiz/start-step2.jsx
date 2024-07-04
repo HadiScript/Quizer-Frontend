@@ -126,7 +126,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
           <div className="d-flex justify-content-center align-items-start attempt">
             <div style={{ minHeight: "100vh" }} className="d-flex flex-column  gap-4 card-shadow2">
               <div className="border-bottom d-flex flex-wrap justify-content-between align-items-center pb-4">
-                <span className="main-heading text-center">{quizData.title}</span>
+                <span className="main-heading text-center text-capitalize">{quizData.title}</span>
                 <Affix offsetTop={10}>
                   <Timer remainingTime={remainingTime} />
                 </Affix>
@@ -148,7 +148,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
         <div className="d-flex justify-content-center align-items-start attempt">
           <div style={{ minHeight: "100vh" }} className="d-flex flex-column  gap-4 card-shadow2">
             <div className="border-bottom d-flex flex-wrap justify-content-between align-items-center pb-4">
-              <span className="main-heading text-center">{quizData.title}</span>
+              <span className="main-heading text-center text-capitalize">{quizData.title}</span>
               <Affix offsetTop={10}>
                 <Timer remainingTime={remainingTime} />
               </Affix>

@@ -29,7 +29,7 @@ const AddQuestionModal = ({
 }) => {
   return (
     <Modal
-      title={<Heading title={"Add Question"} desc={"Please add a question that should has atleast 2 options and atleast one should be correct"} />}
+      title={<Heading title={"Add Question"} />}
       footer={null}
       centered
       open={open}

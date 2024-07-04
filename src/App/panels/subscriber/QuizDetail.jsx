@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Button, Card } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BorderInnerOutlined, DiffOutlined, SnippetsOutlined } from "@ant-design/icons";
 
 import CopyLinkModal from "./CopyLink";
@@ -18,9 +18,11 @@ import BgHeading from "../../components/common/BgHeading";
 
 const QuizDetail = () => {
 
+
   const ref1 = useRef(null);
   const ref2 = useRef(null);
   const ref3 = useRef(null);
+  const router = useNavigate()
 
   const { id } = useParams();
   const { quizData, handleInputChange, handleRequiredFieldChange, handleAddField, handleRemoveField, handleSubmit, loading, deleteQuiz, handleMaxLimit, setQuizData, generateAIInstructions } =
@@ -51,18 +53,19 @@ const QuizDetail = () => {
 
   return (
     <SubcriberLayout from="quiz-detail" id={id}>
-      <BgHeading title={loading ? "..." : quizData?.title} />
+      <BgHeading title={loading ? "..." : quizData?.title} desc={"Edit your quiz, Add Update Questions, Copylink, Update Settings"} />
       <div className="mt-4" />
+
       <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
 
       <div className="row mt-4">
         <div className="col-xs-12 col-md-6 p-1">
-          <Card className="detailed-card">
+          <div className="detailed-card mb-3">
             <div className="d-flex justify-content-start align-items-center gap-2">
               <SnippetsOutlined className="its-icon" />
               <span>Edit Quiz</span>
             </div>
-          </Card>
+          </div>
 
           <Card className="mt-2 lightgrey-bg" ref={ref1}>
             <CreateQuizForm
@@ -84,16 +87,17 @@ const QuizDetail = () => {
 
 
         <div className="col-xs-12 col-md-6 p-1" ref={ref2}>
-          <Card className="detailed-card">
+          <div className="detailed-card mb-3">
             <div className="d-flex justify-content-start align-items-center gap-2">
               <DiffOutlined className="its-icon" />
               <span>Add Questions</span>
             </div>
-          </Card>
+          </div>
 
           <Card className="mt-2 light-bg">
-            <div className="d-flex justify-content-end">
+            <div className="d-flex gap-2 justify-content-end">
               <Button onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
+              <Button onClick={() => router(`/subscribe/questions/${id}`)}>See All Questions</Button>
             </div>
 
             <div className="mt-3">

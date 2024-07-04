@@ -16,17 +16,17 @@ const GlobalSettings = () => {
   const points = Grid.useBreakpoint();
   return (
     <SubcriberLayout>
-      <BgHeading title={"Global Settings"} />
+      <BgHeading title={"Global Settings"} desc={"Update your global settings or Upload your logo"} />
 
       <Row className="mt-4">
         <Col md={16} xs={24}>
-          <div className="border-end  p-3">
+          <div className="bg-white py-3 rounded-3 p-3 mx-2">
             <Heading title={"Global Settings"} Icon={<SettingOutlined className="its-icon" />} />
             <SettingsForm from={"globalSettings"} loading={loading} _setSettings={_setSettings} _settings={_settings} onFinish={onFinish} />
           </div>
         </Col>
         <Col md={8} xs={24}>
-          <div className={`${!points.md ? 'mt-4' : 'px-3'}`}>
+          <div className={`bg-white py-3 rounded-3 ${!points.md ? 'mt-4' : 'px-3'}`}>
             <Heading title={"Upload Logo"} Icon={<UploadOutlined className="its-icon" />} />
             <LogoUploads
               image={image}

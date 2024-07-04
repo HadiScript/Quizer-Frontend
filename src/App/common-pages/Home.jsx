@@ -10,6 +10,8 @@ import HowItWorks from '../components/common/Home/HowItWorks';
 import QuizComponents from '../components/common/Home/QuizComponents';
 import useResponsive from '../../hooks/useBreakpoints';
 import FormComponents from '../components/common/Home/FormComponents';
+import Hero from '../components/common/Home/Hero';
+import HowItWorks2 from '../components/common/Home/HowItWorks2';
 
 
 
@@ -26,17 +28,19 @@ const Home = () => {
         isMobile={isMobile}
       />
 
+      <Hero />
+      {/* <HowItWorks /> */}
+      <HowItWorks2 />
 
 
-
-      <Banner
+      {/* <Banner
         id="Banner"
         key="banner"
         dataSource={Banner50DataSource}
         isMobile={isMobile}
       />
 
-      <HowItWorks />
+      <HowItWorks /> */}
 
       <Features key="features" id="Features" isMobile={isMobile} />
 
@@ -49,6 +53,7 @@ const Home = () => {
         dataSource={Content110DataSource}
         isMobile={isMobile}
       />
+
       <Footer />
 
       <Point
@@ -57,9 +62,6 @@ const Home = () => {
         size="point-large"
         position="point-left"
       />
-
-
-
 
     </div>
   )

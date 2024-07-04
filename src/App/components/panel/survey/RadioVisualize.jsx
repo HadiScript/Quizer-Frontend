@@ -68,7 +68,7 @@ const RadioVisualize = ({ data }) => {
         <Col lg={4} xs={24} className="mt-2 mx-1">
           <Button onClick={gettingDataForVisualization} loading={loading} icon={<FaChartPie />} >Visualize Data</Button>
         </Col>
-        <small>You can only select three of them</small>
+        <small className="mx-1">You can only select three of them</small>
       </Row>
 
       <Divider />

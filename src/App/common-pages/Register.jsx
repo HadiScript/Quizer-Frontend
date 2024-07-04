@@ -21,7 +21,7 @@ const Register = () => {
           <div style={{ minHeight: "100vh" }} className="d-flex flex-column  justify-content-center align-items-center px-3">
             <div style={{ width: "100%" }}>
               <h2 className="">Register</h2>
-              <small className="text-secondary">In publishing and graphic design, Lorem ipsum is a placeholder.</small>
+              {/* <small className="text-secondary">In publishing and graphic design, Lorem ipsum is a placeholder.</small> */}
             </div>
 
             <Form
@@ -76,8 +76,8 @@ const Register = () => {
                 <Input.Password placeholder="Confirm Password" />
               </Form.Item>
 
-              <Form.Item style={{width : "100%"}}>
-                <Button style={{width : "100%"}} loading={loading} type="primary" htmlType="submit" className="primaryBtn mt-3">
+              <Form.Item style={{ width: "100%" }}>
+                <Button style={{ width: "100%" }} loading={loading} type="primary" htmlType="submit" className="primaryBtn mt-3">
                   Register
                 </Button>
               </Form.Item>

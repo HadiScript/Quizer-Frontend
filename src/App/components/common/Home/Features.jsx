@@ -9,22 +9,22 @@ import Building from './technology-comp/Building';
 const pageData = [
   {
     title: 'Create Quiz',
-    content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
+    content: 'Afraid of a tedious quiz-creating process? Not anymore. Create extensive quizzes swiftly with sawal.',
     Bg: Tetris,
   },
   {
     title: 'Dashboards',
-    content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
+    content: 'Analyze your quiz questions and results through our detailed virtual representation with various options and parameters.',
     Bg: Column,
   },
   {
     title: 'Settings',
-    content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
+    content: 'Customize your quizzes through our special settings in the control panel.',
     Bg: Coordinate,
   },
   {
-    title: 'Create your Forms',
-    content: 'n publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying',
+    title: 'Forms',
+    content: 'Sawal helps you create interactive forms with ease by using its expansive options.',
     full: true,
     Bg: Building,
   },
@@ -40,14 +40,14 @@ const Features = ({ isMobile }) => {
     <div key="features" id="features" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "100px", marginBottom: "100px" }}>
       <div className="home-page feature8">
         <div className='feature8-title-wrapper'>
-          <h1 style={{ fontWeight: "600" }}>What you will get</h1>
-          <p>  Ant Design 5.0 enable extendable algorithm, make custom theme easier</p>
+          <h1 style={{ fontWeight: "600" }}>What Sawal has to offer to you</h1>
+          <p>Sawal has unlimited quiz-related options in store for you.</p>
         </div>
         <Row className="d-flex flex-wrap">
           {pageData.map((item, i) => (
             <Col
               key={i.toString()}
-              md={item.full ? 24 : 8}
+              lg={item.full ? 24 : 8}
               xs={24}
               className="px-2 py-2"
             >

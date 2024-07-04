@@ -45,7 +45,12 @@ const QuizAttemptingComponent = ({ quizData, handleSubmit, responses, setRespons
             <b style={{ width: "10%" }}>Q {index + 1}:</b>
             <div style={{ width: "90%" }}>
               {/* <p>{question.text}</p> */}
-              <div className="mb-3"> <ReactQuill style={{ width: "100%" }} modules={{ toolbar: null }} readOnly theme="snow" value={question.text} /></div>
+              {/* <div className="mb-3">
+                <ReactQuill style={{ width: "100%" }} modules={{ toolbar: null }} readOnly theme="snow" value={question.text} />
+              </div> */}
+              <div className="mb-3" >
+                <p dangerouslySetInnerHTML={{ __html: question.text }} />
+              </div>
 
               {question.type === "short-answer" ? (
                 <Input.TextArea onChange={(e) => handleOptionChange(question._id, e.target.value, true)} />

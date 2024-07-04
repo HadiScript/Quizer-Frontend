@@ -12,7 +12,15 @@ import { AllQuizLoading } from "../../components/loadings";
 import { useNavigate } from "react-router-dom";
 
 const AllQuizes = () => {
-  const { list, loading } = _useAllMyQuizes();
+  const {
+    list,
+    loading,
+    setSearch,
+    handleSearch,
+    handleTableChange,
+    pagination,
+    data
+  } = _useAllMyQuizes();
   const router = useNavigate()
   const [showIn, setShowIn] = useState(localStorage.getItem('showIn') || 'grid')
 
@@ -38,29 +46,36 @@ const AllQuizes = () => {
       {/* <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} desc={`${loading ? "loading... " : list.length}/10 Questions`} /> */}
       <BgHeading
         title={"All Quizes"}
-        desc={`${loading ? "loading... " : list?.length}/10 Questions`}
+        desc={"Here is the list of all the quizzes created"}
+      // desc={`${loading ? "loading... " : list?.length}/10 Questions`}
       // AlertDesc={list.length === 0 && "Please Add Your First Quiz"}
 
       />
 
 
 
-      <div className="d-flex justify-content-between align-items-center mb-2 mt-4">
+      <div className="d-flex justify-content-between align-items-center mb-3 mt-4">
         <Button onClick={() => router("/subscribe/create-quiz")} className="myBtn" icon={<PlusCircleOutlined />}>Create Quiz</Button>
         <ShowInIcons />
       </div>
 
+
       <div className="row">
         {
-          loading ? <AllQuizLoading /> :
-            list?.length > 0 ? <>
-              {showIn === 'grid' ?
-                <QuizGrid list={list} loading={loading} />
-                :
-                <QuizTable list={list} loading={loading} />
-              }
-            </>
-              : <CreateQuizCTA />
+
+          showIn === 'grid' ?
+            <QuizGrid list={list} loading={loading} />
+            :
+            <QuizTable
+              setSearch={setSearch}
+              handleSearch={handleSearch}
+              handleTableChange={handleTableChange}
+              pagination={pagination}
+              list={list}
+              loading={loading}
+              data={data}
+            />
+
         }
 
       </div>

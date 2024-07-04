@@ -3,12 +3,11 @@ import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { DeleteOutlined, EditOutlined, HolderOutlined } from "@ant-design/icons";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { API, questionApi } from "../../../helper/API";
-import { Button, Empty, List, Pagination, Tag } from "antd";
+import { questionApi } from "../../../helper/API";
+import { Button, Empty, Tag } from "antd";
 import React, { useState } from "react";
 import AllQuestionModel from "./AllQuestionModel";
 import { gettingData } from "../../../helper/GetData";
-import AddQuestionModal from "../../panels/subscriber/AddQuestionModal";
 import EditQuestionModal from "../../panels/subscriber/EditQuestionModal";
 import { BasicLoading } from "../loadings";
 
@@ -78,33 +77,34 @@ const QuestionListEdit = ({
                 {questions?.map((chapter, index) => (
                   <Draggable key={chapter._id} draggableId={chapter._id} index={index}>
                     {(provided) => (
-                      <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 `}>
-                        <div className="question-box1">
-                          <div {...provided.dragHandleProps}>
-                            <HolderOutlined />
+                      <>
+                        <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 `}>
+                          <div className="question-box1">
+                            <div {...provided.dragHandleProps}>
+                              <HolderOutlined />
+                            </div>
+                            <p dangerouslySetInnerHTML={{ __html: gettingData(chapter?.text, from) }} ></p>
                           </div>
-                          {/* <p dangerouslySetInnerHTML={{ __html: chapter?.text }}></p> */}
-                          <p dangerouslySetInnerHTML={{ __html: gettingData(chapter?.text, from) }} ></p>
+                          <div className="question-box2">
+                            {chapter.incorrectCount && <Tag> Incorrect Count: {chapter.incorrectCount} </Tag>}
+
+                            {
+                              !sortByToughest && <>
+                                <DeleteOutlined onClick={() => deleteHandle(quizId, chapter._id)} />
+
+                                <Button className="myBtn" onClick={() => {
+                                  setEditQuestionModal(true)
+                                  setCurrentId(chapter._id)
+                                }} icon={<EditOutlined />}>
+                                  Options
+                                </Button>
+                              </>
+                            }
+
+                            {chapter?.disable && <Button className="text-danger">Disabled</Button>}
+                          </div>
                         </div>
-                        <div className="question-box2">
-                          {chapter.incorrectCount && <Tag> Incorrect Count: {chapter.incorrectCount} </Tag>}
-
-                          {
-                            !sortByToughest && <>
-                              <DeleteOutlined onClick={() => deleteHandle(quizId, chapter._id)} />
-
-                              <Button className="myBtn" onClick={() => {
-                                setEditQuestionModal(true)
-                                setCurrentId(chapter._id)
-                              }} icon={<EditOutlined />}>
-                                Options
-                              </Button>
-                            </>
-                          }
-
-                          {chapter?.disable && <Button className="text-danger">Disabled</Button>}
-                        </div>
-                      </div>
+                      </>
                     )}
                   </Draggable>
                 ))}

@@ -8,18 +8,23 @@ import { useNavigate } from "react-router-dom";
 
 export const useSurveyCreate = () => {
   const queryClient = useQueryClient();
+  const router = useNavigate();
   const create = async (values) => {
-    console.log(values, "create survey");
     const { data } = await axios.post(`${surveyApi}/create`, values, { withCredentials: true });
     return data;
   };
 
-  const { mutate: createSurvey, isLoading, isSuccess, error } = useMutation(create, {});
-
-  if (isSuccess) {
-    queryClient.invalidateQueries(["mySurveys"]);
-    toast.success("Survey created!");
-  }
+  const {
+    mutate: createSurvey,
+    isLoading,
+    error,
+  } = useMutation(create, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["mySurveys"]);
+      toast.success("Survey created!");
+      router(`/subscribe/surveys/${data?.slug}/detail`);
+    },
+  });
 
   if (error) {
     console.log(error);
@@ -74,7 +79,7 @@ export const useBasicInfoServey = (slug) => {
 
   const { data, isLoading, error } = useQuery("surveyBasicInfo", fetchData, {
     enabled: !!slug,
-    staleTime: Infinity,
+    // staleTime: Infinity,
   });
 
   if (error) {

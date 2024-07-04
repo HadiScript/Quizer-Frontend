@@ -17,7 +17,6 @@ const Attempters = () => {
         {/* {JSON.stringify(data)} */}
 
         <Pagination total={data?.pagination.total} current={data?.pagination?.page} onChange={handleTableChange}
-
           // showSizeChanger
           // showQuickJumper
           showTotal={() => `Total ${data?.pagination.total} items`}

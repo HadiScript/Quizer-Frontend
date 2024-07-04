@@ -97,7 +97,7 @@ const LayoutHeader = ({ from }) => {
             </div>
 
           ) : (
-            <span role="button" onClick={() => router("/subscribe/quizes")} className="d-flex flex-row justify-content-center align-items-center gap-1  px-1 ">
+            <span role="button" onClick={() => router("/subscribe/quizzes")} className="d-flex flex-row justify-content-center align-items-center gap-1  px-1 ">
               <IoLogOutOutline size={16} /> <span className="d-none d-md-block" >Exit</span>
             </span>
           )}
