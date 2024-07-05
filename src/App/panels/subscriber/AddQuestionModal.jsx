@@ -95,7 +95,10 @@ const AddQuestionModal = ({
       </div>
 
       <div className="text-end">
-        <Button className="myBtn" loading={loading} onClick={() => addQuestion(quizId)}>
+        <Button className="myBtn" loading={loading} onClick={() => {
+          addQuestion(quizId);
+          // setOpen(false)
+        }}>
           Add Question
         </Button>
       </div>

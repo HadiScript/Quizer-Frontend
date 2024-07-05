@@ -8,7 +8,7 @@ import QuizPerAttempts from "./Scatter";
 
 
 
-export const SmallStatsBox = ({ title, number, icon }) => <Card className="mx-2 " hoverable style={{borderLeft : "1px solid "}}>
+export const SmallStatsBox = ({ title, number, icon }) => <Card className="mx-2 " hoverable style={{ borderLeft: "1px solid " }}>
   <div className="d-flex flex-column gap-1 " style={{ color: "#164e63" }}>
     {icon}
     <div className="d-flex  justify-content-between align-items-center">
@@ -29,16 +29,16 @@ const Stats = ({ data, isLoading, data2, srvyGraphData }) => {
       <Row>
         {/* STATS */}
 
-        <Col md={6} lg={6} xs={24}>
+        <Col md={6} lg={6} xs={24} className="mt-2">
           <SmallStatsBox title={"Total Quizzes"} number={data?.totalQuizzes || 0} icon={<MdOutlineQuiz size={22} />} />
         </Col>
-        <Col md={6} lg={6} xs={24}>
+        <Col md={6} lg={6} xs={24} className="mt-2">
           <SmallStatsBox title={"Questions"} number={data?.totalQuestions || 0} icon={<FaQuestion size={22} />} />
         </Col>
-        <Col md={6} lg={6} xs={24}>
+        <Col md={6} lg={6} xs={24} className="mt-2">
           <SmallStatsBox title={"Enabled Questions"} number={data?.enabledQuestions || 0} icon={<FaCheck size={22} />} />
         </Col>
-        <Col md={6} lg={6} xs={24}>
+        <Col md={6} lg={6} xs={24} className="mt-2">
           <SmallStatsBox title={"Disabled Questions"} number={data?.disabledQuestions || 0} icon={<MdOutlineDisabledByDefault size={22} />} />
         </Col>
 
@@ -46,13 +46,13 @@ const Stats = ({ data, isLoading, data2, srvyGraphData }) => {
         {/* CAHRTS */}
         <Col md={12} lg={12} xs={24}>
           <div className="mx-2 bg-white my-3  p-3 rounded-3" style={{ height: 300 }}>
-            <QuizPerAttempts title="Survey/Attempts" data={srvyGraphData} from="srvy" primaryColor="#083344" secondaryColor="#71717a" />
+            <QuizPerAttempts title="Survey Per Attempts" data={srvyGraphData} from="srvy" primaryColor="#083344" secondaryColor="#71717a" />
           </div>
         </Col>
 
         <Col md={12} lg={12} xs={24}>
           <div className="mx-2 bg-white my-3  p-3 rounded-3" style={{ height: 300 }}>
-            <QuizPerAttempts title="Quiz/Attempts" data={srvyGraphData} from="srvy" primaryColor="#083344" secondaryColor="#71717a" />
+            <QuizPerAttempts title="Quiz Per Attempts" data={srvyGraphData} from="srvy" primaryColor="#083344" secondaryColor="#71717a" />
           </div>
         </Col>
 
@@ -62,14 +62,14 @@ const Stats = ({ data, isLoading, data2, srvyGraphData }) => {
         <Col md={6} lg={6} xs={24} >
           <SmallStatsBox title={"Pass Attempters"} number={data?.passAttempts || 0} icon={<FaStar size={18} />} />
         </Col>
-        <Col md={6} lg={6} xs={24}>
+        <Col md={6} lg={6} xs={24} className="mt-2">
           <SmallStatsBox title={"Fail Attempters"} number={data?.failAttempts || 0} icon={<TbStarOff size={18} />} />
         </Col>
 
-        <Col md={6} lg={6} xs={24}>
+        <Col md={6} lg={6} xs={24} className="mt-2">
           <SmallStatsBox title={"Total Surveys"} number={data2?.totalSurveys || 0} icon={<LuListChecks size={18} />} />
         </Col>
-        <Col md={6} lg={6} xs={24}>
+        <Col md={6} lg={6} xs={24} className="mt-2">
           <SmallStatsBox title={"Total Responses"} number={data2?.totalResponses || 0} icon={<LuClipboardCheck size={18} />} />
         </Col>
 

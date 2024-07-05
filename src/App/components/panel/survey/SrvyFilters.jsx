@@ -16,9 +16,6 @@ const SrvyFilters = () => {
   const [open, setOpen] = useState(false);
 
 
-
-
-
   const selectOne = (str) => {
     setWhichOne(str);
     setOpen(true)
@@ -27,8 +24,6 @@ const SrvyFilters = () => {
 
   return (
     <>
-
-
       <div className="d-flex justify-content-between align-items-center flex-wrap">
         <div className="mt-4 d-flex flex-wrap align-items-start gap-1">
           <Button className="myBtn" icon={<PieChartOutlined />} onClick={() => selectOne("radio")}>Visualize Radio Fields</Button>
@@ -48,6 +43,8 @@ const SrvyFilters = () => {
         placement={"bottom"}
         onClose={() => setOpen(false)}
         open={open}
+        className="drawerLinearBg"
+        // style={{backgroundColor : "083344"}}
       >
         {/* {JSON.stringify(data?.dropdownFields)} */}
 

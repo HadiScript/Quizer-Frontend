@@ -13,6 +13,10 @@ h5 {
   color: #083344 !important;
 }
 
+.dimWhite {
+  color: #bebebe;
+}
+
 .boxShadow1 {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
@@ -68,6 +72,11 @@ h5 {
   background: linear-gradient(to right, #083344, #06b6d4) !important;
   color: #fff;
   cursor: pointer;
+}
+
+.drawerLinearBg {
+  /* background: #083344 !important;
+  color: #fff; */
 }
 
 .linearBgRounded {
@@ -303,22 +312,22 @@ h5 {
 
 /* search input */
 #searchinput {
-  background-color: transparent !important;
-  border-top: none;
+  /* background-color: transparent !important; */
+  /* border-top: none;
   border-left: none;
-  border-right: none;
-  border-radius: 0 !important;
+  border-right: none; */
+  /* border-radius: 0 !important; */
   outline: none !important;
-  font-weight: bold;
-  font-size: 18px;
+  /* font-weight: bold; */
+  /* font-size: 18px; */
 }
 
 #searchQuiz .ant-btn {
-  background-color: transparent !important;
+  /* background-color: transparent !important;
   color: #155e75;
-  font-size: large;
+  font-size: large; */
 }
 
-#reponses-model{
+#reponses-model {
   background-color: lightblue !important;
 }

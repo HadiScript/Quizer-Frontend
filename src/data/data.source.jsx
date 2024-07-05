@@ -107,7 +107,7 @@ export const Banner50DataSource = {
   childWrapper: {
     className: 'banner5-title-wrapper',
     children: [
-      { name: 'title', children: 'Sawal App', className: 'banner5-title' },
+      { name: 'title', children: 'How Sawal App Works', className: 'banner5-title' },
       {
         name: 'explain',
         className: 'banner5-explain',
@@ -122,7 +122,7 @@ export const Banner50DataSource = {
         name: 'button',
         className: 'banner5-button-wrapper',
         children: {
-          href: '#',
+          href: '#how-it-works',
           className: 'banner5-button',
           type: 'primary',
           children: 'Get Started With Free',

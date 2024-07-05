@@ -1,4 +1,4 @@
-import { DeleteOutlined, ExpandOutlined, ExportOutlined, FolderOpenOutlined, UserOutlined } from "@ant-design/icons";
+import { DeleteOutlined, ExpandOutlined, ExportOutlined, EyeOutlined, FolderOpenOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Empty, Input, Tag, Tooltip } from "antd";
 
 import { useState } from "react";
@@ -76,7 +76,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
                       setOpen(true);
                     }}
                   >
-                    <FolderOpenOutlined />
+                    <EyeOutlined />
                   </td>
                   {from === "page" && <td role="button">
                     <DeleteOutlined />

@@ -12,6 +12,9 @@ import useResponsive from '../../hooks/useBreakpoints';
 import FormComponents from '../components/common/Home/FormComponents';
 import Hero from '../components/common/Home/Hero';
 import HowItWorks2 from '../components/common/Home/HowItWorks2';
+import Benifits from '../components/common/Home/Benifits';
+import Test1 from '../components/common/Home/Features/Test1';
+import Pricing from '../components/common/Pricing';
 
 
 
@@ -29,8 +32,10 @@ const Home = () => {
       />
 
       <Hero />
+      <Benifits />
+      <Test1 />
       {/* <HowItWorks /> */}
-      <HowItWorks2 />
+      {/* <HowItWorks2 /> */}
 
 
       {/* <Banner
@@ -42,10 +47,11 @@ const Home = () => {
 
       <HowItWorks /> */}
 
-      <Features key="features" id="Features" isMobile={isMobile} />
+      <Features key="features" isMobile={isMobile} />
 
       <FormComponents />
-      <QuizComponents />
+      {/* <QuizComponents /> */}
+      <Pricing />
 
       <CTA
         id="CTA"
@@ -58,7 +64,7 @@ const Home = () => {
 
       <Point
         key="list"
-        data={['Navbar', 'Banner', 'How it works?', 'Features', 'Form Components', 'Screenshots', 'Footer']}
+        data={['Navbar', 'Banner', 'Benefits', 'Features', 'Offers', 'Forms Component', , 'CTA', 'Footer']}
         size="point-large"
         position="point-left"
       />

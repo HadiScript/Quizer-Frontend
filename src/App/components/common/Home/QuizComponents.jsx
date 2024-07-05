@@ -9,7 +9,7 @@ const QuizComponents = () => {
 
 
   return (
-    <div key="quiz-component" id="Screenshots" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "100px", marginBottom: "100px" }}>
+    <div key="Screenshots" id="Screenshots" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "-100px", marginBottom: "100px" }}>
       <div className="home-page feature8">
         <div className='feature8-title-wrapper'>
           <h1 style={{ fontWeight: "600" }}>Screenshots</h1>

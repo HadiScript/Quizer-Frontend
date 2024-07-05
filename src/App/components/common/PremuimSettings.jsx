@@ -32,7 +32,7 @@ const PremuimSettings = (
 
         <div className="mb-3 d-flex flex-column">
           <label htmlFor="title" className="form-label">
-           <b>Scoring Type</b>
+            <b>Scoring Type</b>
           </label>
           <Select value={_settings?.scoringType} onChange={(e) => _setSettings((prev) => ({ ...prev, scoringType: e }))}>
             <Select.Option value="grade">Grade</Select.Option>
@@ -41,7 +41,7 @@ const PremuimSettings = (
           </Select>
         </div>
 
-        {from === 'quizDetail' &&
+        {/* {from === 'quizDetail' &&
           <div className="mb-3 d-flex flex-column">
             <label htmlFor="title" className="form-label">
               Show Certificate
@@ -53,21 +53,23 @@ const PremuimSettings = (
 
             {_settings.showCertificate && <Button onClick={() => setShowModel(true)} className='mt-2'>Preview Template</Button>}
           </div>
-        }
+        } */}
 
         {from === "quizDetail" && (
           <>
             <div className="mb-3 d-flex flex-column">
               <label htmlFor="title" className="form-label">
-                quizAvailability
+                <b>Quiz Availability</b>
               </label>
 
               <RangePicker disabledDate={disabledDate} format="YYYY-MM-DD HH:mm" showTime value={dateRange} onChange={handleRangeChange} />
+              <small>If you do not select the dates, then it consider as always available</small>
+
             </div>
 
             <div className="mb-3 d-flex flex-column">
               <label htmlFor="title" className="form-label">
-                Display Setting
+                <b>Display Setting</b>
               </label>
 
               {

@@ -52,83 +52,84 @@ const QuizDetail = () => {
 
 
   return (
-    <SubcriberLayout from="quiz-detail" id={id}>
+    <SubcriberLayout from="quiz-detail" id={id} >
       <BgHeading title={loading ? "..." : quizData?.title} desc={"Edit your quiz, Add Update Questions, Copylink, Update Settings"} />
-      <div className="mt-4" />
+      <div className="mt-4 px-2" >
 
-      <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
+        <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
 
-      <div className="row mt-4">
-        <div className="col-xs-12 col-md-6 p-1">
-          <div className="detailed-card mb-3">
-            <div className="d-flex justify-content-start align-items-center gap-2">
-              <SnippetsOutlined className="its-icon" />
-              <span>Edit Quiz</span>
+        <div className="row mt-4">
+          <div className="col-xs-12 col-md-6 p-1">
+            <div className="detailed-card mb-3">
+              <div className="d-flex justify-content-start align-items-center gap-2">
+                <SnippetsOutlined className="its-icon" />
+                <span>Edit Quiz</span>
+              </div>
             </div>
+
+            <Card className="mt-2 lightgrey-bg" ref={ref1}>
+              <CreateQuizForm
+                quizData={quizData}
+                loading={loading}
+                handleInputChange={handleInputChange}
+                handleRequiredFieldChange={handleRequiredFieldChange}
+                handleAddField={handleAddField}
+                handleRemoveField={handleRemoveField}
+                handleSubmit={handleSubmit}
+                from="modifications"
+                handleMaxLimit={handleMaxLimit}
+                quizId={id}
+                setQuizData={setQuizData}
+                generateAIInstructions={generateAIInstructions}
+              />
+            </Card>
           </div>
 
-          <Card className="mt-2 lightgrey-bg" ref={ref1}>
-            <CreateQuizForm
-              quizData={quizData}
-              loading={loading}
-              handleInputChange={handleInputChange}
-              handleRequiredFieldChange={handleRequiredFieldChange}
-              handleAddField={handleAddField}
-              handleRemoveField={handleRemoveField}
-              handleSubmit={handleSubmit}
-              from="modifications"
-              handleMaxLimit={handleMaxLimit}
-              quizId={id}
-              setQuizData={setQuizData}
-              generateAIInstructions={generateAIInstructions}
-            />
-          </Card>
-        </div>
 
-
-        <div className="col-xs-12 col-md-6 p-1" ref={ref2}>
-          <div className="detailed-card mb-3">
-            <div className="d-flex justify-content-start align-items-center gap-2">
-              <DiffOutlined className="its-icon" />
-              <span>Add Questions</span>
+          <div className="col-xs-12 col-md-6 p-1" ref={ref2}>
+            <div className="detailed-card mb-3">
+              <div className="d-flex justify-content-start align-items-center gap-2">
+                <DiffOutlined className="its-icon" />
+                <span>Add Questions</span>
+              </div>
             </div>
+
+            <Card className="mt-2 light-bg">
+              <div className="d-flex gap-2 justify-content-end">
+                <Button onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
+                <Button onClick={() => router(`/subscribe/questions/${id}`)}>See All Questions</Button>
+              </div>
+
+              <div className="mt-3">
+                <QuestionListEdit deleteQuestion={deleteQuestion} loading={QuestionLoading} questions={questions} setQuestions={setQuestions} quizId={id} from={"components"} />
+              </div>
+            </Card>
           </div>
-
-          <Card className="mt-2 light-bg">
-            <div className="d-flex gap-2 justify-content-end">
-              <Button onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
-              <Button onClick={() => router(`/subscribe/questions/${id}`)}>See All Questions</Button>
-            </div>
-
-            <div className="mt-3">
-              <QuestionListEdit deleteQuestion={deleteQuestion} loading={QuestionLoading} questions={questions} setQuestions={setQuestions} quizId={id} from={"components"} />
-            </div>
-          </Card>
         </div>
+
+        {/* add question modal */}
+        <AddQuestionModal
+          loading={isAdded}
+          text={questionData.text}
+          setQuestionData={setQuestionData}
+          questionType={questionData.questionType}
+          options={questionData.options}
+          correctAnswer={questionData.correctAnswer}
+          addQuestion={addQuestion}
+          handleAddOption={handleAddOption}
+          handleRemoveOption={handleRemoveOption}
+          handleOptionChange={handleOptionChange}
+          handleCorrectChange={handleCorrectChange}
+          open={addQuestionsModal}
+          setOpen={setAddQuestionsModal}
+          quizId={id}
+          setQuestions={setQuestions}
+
+        />
+        <CopyLinkModal open={openLinkModal} setOpen={setOpenLinkModal} quizId={id} creatorId={quizData?.creator} />
+        <SettingsSidebar open={settingDrawer} onClose={() => setSettingDrawer(false)} from="quizDetail" quizId={id} />
+        {/* <QuizDetailTour ref1={ref1} ref2={ref2} ref3={ref3} open={openTour} setOpen={setOpenTour} /> */}
       </div>
-
-      {/* add question modal */}
-      <AddQuestionModal
-        loading={isAdded}
-        text={questionData.text}
-        setQuestionData={setQuestionData}
-        questionType={questionData.questionType}
-        options={questionData.options}
-        correctAnswer={questionData.correctAnswer}
-        addQuestion={addQuestion}
-        handleAddOption={handleAddOption}
-        handleRemoveOption={handleRemoveOption}
-        handleOptionChange={handleOptionChange}
-        handleCorrectChange={handleCorrectChange}
-        open={addQuestionsModal}
-        setOpen={setAddQuestionsModal}
-        quizId={id}
-        setQuestions={setQuestions}
-
-      />
-      <CopyLinkModal open={openLinkModal} setOpen={setOpenLinkModal} quizId={id} creatorId={quizData?.creator} />
-      <SettingsSidebar open={settingDrawer} onClose={() => setSettingDrawer(false)} from="quizDetail" quizId={id} />
-      {/* <QuizDetailTour ref1={ref1} ref2={ref2} ref3={ref3} open={openTour} setOpen={setOpenTour} /> */}
     </SubcriberLayout>
   );
 };

@@ -8,7 +8,7 @@ import { DualAxes, Line } from '@ant-design/plots';
 
 
 
-const QuizPerAttempts = ({ data, from, primaryColor, secondaryColor, surveyData, quizData }) => {
+const QuizPerAttempts = ({ data, from, primaryColor, secondaryColor, surveyData, quizData, title }) => {
 
 
   const config = {
@@ -38,7 +38,7 @@ const QuizPerAttempts = ({ data, from, primaryColor, secondaryColor, surveyData,
 
 
       <div className='d-flex justify-content-between align-items-center'>
-        <Heading title={from === "quiz" ? "Quizzes per attempts" : "Survey per attempts"} />
+        <Heading title={title} />
       </div>
 
       {

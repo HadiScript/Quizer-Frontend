@@ -35,8 +35,9 @@
   font-weight: 600;
   border-radius: 0px !important;
   border-right: 2px solid #083344;
-  color: #083344 !important;
-  background-color: #dbeafe6c !important;
+  color: #ffffff !important;
+  font-size: 15px;
+  background-color: transparent !important;
 }
 
 .main-db_layout ._active .its-icon {
@@ -86,7 +87,7 @@
 }
 
 .nav-link {
-  color: #52525b !important;
+  color: #cecece !important;
 }
 
 ._link {
@@ -160,4 +161,11 @@
   background: -webkit-linear-gradient(#062b39, #26586a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* HEADER */
+
+.header-link {
+  color: #062b39;
+  font-weight: 500;
 }

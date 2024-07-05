@@ -109,7 +109,7 @@ const CreateQuizForm = ({
 
 
         {from !== "withAI" && <Button className="myBtn" icon={<EditOutlined />} loading={loading} htmlType="submit">
-          {from === "modifications" ? "Edit" : "Create Quiz"}
+          {from === "modifications" ? "Save" : "Create Quiz"}
         </Button>}
       </form>
     </div>

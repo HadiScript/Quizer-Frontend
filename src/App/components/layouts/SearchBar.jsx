@@ -52,7 +52,7 @@ const SearchBard = () => {
         
         // width: (points.xs || points.sm) && "70%" ,
       }}
-      placeholder="Press cntrl + k"
+      placeholder="Search"
       // optionFilterProp="children"
       defaultActiveFirstOption={false}
       suffixIcon={null}

@@ -46,6 +46,7 @@ const Responses = () => {
     <SrvyLayout >
       <BgHeading title={"Responses of" + " " + basicData?.title} desc={"Find all the responses to the survey added by the users."} />
 
+      {/* {JSON.stringify(data)} */}
       <div className="d-flex flex-column gap-4 mt-4 mb-4">
 
         <Input.Search

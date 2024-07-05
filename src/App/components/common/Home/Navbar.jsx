@@ -18,10 +18,11 @@ const Navbar = () => {
         <h2>Quizer Logo</h2>
         <div className='d-none d-lg-flex justify-content-start align-items-center gap-3'>
 
-          <span role='button'>Home</span>
-          <span role='button'>How it works?</span>
-          <span role='button'>Features</span>
-          <span role='button'>Gallery</span>
+          <Link className='header-link _link' to={'/'} role='button'>Home</Link>
+          <Link className='header-link _link' to={'/how-it-works'} role='button'>How it works?</Link>
+          <a className='header-link _link' href='#Offers' role='button'>Features</a>
+          <a className='header-link _link' href='#Offers' role='button'>Showcase</a>
+          <a className='header-link _link' href='#Pricing' role='button'>Pricing</a>
 
 
           {!auth?.token && <Link to={'/signup'}>

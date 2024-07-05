@@ -7,12 +7,12 @@ const BgHeading = ({ title, desc, AlertDesc }) => {
 
         <h6 className="text-white text-capitalize">{title}</h6>
         <p>{desc ? desc : ""} </p>
-        {AlertDesc && <Alert
+        {/* {AlertDesc && <Alert
           description={AlertDesc}
           type="info"
           showIcon
           closable
-        />}
+        />} */}
       </div>
     </>
   );

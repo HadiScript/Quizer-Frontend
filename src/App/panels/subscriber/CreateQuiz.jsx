@@ -11,7 +11,10 @@ const CreateQuiz = () => {
 
   return (
     <SubcriberLayout>
-      <BgHeading title={"Create Quiz"} desc={"Create a quiz as per requirements by following a few easy steps."} Icon={<DiffOutlined className="its-icon" />} AlertDesc={"After creating the quiz, please make sure to set the minimum number of reattempts allowed. The default setting of reattempt is zero. You can also use AI quiz instructions."} />
+      <BgHeading title={"Create Quiz"}
+        desc={"After creating the quiz, please make sure to set the minimum number of reattempts allowed. The default setting of reattempt is zero. You can also use AI quiz instructions."}
+        Icon={<DiffOutlined className="its-icon" />} AlertDesc={"After creating the quiz, please make sure to set the minimum number of reattempts allowed. The default setting of reattempt is zero. You can also use AI quiz instructions."}
+      />
       {/* <Alert
         className="mt-5"
         message="After creating quiz."

@@ -13,12 +13,9 @@ const Attempters = () => {
     <SubcriberLayout from="quiz-detail">
       <AttemptUserTable loading={loading} handleSearch={handleSearch} setSearchEmail={setSearchEmail} from="page" data={data?.data} />
 
-      <div className="my-3">
-        {/* {JSON.stringify(data)} */}
-
+      <div className="my-3 px-1">
         <Pagination total={data?.pagination.total} current={data?.pagination?.page} onChange={handleTableChange}
-          // showSizeChanger
-          // showQuickJumper
+
           showTotal={() => `Total ${data?.pagination.total} items`}
         />
       </div>

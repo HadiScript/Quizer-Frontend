@@ -18,17 +18,17 @@ const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, 
       dataIndex: 'title',
       key: 'title',
       sorter: (a, b) => a.title.localeCompare(b.title),
-      render: (text, record) => <Link className="_link" to={`/subscribe/quizzes/${record._id}`}>{record.title}</Link>
+      render: (text, record) => <Link className="_link text-capitalize" to={`/subscribe/quizzes/${record._id}`}>{record.title}</Link>
     },
     {
-      title: 'Questions#',
+      title: 'Questions',
       dataIndex: 'questions',
       key: 'questions',
       sorter: (a, b) => a.questions.length - b.questions.length,
       render: (questions, record) => record.questions?.length
     },
     {
-      title: 'CreatedAt',
+      title: 'Created At',
       dataIndex: 'createdAt',
       key: 'createdAt',
       sorter: (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
@@ -39,9 +39,17 @@ const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, 
       title: '',
       key: 'action',
       render: (text, record) => (
-        <Link className="_link" to={`/subscribe/quizzes/${record._id}`}>
-          <ExpandAltOutlined role="button" />
-        </Link>
+
+        // subscribe/quizzes/66865059750cd17f01a12e35/attempters
+        <div className="d-flex gap-4">
+          <Link className="_link" to={`/subscribe/quizzes/${record._id}`}>
+            {/* <ExpandAltOutlined role="button" /> */}
+            Detail
+          </Link>
+          <Link className="_link" to={`/subscribe/quizzes/${record._id}/attempters`}>
+            Attempts
+          </Link>
+        </div>
       ),
       responsive: ['sm']
     }

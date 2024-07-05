@@ -8,7 +8,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { _useQuizSettings } from "../../../actions/_settings";
 import { useParams } from "react-router-dom";
 import { _useQuestionTest } from "../../../actions/_questions";
-import { percentage } from "../../../helper/TakingPercentage";
+import { convertScoreToGrade, percentage } from "../../../helper/TakingPercentage";
 
 const AttempterDrawser = ({ open, setOpen, current }) => {
   const { id } = useParams()
@@ -50,25 +50,27 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
               <b>Email:</b> <span>{current?.studentDetails?.Email}</span>
             </div>
             <div className="d-flex justify-content-start align-items-center gap-3">
-              <b>Score:</b> <span>{_settings?.scoringType === "percentage" ? percentage(current?.score, questions?.length) + "%" : current?.score?.toFixed(2)} </span>
+              {/* percentage(current?.score, questions?.length) */}
+              {/* {current?.score} */}
+              <b>Score:</b> <span>{_settings?.scoringType === "percentage" ? current?.score + "%" : _settings?.scoringType === "grade" ? convertScoreToGrade(current?.score, 4) : current?.score?.toFixed(2)} </span>
             </div>
             <div className="d-flex justify-content-start align-items-center gap-3">
               <b>Submited Type:</b> <span>{current?.submitType === "within-time" ? <Tag color="green">Within Time</Tag> : "Out Of Time"}</span>
             </div>
             <div className="d-flex justify-content-start align-items-center gap-3">
-              <b>Is Pass:</b> <span>{current?.isPass ? <Tag color="green">Yes</Tag> : <Tag color="red">No</Tag>}</span>
+              <b>Pass:</b> <span>{current?.isPass ? <Tag color="green">Yes</Tag> : <Tag color="red">No</Tag>}</span>
             </div>
 
             <div className="d-flex justify-content-start align-items-center gap-3">
-              <b>Is Certified:</b> <span>{current?.Certified ? <Tag color="green">Yes</Tag> : <Tag color="red">No</Tag>}</span>
+              <b>Certified:</b> <span>{current?.Certified ? <Tag color="green">Yes</Tag> : <Tag color="red">No</Tag>}</span>
             </div>
 
             <div className="d-flex justify-content-start align-items-center gap-3">
               <div>
-                <b>Start At:</b> <span>{moment(current?.startTime).add(3, "days").calendar()}</span>
+                <b>Start:</b> <span>{moment(current?.startTime).add(3, "days").calendar()}</span>
               </div>
               <div>
-                <b>End At:</b> <span>{moment(current?.endTime).format('LT')}</span>
+                <b>End:</b> <span>{moment(current?.endTime).format('LT')}</span>
               </div>
             </div>
             {/* <Divider /> */}
@@ -83,15 +85,15 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
             </div>
             <div className="d-flex justify-content-start align-items-center gap-3">
               {_settings?.passingScore && <>
-                <b>Passing Score:</b>  <span>{_settings?.passingScore}%</span>
+                <b>Passing Score:</b>   <span>{_settings?.passingScore}%</span>
               </>}
             </div>
 
             <div className="d-flex justify-content-start align-items-center gap-3">
               <b>Correct Answers:</b> <span>{getTotalCorrectAnswers(responses)}</span>
             </div>
-            {/* <Divider /> */}
           </div>
+          {/* <Divider /> */}
 
           <div className="col-12 align-items-start px-4 gap-3">
             <b>Responses:</b>

@@ -23,9 +23,6 @@ const Header = ({
           {facebook?.show && <a style={{ color: textColor }} href={facebook?.link} target="_blank"> <ImFacebook /></a>}
           {twitter?.show && <a style={{ color: textColor }} href={twitter?.link} target="_blank"> <ImTwitter /></a>}
           {linkedin?.show && <a style={{ color: textColor }} href={linkedin?.link} target="_blank"> <ImLinkedin /></a>}
-
-
-
         </div>}
       </div>
     </div>

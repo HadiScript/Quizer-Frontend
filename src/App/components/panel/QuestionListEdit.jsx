@@ -34,7 +34,7 @@ const QuestionListEdit = ({
   const reOrderQuestions = async (x) => {
     try {
       const { data } = await axios.put(`${questionApi}/reorder`, x, {});
-      toast.success("ReOrder");
+      toast.success("Reorder");
     } catch (error) {
       console.log(error);
       toast.error("Error");

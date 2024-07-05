@@ -133,7 +133,7 @@ class Point extends React.PureComponent {
   }
 }
 
-class Hero extends React.Component {
+class HowItWorksHero extends React.Component {
   static defaultProps = {
     className: 'linked-animate-demo',
   };
@@ -187,9 +187,9 @@ class Hero extends React.Component {
     const { className } = this.props;
     const { data, tx, ty } = this.state;
     return (
-      <div id='Banner' className={`${className}-wrapper`}>
+      <div className={`feature8-wrapper itshero`}>
 
-        <div
+        {/* <div
           className={`${className}-box`}
           ref={(c) => { this.box = c; }}
           onMouseMove={this.onMouseMove}
@@ -200,9 +200,9 @@ class Hero extends React.Component {
           ))}
 
 
-        </div>
+        </div> */}
 
-        <div className='d-flex flex-column align-items-center justify-content-center gap-2 header3 main-hero'>
+        <div className='d-flex flex-column align-items-center justify-content-center gap-2 header3 main-hero2'>
           <div className="tags">
             <div className="tag-item">
               <BsMagic className='icon' />
@@ -233,15 +233,15 @@ class Hero extends React.Component {
             </a>
           </div>
 
-          <div className="img-container">
+          {/* <div className="img-container">
             <Image src='/images/main-dashboard.png' className='img' />
-          </div>
+          </div> */}
         </div>
       </div>
     );
   }
 }
 
-export default Hero
+export default HowItWorksHero
 
 

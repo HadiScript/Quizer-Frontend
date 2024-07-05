@@ -20,7 +20,7 @@ class Banner extends React.PureComponent {
       },
     };
     return (
-      <div {...tagProps} {...dataSource.wrapper}>
+      <div id='Banner' {...tagProps} {...dataSource.wrapper}>
         <div {...dataSource.page}>
           <QueueAnim
             key="text"

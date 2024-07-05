@@ -8,6 +8,11 @@
 .leftColumn {
   left: 0;
   width: 20%;
+  background: #083344;
+}
+
+.nav-link {
+  color: white !important;
 }
 
 .centerColumn {

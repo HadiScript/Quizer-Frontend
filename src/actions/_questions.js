@@ -161,6 +161,8 @@ export const _useQuestionTest = (quizId, limits, toughest = false, sortedBy = "a
     // Check if at least one option is correct
     if (!questionData?.options.some((option) => option.isCorrect)) return toast.error("Atleast one option should be true");
 
+    setQuestionData(addQuestionInitValues);
+
     addQuestionMutation.mutate({ quizId });
   };
 

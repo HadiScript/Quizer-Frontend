@@ -39,12 +39,28 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
             name={field._id}
             label={field.label}
             key={index}
-            rules={[{ required: field.required, message: `${field.label} is Required` }]}
-
-
-
+            rules={[
+              { required: field.required, message: `${field.label} is required` },
+              ...(field.type === 'email' ? [{ type: 'email', message: 'Please enter a valid email address' }] : []),
+              ...(field.type === 'text' ? [{ max: 200, message: 'Text cannot exceed 50 characters' }] : [])
+            ]}
           >
-            <Input type={field.type} className='survey-text ' />
+            {
+              field.type === 'text' ? (
+                <Input
+                  type="text"
+                  className='survey-text'
+                  maxLength={200}
+                  placeholder="Enter your text"
+                />
+              ) : (
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className='survey-text'
+                />
+              )
+            }
           </Form.Item>
         );
       case 'radio':
@@ -77,6 +93,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
               {field.options.map((option, idx) => (
                 <Select.Option key={idx} value={option.value}>{option.label}</Select.Option>
               ))}
+
             </Select>
           </Form.Item>
         );

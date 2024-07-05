@@ -37,7 +37,7 @@ const Features = ({ isMobile }) => {
   const onMouseLeave = () => setHover(null);
 
   return (
-    <div key="features" id="features" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "100px", marginBottom: "100px" }}>
+    <div key="features" id="Offers" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "100px", marginBottom: "100px" }}>
       <div className="home-page feature8">
         <div className='feature8-title-wrapper'>
           <h1 style={{ fontWeight: "600" }}>What Sawal has to offer to you</h1>

@@ -16,7 +16,7 @@ const SrvyHeader = () => {
 
   return (
     <div className="d-flex flex-wrap justify-content-between align-items-center py-3 border-bottom">
-      <Logo />
+      <Logo from="survey"/>
       <div className="d-flex gap-4 justify-content-start align-items-center mt-3">
         <Link style={pathname.includes("detail") || pathname.includes("fields") ? whichActive() : {}} to={`/subscribe/surveys/${slug}/detail`} role="button" className="d-flex gap-2 align-items-center _link text-dark "> <FormOutlined />  Form  </Link>
         <Link style={pathname.includes("stats") ? whichActive() : {}} to={`/subscribe/surveys/${slug}/stats`} role="button" className="d-flex gap-2 align-items-center _link text-dark"> <DashboardOutlined />  Stats  </Link>

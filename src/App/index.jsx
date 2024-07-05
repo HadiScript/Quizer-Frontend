@@ -35,6 +35,11 @@ import SrvyFields from "./panels/subscriber/survey/SrvyFields";
 import SrvyAttempt from "./common-pages/survey/SrvyAttempt";
 import SrvyStats from "./panels/subscriber/survey/SrvyStats";
 import Responses from "./panels/subscriber/survey/Responses";
+import HowItWorksPage from "./common-pages/HowItWorksPage";
+import PrivacyAndPolicy from "./common-pages/Privacy-and-policy";
+import Disclaimer from "./common-pages/Disclaimer";
+import DmcaPolicy from "./common-pages/DmcaPolicy";
+import TermAndConditions from "./common-pages/TermAndConditions";
 
 
 const {
@@ -73,6 +78,13 @@ const App = () => {
 
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/how-it-works" element={<HowItWorksPage />} />
+      <Route path="/privacy-and-policy" element={<PrivacyAndPolicy />} />
+      <Route path="/disclaimer" element={<Disclaimer />} />
+      <Route path="/dmca-policy" element={<DmcaPolicy />} />
+      <Route path="/terms-and-conditions" element={<TermAndConditions />} />
+
+
       <Route path={'signin'} element={<Login />} />
       <Route path={register} element={<Register />} />
       {/* <Route path={stripePass} element={<Pass />} />

@@ -17,7 +17,7 @@ const SrvyAttempt = () => {
         <BgHeading title={data?.title} desc={data?.description} />
         {/* SrvyAttempt {isLoading && <>please wait...</>} {JSON.stringify(data)} */}
 
-        {fetchingLoading ? <></> : <SurveyPreview
+        {fetchingLoading ? <>Please wait...</> : <SurveyPreview
           fields={data?.fields}
           preview={false}
           submiting={submiting}

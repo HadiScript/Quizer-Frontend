@@ -9,12 +9,14 @@ import AddQuestionModal from "./AddQuestionModal";
 import { Button, Input, Dropdown, Space } from "antd";
 import { BasicLoading } from "../../components/loadings";
 import BgHeading from "../../components/common/BgHeading";
+import { _useQuizModifications } from "../../../actions/_quiz";
 
 const AllQuestions = () => {
   const { id } = useParams();
   const [addQuestionsModal, setAddQuestionsModal] = useState(false);
   const [sortByToughest, setSortByToughest] = useState(false)
   const [sortedBy, setSortedBy] = useState('all')
+  const { quizData, loading: quizDataLoading } = _useQuizModifications(id);
 
   const {
     questions,
@@ -71,68 +73,70 @@ const AllQuestions = () => {
   return (
     <SubcriberLayout from="quiz-detail" id={id}>
 
-      <BgHeading title={"Questions"} />
+      <BgHeading title={quizDataLoading ? "..." : quizData?.title} desc={""} />
 
-      <div className="d-flex flex-wrap justify-content-between align-items-center mb-3 mt-4">
+      <div className="px-1">
+        <div className="d-flex flex-wrap justify-content-between align-items-center mb-3 mt-4">
 
-        <Button className="myBtn" onClick={() => setSortByToughest(!sortByToughest)}
-          icon={<SortAscendingOutlined />}
-        >{!sortByToughest ? "Toughest Questions" : "All Questions"}</Button>
-        <Button type="dashed" onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
-      </div>
+          <Button className="myBtn" onClick={() => setSortByToughest(!sortByToughest)}
+            icon={<SortAscendingOutlined />}
+          >{!sortByToughest ? "Toughest Questions" : "All Questions"}</Button>
+          <Button type="dashed" onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
+        </div>
 
-      <div className=" mt-5 mb-2">
-        <Input.Search
-          placeholder="Search Question"
-          enterButton="Search"
-          onSearch={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ width: "100%", marginBottom: 20 }}
-        />
-      </div>
+        <div className=" mt-5 mb-2">
+          <Input.Search
+            placeholder="Search Question"
+            enterButton="Search"
+            onSearch={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: "100%", marginBottom: 20 }}
+          />
+        </div>
 
-      <Dropdown menu={{ items }} className="mb-4">
-        <Button onClick={(e) => e.preventDefault()}>
-          <Space>
-            <span className="text-capitalize">{sortedBy}</span>
-            <DownOutlined />
-          </Space>
-        </Button>
-      </Dropdown>
+        <Dropdown menu={{ items }} className="mb-4">
+          <Button onClick={(e) => e.preventDefault()}>
+            <Space>
+              <span className="text-capitalize">{sortedBy}</span>
+              <DownOutlined />
+            </Space>
+          </Button>
+        </Dropdown>
 
-      {
-        loading ? <BasicLoading /> : <QuestionListEdit
+        {
+          loading ? <BasicLoading /> : <QuestionListEdit
 
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          sortByToughest={sortByToughest}
-          deleteQuestion={deleteQuestion}
-          loading={loading}
-          questions={questions}
-          setQuestions={setQuestions}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            sortByToughest={sortByToughest}
+            deleteQuestion={deleteQuestion}
+            loading={loading}
+            questions={questions}
+            setQuestions={setQuestions}
+            quizId={id}
+            from={"page"}
+          />
+        }
+
+        <AddQuestionModal
+          loading={isAdded}
+          text={text}
+          setQuestionData={setQuestionData}
+          questionType={questionType}
+          options={options}
+          correctAnswer={correctAnswer}
+          setText={() => { }}
+          addQuestion={addQuestion}
+          handleAddOption={handleAddOption}
+          handleRemoveOption={handleRemoveOption}
+          handleOptionChange={handleOptionChange}
+          handleCorrectChange={handleCorrectChange}
+          open={addQuestionsModal}
+          setOpen={setAddQuestionsModal}
           quizId={id}
-          from={"page"}
+          setQuestions={setQuestions}
         />
-      }
-
-      <AddQuestionModal
-        loading={isAdded}
-        text={text}
-        setQuestionData={setQuestionData}
-        questionType={questionType}
-        options={options}
-        correctAnswer={correctAnswer}
-        setText={() => { }}
-        addQuestion={addQuestion}
-        handleAddOption={handleAddOption}
-        handleRemoveOption={handleRemoveOption}
-        handleOptionChange={handleOptionChange}
-        handleCorrectChange={handleCorrectChange}
-        open={addQuestionsModal}
-        setOpen={setAddQuestionsModal}
-        quizId={id}
-        setQuestions={setQuestions}
-      />
+      </div>
     </SubcriberLayout>
   );
 };

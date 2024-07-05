@@ -134,7 +134,7 @@ const RangeComponent = () => {
 const FormComponents = () => {
 
   return (
-    <div id="Form Components" style={{ marginTop: "100px", marginBottom: "100px" }}>
+    <div id="Forms Component" style={{ marginTop: "100px", marginBottom: "100px" }}>
       <div className='feature8-title-wrapper'>
         <h1 style={{ fontWeight: "600" }}>Forms Component</h1>
         <p>What you can add in your Form</p>

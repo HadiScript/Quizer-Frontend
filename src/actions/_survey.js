@@ -306,6 +306,7 @@ export const useResponses = (slug) => {
       },
     });
 
+    // console.log(response, "jere is the respo");
     return response.data;
   };
 
