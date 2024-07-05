@@ -1,7 +1,8 @@
 import { Button, } from 'antd';
 import { useState } from 'react';
 
-import '../../../../assets/css/items.scss'
+import '../../../../assets/css/Items.scss'
+// import '../../../../assets/css/items.scss'
 
 import { FaWpforms } from "react-icons/fa";
 import { MdOutlineQuiz } from "react-icons/md";
@@ -88,7 +89,7 @@ const HowItWorks = () => {
 
       <div className='d-flex justify-content-center gap-3'>
         <Button size='large' icon={<MdOutlineQuiz size={20} />} onClick={() => setWhich('quiz')} style={which === "quiz" ? { backgroundColor: "#0c4a6e", color: "White" } : {}}>Quiz Creation Steps</Button>
-        <Button size='large' icon={<FaWpforms size={20}/>} onClick={() => setWhich('survey')} style={which === "survey" ? { backgroundColor: "#0c4a6e", color: "White" } : {}}>Survey Creation Steps</Button>
+        <Button size='large' icon={<FaWpforms size={20} />} onClick={() => setWhich('survey')} style={which === "survey" ? { backgroundColor: "#0c4a6e", color: "White" } : {}}>Survey Creation Steps</Button>
       </div>
 
       <div className="container " style={{ marginTop: "200px" }}>
