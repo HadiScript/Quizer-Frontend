@@ -1,5 +1,5 @@
 import { ExpandAltOutlined, LoadingOutlined } from "@ant-design/icons"
-import { Input, Pagination, Table } from "antd"
+import { Input, Pagination, Table, Tooltip } from "antd"
 import { Link } from "react-router-dom"
 
 const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, pagination, data }) => {
@@ -42,13 +42,17 @@ const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, 
 
         // subscribe/quizzes/66865059750cd17f01a12e35/attempters
         <div className="d-flex gap-4">
-          <Link className="_link" to={`/subscribe/quizzes/${record._id}`}>
-            {/* <ExpandAltOutlined role="button" /> */}
-            Detail
-          </Link>
-          <Link className="_link" to={`/subscribe/quizzes/${record._id}/attempters`}>
-            Attempts
-          </Link>
+          <Tooltip placement="topRight" title={"Detail Dashboard"}>
+            <Link className="_link" to={`/subscribe/quizzes/${record._id}`}>
+              {/* <ExpandAltOutlined role="button" /> */}
+              Detail
+            </Link>
+          </Tooltip>
+          <Tooltip placement="topLeft" title={"Attempt Users"}>
+            <Link className="_link" to={`/subscribe/quizzes/${record._id}/attempters`}>
+              Attempts
+            </Link>
+          </Tooltip>
         </div>
       ),
       responsive: ['sm']
