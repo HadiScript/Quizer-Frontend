@@ -1,4 +1,6 @@
-import React from 'react';
+// import bannerImage from '../assets/imgs/workshero.webp'
+
+
 export const Nav30DataSource = {
   wrapper: { className: 'header3 home-page-wrapper lwknaajkcx-editor_css' },
   page: { className: 'home-page lwkn8oxm13-editor_css' },
@@ -133,6 +135,7 @@ export const Banner50DataSource = {
   image: {
     className: 'banner5-image',
     children:
+      //  bannerImage,
       'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*-wAhRYnWQscAAAAAAAAAAABkARQnAQ',
   },
 };

@@ -9,7 +9,7 @@ const WhichNavLink = ({ from }) => {
   const QuizMenuList = [
     {
       gap: false,
-      name: "Attempt Dashboard",
+      name: "Quiz Dashboard",
       path: `/subscribe/quizzes/attempt/${id}`,
       Icon: <AppstoreOutlined />,
     },

@@ -46,20 +46,7 @@ const Sidebar = ({ from = "notSubscriber", title }) => {
 
 
 
-          {/* {from === "subscriber" && (
-            <Menu.Item
-              key="99"
-              className="mt-4 nav-link"
-              onClick={logout}
-              icon={
-                <div className="its-icon">
-                  <LogoutOutlined />
-                </div>
-              }
-            >
-              <span> Logout</span>
-            </Menu.Item>
-          )} */}
+
         </Menu>
       </div>
 

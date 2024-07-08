@@ -41,7 +41,7 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
   return (
     <>
       <Drawer width={740} placement="left" onClose={() => setOpen(false)} open={open}>
-        <div className="row">
+        <div className="row" style={{ margin: '20px' }}>
           <div className="col-12 col-lg-6 d-flex flex-column justify-content-start align-items-start p-4 gap-3">
             <div className="d-flex justify-content-start align-items-center gap-3">
               <b>Email:</b> <span>{current?.studentDetails?.Email}</span>
@@ -62,18 +62,11 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
               <b>Certified:</b> <span>{current?.Certified ? <Tag color="green">Yes</Tag> : <Tag color="red">No</Tag>}</span>
             </div>
 
-            <div className="d-flex justify-content-start align-items-center gap-3">
-              <div>
-                <b>Start:</b> <span>{moment(current?.startTime).add(3, "days").calendar()}</span>
-              </div>
-              <div>
-                <b>End:</b> <span>{moment(current?.endTime).format('LT')}</span>
-              </div>
-            </div>
+
           </div>
 
 
-          <div className="col-12 col-lg-6 d-flex flex-column justify-content-start align-items-start p-4 gap-3">
+          <div className="col-12 col-lg-6 d-flex flex-column justify-content-start align-items-start p-4 gap-3" >
             <div className="d-flex justify-content-start align-items-center gap-3">
               {
                 _settings?.mode && <>
@@ -90,13 +83,22 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
             <div className="d-flex justify-content-start align-items-center gap-3">
               <b>Correct Answers:</b> <span>{getTotalCorrectAnswers(responses)}</span>
             </div>
+
+            <div className="d-flex justify-content-start align-items-center gap-3">
+              <b>Start:</b> <span>{moment(current?.startTime).add(3, "days").calendar()}</span>
+
+            </div>
+
+            <div className="d-flex justify-content-start align-items-center gap-3">
+              <b>End:</b> <span>{moment(current?.endTime).format('LT')}</span>
+            </div>
           </div>
 
           <div className="col-12 align-items-start px-4 gap-3">
             <b>Responses:</b>
             {loading && <LoadingOutlined />}
             {responses?.map((item, index) => (
-              <div key={index} style={{ margin: '20px', padding: '20px', border: '1px solid #ccc' }}>
+              <div key={index} style={{ marginTop: '10px', padding: '20px', border: '1px solid #ccc' }}>
                 Question {index + 1}:
                 <h6> <span className="text-capitalize" dangerouslySetInnerHTML={{ __html: item?.question?.text }} /></h6>
                 <ul className="" style={{ listStyle: "none" }}>

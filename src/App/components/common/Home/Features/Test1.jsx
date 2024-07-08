@@ -29,28 +29,36 @@ const Test1 = () => {
                   <h1 style={{ fontWeight: "600" }} className='text-white'>What Sawal has to give you features</h1>
                 </div>
 
-                <ul class="list-unstyled" style={{ fontSize: "16px", marginLeft : "-30px" }}>
+                <ul class="list-unstyled" style={{ fontSize: "16px", marginLeft: "-30px" }}>
                   <li>
                     <div className="d-flex align-items-start gap-3 dimWhite">
-                      <CheckOutlined />
+                      <div className="d-none d-md-block">
+                        <CheckOutlined />
+                      </div>
                       <p style={{ marginTop: '-5px' }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</p>
                     </div>
                   </li>
                   <li>
                     <div className="d-flex align-items-start gap-3 dimWhite">
-                      <CheckOutlined />
+                      <div className="d-none d-md-block">
+                        <CheckOutlined />
+                      </div>
                       <p style={{ marginTop: '-5px' }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate theIn publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</p>
                     </div>
                   </li>
                   <li>
                     <div className="d-flex align-items-start gap-3 dimWhite">
-                      <CheckOutlined />
+                      <div className="d-none d-md-block">
+                        <CheckOutlined />
+                      </div>
                       <p style={{ marginTop: '-5px' }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</p>
                     </div>
                   </li>
                   <li>
                     <div className="d-flex align-items-start gap-3 dimWhite">
-                      <CheckOutlined />
+                      <div className="d-none d-md-block">
+                        <CheckOutlined />
+                      </div>
                       <p style={{ marginTop: '-5px' }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</p>
                     </div>
                   </li>

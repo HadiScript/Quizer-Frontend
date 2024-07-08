@@ -43,18 +43,19 @@ const Navbar = () => {
       </div>
       <Drawer onClose={() => setOpen(false)} open={open} width={200}>
         <div className='d-flex flex-column p-2 header3 gap-3 ' >
-          <span role='button'>Home</span>
-          <span role='button'>How it works?</span>
-          <span role='button'>Features</span>
-          <span role='button'>Gallery</span>
+          <Link className='header-link _link' to={'/'} role='button'>Home</Link>
+          <Link className='header-link _link' to={'/how-it-works'} role='button'>How it works?</Link>
+          <span className='header-link _link' onClick={() => handleJump("/#Features")} role='button'>Features</span>
+          <span className='header-link _link' onClick={() => handleJump('/how-it-works#Screenshots')} role='button'>Showcase</span>
+          <span className='header-link _link' onClick={() => handleJump('#Pricing')} href='#Pricing' role='button'>Pricing</span>
 
 
           {!auth?.token && <Link to={'/signup'}>
-            <button className='button' style={{ width: "100%" }}>Get Started Free</button>
+            <button className='button'>Get Started Free</button>
           </Link>}
 
           {auth?.token && auth?.user?.role === "subscriber" && <Link to={'/subscribe'}>
-            <Button className='button' style={{ width: "100%" }} icon={<LoginOutlined className='mx-2' />} >Dashboard</Button>
+            <Button className='button' icon={<LoginOutlined className='mx-2' />} >Dashboard</Button>
           </Link>}
         </div>
       </Drawer>
