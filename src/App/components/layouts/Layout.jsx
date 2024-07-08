@@ -6,7 +6,9 @@ import "../../../assets/css/layout.css";
 import "../../../assets/css/darkBlue.css";
 import Sidebar from "./Sidebar";
 import { _useQuizModifications } from "../../../actions/_quiz";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useAuth } from "../../../context/authContext";
 
 
 
@@ -19,6 +21,17 @@ const SubcriberLayout = ({ children, from = "subscriber", }) => {
   const { id } = useParams()
 
   const { quizData, } = _useQuizModifications(id);
+
+  const router = useNavigate();
+  const [auth] = useAuth()
+
+  useEffect(() => {
+    if (!auth?.token) {
+      return router('/');
+    }
+  }, [auth?.token])
+
+
 
   return (
     <>
