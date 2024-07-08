@@ -8,7 +8,7 @@ const PeiChartPassOrFail = ({ resultForPeiChart, isLoading }) => {
   const config = useMemo(() => ({
     data: resultForPeiChart,
     title: "Success Rate",
-    angleField: 'value',
+    angleField: 'Count',
 
     legend: true,
     innerRadius: 0.6,

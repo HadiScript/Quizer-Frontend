@@ -76,7 +76,7 @@ const AllQuestions = () => {
       <BgHeading title={quizDataLoading ? "..." : quizData?.title} desc={""} />
 
       <div className="px-1">
-        <div className="d-flex flex-wrap justify-content-between align-items-center mb-3 mt-4">
+        <div className="d-flex flex-wrap justify-content-between align-items-center mb-2 mt-4">
 
           <Button className="myBtn" onClick={() => setSortByToughest(!sortByToughest)}
             icon={<SortAscendingOutlined />}
@@ -84,7 +84,7 @@ const AllQuestions = () => {
           <Button type="dashed" onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
         </div>
 
-        <div className=" mt-5 mb-2">
+        <div className=" mt-4 mb-2">
           <Input.Search
             placeholder="Search Question"
             enterButton="Search"
@@ -94,7 +94,7 @@ const AllQuestions = () => {
           />
         </div>
 
-        <Dropdown menu={{ items }} className="mb-4">
+        <Dropdown menu={{ items }} className="mb-3">
           <Button onClick={(e) => e.preventDefault()}>
             <Space>
               <span className="text-capitalize">{sortedBy}</span>

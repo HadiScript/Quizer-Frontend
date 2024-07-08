@@ -49,7 +49,7 @@ const SrvyFields = () => {
 
   return (
     <SrvyLayout>
-      <BgHeading title={basic?.title} />
+      <BgHeading title={basic?.title}  desc={"You can edit and add different type of fields"}/>
       <SrvyFormsTabs />
       {fetechingDataLoading
         ?
@@ -68,7 +68,7 @@ const SrvyFields = () => {
         />
       }
 
-      <Modal footer={null} style={{top : "-10px"}} width={750} open={openPreview} onCancel={() => setOpenPreview(false)}>
+      <Modal footer={null} style={{ top: "-10px" }} width={750} open={openPreview} onCancel={() => setOpenPreview(false)}>
         <div className='d-flex justify-content-center'>
           <SurveyPreview fields={fields} />
         </div>

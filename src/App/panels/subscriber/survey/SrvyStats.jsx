@@ -20,6 +20,7 @@ import {
   Area,
   AreaChart,
 } from 'recharts';
+import { formatName } from "../../../components/panel/survey/RatingVisualize"
 
 const SrvyStats = () => {
   const { slug } = useParams();
@@ -36,8 +37,8 @@ const SrvyStats = () => {
 
       setMostSelectedData(overviewData.filter(d => d.mostSelected).map(d => ({
         name: d.fieldLabel.trim(),
-        option: d.mostSelected.option,
-        value: d.mostSelected.count
+        Option: d.mostSelected.option,
+        Count: d.mostSelected.count
       })))
 
       setAverageRateData(overviewData.filter(d => d.averageRate).map(d => ({
@@ -95,8 +96,8 @@ const SrvyStats = () => {
                   <Tooltip />
                   <ReferenceLine y={0} stroke="#000" />
                   <Brush dataKey="name" height={30} stroke="#3289a0" />
-                  <Area type="monotone" dataKey="option" fill="#3289a0" />
-                  <Area type="monotone" dataKey="value" fill="#3289a0" />
+                  <Area type="monotone" dataKey="Option" fill="#3289a0" />
+                  <Area type="monotone" dataKey="Count" fill="#3289a0" />
                 </AreaChart>
               </ResponsiveContainer>
 

@@ -8,7 +8,7 @@ import BgHeading from "../../components/common/BgHeading"
 const SubscriberProfile = () => {
   return (
     <SubcriberLayout>
-        <BgHeading title={"Update Your Profile"} />
+      <BgHeading title={"Update Your Profile"} />
 
       <Row>
         <Col md={12} xs={24}>

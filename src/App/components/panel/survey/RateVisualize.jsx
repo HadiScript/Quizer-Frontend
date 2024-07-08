@@ -1,5 +1,5 @@
 import { ConsoleSqlOutlined, DownOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Divider, Row, Select } from "antd";
+import { Button, Card, Col, Divider, Row, Select, Tag } from "antd";
 import { Fragment, useState } from "react";
 import toast from "react-hot-toast";
 import { FaChartPie } from "react-icons/fa";
@@ -9,6 +9,8 @@ import { surveyApi } from "../../../../helper/API";
 import { useParams } from "react-router-dom";
 import RadioPieCharts from "./RadioPieCharts";
 import RatingPieChart from "./RatingPieChart";
+import { formatName } from "./RatingVisualize";
+import { HintPick } from "./SrvyFilters";
 
 const MAX_COUNT = 3;
 
@@ -33,7 +35,15 @@ const RateVisualize = ({ data }) => {
     try {
       setLoading(true);
       const { data } = await axios.put(`${surveyApi}/dashboard/${slug}/rating-rate`, { fieldIds: values }, { withCredentials: true });
-      setRatingData(data);
+      setRatingData(
+        data.map(attempt => ({
+          ...attempt,
+          count: attempt.count.map(item => ({
+            Name: item?.name,
+            Count: item.value
+          }))
+        }))
+      );
       setLoading(false);
     } catch (error) {
       Errs(error);
@@ -69,11 +79,10 @@ const RateVisualize = ({ data }) => {
         <Col lg={4} xs={24}>
           <Button onClick={gettingDataForVisualization} loading={loading} icon={<FaChartPie />} className="mx-2">Visualize Data</Button>
         </Col>
-        <small className="mx-1">You can only select three of them</small>
+        <Tag className="mx-1 my-2" color="blue">You can only select three of them</Tag>
       </Row>
 
       <Divider />
-
 
       <Row >
         {
@@ -88,6 +97,11 @@ const RateVisualize = ({ data }) => {
                 </div>
               </Col>
             ))
+        }
+
+
+        {
+          ratingData.length === 0 && <HintPick />
         }
       </Row>
 

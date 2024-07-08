@@ -178,7 +178,8 @@ export const _useFields = (slug, id) => {
   };
 
   const { data, isLoading, error, isError } = useQuery(["attemptingFields", slug, id], fetchData, {
-    enabled: !!slug && !!id, // Ensure both slug and id are non-null/non-undefined
+    enabled: !!slug && !!id, 
+    // Ensure both slug and id are non-null/non-undefined
     // staleTime: Infinity,
   });
 

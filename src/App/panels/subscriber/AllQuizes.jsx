@@ -54,7 +54,7 @@ const AllQuizes = () => {
 
 
 
-      <div className="d-flex justify-content-between align-items-center mb-3 mt-4">
+      <div className="d-flex justify-content-between align-items-center mt-4">
         <Button onClick={() => router("/subscribe/create-quiz")} className="myBtn" icon={<PlusCircleOutlined />}>Create Quiz</Button>
         <ShowInIcons />
       </div>

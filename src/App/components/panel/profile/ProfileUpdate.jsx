@@ -20,7 +20,7 @@ const ProfileUpdate = () => {
 
 
   return (
-    <div className="mt-3 p-3 border-end">
+    <div className="mt-3 p-3 bg-white rounded border-end">
       <Heading title={auth?.user?.name} Icon={<UserOutlined className="its-icon" />} />
       <div className="mb-5">
         <label htmlFor="title" className="form-label _db-900">

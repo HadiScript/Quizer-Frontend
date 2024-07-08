@@ -116,7 +116,7 @@ const PremuimSettings = (
 
 
 
-        {/* {auth?.user?.type === 'free' && <UpdateToPremium />} */}
+        {auth?.user?.type === 'free' && <UpdateToPremium />}
 
         <Templates open={showModel} setOpen={setShowModel} _settings={_settings} _setSettings={_setSettings} />
 

@@ -66,7 +66,7 @@ const CreateQuizForm = ({
         {from === "modifications" && (
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
-              Attempt Limit
+              <b>Attempt Limit</b>
             </label>
             <br />
             <InputNumber min={0} max={100} value={quizData?.maxAttempts} onChange={handleMaxLimit} />
@@ -94,7 +94,7 @@ const CreateQuizForm = ({
 
         {from !== "withAI" && from === "modifications" && <div className="mb-3">
           <div className="d-flex justify-content-between mb-3 align-items-center">
-            <label htmlFor="timeLimit" className="form-label">Quiz Instructions</label>
+            <label htmlFor="timeLimit" className="form-label"><b>Quiz Instructions</b></label>
             <Button className="myBtn" onClick={generateAIInstructions} loading={loading} >Generate with AI</Button>
           </div>
           <ReactQuill

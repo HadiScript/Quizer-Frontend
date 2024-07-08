@@ -61,7 +61,11 @@ const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses, su
       <div className="d-flex justify-content-start align-items-start gap-1 mb-5">
         <b style={{ width: "10%" }}>Q {currentQuestionIndex + 1}:</b>
         <div style={{ width: "90%" }}>
-          <div className="mb-3"> <ReactQuill style={{ width: "100%" }} modules={{ toolbar: null }} readOnly theme="snow" value={currentQuestion.text} /></div>
+          <div className="mb-3">
+
+            <p dangerouslySetInnerHTML={{ __html: currentQuestion.text }} />
+            {/* <ReactQuill style={{ width: "100%" }} modules={{ toolbar: null }} readOnly theme="snow" value={currentQuestion.text} /> */}
+          </div>
 
           {currentQuestion.type === "short-answer" ? (
             <Input.TextArea onChange={(e) => handleOptionChange(currentQuestion._id, e.target.value, true)} />

@@ -10,9 +10,21 @@ import Navbar from "../components/common/Home/Navbar"
 import Banner from "../components/common/Home/Banner"
 import Point from "../components/common/Home/Point"
 import Pricing from "../components/common/Pricing"
+import { useLocation } from "react-router-dom"
+import { useEffect } from "react"
 
 const HowItWorksPage = () => {
   const { isMobile } = useResponsive()
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash && document.querySelector(hash)) {
+      document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location]);
+
   return (
     <div className="templates-wrapper">
 

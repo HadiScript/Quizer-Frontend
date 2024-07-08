@@ -15,11 +15,25 @@ import HowItWorks2 from '../components/common/Home/HowItWorks2';
 import Benifits from '../components/common/Home/Benifits';
 import Test1 from '../components/common/Home/Features/Test1';
 import Pricing from '../components/common/Pricing';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 
 const Home = () => {
-  const { isMobile } = useResponsive()
+  const { isMobile } = useResponsive();
+
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash && document.querySelector(hash)) {
+      document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location]);
+
+
   return (
     <div className="templates-wrapper">
 
@@ -30,38 +44,19 @@ const Home = () => {
         dataSource={Nav30DataSource}
         isMobile={isMobile}
       />
-
       <Hero />
       <Benifits />
       <Test1 />
-      {/* <HowItWorks /> */}
-      {/* <HowItWorks2 /> */}
-
-
-      {/* <Banner
-        id="Banner"
-        key="banner"
-        dataSource={Banner50DataSource}
-        isMobile={isMobile}
-      />
-
-      <HowItWorks /> */}
-
       <Features key="features" isMobile={isMobile} />
-
       <FormComponents />
-      {/* <QuizComponents /> */}
       <Pricing />
-
       <CTA
         id="CTA"
         key="cta"
         dataSource={Content110DataSource}
         isMobile={isMobile}
       />
-
       <Footer />
-
       <Point
         key="list"
         data={['Navbar', 'Banner', 'Benefits', 'Features', 'Offers', 'Forms Component', , 'CTA', 'Footer']}

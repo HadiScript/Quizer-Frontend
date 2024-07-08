@@ -1,5 +1,5 @@
 import { DownOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Button, Col, Divider, Row, Select } from "antd";
+import { Button, Col, Divider, Row, Select, Tag } from "antd";
 import { useState } from "react";
 
 import { FaChartPie } from "react-icons/fa";
@@ -9,6 +9,8 @@ import { surveyApi } from "../../../../helper/API";
 import { useParams } from "react-router-dom";
 import RadioPieCharts from "./RadioPieCharts";
 import RatingPieChart from "./RatingPieChart";
+import { formatName } from "./RatingVisualize";
+import { HintPick } from "./SrvyFilters";
 
 const MAX_COUNT = 3;
 
@@ -33,7 +35,15 @@ const DropdownVisualize = ({ data }) => {
     try {
       setLoading(true);
       const { data } = await axios.put(`${surveyApi}/dashboard/${slug}/dropdown-rate`, { fieldIds: values }, { withCredentials: true });
-      setDropdownData(data);
+      setDropdownData(
+        data.map(attempt => ({
+          ...attempt,
+          count: attempt.count.map(item => ({
+            Name: formatName(item?.name),
+            Count: item.value
+          }))
+        }))
+      );
       setLoading(false);
     } catch (error) {
       Errs(error);
@@ -69,12 +79,12 @@ const DropdownVisualize = ({ data }) => {
         <Col lg={4} xs={24}>
           <Button onClick={gettingDataForVisualization} loading={loading} icon={<FaChartPie />} className="mx-2">Visualize Data</Button>
         </Col>
-        <small className="mx-1">You can only select three of them</small>
+        <Tag className="mx-1 my-2" color="blue">You can only select three of them</Tag>
       </Row>
 
       <Divider />
 
-
+      {/* {JSON.stringify(dropdownData)} */}
       <Row >
         {
           loading ? <LoadingOutlined /> :
@@ -88,6 +98,10 @@ const DropdownVisualize = ({ data }) => {
                 </div>
               </Col>
             ))
+        }
+
+        {
+          dropdownData.length === 0 && <HintPick />
         }
       </Row>
 

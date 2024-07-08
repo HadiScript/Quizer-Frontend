@@ -36,7 +36,7 @@ const SrvyCreateEditForm = ({ submit, isLoading, data, fetechingData }) => {
           label={
             <div className='d-flex flex-column'>
               <b>Title</b>
-              <span>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</span>
+              {/* <span>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</span> */}
             </div>
           }
           name="title"
@@ -54,7 +54,7 @@ const SrvyCreateEditForm = ({ submit, isLoading, data, fetechingData }) => {
           label={
             <div className='d-flex flex-column'>
               <b>Description</b>
-              <span>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</span>
+              {/* <span>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</span> */}
             </div>
           }
           name="description"

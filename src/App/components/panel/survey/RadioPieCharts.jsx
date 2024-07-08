@@ -9,8 +9,8 @@ const RadioPieCharts = ({ data }) => {
   const config = useMemo(() => ({
 
     data,
-    angleField: 'value',
-    colorField: 'name',
+    angleField: 'Count',
+    colorField: 'Name',
     innerRadius: 0.6,
     style: {
       stroke: '#fff',
@@ -30,9 +30,9 @@ const RadioPieCharts = ({ data }) => {
       inactive: { opacity: 0.5 },
     },
 
-    legend: {
-      itemValueText: ({ name }) => name.toUpperCase()
-    },
+    // legend: {
+    //   itemValueText: ({ name }) => name.toUpperCase()
+    // },
 
     color: ['#083344', '#115e59', '#3730a3', '#be185d', '#9333ea', '#44403c'],
   }), [data]);

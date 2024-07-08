@@ -4,9 +4,9 @@ const DateLineCharts = ({ data }) => {
 
   const config = {
     data,
-    title: `Response By Date (${data?.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)})`,
+    title: `Response By Date (${data?.reduce((accumulator, currentValue) => accumulator + currentValue.Response, 0)})`,
     xField: 'date',
-    yField: 'value',
+    yField: 'Response',
     style: {
       fill: '#0e7490',
     },

@@ -61,7 +61,7 @@ const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, 
 
   return (
     <>
-      <div id="searchQuiz" className=" mt-5 mb-2">
+      <div id="searchQuiz" className="mt-3 mb-1">
         <Input.Search
           id="searchinput"
           placeholder="Search"

@@ -38,9 +38,6 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
   }, [open, current])
 
 
-  // console.log(responses, "here is the responses of attempt drawer")
-
-
   return (
     <>
       <Drawer width={740} placement="left" onClose={() => setOpen(false)} open={open}>
@@ -73,8 +70,9 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
                 <b>End:</b> <span>{moment(current?.endTime).format('LT')}</span>
               </div>
             </div>
-            {/* <Divider /> */}
           </div>
+
+
           <div className="col-12 col-lg-6 d-flex flex-column justify-content-start align-items-start p-4 gap-3">
             <div className="d-flex justify-content-start align-items-center gap-3">
               {
@@ -93,7 +91,6 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
               <b>Correct Answers:</b> <span>{getTotalCorrectAnswers(responses)}</span>
             </div>
           </div>
-          {/* <Divider /> */}
 
           <div className="col-12 align-items-start px-4 gap-3">
             <b>Responses:</b>
@@ -102,16 +99,18 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
               <div key={index} style={{ margin: '20px', padding: '20px', border: '1px solid #ccc' }}>
                 Question {index + 1}:
                 <h6> <span className="text-capitalize" dangerouslySetInnerHTML={{ __html: item?.question?.text }} /></h6>
-                <ul className="">
+                <ul className="" style={{ listStyle: "none" }}>
                   {item?.question?.options.map((option, idx) => (
                     <li key={idx} style={getStyle(option, item?.selectedOption)}>
-                      {option.text}
+                      {labelOptions[idx]}    {option.text}
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
+
+
         </div>
 
 
@@ -130,6 +129,14 @@ const getStyle = (option, selectedOption) => {
   }
   return {};
 };
+
+const labelOptions = {
+  0: "A:",
+  1: "B:",
+  2: "C:",
+  3: "D:",
+  4: "E:",
+}
 
 
 const getTotalCorrectAnswers = (responses) => {

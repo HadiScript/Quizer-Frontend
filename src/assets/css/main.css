@@ -331,3 +331,17 @@ h5 {
 #reponses-model {
   background-color: lightblue !important;
 }
+
+/* Filter drawer */
+#filterDrawer .ant-drawer-header {
+  background-color: #083344 !important;
+  color: white !important;
+}
+
+#filterDrawer .ant-drawer-close {
+  color: white !important;
+}
+
+#filterDrawer .title {
+  color: white !important;
+}

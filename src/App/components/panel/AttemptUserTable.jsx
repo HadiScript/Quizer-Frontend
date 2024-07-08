@@ -35,7 +35,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
         </div>
 
         {from === "page" && (
-          <div className=" mt-5 mb-2">
+          <div className=" mt-4 mb-1">
             <Input.Search
               placeholder="Search by email"
               enterButton="Search"
@@ -46,7 +46,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
           </div>
         )}
 
-        {loading ? <TableLoading /> : <div className="table-responsive mt-4 mb-4">
+        {loading ? <TableLoading /> : <div className="table-responsive mt-2 mb-4">
           <table className="table">
             <thead>
               <tr>

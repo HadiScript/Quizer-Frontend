@@ -20,7 +20,7 @@ const GlobalSettings = () => {
 
       <Row className="mt-4">
         <Col md={16} xs={24}>
-          <div className="bg-white py-3 rounded-3 p-3 mx-2">
+          <div className="bg-white py-3 rounded-3 p-3 " style={{ marginRight: "5px" }}>
             <Heading title={"Global Settings"} Icon={<SettingOutlined className="its-icon" />} />
             <SettingsForm from={"globalSettings"} loading={loading} _setSettings={_setSettings} _settings={_settings} onFinish={onFinish} />
           </div>

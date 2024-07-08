@@ -1,8 +1,10 @@
 import { Card } from 'antd'
-import { MdOutlineSettingsSuggest, MdOutlineFormatAlignLeft } from "react-icons/md";
+import { MdOutlineSettingsSuggest, MdOutlineFormatAlignLeft, } from "react-icons/md";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaCheckDouble } from "react-icons/fa6";
 import { FaLaptop, FaWpforms, FaRegCalendarTimes, FaMagic } from "react-icons/fa";
+
+
 
 
 const itemsData = [
@@ -61,7 +63,6 @@ const Items = ({ key, item }) => {
     <Card hoverable>
       <div className="d-flex flex-column align-items-start gap-2">
         {item?.Icon}
-        {/* <MdOutlineSettingsSuggest color='#0369a1' size={40} /> */}
         <h6 style={{ color: "#164e63" }} >{item?.title}</h6>
         <p style={{ color: "#164e63" }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used </p>
       </div>
@@ -71,6 +72,7 @@ const Items = ({ key, item }) => {
 }
 
 const Benifits = () => {
+
   return (
     <div id='Benefits' style={{ marginBottom: "100px" }} >
       <div className='feature8-title-wrapper'>
@@ -78,7 +80,9 @@ const Benifits = () => {
         <p>Check out how you it can give you Benefits.</p>
       </div>
 
+
       <div className="container">
+
         <div className="row ">
           {itemsData?.map((x, index) => <Items key={index} item={x} />)}
         </div>

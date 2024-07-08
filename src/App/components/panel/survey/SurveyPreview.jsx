@@ -1,15 +1,19 @@
 import React from 'react';
 import { Form, Input, Radio, Select, Checkbox, Button, InputNumber, Slider, Rate } from 'antd';
 import BgHeading from '../../common/BgHeading';
-import { FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
+
+
+import { BsEmojiExpressionless, BsEmojiFrown, BsEmojiSmile, BsEmojiHeartEyes } from "react-icons/bs";
+// import { BsEmojiFrown } from "react-icons/bs";
+
 
 const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 const customIcons = {
-  1: <FrownOutlined className='rate-icons mx-2' />,
-  2: <FrownOutlined className='rate-icons mx-2' />,
-  3: <MehOutlined className='rate-icons mx-2' />,
-  4: <SmileOutlined className='rate-icons mx-2' />,
-  5: <SmileOutlined className='rate-icons mx-2' />,
+  1: <BsEmojiFrown className='rate-icons mx-2' size={22} />,
+  2: <BsEmojiExpressionless className='rate-icons mx-2' size={22} />,
+  3: <BsEmojiSmile className='rate-icons mx-2' size={22} />,
+  4: <BsEmojiSmile className='rate-icons mx-2' size={22} />,
+  5: <BsEmojiHeartEyes className='rate-icons mx-2' size={22} />,
 };
 
 
@@ -36,6 +40,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
       case 'email':
         return (
           <Form.Item
+            style={{ minWidth: "400px" }}
             name={field._id}
             label={field.label}
             key={index}

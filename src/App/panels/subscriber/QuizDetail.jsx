@@ -58,6 +58,7 @@ const QuizDetail = () => {
 
         <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
 
+
         <div className="row mt-4">
           <div className="col-xs-12 col-md-6 p-1">
             <div className="detailed-card mb-3">
@@ -68,6 +69,7 @@ const QuizDetail = () => {
             </div>
 
             <Card className="mt-2 lightgrey-bg" ref={ref1}>
+              {loading && "please wait.."}
               <CreateQuizForm
                 quizData={quizData}
                 loading={loading}
@@ -124,8 +126,9 @@ const QuizDetail = () => {
           setOpen={setAddQuestionsModal}
           quizId={id}
           setQuestions={setQuestions}
-
         />
+
+
         <CopyLinkModal open={openLinkModal} setOpen={setOpenLinkModal} quizId={id} creatorId={quizData?.creator} />
         <SettingsSidebar open={settingDrawer} onClose={() => setSettingDrawer(false)} from="quizDetail" quizId={id} />
         {/* <QuizDetailTour ref1={ref1} ref2={ref2} ref3={ref3} open={openTour} setOpen={setOpenTour} /> */}

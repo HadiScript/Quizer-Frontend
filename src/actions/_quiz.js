@@ -8,6 +8,7 @@ import { API, quizApi } from "../helper/API";
 import { useNavigate } from "react-router-dom";
 import Alerting from "../App/components/common/Alerting";
 import { useFetchList, useFetchOne } from "./queryActions";
+import { useAuth } from "../context/authContext";
 
 let initValues = {
   title: "",
@@ -149,6 +150,7 @@ export const _useAllMyQuizes = () => {
 export const _useQuizModifications = (quizId) => {
   const router = useNavigate();
   const queryClient = useQueryClient();
+  const [auth] = useAuth();
 
   const [questions, setQuestions] = useState([]);
   const [_settings, _setSettings] = useState({
@@ -207,25 +209,47 @@ export const _useQuizModifications = (quizId) => {
   };
 
   // done
-  const fetchQuizById = useCallback(async () => {
-    if (!quizId) return;
-    setLoading(true);
-    try {
-      const response = await axios.get(`${quizApi}/${quizId}`, { withCredentials: true });
-      if (response.status === 200) {
-        setQuizData(response.data.quiz);
-        _setSettings(response.data.quiz.settings);
-      }
-    } catch (error) {
-      Errs(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [quizId, Errs]);
+  // const fetchQuizById = useCallback(async () => {
+  //   if (!quizId) return;
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.get(`${quizApi}/${quizId}`, { withCredentials: true });
+  //     if (response.status === 200) {
+  //       setQuizData(response.data.quiz);
+  //       _setSettings(response.data.quiz.settings);
+  //     }
+  //   } catch (error) {
+  //     Errs(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, [quizId, Errs]);
 
-  useEffect(() => {
-    fetchQuizById();
-  }, [fetchQuizById]);
+  // useEffect(() => {
+  //   fetchQuizById();
+  // }, [fetchQuizById]);
+
+  const fetchQuizById = async (quizId) => {
+    if (!quizId) return;
+    const response = await axios.get(`${quizApi}/${quizId}`, { withCredentials: true });
+    if (response.status === 200) {
+      // console.log(response, "here is the response");
+      return response.data.quiz;
+    }
+    throw new Error("Failed to fetch quiz data");
+  };
+
+  const { isLoading } = useQuery(["quizById", quizId], () => fetchQuizById(quizId), {
+    enabled: !!quizId, // Ensure the query runs only when quizId is available
+    onSuccess: (data) => {
+      // console.log(data, "date is here");
+      setQuizData(data);
+      _setSettings(data.settings);
+    },
+    onError: (error) => {
+      Errs(error);
+    },
+  });
 
   // done
   const handleSubmit = useCallback(
@@ -315,7 +339,7 @@ export const _useQuizModifications = (quizId) => {
     handleAddField,
     handleRemoveField,
     handleSubmit,
-    loading,
+    loading: isLoading,
     questions,
     setQuestions,
     deleteQuiz,

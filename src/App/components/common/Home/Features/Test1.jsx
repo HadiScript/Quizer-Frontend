@@ -29,7 +29,7 @@ const Test1 = () => {
                   <h1 style={{ fontWeight: "600" }} className='text-white'>What Sawal has to give you features</h1>
                 </div>
 
-                <ul class="list-unstyled" style={{ fontSize: "16px" }}>
+                <ul class="list-unstyled" style={{ fontSize: "16px", marginLeft : "-30px" }}>
                   <li>
                     <div className="d-flex align-items-start gap-3 dimWhite">
                       <CheckOutlined />

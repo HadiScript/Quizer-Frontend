@@ -1,6 +1,7 @@
 import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons"
 import { Checkbox, DatePicker, Form, Input, Radio, Rate, Select, Slider, Space } from "antd"
 import { useState } from "react"
+import { BsEmojiExpressionless, BsEmojiFrown, BsEmojiHeartEyes, BsEmojiSmile } from "react-icons/bs"
 
 
 const RadioComponent = () => {
@@ -42,14 +43,15 @@ const DateComponent = () => {
 
 const RateComponent = () => {
 
-  const customIcons = {
-    1: <FrownOutlined />,
-    2: <FrownOutlined />,
-    3: <MehOutlined />,
-    4: <SmileOutlined />,
-    5: <SmileOutlined />,
-  };
+
   const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
+  const customIcons = {
+    1: <BsEmojiFrown className='rate-icons mx-2' size={20} />,
+    2: <BsEmojiExpressionless className='rate-icons mx-2' size={20} />,
+    3: <BsEmojiSmile className='rate-icons mx-2' size={20} />,
+    4: <BsEmojiSmile className='rate-icons mx-2' size={20} />,
+    5: <BsEmojiHeartEyes className='rate-icons mx-2' size={20} />,
+  };
 
   return <div className="d-flex flex-column gap-5 light-bg form-component-item p-3 rounded-2">
     <span className="heading">Rating Fields</span>

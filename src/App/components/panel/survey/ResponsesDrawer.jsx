@@ -46,7 +46,7 @@ const ResponsesDrawer = ({ current, open, setOpen }) => {
 
       {loading && <LoadingOutlined />}
 
-      <Row >
+      <Row className="mt-3">
 
         <Col xs={24} md={24} lg={24}>
 
@@ -71,9 +71,12 @@ const ResponsesDrawer = ({ current, open, setOpen }) => {
         {responses?.slice(1)?.map((x, index) =>
           <Col xs={24} md={12} lg={12} key={index + 1}>
             <div className="lightgrey-bg p-3 rounded-3 m-2">
-              <h6>
-                <b>{x?.fieldLabel}</b>
-              </h6>
+              <div className="d-flex flex-column">
+                <span> Question {index + 1}:</span>
+                <h6>
+                  <b>{x?.fieldLabel}</b>
+                </h6>
+              </div>
               {typeof x?.responseValue === "object" ? (
                 x?.responseValue?.map((value, idx) => (
 

@@ -8,6 +8,15 @@ import RateVisualize from "./RateVisualize";
 import DropdownVisualize from "./DropdownVisualize";
 import { BarChartOutlined, DotChartOutlined, DownloadOutlined, PieChartOutlined, ScheduleOutlined } from "@ant-design/icons";
 import { FaChartLine } from "react-icons/fa";
+import { FaCircleInfo } from "react-icons/fa6";
+
+
+export const HintPick = () => (
+  <div style={{ width: "100%", height: "200px", color: "#155e75" }} className="d-flex flex-column gap-3 align-items-center justify-content-center">
+    <FaCircleInfo size={50} />
+    <h4>Please select any question from dropdown</h4>
+  </div>
+)
 
 const SrvyFilters = () => {
   const { slug } = useParams()
@@ -38,13 +47,14 @@ const SrvyFilters = () => {
       </div>
 
       <Drawer
-        title={`${whichOne[0]?.toUpperCase()}${whichOne?.slice(1)} Data Visualizations`}
+        id="filterDrawer"
+        title={<div className="title">{whichOne[0]?.toUpperCase()}{whichOne?.slice(1)} Data Visualizations</div>}
         height={'85%'}
         placement={"bottom"}
         onClose={() => setOpen(false)}
         open={open}
         className="drawerLinearBg"
-        // style={{backgroundColor : "083344"}}
+      // style={{ backgroundColor: "#083344" }}
       >
         {/* {JSON.stringify(data?.dropdownFields)} */}
 

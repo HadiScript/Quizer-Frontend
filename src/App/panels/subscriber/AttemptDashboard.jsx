@@ -30,6 +30,7 @@ import BgHeading from "../../components/common/BgHeading";
 // import { TbTimeDuration0 } from "react-icons/tb";
 import PeiChartPassOrFail from "../../components/panel/PeiChartPassOrFail";
 import { _useQuizModifications } from "../../../actions/_quiz";
+import { percentage } from "../../../helper/TakingPercentage";
 
 
 const ItsStats = ({ title, number, icon }) => {
@@ -64,17 +65,13 @@ const AttemptDashboard = () => {
     <SubcriberLayout from="quiz-detail" id={id} >
 
       <BgHeading title={loading ? "..." : quizData?.title} desc={"Analyze quiz results easily through these graphical representations."} />
-      {/* <div className="d-flex justify-content-end mb-2 mt-4">
-        <Button icon={<ClockCircleOutlined />} type="dashed">Average Time Spent: <b className="mx-2">{avgTimeData?.averageTimeSpent}</b></Button>
-      </div> */}
-
 
       <Row className="mt-4">
         <Col lg={16} xs={24} className="">
           <Row className="">
             <Col lg={12} xs={24} className="">
               <div className="p-2 d-flex flex-column gap-3">
-                <ItsStats title={"Average score"} number={data?.averageScore?.toFixed(2) + "%"} icon={<MdSportsScore size={25} />} />
+                <ItsStats title={"Average score"} number={quizData?.settings?.scoringType === "percentage" ? percentage(data?.averageScore, quizData?.questions?.length).toFixed(2) + "%" : data?.averageScore?.toFixed(2)} icon={<MdSportsScore size={25} />} />
                 <ItsStats title={"Total Attempts"} number={data?.totalAttempts} icon={<FaCheckDouble size={25} />} />
                 <ItsStats title={"Average Time Spent"} number={avgTimeData?.averageTimeSpent} icon={<MdAccessTime size={25} />} />
               </div>
@@ -97,20 +94,6 @@ const AttemptDashboard = () => {
           </div>
         </Col>
       </Row>
-
-
-      {/* <QuizAttemptStats avgTimeData={avgTimeData} isLoading={isLoading} resultForPeiChart={data?.result} averageScore={data?.averageScore} totalAttempts={data?.totalAttempts} points={points} expand={expand} setExpand={setExpand} />
-
-      <Row className="mt-3">
-        <Col className="p-2" lg={12} xs={24}>
-          <QuizAttempTrend attempts={data?.attempts} expandTrend={expandTrend} setExpandTrend={setExpandTrend} />
-        </Col>
-
-        <Col className="p-2" lg={12} xs={24}>
-          <AttemptUserTable data={data?.highestScore} from="dashboard" />
-        </Col>
-      </Row> */}
-
     </SubcriberLayout>
   );
 };

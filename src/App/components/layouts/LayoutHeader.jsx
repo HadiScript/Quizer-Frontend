@@ -38,7 +38,7 @@ const LayoutHeader = ({ from }) => {
 
 
     {
-      label: 'Report a bug',
+      label: <a className="_link" href="https://quizer-frontend.vercel.app/attempt-survey/Report-a-Problem/66890a1b6495c447b5476e98" target="_">Report a Problem</a>,
       key: '1',
       icon: <BugOutlined />,
 
@@ -89,7 +89,7 @@ const LayoutHeader = ({ from }) => {
               <div>
                 <Dropdown menu={{ items }} trigger={['click']} arrow>
                   <div role="button" className="d-flex flex-row justify-content-center align-items-center gap-1 px-1">
-                    <IoSettingsOutline size={19} />
+                    <IoSettingsOutline size={16} />
                     <span className="d-none d-md-block">Settings</span>
                   </div>
                 </Dropdown>

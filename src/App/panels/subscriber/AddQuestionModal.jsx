@@ -6,6 +6,14 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toolbarOptions } from "../../../helper/ToolBarOptions";
 
+const labelOptions = {
+  0: "A:",
+  1: "B:",
+  2: "C:",
+  3: "D:",
+  4: "E:",
+}
+
 
 
 const AddQuestionModal = ({
@@ -78,6 +86,7 @@ const AddQuestionModal = ({
               <div className="col-xs-12 col-md-6">
                 {options.map((option, index) => (
                   <div key={index} className="mb-3 d-flex align-items-center">
+                    <div className="px-3">{labelOptions[index]}</div>
                     <Input placeholder={`Option ${index + 1}`} value={option.text} onChange={(e) => handleOptionChange(index, e.target.value)} style={{ marginRight: "10px" }} />
                     <input type="checkbox" checked={option.isCorrect} onChange={() => handleCorrectChange(index)} style={{ marginRight: "10px" }} />
                     Correct

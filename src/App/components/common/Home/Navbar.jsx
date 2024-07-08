@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../context/authContext'
 import { Button, Drawer, } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
@@ -9,6 +9,12 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 const Navbar = () => {
   const [auth] = useAuth();
   const [open, setOpen] = useState(false)
+
+  const navigate = useNavigate();
+
+  const handleJump = (path) => {
+    navigate(path);
+  };
 
 
 
@@ -20,9 +26,9 @@ const Navbar = () => {
 
           <Link className='header-link _link' to={'/'} role='button'>Home</Link>
           <Link className='header-link _link' to={'/how-it-works'} role='button'>How it works?</Link>
-          <a className='header-link _link' href='#Offers' role='button'>Features</a>
-          <a className='header-link _link' href='#Offers' role='button'>Showcase</a>
-          <a className='header-link _link' href='#Pricing' role='button'>Pricing</a>
+          <span className='header-link _link' onClick={() => handleJump("/#Features")} role='button'>Features</span>
+          <span className='header-link _link' onClick={() => handleJump('/how-it-works#Screenshots')} role='button'>Showcase</span>
+          <span className='header-link _link' onClick={() => handleJump('#Pricing')} href='#Pricing' role='button'>Pricing</span>
 
 
           {!auth?.token && <Link to={'/signup'}>

@@ -11,7 +11,7 @@ const QuizAttempTrend = ({ attempts, }) => {
     data: attempts,
     title: `Response By Date `,
     xField: '_id',
-    yField: 'count',
+    yField: 'Response',
     style: {
       fill: '#0e7490',
     },

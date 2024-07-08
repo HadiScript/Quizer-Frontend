@@ -6,8 +6,8 @@ const CheckboxBarChart = ({ data }) => {
   const config = useMemo(() => ({
     data,
 
-    xField: 'name',
-    yField: "value",
+    xField: 'Name',
+    yField: "Count",
     slider: {
       x: { value: [0, 5] }
     },
@@ -22,7 +22,10 @@ const CheckboxBarChart = ({ data }) => {
     },
     label: false,
   }), [data]);
-  return <Column height={400} {...config} />;
+  return <>
+    {/* {JSON.stringify(data)} */}
+    <Column height={400} {...config} />
+  </>;
 }
 
 export default CheckboxBarChart
