@@ -4,6 +4,9 @@ import { _useCommon } from "../../actions/_common";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuth } from "../../context/authContext";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import itsImg from '../../assets/imgs/register.webp'
+
 
 const Register = () => {
   const router = useNavigate()
@@ -27,7 +30,38 @@ const Register = () => {
     <>
       <Row style={{ minHeight: "100vh" }} className="auth">
         <Col className="d-none d-lg-block left" lg={16} xs={24}>
-          asd
+          <Row className="row ">
+            <Col md={14} lg={14} className="" style={{
+              height: "100vh",
+              backgroundImage: `url(${itsImg})`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat'
+            }}>
+
+
+            </Col>
+            <Col md={10} lg={10} className="d-flex justify-content-center"  >
+              <div className="d-flex flex-column " style={{ maxWidth: "400px" }}>
+                <h1 className="text-white mt-5">MongoDB.local is coming to a city near you!</h1>
+                <p className="text-white" style={{ fontSize: "16px" }}>
+                  Enjoy technical deep-dives, one-on-one expert advice, and product tutorials to elevate your skills.
+                </p>
+                <p className="text-white my-3" style={{ fontSize: "16px" }}>Enjoy a 50% discount with code WEB50.</p>
+                <Link to={'/how-it-works'} className="d-flex gap-2 align-items-center text-white _link my-3" style={{ fontSize: "16px" }}>
+                  <span>How it works</span>
+                  <FaLongArrowAltRight />
+                </Link>
+
+                <Link to={'/'} className="d-flex gap-2 align-items-center text-white _link my-3" style={{ fontSize: "16px" }}>
+                  <span>Home</span>
+                  <FaLongArrowAltRight />
+                </Link>
+
+              </div>
+            </Col>
+          </Row>
+
         </Col>
 
 

@@ -39,7 +39,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <ConfigProvider
             theme={{
               Menu: {
-                dangerItemSelectedBg : "#ff4d4f"
+                dangerItemSelectedBg: "#ff4d4f"
                 /* here is your component tokens */
               },
             }}

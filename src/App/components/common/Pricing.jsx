@@ -35,9 +35,9 @@ const Pricing = () => {
                 <li className=''>Quiz Mode</li>
                 <li className=''>Passing Score</li>
                 <li className=''>Quiz Availability</li>
-                <li className=' disabled' >Chat support</li>
-                <li className=' disabled' >Mobile application</li>
-                <li className=' disabled' >Unlimited users</li>
+                <li className=' disabled' >Quiz Multiple Display</li>
+                <li className=' disabled' >Score Type</li>
+                <li className=' disabled' >Show Score</li>
               </ul>
 
               <Button style={{ backgroundColor: "#164e63", color: "white" }} size='large'>
@@ -68,9 +68,9 @@ const Pricing = () => {
                 <li>Quiz Mode</li>
                 <li>Passing Score</li>
                 <li>Quiz Availability</li>
-                <li className="">Chat support</li>
-                <li className="">Mobile application</li>
-                <li className="">Unlimited users</li>
+                <li>Quiz Multiple Display</li>
+                <li>Score Type</li>
+                <li>Show Score</li>
               </ul>
 
               <Button size='large'>

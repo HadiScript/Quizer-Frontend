@@ -1,4 +1,4 @@
-// import bannerImage from '../assets/imgs/workshero.webp'
+import bannerImage from '../assets/imgs/workshero.webp'
 
 
 export const Nav30DataSource = {
@@ -135,8 +135,8 @@ export const Banner50DataSource = {
   image: {
     className: 'banner5-image',
     children:
-      //  bannerImage,
-      'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*-wAhRYnWQscAAAAAAAAAAABkARQnAQ',
+      bannerImage,
+    // 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*-wAhRYnWQscAAAAAAAAAAABkARQnAQ',
   },
 };
 
