@@ -16,7 +16,7 @@ const GlobalSettings = () => {
   const points = Grid.useBreakpoint();
   return (
     <SubcriberLayout>
-      <BgHeading title={"Global Settings"} desc={"Update your global settings or Upload your logo"} />
+      <BgHeading title={"Global Settings"} desc={"Enhance your profile with a logo and updated settings."} />
 
       <Row className="mt-4">
         <Col md={16} xs={24}>

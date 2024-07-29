@@ -10,8 +10,8 @@ const Pricing = () => {
       <section className="plans__container">
         <div className="plans">
           <div className='feature8-title-wrapper'>
-            <h1 style={{ fontWeight: "600" }}>Pricing</h1>
-            <p>Check out how you can create amazing quizzes in mere minutes.</p>
+            <h1 style={{ fontWeight: "600" }}>Packages</h1>
+            <p>Discover how to create quizzes and surveys with a single click.</p>
           </div>
           <div className="planItem__container">
 
@@ -22,7 +22,7 @@ const Pricing = () => {
                   <div className="itscard__icon symbol symbol--rounded"></div>
                   <h2>Basic</h2>
                 </div>
-                <div className="itscard__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</div>
+                <div className="itscard__desc">For small teams and individuals. Upgrade to the Enterprise plan to enjoy advanced settings.</div>
               </div>
 
               <div className="price">$0<span>/ month</span></div>
@@ -55,7 +55,7 @@ const Pricing = () => {
                   <h2 className='text-white'>Business</h2>
                   <div className="itscard__label label">Best Value</div>
                 </div>
-                <div className="itscard__desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</div>
+                <div className="itscard__desc">For large-scale businesses or institutions. Suitable for unlimited users.</div>
               </div>
 
               <div className="price">$10<span><span className='text-white'>/ month</span></span></div>
@@ -88,7 +88,7 @@ const Pricing = () => {
                   <div className="itscard__icon symbol symbol--rounded itscard__icon"></div>
                   <h2>Enterprise</h2>
                 </div>
-                <div className="itscard__desc">Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor</div>
+                <div className="itscard__desc">For bigger teams and organizations with advanced reporting features.</div>
               </div>
 
               <div className="price">Let's Talk</div>

@@ -53,7 +53,7 @@ const QuizDetail = () => {
 
   return (
     <SubcriberLayout from="quiz-detail" id={id} >
-      <BgHeading title={loading ? "..." : quizData?.title} desc={"Edit your quiz, Add Update Questions, Copylink, Update Settings"} />
+      <BgHeading title={loading ? "..." : quizData?.title} desc={"Improve your quiz: add, edit questions, copy link, change settings."} />
       <div className="mt-4 px-2" >
 
         <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />

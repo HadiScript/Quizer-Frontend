@@ -1,8 +1,7 @@
-import { BsMagic } from 'react-icons/bs';
 import '../../../../../assets/css/test1.scss'
 
-import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { CheckOutlined } from '@ant-design/icons';
+import { featuresData } from '../../../../../data/features';
 
 
 
@@ -26,42 +25,23 @@ const Test1 = () => {
             <div className='px-3'>
               <div className='d-flex flex-column gap-2 mb-3'>
                 <div className='mb-2'>
-                  <h1 style={{ fontWeight: "600" }} className='text-white'>What Sawal has to give you features</h1>
+                  <h1 style={{ fontWeight: "600" }} className='text-white'>Discover What Sawal Offers You</h1>
                 </div>
 
-                <ul class="list-unstyled" style={{ fontSize: "16px", marginLeft: "-30px" }}>
-                  <li>
-                    <div className="d-flex align-items-start gap-3 dimWhite">
-                      <div className="d-none d-md-block">
-                        <CheckOutlined />
-                      </div>
-                      <p style={{ marginTop: '-5px' }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="d-flex align-items-start gap-3 dimWhite">
-                      <div className="d-none d-md-block">
-                        <CheckOutlined />
-                      </div>
-                      <p style={{ marginTop: '-5px' }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate theIn publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="d-flex align-items-start gap-3 dimWhite">
-                      <div className="d-none d-md-block">
-                        <CheckOutlined />
-                      </div>
-                      <p style={{ marginTop: '-5px' }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="d-flex align-items-start gap-3 dimWhite">
-                      <div className="d-none d-md-block">
-                        <CheckOutlined />
-                      </div>
-                      <p style={{ marginTop: '-5px' }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the</p>
-                    </div>
-                  </li>
+                <ul class="list-unstyled mt-3" style={{ fontSize: "16px", marginLeft: "-30px" }}>
+                  {
+                    featuresData?.map((x, index) =>
+                      <li key={index}>
+                        <div className="d-flex align-items-start gap-3 dimWhite">
+                          <div className="d-none d-md-block">
+                            <CheckOutlined />
+                          </div>
+                          <p style={{ marginTop: '-5px' }}>{x}</p>
+                        </div>
+                      </li>
+                    )
+                  }
+
                 </ul>
 
               </div>

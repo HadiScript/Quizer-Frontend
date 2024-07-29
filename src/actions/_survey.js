@@ -72,8 +72,9 @@ export const useGetSurveys = () => {
 };
 
 export const useBasicInfoServey = (slug) => {
+  
   const fetchData = async () => {
-    const { data } = await axios.get(`${surveyApi}/${slug}`);
+    const { data } = await axios.get(`${surveyApi}/${slug}`);   
     return data;
   };
 

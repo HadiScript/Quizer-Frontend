@@ -28,7 +28,6 @@ const HowItWorksPage = () => {
   return (
     <div className="templates-wrapper">
 
-
       <Navbar
         id="Navbar"
         key="navbar"

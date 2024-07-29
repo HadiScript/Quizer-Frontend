@@ -16,7 +16,7 @@ const SurveyDetail = () => {
 
   return (
     <SrvyLayout >
-      <BgHeading title={data?.title} desc="You can edit and add different type of fields" />
+      <BgHeading title={data?.title} desc="You can edit and add different type of fields." />
 
       <SrvyFormsTabs />
       <div className="my-4" />

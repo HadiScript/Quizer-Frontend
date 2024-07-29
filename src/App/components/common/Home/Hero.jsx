@@ -220,9 +220,9 @@ class Hero extends React.Component {
                 Analyze</span>
             </div>
           </div>
-          <h1 >Elevate Your Quiz and Form Creation with Advanced SaaS</h1>
+          <h1 >Your Go-To Hub for Quizzes and Surveys</h1>
           <p >
-            Dive into the world of advanced quiz and form creation with our cutting-edge SaaS solutions.
+            Engage, Explore, and Excel With our Supreme Quality Quizzes and Survey Reports Generator app.
           </p>
           <div className="d-flex flex-wrap justify-content-center  align-items-center gap-3">
             <Link to={'/signup'} className='text-decoration-none'>
@@ -234,7 +234,7 @@ class Hero extends React.Component {
           </div>
 
           <div className="img-container">
-            <Image src='/images/main-dashboard.png' className='img' />
+            <Image src='/images/main.png' className='img' />
           </div>
         </div>
       </div>

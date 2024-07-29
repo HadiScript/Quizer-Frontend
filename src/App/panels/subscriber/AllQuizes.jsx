@@ -46,7 +46,7 @@ const AllQuizes = () => {
       {/* <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} desc={`${loading ? "loading... " : list.length}/10 Questions`} /> */}
       <BgHeading
         title={"All Quizes"}
-        desc={"Here is the list of all the quizzes created"}
+        desc={"Here is the list of all the quizzes created."}
       // desc={`${loading ? "loading... " : list?.length}/10 Questions`}
       // AlertDesc={list.length === 0 && "Please Add Your First Quiz"}
 

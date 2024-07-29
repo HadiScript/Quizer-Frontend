@@ -109,11 +109,11 @@ export const Banner50DataSource = {
   childWrapper: {
     className: 'banner5-title-wrapper',
     children: [
-      { name: 'title', children: 'How Sawal App Works', className: 'banner5-title' },
+      { name: 'title', children: 'How to create your own Quiz or Survey', className: 'banner5-title' },
       {
         name: 'explain',
         className: 'banner5-explain',
-        children: 'Create, customize, and analyze quizzes and surveys with a snap of your fingers.',
+        children: 'Design, Share and Analyse Quiz or Survey with Sawal app in minutes.',
       },
       {
         name: 'content',
@@ -158,7 +158,7 @@ export const Content110DataSource = {
       {
         name: 'content',
         children:
-          'Create, Customize, and Analyze Quizzes With Ease',
+          'Effortlessly  Craft, Customize, and Analyze Your Quizzes.',
         className: 'title-content',
       },
     ],

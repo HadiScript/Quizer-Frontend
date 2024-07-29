@@ -7,6 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import itsImg from '../../assets/imgs/login.webp'
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useEffect } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { CheckOutlined } from "@ant-design/icons";
+
 
 
 const Login = () => {
@@ -46,11 +49,16 @@ const Login = () => {
             </Col>
             <Col md={10} lg={10} className="d-flex justify-content-center"  >
               <div className="d-flex flex-column " style={{ maxWidth: "400px" }}>
-                <h1 className="text-white mt-5">MongoDB.local is coming to a city near you!</h1>
-                <p className="text-white" style={{ fontSize: "16px" }}>
-                  Enjoy technical deep-dives, one-on-one expert advice, and product tutorials to elevate your skills.
-                </p>
-                <p className="text-white my-3" style={{ fontSize: "16px" }}>Enjoy a 50% discount with code WEB50.</p>
+                <h1 className="text-white mt-5">Get Started for Free with Sawal.</h1>
+
+                <div className="d-flex flex-column gap-3 text-white mb-3">
+                  <span className="d-flex gap-2"><CheckOutlined /> Quick Sign-Up</span>
+                  <span className="d-flex gap-2"><CheckOutlined /> Create quiz and share instantly</span>
+                  <span className="d-flex gap-2"><CheckOutlined /> Analyze results with Dashboards</span>
+                  <span className="d-flex gap-2"><CheckOutlined /> Upgrade Anytime</span>
+                </div>
+
+                <p className="text-white my-3" style={{ fontSize: "16px" }}>Discover endless possibilities with Sawal's diverse features.</p>
                 <Link to={'/how-it-works'} className="d-flex gap-2 align-items-center text-white _link my-3" style={{ fontSize: "16px" }}>
                   <span>How it works</span>
                   <FaLongArrowAltRight />
@@ -106,6 +114,9 @@ const Login = () => {
                 <Form.Item style={{ width: "100%" }}>
                   <Button style={{ width: "100%" }} loading={loading} type="primary" htmlType="submit" className="primaryBtn mt-3">
                     Login
+                  </Button>
+                  <Button icon={<FcGoogle size={20} />} onClick={loginwithgoogle} style={{ width: "100%" }} loading={loading} className="googleBtn mt-3">
+                    Login with Google
                   </Button>
                 </Form.Item>
               </Form>

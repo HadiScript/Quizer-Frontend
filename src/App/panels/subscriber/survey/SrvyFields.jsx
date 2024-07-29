@@ -49,7 +49,7 @@ const SrvyFields = () => {
 
   return (
     <SrvyLayout>
-      <BgHeading title={basic?.title}  desc={"You can edit and add different type of fields"}/>
+      <BgHeading title={basic?.title}  desc={"You can edit and add different type of fields."}/>
       <SrvyFormsTabs />
       {fetechingDataLoading
         ?

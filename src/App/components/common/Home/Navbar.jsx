@@ -4,6 +4,7 @@ import { useAuth } from '../../../../context/authContext'
 import { Button, Drawer, } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
 import { AiOutlineMenuFold } from "react-icons/ai";
+import logoImage from '../../../../assets/imgs/logo.png'
 
 
 const Navbar = () => {
@@ -21,7 +22,7 @@ const Navbar = () => {
   return (
     <>
       <div className='header3 container mx-auto py-3 d-flex justify-content-between align-items-center'>
-        <h2>Quizer Logo</h2>
+        <img src={logoImage} alt='logo' height={60} />
         <div className='d-none d-lg-flex justify-content-start align-items-center gap-3'>
 
           <Link className='header-link _link' to={'/'} role='button'>Home</Link>

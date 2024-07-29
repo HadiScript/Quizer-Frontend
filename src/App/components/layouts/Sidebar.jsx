@@ -17,7 +17,8 @@ const Sidebar = ({ from = "notSubscriber", title }) => {
   return (
     <>
       <div className={"text-start px-3 mt-3 mb-4"}>
-        <Logo />
+        {/* <Logo /> */}
+        <img src="/white2.png" height={50} />
       </div>
       {/* {from === "quiz-detail" && <div className="p-3" style={{ position: "relative", bottom: "10px" }}>
         <BgHeading title={title} />

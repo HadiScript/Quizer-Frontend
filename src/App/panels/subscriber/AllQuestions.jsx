@@ -73,7 +73,7 @@ const AllQuestions = () => {
   return (
     <SubcriberLayout from="quiz-detail" id={id}>
 
-      <BgHeading title={quizDataLoading ? "..." : quizData?.title} desc={""} />
+      <BgHeading title={quizDataLoading ? "..." : quizData?.title} desc={"Here is the list of all questions."} />
 
       <div className="px-1">
         <div className="d-flex flex-wrap justify-content-between align-items-center mb-2 mt-4">

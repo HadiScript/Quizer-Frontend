@@ -8,8 +8,8 @@ import Building from './technology-comp/Building';
 
 const pageData = [
   {
-    title: 'Create Quiz',
-    content: 'Afraid of a tedious quiz-creating process? Not anymore. Create extensive quizzes swiftly with sawal.',
+    title: 'Comparision',
+    content: 'Visualize each survey response separately in an easy to understand graphical representation. You can also compare the results of different question in a survey.',
     Bg: Tetris,
   },
   {
@@ -22,12 +22,12 @@ const pageData = [
     content: 'Customize your quizzes through our special settings in the control panel.',
     Bg: Coordinate,
   },
-  {
-    title: 'Forms',
-    content: 'Sawal helps you create interactive forms with ease by using its expansive options.',
-    full: true,
-    Bg: Building,
-  },
+  // {
+  //   title: 'Forms',
+  //   content: 'Sawal helps you create interactive forms with ease by using its expansive options.',
+  //   full: true,
+  //   Bg: Building,
+  // },
 ];
 
 const Features = ({ isMobile }) => {
@@ -40,8 +40,8 @@ const Features = ({ isMobile }) => {
     <div key="features" id="Offers" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "100px", marginBottom: "100px" }}>
       <div className="home-page feature8">
         <div className='feature8-title-wrapper'>
-          <h1 style={{ fontWeight: "600" }}>What Sawal has to offer to you</h1>
-          <p>Sawal has unlimited quiz-related options in store for you.</p>
+          <h1 style={{ fontWeight: "600" }}>What Sawal Brings to You</h1>
+          <p>Discover endless quiz possibilities with Sawal's diverse features.</p>
         </div>
         <Row className="d-flex flex-wrap">
           {pageData.map((item, i) => (

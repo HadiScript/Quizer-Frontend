@@ -9,47 +9,47 @@ import { FaLaptop, FaWpforms, FaRegCalendarTimes, FaMagic } from "react-icons/fa
 
 const itemsData = [
   {
-    title: "AI Features",
-    description: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.",
+    title: "AI Feature",
+    description: "Use AI for smart suggestions, making your surveys more engaging. Stay tuned for more updates!",
     Icon: <FaMagic color='#0369a1' size={30} />
   },
   {
     title: "Free Account",
-    description: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.",
-    Icon: < FaCheckDouble color='#0369a1' size={30} />
+    description: "Start for free with basic features, and upgrade to advanced tools including Business and Enterprise.",
+    Icon: <FaCheckDouble color='#0369a1' size={30} />
   },
   {
     title: "Multiple Settings",
-    description: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.",
-    Icon: < MdOutlineSettingsSuggest color='#0369a1' size={30} />
+    description: "Customize each quiz and survey individually. Global settings apply to all without specific adjustments..",
+    Icon: <MdOutlineSettingsSuggest color='#0369a1' size={30} />
   },
   {
     title: "Multiple Dashboards",
-    description: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.",
+    description: "Separate dashboards for each quiz and survey, with customized settings for users' ease.",
     Icon: < LuLayoutDashboard color='#0369a1' size={30} />
   },
 
   {
     title: "Quiz Display Settings",
-    description: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.",
+    description: "Easily choose from various layouts and themes to give each quiz and survey a unique look and feel.",
     Icon: <FaLaptop color='#0369a1' size={30} />
   },
 
   {
     title: "Multiple Survey Fields",
-    description: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.",
+    description: "Add diverse fields like dropdowns, rating scales, and many more with graphical representations for detailed visualization.",
     Icon: <FaWpforms color='#0369a1' size={30} />
   },
 
   {
-    title: "Survey Responses",
-    description: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.",
+    title: "Survey Reporting",
+    description: "Analyze and visualize your survey results with detailed statistics for each question.",
     Icon: <MdOutlineFormatAlignLeft color='#0369a1' size={30} />
   },
 
   {
-    title: "Quiz Availability",
-    description: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.",
+    title: "Quiz Scheduling",
+    description: "Schedule your quizzes to ensure they reach your audience at the perfect time.",
     Icon: <FaRegCalendarTimes color='#0369a1' size={30} />
   },
 
@@ -64,7 +64,7 @@ const Items = ({ key, item }) => {
       <div className="d-flex flex-column align-items-start gap-2">
         {item?.Icon}
         <h6 style={{ color: "#164e63" }} >{item?.title}</h6>
-        <p style={{ color: "#164e63" }}>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used </p>
+        <p style={{ color: "#164e63" }}>{item?.description}</p>
       </div>
 
     </Card>
@@ -76,8 +76,8 @@ const Benifits = () => {
   return (
     <div id='Benefits' style={{ marginBottom: "100px" }} >
       <div className='feature8-title-wrapper'>
-        <h1 style={{ fontWeight: "600" }}>Benefits</h1>
-        <p>Check out how you it can give you Benefits.</p>
+        <h1 style={{ fontWeight: "600" }}>Perks of using sawal</h1>
+        <p>Discover the edge of this innovative app.</p>
       </div>
 
 

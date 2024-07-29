@@ -25,7 +25,13 @@ const Footer = () => {
           className='home-page-wrapper d-flex flex-wrap justify-content-between align-items-start p-4 text-white mt-5'
         >
 
-          <Logo />
+          {/* <Logo /> */}
+          <div className="d-flex flex-column">
+            <img src='/white2.png' height={80} width={200} />
+            <div className="div mt-4">
+              <span>25 Badminton Road, Manchester, United Kingdom.</span>
+            </div>
+          </div>
           <div className='d-flex flex-column justify-content-start align-items-start gap-3  '>
             <h6 style={{ fontSize: "20px" }}>Menus</h6>
             <Link to={'/#'} className='_link nav-link'>Home</Link>
@@ -47,7 +53,7 @@ const Footer = () => {
             <h6 style={{ fontSize: "20px" }}>Contact</h6>
             <a className='text-white _link' href="mailto:info@hadielearning.com">Info@hadielearning.com</a>
             <a className='text-white _link' href="tel:03-1111-93339">03-1111-93339</a>
-            <span className='text-white'>Hadi E-Learning, Civic Center, Faisal Town Lahore.</span>
+            <span className='text-white'>25 Badminton Road, Manchester, United Kingdom.</span>
             <div className='d-flex flex-wrap gap-2'>
               <a className='_link text-white' href="https://www.facebook.com/Hadielearningofficial " target="_">  <FaFacebook size={18} role='button' /> </a>
               <a className='_link text-white' href="https://instagram.com/hadielearningofficial" target="_">  <FaInstagram size={18} role='button' /></a>

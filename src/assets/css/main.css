@@ -55,6 +55,24 @@ h5 {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.googleBtn {
+  background: white !important;
+  height: 42px;
+  border: 0;
+  border-radius: 21px;
+  border: 1px solid rgba(0, 0, 0, 0.488);
+  /* color: #fff; */
+  padding: 0 15px;
+  display: inline-block;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.googleBtn:hover {
+  /* color: white !important; */
+}
+
 .secondaryBtn {
   background: white;
   color: #083344;
