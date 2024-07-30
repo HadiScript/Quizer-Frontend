@@ -1,5 +1,5 @@
 import { IoCreateOutline } from 'react-icons/io5'
-import '../../../../assets/css/MainFeatures.scss'
+import '../../../../assets/css/mainFeatures.scss'
 import { Link } from 'react-router-dom'
 import bgImage from '../../../../assets/imgs/bgImage.webp'
 
