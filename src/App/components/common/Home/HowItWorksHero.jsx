@@ -226,7 +226,7 @@ class HowItWorksHero extends React.Component {
           </p>
           <div className="d-flex flex-wrap justify-content-center  align-items-center gap-3">
             <Link to={'/signup'} className='text-decoration-none'>
-              <Button className='linearBgRounded d-flex align-items-center'  >Get Started For Free <HiOutlineExternalLink className='' size={16} /></Button>
+              <Button className='linearBgRounded d-flex align-items-center'  >Get started for free <HiOutlineExternalLink className='' size={16} /></Button>
             </Link>
             <a href="#benifits" className='text-decoration-none'>
               <Button className='linearBgRoundedSecondary d-flex align-items-center'  >Read more <HiOutlineExternalLink className='' size={16} /></Button>

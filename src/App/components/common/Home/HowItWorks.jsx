@@ -165,7 +165,7 @@ const HowItWorks = () => {
   return (
     <div id="How It Works" style={{ marginBottom: "0px", marginTop: "100px" }} >
       <div className='feature8-title-wrapper'>
-        <h1 style={{ fontWeight: "600" }}>How it works</h1>
+        <h1 style={{ fontWeight: "600" }}>How it Works</h1>
         <p>Check out how you can create amazing quizzes in mere minutes.</p>
       </div>
 

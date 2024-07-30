@@ -77,10 +77,10 @@ const Login = () => {
             <div className="d-flex flex-column gap-4 justify-content-center align-items-center px-3 " style={{ width: "400px" }}>
 
               <div style={{ width: "100%" }}>
-                <Link to={'/'} className="d-flex align-items-center  mb-5 _link text-dark" role="button" style={{ fontSize: "18px" }}>
+                <div onClick={() => router(-1)} className="d-flex align-items-center  mb-5 _link text-dark" role="button" style={{ fontSize: "18px" }}>
                   <IoIosArrowBack />
                   <span>Back</span>
-                </Link>
+                </div>
                 <h2 className="">Login</h2>
               </div>
 

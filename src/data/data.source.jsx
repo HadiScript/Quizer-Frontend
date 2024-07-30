@@ -128,7 +128,7 @@ export const Banner50DataSource = {
           href: '/signin',
           className: 'banner5-button',
           type: 'primary',
-          children: 'Get Started With Free',
+          children: 'Get started for free',
         },
       },
     ],
