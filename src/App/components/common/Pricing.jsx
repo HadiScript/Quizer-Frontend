@@ -24,7 +24,7 @@ const Pricing = () => {
               <div className="itscard">
                 <div className="itscard__header">
                   <div className="itscard__icon symbol symbol--rounded"></div>
-                  <h2>Basic</h2>
+                  <h2>Standard</h2>
                 </div>
                 <div className="itscard__desc">For small teams and individuals. Upgrade to the Enterprise plan to enjoy advanced settings.</div>
               </div>
