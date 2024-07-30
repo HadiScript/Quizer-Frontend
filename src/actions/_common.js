@@ -15,9 +15,10 @@ import { useGoogleLogin } from "@react-oauth/google";
 
 export const _useCommon = () => {
   const [auth, setAuth] = useAuth();
-
-  const [email, setEmail] = useState("ali@g.ai");
-  const [password, setPassword] = useState("123123");
+  // ali@g.ai
+  // 123123
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 

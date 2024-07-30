@@ -59,7 +59,7 @@ const Home = () => {
       <Footer />
       <Point
         key="list"
-        data={['Banner', 'Services','Benefits', 'Features', 'Offers', 'Forms Component', , 'CTA', 'Footer']}
+        data={['Banner', 'Services', 'Benefits', 'Features', 'Offers', 'Forms Component', , 'CTA', 'Footer']}
         size="point-large"
         position="point-left"
       />

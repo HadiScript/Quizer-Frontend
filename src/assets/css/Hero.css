@@ -100,7 +100,7 @@
 
 @media (max-width: 480px) {
   .linked-animate-demo-wrapper {
-    height: 600px;
+    height: 650px !important;
     /* margin-bottom: -50px; */
   }
   .main-hero {

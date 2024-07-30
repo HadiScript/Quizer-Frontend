@@ -302,6 +302,9 @@
 @media (max-width: 576px) {
   // Small devices
   .test1-container {
+    height: 30vh;
+    // padding-bottom: -80px !important;
+    // background-color: red !important;
     .test1-cube {
       &:nth-child(2) {
         translate: -40px -40px; // Adjusted for small size

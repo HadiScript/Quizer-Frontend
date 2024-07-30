@@ -53,7 +53,7 @@ const Test1 = () => {
 
           </div>
 
-          <div className="col-12 col-md-6 px-3">
+          <div className="d-none d-md-block col-12 col-md-6 px-3">
             <div id="test-1">
               <div className="test1-container">
                 {Array.from({ length: 3 }, (_, index) => ( // Repeat the cube structure 3 times

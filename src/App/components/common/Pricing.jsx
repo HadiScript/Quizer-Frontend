@@ -14,7 +14,7 @@ const Pricing = () => {
       <section className="plans__container">
         <div className="plans">
           <div className='feature8-title-wrapper'>
-            <h1 style={{ fontWeight: "600" }}>Our Pricing Plan</h1>
+            <h1 style={{ fontWeight: "600" }}>Our Pricing Plans</h1>
             <p>Choose from our pricing packages as per your need.</p>
           </div>
           <div className="planItem__container">
@@ -86,7 +86,7 @@ const Pricing = () => {
 
 
 
-            <div className="planItem  planItem--pro">
+            <div className="planItem planItem--free  ">
               <div className="itscard">
                 <div className="itscard__header">
                   {/* <div className="itscard__icon symbol symbol--rounded "></div> */}
