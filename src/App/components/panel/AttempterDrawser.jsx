@@ -85,7 +85,7 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
             </div>
 
             <div className="d-flex justify-content-start align-items-center gap-3">
-              <b>Start:</b> <span>{moment(current?.startTime).add(3, "days").calendar()}</span>
+              <b>Start:</b> <span>{moment(current?.startTime).format('LT')}</span>
 
             </div>
 

@@ -12,7 +12,7 @@ const QuizComponents = () => {
     <div key="Screenshots" id="Screenshots" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "-100px", marginBottom: "100px" }}>
       <div className="home-page feature8">
         <div className='feature8-title-wrapper'>
-          <h1 style={{ fontWeight: "600" }}>Screenshots</h1>
+          <h1 style={{ fontWeight: "600" }}>Showcase</h1>
           <p>Practical components to meet your needs, flexible customization and expansion</p>
         </div>
       </div>
@@ -22,13 +22,13 @@ const QuizComponents = () => {
       <div className="d-flex justify-content-center ">
         <Marquee>
           <div className="mx-2">
-            <Image className='border rounded-2' src='/images/main-dashboard.png' height={points.lg ? 200 : 150} />
+            <Image className='border rounded-2' src='/images/main.png' height={points.lg ? 250 : 150} />
           </div>
           <div className="mx-2">
-            <Image className='border rounded-2' src='/images/quiz-dashboard.png' height={points.lg ? 200 : 150} />
+            <Image className='border rounded-2' src='/images/quiz-dashbaord.png' height={points.lg ? 250 : 150} />
           </div>
           <div className="mx-2">
-            <Image className='border rounded-2' src='/images/quiz-dashboard2.png' height={points.lg ? 200 : 150} />
+            <Image className='border rounded-2' src='/images/survey-dashboard.png' height={points.lg ? 250 : 150} />
           </div>
         </Marquee>
       </div>

@@ -1,3 +1,175 @@
+// OLDEST ONE
+// #test-1 {
+//   display: flex !important;
+//   justify-content: center !important;
+//   align-items: center !important;
+//   height: 80vh;
+//   // background: #25335b !important;
+// }
+
+// @keyframes animate {
+//   0% {
+//     filter: hue-rotate(0deg);
+//   }
+//   100% {
+//     filter: hue-rotate(360deg);
+//   }
+// }
+
+// .test1-container {
+//   position: relative;
+//   top: -80px;
+//   transform: skewY(-20deg);
+//   animation: animate 5s linear infinite;
+//   .test1-cube {
+//     position: relative;
+//     z-index: 2;
+//     &:nth-child(2) {
+//       z-index: 1;
+//       translate: -60px -60px;
+//     }
+//     &:nth-child(3) {
+//       z-index: 3;
+//       translate: 60px 60px;
+//     }
+//     div {
+//       position: absolute;
+//       display: flex;
+//       flex-direction: column;
+//       gap: 30px;
+//       translate: calc(-70px * var(--x)) calc(-60px * var(--y));
+//       span {
+//         position: relative;
+//         display: inline-block;
+//         width: 50px;
+//         height: 50px;
+//         background: #dcdcdc;
+//         z-index: calc(1 * var(--i));
+//         transition: 1.5s;
+//         &:hover {
+//           transition: 0s;
+//           background: #ef4149;
+//           filter: drop-shadow(0 0 30px #ef4149);
+//           &:before,
+//           &:after {
+//             transition: 0s;
+//             background: #ef4149;
+//           }
+//         }
+//         &:before {
+//           content: "";
+//           position: absolute;
+//           left: -40px;
+//           width: 40px;
+//           height: 100%;
+//           background: #fff;
+//           transform-origin: right;
+//           transform: skewY(45deg);
+//           transition: 1.5s;
+//         }
+//         &:after {
+//           content: "";
+//           position: absolute;
+//           top: -40px;
+//           left: 0px;
+//           width: 100%;
+//           height: 40px;
+//           background: #f2f2f2;
+//           transform-origin: bottom;
+//           transform: skewX(45deg);
+//           transition: 1.5s;
+//         }
+//       }
+//     }
+//   }
+// }
+
+//  LARGE FROM GPT BUT NOT RESPONSVE
+// #test-1 {
+//   display: flex !important;
+//   justify-content: center !important;
+//   align-items: center !important;
+//   height: 80vh;
+//   // background: #25335b !important;
+// }
+
+// @keyframes animate {
+//   0% {
+//     filter: hue-rotate(0deg);
+//   }
+//   100% {
+//     filter: hue-rotate(360deg);
+//   }
+// }
+
+// .test1-container {
+//   position: relative;
+//   top: -80px;
+//   transform: skewY(-20deg);
+//   animation: animate 5s linear infinite;
+//   .test1-cube {
+//     position: relative;
+//     z-index: 2;
+//     &:nth-child(2) {
+//       z-index: 1;
+//       translate: -90px -90px; // Adjusted for larger size
+//     }
+//     &:nth-child(3) {
+//       z-index: 3;
+//       translate: 90px 90px; // Adjusted for larger size
+//     }
+//     div {
+//       position: absolute;
+//       display: flex;
+//       flex-direction: column;
+//       gap: 45px; // Adjusted for larger size
+//       translate: calc(-105px * var(--x)) calc(-90px * var(--y)); // Adjusted for larger size
+//       span {
+//         position: relative;
+//         display: inline-block;
+//         width: 75px; // Increased width
+//         height: 75px; // Increased height
+//         background: #dcdcdc;
+//         z-index: calc(1 * var(--i));
+//         transition: 1.5s;
+//         &:hover {
+//           transition: 0s;
+//           background: #ef4149;
+//           filter: drop-shadow(0 0 30px #ef4149);
+//           &:before,
+//           &:after {
+//             transition: 0s;
+//             background: #ef4149;
+//           }
+//         }
+//         &:before {
+//           content: "";
+//           position: absolute;
+//           left: -60px; // Adjusted for larger size
+//           width: 60px; // Increased width
+//           height: 100%;
+//           background: #fff;
+//           transform-origin: right;
+//           transform: skewY(45deg);
+//           transition: 1.5s;
+//         }
+//         &:after {
+//           content: "";
+//           position: absolute;
+//           top: -60px; // Adjusted for larger size
+//           left: 0px;
+//           width: 100%;
+//           height: 60px; // Increased height
+//           background: #f2f2f2;
+//           transform-origin: bottom;
+//           transform: skewX(45deg);
+//           transition: 1.5s;
+//         }
+//       }
+//     }
+//   }
+// }
+
 #test-1 {
   display: flex !important;
   justify-content: center !important;
@@ -20,63 +192,141 @@
   top: -80px;
   transform: skewY(-20deg);
   animation: animate 5s linear infinite;
+
   .test1-cube {
     position: relative;
     z-index: 2;
+
     &:nth-child(2) {
       z-index: 1;
-      translate: -60px -60px;
+      translate: -90px -90px; // Adjusted for larger size
     }
     &:nth-child(3) {
       z-index: 3;
-      translate: 60px 60px;
+      translate: 90px 90px; // Adjusted for larger size
     }
+
     div {
       position: absolute;
       display: flex;
       flex-direction: column;
-      gap: 30px;
-      translate: calc(-70px * var(--x)) calc(-60px * var(--y));
+      gap: 45px; // Adjusted for larger size
+      translate: calc(-105px * var(--x)) calc(-90px * var(--y)); // Adjusted for larger size
+
       span {
         position: relative;
         display: inline-block;
-        width: 50px;
-        height: 50px;
+        width: 75px; // Increased width
+        height: 75px; // Increased height
         background: #dcdcdc;
         z-index: calc(1 * var(--i));
         transition: 1.5s;
+
         &:hover {
           transition: 0s;
           background: #ef4149;
           filter: drop-shadow(0 0 30px #ef4149);
+
           &:before,
           &:after {
             transition: 0s;
             background: #ef4149;
           }
         }
+
         &:before {
           content: "";
           position: absolute;
-          left: -40px;
-          width: 40px;
+          left: -60px; // Adjusted for larger size
+          width: 60px; // Increased width
           height: 100%;
           background: #fff;
           transform-origin: right;
           transform: skewY(45deg);
           transition: 1.5s;
         }
+
         &:after {
           content: "";
           position: absolute;
-          top: -40px;
+          top: -60px; // Adjusted for larger size
           left: 0px;
           width: 100%;
-          height: 40px;
+          height: 60px; // Increased height
           background: #f2f2f2;
           transform-origin: bottom;
           transform: skewX(45deg);
           transition: 1.5s;
+        }
+      }
+    }
+  }
+}
+
+// Media Queries for responsiveness
+
+@media (max-width: 992px) {
+  // Medium devices
+  .test1-container {
+    .test1-cube {
+      &:nth-child(2) {
+        translate: -60px -60px; // Adjusted for medium size
+      }
+      &:nth-child(3) {
+        translate: 60px 60px; // Adjusted for medium size
+      }
+
+      div {
+        gap: 30px; // Adjusted for medium size
+        translate: calc(-70px * var(--x)) calc(-60px * var(--y)); // Adjusted for medium size
+
+        span {
+          width: 50px; // Decreased width
+          height: 50px; // Decreased height
+
+          &:before {
+            left: -40px; // Adjusted for medium size
+            width: 40px; // Decreased width
+          }
+
+          &:after {
+            top: -40px; // Adjusted for medium size
+            height: 40px; // Decreased height
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  // Small devices
+  .test1-container {
+    .test1-cube {
+      &:nth-child(2) {
+        translate: -40px -40px; // Adjusted for small size
+      }
+      &:nth-child(3) {
+        translate: 40px 40px; // Adjusted for small size
+      }
+
+      div {
+        gap: 20px; // Adjusted for small size
+        translate: calc(-50px * var(--x)) calc(-40px * var(--y)); // Adjusted for small size
+
+        span {
+          width: 30px; // Decreased width
+          height: 30px; // Decreased height
+
+          &:before {
+            left: -20px; // Adjusted for small size
+            width: 20px; // Decreased width
+          }
+
+          &:after {
+            top: -20px; // Adjusted for small size
+            height: 20px; // Decreased height
+          }
         }
       }
     }

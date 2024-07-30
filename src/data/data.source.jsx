@@ -1,3 +1,4 @@
+// import { Link } from 'react-router-dom';
 import bannerImage from '../assets/imgs/workshero.webp'
 
 
@@ -113,7 +114,7 @@ export const Banner50DataSource = {
       {
         name: 'explain',
         className: 'banner5-explain',
-        children: 'Design, Share and Analyse Quiz or Survey with Sawal app in minutes.',
+        children: 'Design, Share and Analyse Quiz or Survey with SAWAL app in minutes.',
       },
       {
         name: 'content',
@@ -124,7 +125,7 @@ export const Banner50DataSource = {
         name: 'button',
         className: 'banner5-button-wrapper',
         children: {
-          href: '#how-it-works',
+          href: '/signin',
           className: 'banner5-button',
           type: 'primary',
           children: 'Get Started With Free',
@@ -154,7 +155,7 @@ export const Content110DataSource = {
           'https://gw.alipayobjects.com/zos/rmsportal/PiqyziYmvbgAudYfhuBr.svg',
         className: 'title-image',
       },
-      { name: 'title', children: 'Get Started For Free', className: 'title-h1' },
+      { name: 'title', children: 'Start Your SAWAL Journey', className: 'title-h1' },
       {
         name: 'content',
         children:
@@ -165,6 +166,6 @@ export const Content110DataSource = {
   },
   button: {
     className: '',
-    children: { a: { className: 'button', href: '#', children: 'Get Started' } },
+    children: { a: { className: 'button', href: '/signin', children: 'Get started for free' } },
   },
 };

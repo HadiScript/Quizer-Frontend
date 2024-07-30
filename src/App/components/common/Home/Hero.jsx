@@ -222,15 +222,16 @@ class Hero extends React.Component {
           </div>
           <h1 >Your Go-To Hub for Quizzes and Surveys</h1>
           <p >
-            Engage, Explore, and Excel With our Supreme Quality Quizzes and Survey Reports Generator app.
+            Engage, Explore, and Excel With our Supreme Quality Quizzes and Survey Generator app.
+
           </p>
           <div className="d-flex flex-wrap justify-content-center  align-items-center gap-3">
-            <Link to={'/signup'} className='text-decoration-none'>
-              <Button className='linearBgRounded d-flex align-items-center'  >Get Started For Free <HiOutlineExternalLink className='' size={16} /></Button>
+            <Link to={'/signin'} className='text-decoration-none' style={{ width: "200px" }}>
+              <Button className='linearBgRounded d-flex align-items-center' style={{ width: "100%" }} >Create Quiz <HiOutlineExternalLink className='' size={16} /></Button>
             </Link>
-            <a href="#benifits" className='text-decoration-none'>
-              <Button className='linearBgRoundedSecondary d-flex align-items-center'  >Read more <HiOutlineExternalLink className='' size={16} /></Button>
-            </a>
+            <Link to="/signin" className='text-decoration-none' style={{ width: "200px" }}>
+              <Button className='linearBgRoundedSecondary d-flex align-items-center' style={{ width: "100%" }} >Create Survey <HiOutlineExternalLink className='' size={16} /></Button>
+            </Link>
           </div>
 
           <div className="img-container">

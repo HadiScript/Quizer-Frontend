@@ -1,6 +1,10 @@
 import { Button } from 'antd'
 import '../../../assets/css/price.scss'
 import { Link } from 'react-router-dom'
+import { SiBasicattentiontoken } from "react-icons/si";
+import entreImg from '../../../assets/imgs/entre-icon.svg'
+
+
 
 const Pricing = () => {
   return (
@@ -11,7 +15,7 @@ const Pricing = () => {
         <div className="plans">
           <div className='feature8-title-wrapper'>
             <h1 style={{ fontWeight: "600" }}>Packages</h1>
-            <p>Discover how to create quizzes and surveys with a single click.</p>
+            <p>Choose from our pricing packages as per your need.</p>
           </div>
           <div className="planItem__container">
 
@@ -85,7 +89,9 @@ const Pricing = () => {
             <div className="planItem  planItem--pro">
               <div className="itscard">
                 <div className="itscard__header">
-                  <div className="itscard__icon symbol symbol--rounded itscard__icon"></div>
+                  {/* <div className="itscard__icon symbol symbol--rounded "></div> */}
+                  <img src={entreImg} alt="icon" className='itscard__icon symbol symbol--rounded' />
+                  {/* <SiBasicattentiontoken size={30} /> */}
                   <h2>Enterprise</h2>
                 </div>
                 <div className="itscard__desc">For bigger teams and organizations with advanced reporting features.</div>

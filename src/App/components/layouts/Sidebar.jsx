@@ -43,11 +43,6 @@ const Sidebar = ({ from = "notSubscriber", title }) => {
               </Menu.Item>
             ))
           }
-
-
-
-
-
         </Menu>
       </div>
 

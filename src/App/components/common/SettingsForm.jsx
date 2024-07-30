@@ -66,7 +66,7 @@ const SettingsForm = ({ _settings, _setSettings, onFinish, from = "globalSetting
             <b>Passing Score</b>
           </label>
           <Input value={_settings?.passingScore} onChange={(e) => _setSettings((prev) => ({ ...prev, passingScore: e.target.value }))} type="number" />
-          <small>Passing score consider in Percentage {_settings.passingScore + "%"}</small>
+          <small>Passing score in Percentage {_settings.passingScore + "%"}</small>
         </div>
 
         <PremuimSettings

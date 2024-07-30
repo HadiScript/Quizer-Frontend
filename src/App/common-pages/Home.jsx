@@ -17,6 +17,7 @@ import Test1 from '../components/common/Home/Features/Test1';
 import Pricing from '../components/common/Pricing';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import MainFeatures from '../components/common/Home/MainFeatures';
 
 
 
@@ -36,8 +37,6 @@ const Home = () => {
 
   return (
     <div className="templates-wrapper">
-
-
       <Navbar
         id="Navbar"
         key="navbar"
@@ -45,6 +44,7 @@ const Home = () => {
         isMobile={isMobile}
       />
       <Hero />
+      <MainFeatures />
       <Benifits />
       <Test1 />
       <Features key="features" isMobile={isMobile} />
@@ -59,7 +59,7 @@ const Home = () => {
       <Footer />
       <Point
         key="list"
-        data={['Banner', 'Benefits', 'Features', 'Offers', 'Forms Component', , 'CTA', 'Footer']}
+        data={['Banner', 'Services','Benefits', 'Features', 'Offers', 'Forms Component', , 'CTA', 'Footer']}
         size="point-large"
         position="point-left"
       />

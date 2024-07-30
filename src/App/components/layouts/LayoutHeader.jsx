@@ -106,6 +106,10 @@ const LayoutHeader = ({ from }) => {
 
       </div>
       <Drawer
+        style={{
+          background: "#083344"
+        }}
+        // className="mobile-sidebar"
         placement="left"
         closable={false}
         width={250}

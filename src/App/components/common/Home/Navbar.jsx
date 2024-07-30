@@ -32,8 +32,8 @@ const Navbar = () => {
           <span className='header-link _link' onClick={() => handleJump('#Pricing')} href='#Pricing' role='button'>Pricing</span>
 
 
-          {!auth?.token && <Link to={'/signup'}>
-            <button className='button'>Get Started Free</button>
+          {!auth?.token && <Link to={'/signin'}>
+            <button className='button'>Get started for free</button>
           </Link>}
 
           {auth?.token && auth?.user?.role === "subscriber" && <Link to={'/subscribe'}>
@@ -42,8 +42,8 @@ const Navbar = () => {
         </div>
         <AiOutlineMenuFold color='#083344' onClick={() => setOpen(true)} size={23} className='d-block d-lg-none' />
       </div>
-      <Drawer onClose={() => setOpen(false)} open={open} width={200}>
-        <div className='d-flex flex-column p-2 header3 gap-3 ' >
+      <Drawer onClose={() => setOpen(false)} open={open} width={250}>
+        <div className='d-flex flex-column p-2 header3 gap-3 px-4' >
           <Link className='header-link _link' to={'/'} role='button'>Home</Link>
           <Link className='header-link _link' to={'/how-it-works'} role='button'>How it works?</Link>
           <span className='header-link _link' onClick={() => handleJump("/#Features")} role='button'>Features</span>
@@ -51,8 +51,8 @@ const Navbar = () => {
           <span className='header-link _link' onClick={() => handleJump('#Pricing')} href='#Pricing' role='button'>Pricing</span>
 
 
-          {!auth?.token && <Link to={'/signup'}>
-            <button className='button'>Get Started Free</button>
+          {!auth?.token && <Link to={'/signin'}>
+            <button className='button'>Get started for free</button>
           </Link>}
 
           {auth?.token && auth?.user?.role === "subscriber" && <Link to={'/subscribe'}>

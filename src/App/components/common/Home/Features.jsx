@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Grid } from 'antd';
 
 import Tetris from './technology-comp/Tetris';
 import Column from './technology-comp/Column';
@@ -8,7 +8,7 @@ import Building from './technology-comp/Building';
 
 const pageData = [
   {
-    title: 'Comparision',
+    title: 'Comparison',
     content: 'Visualize each survey response separately in an easy to understand graphical representation. You can also compare the results of different question in a survey.',
     Bg: Tetris,
   },
@@ -32,16 +32,17 @@ const pageData = [
 
 const Features = ({ isMobile }) => {
   const [hover, setHover] = useState(null);
+  const points = Grid.useBreakpoint()
 
   const onMouseEnter = (title) => setHover(title);
   const onMouseLeave = () => setHover(null);
 
   return (
-    <div key="features" id="Offers" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "100px", marginBottom: "100px" }}>
+    <div key="features" id="Offers" className='home-page-wrapper feature8-wrapper' style={{ marginBottom: points.md ? "100px" : "50px", }} >
       <div className="home-page feature8">
         <div className='feature8-title-wrapper'>
-          <h1 style={{ fontWeight: "600" }}>What Sawal Brings to You</h1>
-          <p>Discover endless quiz possibilities with Sawal's diverse features.</p>
+          <h1 style={{ fontWeight: "600" }}>What SAWAL Brings to You</h1>
+          <p>Discover endless quiz possibilities with SAWAL's diverse features.</p>
         </div>
         <Row className="d-flex flex-wrap">
           {pageData.map((item, i) => (

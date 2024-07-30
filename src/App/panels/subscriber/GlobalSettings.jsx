@@ -16,7 +16,7 @@ const GlobalSettings = () => {
   const points = Grid.useBreakpoint();
   return (
     <SubcriberLayout>
-      <BgHeading title={"Global Settings"} desc={"Enhance your profile with a logo and updated settings."} />
+      <BgHeading title={"Global Settings"} desc={"Enhance your profile with a logo. Set quiz mode and score settings. These settings will be applied globally to all the quizzes by default. "} />
 
       <Row className="mt-4">
         <Col md={16} xs={24}>

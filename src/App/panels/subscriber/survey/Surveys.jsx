@@ -9,9 +9,7 @@ const Surveys = () => {
   const { data, setSearch, handleSearch, handleTableChange, loading: isLoading, pagination } = useGetSurveys()
   return (
     <SubcriberLayout>
-
-
-      <BgHeading title={"Surveys"} desc={"Here is the list of all the surveys created."} />
+      <BgHeading title={"Surveys"} desc={"List of all the surveys you have created. Manage, edit and analyze results of your surveys through their separate dashboards."} />
       <div className="mt-4 mb-2">
         <Input.Search
           placeholder="Search by Title"

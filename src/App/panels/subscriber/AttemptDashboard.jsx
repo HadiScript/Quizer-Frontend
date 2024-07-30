@@ -71,7 +71,7 @@ const AttemptDashboard = () => {
           <Row className="">
             <Col lg={12} xs={24} className="">
               <div className="p-2 d-flex flex-column gap-3">
-                <ItsStats title={"Average score"} number={quizData?.settings?.scoringType === "percentage" ? percentage(data?.averageScore, quizData?.questions?.length).toFixed(2) + "%" : data?.averageScore?.toFixed(2)} icon={<MdSportsScore size={25} />} />
+                <ItsStats title={"Average score"} number={quizData?.settings?.scoringType === "percentage" ? data?.averageScore.toFixed(2) + "%" : data?.averageScore?.toFixed(2)} icon={<MdSportsScore size={25} />} />
                 <ItsStats title={"Total Attempts"} number={data?.totalAttempts} icon={<FaCheckDouble size={25} />} />
                 <ItsStats title={"Average Time Spent"} number={avgTimeData?.averageTimeSpent} icon={<MdAccessTime size={25} />} />
               </div>
