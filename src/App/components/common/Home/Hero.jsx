@@ -222,8 +222,7 @@ class Hero extends React.Component {
           </div>
           <h1 >Your Go-To Hub for Quizzes and Surveys</h1>
           <p >
-            Engage, Explore, and Excel With our Supreme Quality Quizzes and Survey Generator app.
-
+            Engage, Explore, and Excel With our Supreme Quality Quiz and Survey Generator app.
           </p>
           <div className="d-flex flex-wrap justify-content-center  align-items-center gap-3">
             <Link to={'/signin'} className='text-decoration-none' style={{ width: "200px" }}>

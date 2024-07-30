@@ -29,7 +29,7 @@ const Footer = () => {
           <div className="d-flex flex-column">
             <img src='/white2.png' height={80} width={200} />
             <div className="div mt-4" style={{ maxWidth: "300px" }}>
-              <span>Engage, Explore, and Excel With our Supreme Quality Quizzes and Survey Reports Generator app.</span>
+              <span>Engage, Explore, and Excel With our Supreme Quality Quiz and Survey Generator app.</span>
             </div>
           </div>
           <div className='d-flex flex-column justify-content-start align-items-start gap-3  '>

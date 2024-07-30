@@ -109,7 +109,7 @@ const Pricing = () => {
               </ul>
               <Button style={{ backgroundColor: "#164e63", color: "white" }} size='large'>
                 <Link className='_link' to={'/signup'}>
-                  Contact Us
+                  Get Started
                 </Link>
               </Button>
               {/* <button className="itsbutton text-white">Get Started</button> */}
