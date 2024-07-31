@@ -2,18 +2,15 @@ import { Grid, Image } from 'antd'
 import Marquee from 'react-fast-marquee'
 
 
-
-
 const QuizComponents = () => {
   const points = Grid.useBreakpoint()
-
 
   return (
     <div key="Screenshots" id="Screenshots" className='home-page-wrapper feature8-wrapper' style={{ marginTop: "-100px", marginBottom: "100px" }}>
       <div className="home-page feature8">
         <div className='feature8-title-wrapper'>
           <h1 style={{ fontWeight: "600" }}>A Glimpse of SAWAL</h1>
-          <p>Practical components to meet your needs, flexible customization and expansion</p>
+          <p>Have a look at our app through these screenshots, click to preview.</p>
         </div>
       </div>
 

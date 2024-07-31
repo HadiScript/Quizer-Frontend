@@ -1,0 +1,43 @@
+.services-section {
+  position: relative;
+  margin-bottom: 300px;
+  height: 400px;
+  background-color: #083344;
+}
+
+.myrow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* // gap: 50px !important; */
+  padding: 0px 90px;
+}
+
+.services-section .col-5 {
+  height: 400px !important;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.services-section .col-5 .second-col {
+  // margin-top: 200px;
+}
+
+@media only screen and (max-width: 992px) {
+  .services-section {
+    height: 1400px;
+  }
+
+  .para {
+    color: white !important;
+  }
+
+  .myrow {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 50px !important;
+  }
+
+  .services-section .second-col {
+    margin-top: 200px;
+  }
+}

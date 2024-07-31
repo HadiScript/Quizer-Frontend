@@ -62,7 +62,12 @@ const RateComponent = () => {
 
     <div className="d-flex flex-column gap-3">
       <label>How would you rate overall quality of the course?</label>
-      <Rate style={{ color: "#0e7490" }} tooltips={desc} defaultValue={3} character={({ index = 0 }) => customIcons[index + 1]} />
+      <Rate
+        style={{ color: "#0e7490" }}
+        tooltips={desc}
+        defaultValue={3}
+        character={({ index = 0 }) => customIcons[index + 1]}
+      />
     </div>
 
 

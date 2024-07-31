@@ -44,7 +44,7 @@ const Home = () => {
         isMobile={isMobile}
       />
       <Hero />
-      {/* <MainFeatures /> */}
+      <MainFeatures />
       <Benifits />
       <Test1 />
       <Features key="features" isMobile={isMobile} />

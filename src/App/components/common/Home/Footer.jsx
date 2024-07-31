@@ -2,9 +2,11 @@ import React from 'react'
 import Logo from '../../layouts/Logo'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { Grid } from 'antd';
 
 const Footer = () => {
 
+  const points = Grid.useBreakpoint()
 
   const navigate = useNavigate();
 
@@ -26,13 +28,13 @@ const Footer = () => {
         >
 
           {/* <Logo /> */}
-          <div className="d-flex flex-column">
+          <div className="d-flex flex-column ">
             <img src='/white2.png' height={80} width={200} />
             <div className="div mt-4" style={{ maxWidth: "300px" }}>
               <span>Engage, Explore, and Excel With our Supreme Quality Quiz and Survey Generator app.</span>
             </div>
           </div>
-          <div className='d-flex flex-column justify-content-start align-items-start gap-3  '>
+          <div className='d-flex flex-column justify-content-start align-items-start gap-3   ' style={{ marginTop: !points.md && "30px" }}>
             <h6 style={{ fontSize: "20px" }}>Menu</h6>
             <Link to={'/#'} className='_link nav-link'>Home</Link>
             <Link to={'/how-it-works/#'} className='_link nav-link'>How it works?</Link>
@@ -41,7 +43,7 @@ const Footer = () => {
             <span role='button' onClick={() => handleJump('/how-it-works/#Showcase')} className='_link nav-link'>Showcase</span>
           </div>
 
-          <div className='d-flex flex-column justify-content-start align-items-start gap-3 '>
+          <div className='d-flex flex-column justify-content-start align-items-start gap-3 ' style={{ marginTop: !points.md && "30px" }}>
             <h6 style={{ fontSize: "20px" }}>Terms</h6>
             <Link to={'/privacy-and-policy'} className='_link nav-link'>Privacy & Policy </Link>
             <Link to={'/disclaimer'} className='_link nav-link'>Disclaimer</Link>
@@ -49,10 +51,10 @@ const Footer = () => {
             <Link to={'/terms-and-conditions'} className='_link nav-link'>Terms & Conditions</Link>
           </div>
 
-          <div className='d-flex flex-column justify-content-start align-items-start gap-3 '>
+          <div className='d-flex flex-column justify-content-start align-items-start gap-3 ' style={{ marginTop: !points.md && "50px" }}>
             <h6 style={{ fontSize: "20px" }}>Contact</h6>
-            <a className='text-white _link' href="mailto:info@hadielearning.com">Info@hadielearning.com</a>
-            <a className='text-white _link' href="tel:03-1111-93339">03-1111-93339</a>
+            <a className='text-white _link' href="mailto:ask@sawal.co">Ask@sawal.co</a>
+            <a className='text-white _link' href="tel:+447466292272">+44-746-629-2272</a>
             <span className='text-white'>25 Badminton Road, Manchester, United Kingdom.</span>
             <div className='d-flex flex-wrap gap-2'>
               <a className='_link text-white' href="https://www.facebook.com/Hadielearningofficial " target="_">  <FaFacebook size={18} role='button' /> </a>
@@ -68,14 +70,12 @@ const Footer = () => {
 
 
         <div className='d-flex justify-content-center text-white py-4 _link'>
-          <span className='mx-2'>Copyright © </span><Link href={"/auth/login"} className='_link text-white'>Sawal.Co</Link>
-          <span className='mx-2'>|</span>
-          <span>
-            Developed by
-            <a className='_link mx-2 text-white' href="https://cycarts.com" target="#">
+          <p>
+            Copyright © <Link className='_link text-white' href={"/"}>SAWAL</Link> | Developed by{" "}
+            <a className='_link text-white' href="https://cycarts.com" target="#">
               Cycarts
             </a>
-          </span>
+          </p>
         </div>
       </div>
     </div >

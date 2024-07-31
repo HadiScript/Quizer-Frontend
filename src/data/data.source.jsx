@@ -110,7 +110,7 @@ export const Banner50DataSource = {
   childWrapper: {
     className: 'banner5-title-wrapper',
     children: [
-      { name: 'title', children: 'How to create your own Quiz or Survey', className: 'banner5-title' },
+      { name: 'title', children: "Let's kickstart your quiz and survey journey", className: 'banner5-title' },
       {
         name: 'explain',
         className: 'banner5-explain',

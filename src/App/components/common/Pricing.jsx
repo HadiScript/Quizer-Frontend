@@ -34,8 +34,8 @@ const Pricing = () => {
               <ul className="featureList">
                 <li className=''>Separate dashboard</li>
                 <li className=''>10 Quizzes</li>
-                <li className=''>20 Questions for each quiz</li>
-                <li className=''>100 Attempts for each quiz</li>
+                <li className=''>20 Questions for Each Quiz</li>
+                <li className=''>100 Attempts for Each Quiz</li>
                 <li className=''>Quiz Mode</li>
                 <li className=''>Passing Score</li>
                 <li className=''>Quiz Availability</li>
@@ -65,10 +65,10 @@ const Pricing = () => {
               <div className="price">$10<span><span className='text-white'>/ month</span></span></div>
 
               <ul className="featureList">
-                <li>Separate dashboard</li>
+                <li>Separate Dashboard</li>
                 <li>10 Quizzes</li>
-                <li>20 Questions for each quiz</li>
-                <li>100 Attempts for each quiz</li>
+                <li>20 Questions for Each Quiz</li>
+                <li>100 Attempts for Each Quiz</li>
                 <li>Quiz Mode</li>
                 <li>Passing Score</li>
                 <li>Quiz Availability</li>
@@ -102,10 +102,10 @@ const Pricing = () => {
               <ul className="featureList">
                 <li>Separate Server</li>
                 <li>Separate Subdomain</li>
-                <li>Create your own Home Page</li>
-                <li>Mobile application</li>
+                <li>Create Your own Home Page</li>
+                <li>Mobile Application</li>
                 <li>Advance Reporting</li>
-                <li>Many more</li>
+                <li>Many More</li>
               </ul>
               <Button style={{ backgroundColor: "#164e63", color: "white" }} size='large'>
                 <Link className='_link' to={'/signup'}>

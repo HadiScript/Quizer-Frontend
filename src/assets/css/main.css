@@ -363,3 +363,14 @@ h5 {
 #filterDrawer .title {
   color: white !important;
 }
+
+/* RATE */
+.ant-rate-star:not(.ant-rate-star-full):not(.ant-rate-star-half) .ant-rate-star-first,
+.ant-rate-star:not(.ant-rate-star-full):not(.ant-rate-star-half) .ant-rate-star-second {
+  color: #b3b3b3 !important; /* Set to a darker shade of gray */
+}
+
+/* Mobile Drawer */
+.ant-drawer-header-title .mobile-drawer {
+  background-color: red !important;
+}

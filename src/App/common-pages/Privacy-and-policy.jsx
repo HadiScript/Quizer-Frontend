@@ -60,7 +60,7 @@ const PrivacyAndPolicy = () => {
               <ul>
                 <li className="mt-2"><strong>Access and Update:</strong> You can access and update your personal information through your account settings.</li>
                 <li className="mt-2"><strong>Opt-Out:</strong> You may opt-out of receiving promotional communications by following the unsubscribe instructions included in those emails.</li>
-                <li className="mt-2"><strong>Data Deletion:</strong> You can request the deletion of your account and personal information by contacting us at <a href="mailto:support@sawalapp.com">support@sawalapp.com</a>.</li>
+                <li className="mt-2"><strong>Data Deletion:</strong> You can request the deletion of your account and personal information by contacting us at <a href="mailto:ask@sawal.co" target="#">ask@sawal.co</a>.</li>
               </ul>
             </li>
 
@@ -87,7 +87,7 @@ const PrivacyAndPolicy = () => {
               <p>If you have any questions or concerns about this Privacy Policy, please contact us at:  </p>
               <b>SAWAL</b>
               <p> 25 Badminton Road, Manchester, United Kingdom</p>
-              <a href="mailto:support@sawalapp.com">Email: support@sawalapp.com</a>
+              <p>Email:  <a href="mailto:ask@sawal.co" target="#">ask@sawal.co</a></p>
 
             </li>
           </ol>

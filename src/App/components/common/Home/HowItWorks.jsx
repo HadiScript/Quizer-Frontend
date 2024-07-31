@@ -20,12 +20,12 @@ const quizSteps = [
 ];
 
 const surveySteps = [
-  { number: "1", title: "Fill the title, Description", },
-  { direction: "bottom-left", number: "2", title: "Add Fields", },
-  { number: "3", title: "Preview the survey", },
-  { direction: "bottom-left", number: "4", title: "Copy the link and share with you those who will attempt the survey", },
-  { number: "5", title: "Now you can check the each response", },
-  { direction: "bottom-right", number: "6", title: "Analyze your Survey", },
+  { number: "1", title: "Add survey title and description", },
+  { direction: "bottom-left", number: "2", title: "Add different fields and their options", },
+  { number: "3", title: "Preview your survey", },
+  { direction: "bottom-left", number: "4", title: "Copy link & share", },
+  { number: "5", title: "Click on Stats and analyze results", },
+  { direction: "bottom-right", number: "6", title: "View the list of participants", },
   { number: "7", title: "Done", }
 ];
 
@@ -73,31 +73,31 @@ const SurveyMobileSteps = () => <Timeline
     {
       dot: <CheckOutlined className="timeline-clock-icon" />,
       color: '#164e63',
-      children: 'Fill the title, Description',
+      children: 'Add survey title and description',
     },
     {
       dot: <CheckOutlined className="timeline-clock-icon" />,
       color: '#164e63',
-      children: 'Add Fields',
+      children: 'Add different fields and their options',
     },
     {
       dot: <CheckOutlined className="timeline-clock-icon" />,
       color: '#164e63',
-      children: "Preview the survey"
+      children: "Preview your survey"
     },
     {
 
       dot: <CheckOutlined className="timeline-clock-icon" />,
       color: '#164e63',
-      children: 'Copy the link and share with you those who will attempt the survey',
+      children: 'Copy link & share',
     },
     {
       dot: <CheckOutlined className="timeline-clock-icon" />,
       color: '#164e63',
-      children: 'Now you can check the each response',
+      children: 'Click on Stats and analyze results',
     },
     {
-      children: "Analyze your Survey",
+      children: "View the list of participants",
       dot: <CheckOutlined className="timeline-clock-icon" />,
       color: '#164e63',
     },

@@ -75,7 +75,7 @@ const TermAndConditions = () => {
             <li className="mt-2"> Governing Law These Terms are governed by and construed in accordance with the laws of the United Kingdom. Any disputes arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of the United Kingdom.</li>
             <li className="mt-2">Contact Information For any questions about these Terms, please contact us at:
               <ol>
-                <li className="mt-2"> SAWAL 25 Badminton Road, Manchester, United Kingdom Email: support@sawalapp.com</li>
+                <li className="mt-2"> SAWAL 25 Badminton Road, Manchester, United Kingdom Email: <a href="mailto:ask@sawal.co" target="#">ask@sawal.co</a></li>
               </ol>
             </li>
 
