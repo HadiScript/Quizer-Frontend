@@ -19,7 +19,7 @@ jobs:
             cd /root/sawal/Quizer-Frontend
             git pull
             npm install -f
-            pm2 reload backend --update-env
+            pm2 restart backend
 
   Testing:
     runs-on: ubuntu-latest
