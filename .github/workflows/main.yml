@@ -21,7 +21,6 @@ jobs:
             npm install -f
             pm2 restart backend
 
-  # Uncomment and configure the Testing job if needed
   Testing:
     runs-on: ubuntu-latest
     environment:
@@ -34,12 +33,11 @@ jobs:
           host: 158.220.110.172
           username: root
           key: ${{ secrets.SSH_KEY }}
-  #         # port: 22 (default port, can be omitted if 22)
+          # port: 22 (default port, can be omitted if 22)
           script: |
             cd /root/sawal/Quizer-Frontend
-  #           git pull
+            git pull
             npm run build
-  #           kill -9 $(lsof -t -i:3000)
             pm2 restart test
 
   Production:
