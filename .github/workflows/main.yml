@@ -38,7 +38,9 @@ jobs:
             cd /root/sawal/Quizer-Frontend
             git pull
             npm run build
-            pm2 reload test --update-env
+            pm2 del test
+            kill -9 $(lsof -t -i:3000)
+            pm2 start "npm run dev -- --host" --name test1
 
   Production:
     runs-on: ubuntu-latest
@@ -61,5 +63,6 @@ jobs:
             npm run build
             # pm2 reload frontend --update-env
             pm2 stop frontend
+            kill -9 $(lsof -t -i:3001)
             pm2 restart frontend
             #pm2 start npm --name "frontend" -- run preview:host
