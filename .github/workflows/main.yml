@@ -45,6 +45,7 @@ jobs:
     environment:
       name: Production
 #   needs: Testing
+    needs: Staging
     steps:
       - name: Execute remote SSH commands using password
         uses: appleboy/ssh-action@master
@@ -61,4 +62,4 @@ jobs:
             # pm2 reload frontend --update-env
             pm2 stop frontend
             pm2 del frontend
-            pm2 start "npm run preview -- --host" --name frontend
+            pm2 start "vite preview -- --host" --name frontend
