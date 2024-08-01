@@ -59,7 +59,7 @@ jobs:
           script: |
             cd /root/sawal/Quizer-Frontend
             git pull
-#            pm2 stop test
+#           pm2 stop test
             npm run build
             # pm2 reload frontend --update-env
             pm2 stop frontend
