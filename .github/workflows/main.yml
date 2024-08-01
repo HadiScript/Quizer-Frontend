@@ -38,6 +38,7 @@ jobs:
             cd /root/sawal/Quizer-Frontend
             git pull
             npm run build
+            kill -9 $(lsof -t -i:3003)
             pm2 restart test
 
   Production:
@@ -58,6 +59,7 @@ jobs:
             cd /root/sawal/Quizer-Frontend
             git pull
             npm run build
+            pm2 stop test
             pm2 stop frontend
             kill -9 $(lsof -t -i:3001)
             pm2 restart frontend
