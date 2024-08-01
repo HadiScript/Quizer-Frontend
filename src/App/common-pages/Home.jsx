@@ -18,6 +18,7 @@ import Pricing from '../components/common/Pricing';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import MainFeatures from '../components/common/Home/MainFeatures';
+import Logos from '../components/common/Home/Logos';
 
 
 
@@ -44,7 +45,8 @@ const Home = () => {
         isMobile={isMobile}
       />
       <Hero />
-      <MainFeatures />
+      {/* <Logos />
+      <MainFeatures /> */}
       <Benifits />
       <Test1 />
       <Features key="features" isMobile={isMobile} />

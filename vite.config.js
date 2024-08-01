@@ -6,4 +6,10 @@ export default defineConfig({
   assetsInclude: ["**/*.woff", "**/*.woff2", "**/*.eot", "**/*.ttf", "**/*.otf"],
 
   plugins: [react()],
+  server: {
+    port: 3000,
+  },
+  preview: {
+    port: 3001,
+  },
 });
