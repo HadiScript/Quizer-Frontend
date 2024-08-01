@@ -40,7 +40,7 @@ jobs:
             npm run build
             pm2 del test
             kill -9 $(lsof -t -i:3000)
-            pm2 start "npm run dev -- --host" --name test1
+            pm2 start "npm run dev -- --host" --name test
 
   Production:
     runs-on: ubuntu-latest
