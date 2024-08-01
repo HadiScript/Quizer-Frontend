@@ -21,10 +21,32 @@ jobs:
             npm install -f
             pm2 restart backend
 
-  Testing:
+#  Testing:
+#    runs-on: ubuntu-latest
+#    environment:
+#      name: testing
+#    needs: Staging
+#    steps:
+#      - name: Execute remote SSH commands using password
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: 158.220.110.172
+#          username: root
+#          key: ${{ secrets.SSH_KEY }}
+          # port: 22
+#          script: |
+#            cd /root/sawal/Quizer-Frontend
+#            git pull
+#            npm run build
+#            pm2 del test
+#            kill -9 $(lsof -t -i:3000)
+#            pm2 start "npm run dev -- --host" --name test
+
+  Production:
     runs-on: ubuntu-latest
     environment:
-      name: testing
+      name: Production
+#    needs: Testing
     needs: Staging
     steps:
       - name: Execute remote SSH commands using password
@@ -37,29 +59,7 @@ jobs:
           script: |
             cd /root/sawal/Quizer-Frontend
             git pull
-            npm run build
-            pm2 del test
-            kill -9 $(lsof -t -i:3000)
-            pm2 start "npm run dev -- --host" --name test
-
-  Production:
-    runs-on: ubuntu-latest
-    environment:
-      name: Production
-    needs: Testing
-#    needs: Staging
-    steps:
-      - name: Execute remote SSH commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: 158.220.110.172
-          username: root
-          key: ${{ secrets.SSH_KEY }}
-          # port: 22
-          script: |
-            cd /root/sawal/Quizer-Frontend
-            git pull
-            pm2 stop test
+#            pm2 stop test
             npm run build
             # pm2 reload frontend --update-env
             pm2 stop frontend
