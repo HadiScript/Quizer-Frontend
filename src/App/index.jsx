@@ -88,7 +88,7 @@ const App = () => {
       <Route path={'signin'} element={<Login />} />
       <Route path={register} element={<Register />} />
       <Route path={stripePass} element={<Pass />} />
-      <Route path={stripeFail} element={<Fail />} />
+      <Route path={stripeFail} element={<Fail />} /   
 
 
       {/* attempts */}

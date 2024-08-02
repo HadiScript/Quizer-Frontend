@@ -234,7 +234,8 @@ class Hero extends React.Component {
           </div>
 
           <div className="img-container">
-            <Image src='/images/main.png' className='img' />
+            {/* <Image src='/images/main.png' className='img' /> */}
+            <img src="/hero.jpeg" alt="heroimg" className='img' />
           </div>
         </div>
       </div>
