@@ -11,6 +11,7 @@ import { FcGoogle } from "react-icons/fc";
 import { CheckOutlined, LoginOutlined } from "@ant-design/icons";
 
 import { IoIosArrowBack } from "react-icons/io";
+import LoginComponent from "./auth/LoginComponent";
 
 
 const Login = () => {
@@ -27,7 +28,7 @@ const Login = () => {
   const { email, setEmail, password, setPassword, Login, loginwithgoogle, loading } = _useCommon();
 
   const onFinish = (values) => {
-    Login();
+    Login(true);
   };
 
 
@@ -49,7 +50,7 @@ const Login = () => {
 
             </Col>
             <Col md={10} lg={10} className="d-flex justify-content-center"  >
-              <div className="d-flex flex-column " style={{ maxWidth: "400px" }}>
+              <div className="d-flex flex-column justify-content-center" style={{ maxWidth: "400px" }}>
                 <h1 className="text-white mt-5">Get Started for Free with Sawal.</h1>
 
                 <div className="d-flex flex-column gap-3 text-white mt-4 mb-3" style={{ fontSize: "18px" }}>
@@ -74,7 +75,7 @@ const Login = () => {
         <Col lg={8} xs={24}  >
           <div style={{ minHeight: "100vh", }} className="d-flex justify-content-center" >
 
-            <div className="d-flex flex-column gap-4 justify-content-center align-items-center px-3 " style={{ width: "400px" }}>
+            {/* <div className="d-flex flex-column gap-4 justify-content-center align-items-center px-3 " style={{ width: "400px" }}>
 
               <div style={{ width: "100%" }}>
                 <div onClick={() => router(-1)} className="d-flex align-items-center  mb-5 _link text-dark" role="button" style={{ fontSize: "18px" }}>
@@ -116,7 +117,7 @@ const Login = () => {
                   <Button style={{ width: "100%" }} loading={loading} type="primary" htmlType="submit" className="primaryBtn mt-3">
                     Login
                   </Button>
-                  <Button icon={<FcGoogle size={20} />} onClick={loginwithgoogle} style={{ width: "100%" }} loading={loading} className="googleBtn mt-3">
+                  <Button icon={<FcGoogle size={20} />} onClick={loginwithgoogle} style={{ width: "100%" }} className="googleBtn mt-3">
                     Login with Google
                   </Button>
                 </Form.Item>
@@ -125,7 +126,22 @@ const Login = () => {
               <p className="mt-2">
                 Have an account? <Link to="/signup" className="_link">Register</Link>
               </p>
-            </div>
+            </div> */}
+            <LoginComponent
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              Login={Login}
+              loginwithgoogle={loginwithgoogle}
+              loading={loading}
+              onFinish={onFinish}
+
+
+
+            />
+
+
           </div>
         </Col>
       </Row>

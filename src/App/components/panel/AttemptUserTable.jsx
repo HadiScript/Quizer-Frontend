@@ -1,11 +1,16 @@
-import { DeleteOutlined, ExpandOutlined, ExportOutlined, EyeOutlined, FolderOpenOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Empty, Input, Tag, Tooltip } from "antd";
+import { DeleteOutlined, EyeOutlined, UserOutlined } from "@ant-design/icons";
+import { Empty, Input, Tag, } from "antd";
 
 import { useState } from "react";
 import AttempterDrawser from "./AttempterDrawser";
 import { useNavigate, useParams } from "react-router-dom";
 import Heading from "../common/Heading";
 import { TableLoading } from "../loadings";
+
+import { TimeCal } from "../../../hooks/TimeCal";
+
+
+
 
 const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, loading = false }) => {
   const { id } = useParams();
@@ -18,33 +23,12 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
     <>
       <div className={` ""}`}>
         <div className="d-flex flex-wrap justify-content-between align-items-start">
-          {from !== "page" ? <h6 className="px-3"> <b>Highest Score</b> </h6> : <Heading title={"Quiz users"} desc={"Here is the list of all the users who have attempted the quiz."} Icon={<UserOutlined className="its-icon" />} />}
-          {/* {from !== "page" && (
-            <div className="d-flex justify-content-between gap-3 align-items-center">
-
-              <Button onClick={() => router(`/subscribe/quize/${id}/attempters`)} icon={<ExpandOutlined />} type="dashed">
-                Expend
-              </Button>
-              <Tooltip placement="top" title="Currently not available!">
-                <Button icon={<ExportOutlined />} className="myBtn">
-                  Export Data
-                </Button>
-              </Tooltip>
-            </div>
-          )} */}
+          {
+            from !== "page" && <h6 className="px-3"> <b>Highest Score</b> </h6>
+          }
         </div>
+        {/* <Heading title={"Quiz users"} desc={"View detailed quiz report and responses of each individual user."} Icon={<UserOutlined className="its-icon" />} /> */}
 
-        {from === "page" && (
-          <div className=" mt-4 mb-1">
-            <Input.Search
-              placeholder="Search by email"
-              enterButton="Search"
-              onSearch={handleSearch}
-              onChange={(e) => setSearchEmail(e.target.value)}
-              style={{ width: "100%", marginBottom: 20 }}
-            />
-          </div>
-        )}
 
         {loading ? <TableLoading /> : <div className="table-responsive mt-2 mb-4">
           <table className="table">
@@ -53,6 +37,8 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
                 <th scope="col">{loading ? "..." : "#"}</th>
                 <th scope="col">Email</th>
                 {from === "page" && <th scope="col">Attempt At</th>}
+                {from === "page" && <th scope="col">Score</th>}
+                {from === "page" && <th scope="col">Time Taken</th>}
                 {from === "page" ? <th scope="col">Status</th> : <th scope="col">Score</th>}
                 <th scope="col"></th>
                 {from === "page" && <th scope="col"></th>}
@@ -65,6 +51,8 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
                   <th scope="row">{++index}</th>
                   <td>{x?.studentDetails?.Email}</td>
                   {from === "page" && <td>{x?.createdAt.slice(0, 10)}</td>}
+                  {from === "page" && <td className="">{x?.score}</td>}
+                  {from === "page" && <td className="">{TimeCal(x.startTime, x.endTime)}</td>}
                   {from === "page" ? <td> {x?.isPass ? <Tag color="blue">Pass</Tag> : <Tag color="red">Fail</Tag>} </td> :
 
                     <td> {x?.score?.toFixed(2)} </td>

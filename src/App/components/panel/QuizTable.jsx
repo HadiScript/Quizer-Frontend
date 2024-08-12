@@ -1,10 +1,15 @@
-import { ExpandAltOutlined, LoadingOutlined } from "@ant-design/icons"
-import { Input, Pagination, Table, Tooltip } from "antd"
+import { LoadingOutlined } from "@ant-design/icons"
+import { Button, Input, Pagination, Table, Tag, Tooltip } from "antd"
 import { Link } from "react-router-dom"
+import { useAuth } from "../../../context/authContext"
+import { _exportQuiz } from "../../../actions/_quiz"
+
+
 
 const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, pagination, data }) => {
 
-
+  const [auth] = useAuth();
+  const { doIt, loading: exportLoading, reset } = _exportQuiz();
 
   const columns = [
     {
@@ -36,7 +41,7 @@ const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, 
       render: (createdAt, record) => record.createdAt?.slice(0, 10)
     },
     {
-      title: '',
+      title: 'Actions',
       key: 'action',
       render: (text, record) => (
 
@@ -59,6 +64,36 @@ const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, 
     }
   ];
 
+
+  if (auth?.user?.role === 'super-user') {
+    columns.push({
+      title: 'Export',
+      key: 'export',
+      render: (text, record) => (
+        <div className="d-flex align-items-center gap-2">
+          <Tooltip placement="top" title={record.export ? "Exported" : "Export"}>
+            <Tag color="blue">{record.export ? "Yes" : "X"}</Tag>
+
+          </Tooltip>
+          <Tooltip placement="top" title="Toggle Export">
+
+            {!record.export && <Button loading={exportLoading} onClick={() => doIt(record._id)}>
+              Export
+            </Button>}
+
+            {record.export && <Button loading={exportLoading} onClick={() => reset(record._id)}>
+              Unexport
+            </Button>}
+          </Tooltip>
+        </div>
+      ),
+      responsive: ['sm']
+    });
+  }
+
+
+  console.log(list, "all quiz tabl");
+
   return (
     <>
       <div id="searchQuiz" className="mt-3 mb-1">
@@ -72,6 +107,8 @@ const QuizTable = ({ list, loading, setSearch, handleSearch, handleTableChange, 
           style={{ width: "100%", marginBottom: 20, }}
         />
       </div>
+
+
 
       <Table
         columns={columns}

@@ -64,7 +64,7 @@ const AttemptDashboard = () => {
   return (
     <SubcriberLayout from="quiz-detail" id={id} >
 
-      <BgHeading title={loading ? "..." : quizData?.title} desc={"Analyze quiz results easily through these graphical representations."} />
+      <BgHeading title={loading ? "..." : quizData?.title} desc={"Analyze quiz results."} />
 
       <Row className="mt-4">
         <Col lg={16} xs={24} className="">

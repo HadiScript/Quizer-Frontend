@@ -1,6 +1,6 @@
 
 import { DownloadOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Result } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
@@ -18,23 +18,28 @@ const StartStep3 = ({ attemptId, quizId, setStep, setAttemptId }) => {
     score: null,
     message: "Thank you for attempting quiz.",
     showDownloadCertificate: false,
-    certificate: null
+    certificate: null,
+    isPass: false,
+    passingScore: null,
+    scoringType: null,
+    grade: null
   })
 
   const getData = async () => {
     setLoading(true)
     try {
-      console.log("gove me run3")
+      // console.log("gove me run3")
       const { data } = await axios.get(`${API}/api/attempt/quiz-thanks/${quizId}/${attemptId}`)
-      console.log(data)
+      // console.log(data)
       if (data.ok) {
-        setResult({ ...result, message: "Thank you for attempting quiz." })
+
+        setResult({ ...result, message: "Thank you for attempting quiz.", isPass: data?.isPass, passingScore: data?.passingScore, scoringType: data?.scoringType, grade: data?.grade })
       }
       else if (data.showDownloadCertificate) {
-        setResult({ ...result, showDownloadCertificate: data.showDownloadCertificate, certificate: data.certificate })
+        setResult({ ...result, showDownloadCertificate: data.showDownloadCertificate, certificate: data.certificate, isPass: data?.isPass, passingScore: data?.passingScore, scoringType: data?.scoringType, grade: data?.grade })
       }
       else {
-        setResult({ ...result, score: data.score })
+        setResult({ ...result, score: data.score, isPass: data?.isPass, passingScore: data?.passingScore, scoringType: data?.scoringType, grade: data?.grade })
       }
     } catch (error) {
       Errs(error)
@@ -72,13 +77,34 @@ const StartStep3 = ({ attemptId, quizId, setStep, setAttemptId }) => {
 
   return (
     <div style={{ minHeight: "100vh" }} className="d-flex justify-content-center align-items-center p-2 attempt">
-      <Confetti width={width} height={height} />
+      {result?.isPass && <Confetti width={width} height={height} />}
+      {/* {JSON.stringify(result)} */}
       <div className="my-shadow"></div>
       <div className="card-shadow thankx">
-        <span className="main">{result.message}</span>
+        {/* <span className="main">{result.message}</span> */}
 
-        {result.score && <p className="main-2">Score is: {result.score}</p>}
-        {result.showDownloadCertificate && <Button type="dashed" icon={<DownloadOutlined />} onClick={downloadImage}>Download your certificate</Button>}
+        {/* {result.score && <p className="main-2">Score is: {result.score}</p>}
+        {result.showDownloadCertificate && <Button type="dashed" icon={<DownloadOutlined />} onClick={downloadImage}>Download your certificate</Button>} */}
+
+
+        {
+          !result?.isPass && <Result
+            status="500"
+            title={<div>{result.message}</div>}
+            subTitle={<b>{result.isPass ? `You have Passed this test. Your score is ${result.score} out of ${result.passingScore}% .` : `You have Failed this test. Your score is ${result.score}. And passing score is ${result.passingScore}%`}</b>}
+            extra={<Button type="" onClick={goBack} className="myBtn">Try Again</Button>}
+          />
+        }
+
+        {
+          result?.isPass && <Result
+            status="success"
+            title={<div>{result.message}</div>}
+            subTitle={<b>{result.isPass ? `You have Passed this test. Your score is ${result.score} out of ${result.passingScore}% .` : `You have Failed this test. Your score is ${result.score}. And passing score is ${result.passingScore}%`}</b>}
+            extra={<Button type="" onClick={goBack} className="myBtn">Try Again</Button>}
+          />
+        }
+
 
       </div>
     </div>

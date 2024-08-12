@@ -12,7 +12,8 @@ const SrvyFormsTabs = () => {
   const { pathname } = useLocation()
   const router = useNavigate();
 
-  const link = `https://quizer-frontend.vercel.app/attempt-survey/${slug}/${auth?.user?.userId}`
+  // const link = `https://quizer-frontend.vercel.app/attempt-survey/${slug}/${auth?.user?.userId}`
+  const link = `https://sawal.co/attempt-survey/${slug}/${auth?.user?.userId}`
 
 
   const copyToClipboard = (text) => {
@@ -55,14 +56,10 @@ const SrvyFormsTabs = () => {
 
         {/* {JSON.stringify(auth)} */}
 
-        <Button className="dottedBtn mt-4" onClick={() => copyToClipboard(link)} icon={<CopyOutlined />}> Copy Link </Button>
+        {!auth?.user?.userId ? "..." : <Button className="dottedBtn mt-4" onClick={() => copyToClipboard(link)} icon={<CopyOutlined />}> Copy Link </Button>}
       </div>
 
-      {/* {
-        which === 'fields' && <div className="container">
-          <FieldsForm survey={survey} />
-        </div>
-      } */}
+
     </>
   )
 }

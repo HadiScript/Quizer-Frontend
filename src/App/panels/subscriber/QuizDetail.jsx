@@ -53,7 +53,7 @@ const QuizDetail = () => {
 
   return (
     <SubcriberLayout from="quiz-detail" id={id} >
-      <BgHeading title={loading ? "..." : quizData?.title} desc={"Improve your quiz: add, edit questions, copy link, change settings."} />
+      <BgHeading title={loading ? "..." : quizData?.title} desc={"Add questions and configure quiz settings. Copy the link to share your quiz."} />
       <div className="mt-4 px-2" >
 
         <QuizOptions ref3={ref3} setSettingDrawer={setSettingDrawer} deleteQuiz={deleteQuiz} setOpenLinkModal={setOpenLinkModal} />
@@ -98,7 +98,7 @@ const QuizDetail = () => {
 
             <Card className="mt-2 light-bg">
               <div className="d-flex gap-2 justify-content-end">
-                <Button onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
+                {/* <Button onClick={() => setAddQuestionsModal(true)}>Add Questions</Button> */}
                 <Button onClick={() => router(`/subscribe/questions/${id}`)}>See All Questions</Button>
               </div>
 
@@ -110,7 +110,7 @@ const QuizDetail = () => {
         </div>
 
         {/* add question modal */}
-        <AddQuestionModal
+        {/* <AddQuestionModal
           loading={isAdded}
           text={questionData.text}
           setQuestionData={setQuestionData}
@@ -126,7 +126,7 @@ const QuizDetail = () => {
           setOpen={setAddQuestionsModal}
           quizId={id}
           setQuestions={setQuestions}
-        />
+        /> */}
 
 
         <CopyLinkModal open={openLinkModal} setOpen={setOpenLinkModal} quizId={id} creatorId={quizData?.creator} />

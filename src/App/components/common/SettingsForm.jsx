@@ -80,7 +80,7 @@ const SettingsForm = ({ _settings, _setSettings, onFinish, from = "globalSetting
         />
 
         <Button loading={loading} className="myBtn" htmlType="submit">
-          Submit
+          Save
         </Button>
       </Form>
     </>

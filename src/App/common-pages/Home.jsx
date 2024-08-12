@@ -19,6 +19,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import MainFeatures from '../components/common/Home/MainFeatures';
 import Logos from '../components/common/Home/Logos';
+import Templates from './templates/Templates';
 
 
 
@@ -45,8 +46,9 @@ const Home = () => {
         isMobile={isMobile}
       />
       <Hero />
-      {/* <Logos />
-      <MainFeatures /> */}
+      <Logos />
+      <MainFeatures />
+      <Templates />
       <Benifits />
       <Test1 />
       <Features key="features" isMobile={isMobile} />

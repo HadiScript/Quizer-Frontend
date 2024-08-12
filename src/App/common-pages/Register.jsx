@@ -45,7 +45,7 @@ const Register = () => {
 
             </Col>
             <Col md={10} lg={10} className="d-flex justify-content-center"  >
-              <div className="d-flex flex-column " style={{ maxWidth: "400px" }}>
+              <div className="d-flex flex-column justify-content-center" style={{ maxWidth: "400px" }}>
                 <h1 className="text-white mt-5">Get Started for Free with Sawal.</h1>
 
                 <div className="d-flex flex-column gap-3 text-white mb-3" style={{ fontSize: "18px" }}>
@@ -145,7 +145,7 @@ const Register = () => {
                     Register
                   </Button>
 
-                  <Button icon={<FcGoogle size={20} />} onClick={signupwithgoogle} style={{ width: "100%" }} loading={loading} className="googleBtn mt-3">
+                  <Button icon={<FcGoogle size={20} />} onClick={signupwithgoogle} style={{ width: "100%" }} className="googleBtn mt-3">
                     Login with Google
                   </Button>
                 </Form.Item>

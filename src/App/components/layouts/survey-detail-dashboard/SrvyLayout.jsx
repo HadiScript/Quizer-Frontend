@@ -10,11 +10,14 @@ const SrvyLayout = ({ children, }) => {
   const [auth] = useAuth()
 
   useEffect(() => {
+    if (auth === null) {
+      return;
+    }
+
     if (!auth?.token) {
       return router('/');
     }
-  }, [auth?.token])
-
+  }, [auth])
   return (
     <div className='container'>
       <SrvyHeader />

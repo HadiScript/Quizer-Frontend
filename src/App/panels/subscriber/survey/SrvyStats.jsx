@@ -54,7 +54,7 @@ const SrvyStats = () => {
       <Row className="srvy-stats" >
         <Col lg={16} xs={24}>
           <div className="m-1" >
-            <BgHeading title={"Stats of" + " " + basicData?.title} desc={"Analyze your survey stats easily with these graphical representations."} />
+            <BgHeading title={"Stats of" + " " + basicData?.title} desc={"Analyze survey results in detail and click on the buttons below to compare different responses."} />
             <SrvyFilters />
             <Row className="my-4">
               <Col lg={10} xs={24} >

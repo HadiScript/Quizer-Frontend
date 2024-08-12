@@ -7,9 +7,11 @@ import AllSurveysTable from '../../../components/panel/survey/AllSurveysTable'
 
 const Surveys = () => {
   const { data, setSearch, handleSearch, handleTableChange, loading: isLoading, pagination } = useGetSurveys()
+  console.log({ data });
+
   return (
     <SubcriberLayout>
-      <BgHeading title={"Surveys"} desc={"List of all the surveys you have created. Manage, edit and analyze results of your surveys through their separate dashboards."} />
+      <BgHeading title={"Surveys"} desc={"Manage, edit and analyze results of your surveys through their separate dashboards."} />
       <div className="mt-4 mb-2">
         <Input.Search
           placeholder="Search by Title"
@@ -19,6 +21,8 @@ const Surveys = () => {
           style={{ width: "100%", marginBottom: 20 }}
         />
       </div>
+
+
 
       <AllSurveysTable data={data?.surveys} loading={isLoading} />
 

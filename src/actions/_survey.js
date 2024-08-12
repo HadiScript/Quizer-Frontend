@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alerting from "../App/components/common/Alerting";
 
 export const useSurveyCreate = () => {
   const queryClient = useQueryClient();
@@ -72,9 +73,8 @@ export const useGetSurveys = () => {
 };
 
 export const useBasicInfoServey = (slug) => {
-  
   const fetchData = async () => {
-    const { data } = await axios.get(`${surveyApi}/${slug}`);   
+    const { data } = await axios.get(`${surveyApi}/${slug}`);
     return data;
   };
 
@@ -179,7 +179,7 @@ export const _useFields = (slug, id) => {
   };
 
   const { data, isLoading, error, isError } = useQuery(["attemptingFields", slug, id], fetchData, {
-    enabled: !!slug && !!id, 
+    enabled: !!slug && !!id,
     // Ensure both slug and id are non-null/non-undefined
     // staleTime: Infinity,
   });
@@ -391,5 +391,57 @@ export const useMainSrvySummaryForGraph = () => {
   return {
     data,
     isLoading,
+  };
+};
+
+export const _surveyQuiz = () => {
+  const queryClient = useQueryClient();
+  const router = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
+  // done
+  const doIt = async (quizId) => {
+    setLoading(true);
+    try {
+      const res = await axios.put(`${surveyApi}/do-export/${quizId}`);
+
+      if (res.status === 200) {
+        Alerting({ msg: "Survey Exported!", type: "success" });
+        router(`/subscribe/surveys`);
+        queryClient.invalidateQueries("mySurveys");
+        queryClient.invalidateQueries("surveyExportedList");
+      }
+    } catch (error) {
+      console.log(error);
+      Errs(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const reset = async (quizId) => {
+    setLoading(true);
+    try {
+      const res = await axios.put(`${surveyApi}/reset-export/${quizId}`);
+
+      if (res.status === 200) {
+        Alerting({ msg: "Reset!", type: "success" });
+        router(`/subscribe/surveys`);
+        queryClient.invalidateQueries("mySurveys");
+        queryClient.invalidateQueries("surveyExportedList");
+      }
+    } catch (error) {
+      console.log(error);
+      Errs(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    doIt,
+    reset,
+    loading,
   };
 };

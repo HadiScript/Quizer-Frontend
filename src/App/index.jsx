@@ -40,6 +40,7 @@ import PrivacyAndPolicy from "./common-pages/Privacy-and-policy";
 import Disclaimer from "./common-pages/Disclaimer";
 import DmcaPolicy from "./common-pages/DmcaPolicy";
 import TermAndConditions from "./common-pages/TermAndConditions";
+import TemplatePreview from "./common-pages/templates/TemplatePreview";
 
 
 const {
@@ -83,22 +84,19 @@ const App = () => {
       <Route path="/disclaimer" element={<Disclaimer />} />
       <Route path="/dmca-policy" element={<DmcaPolicy />} />
       <Route path="/terms-and-conditions" element={<TermAndConditions />} />
+      <Route path="/template-preview/:slug/:id" element={<TemplatePreview />} />
 
 
       <Route path={'signin'} element={<Login />} />
       <Route path={register} element={<Register />} />
       <Route path={stripePass} element={<Pass />} />
-      <Route path={stripeFail} element={<Fail />} /   
+      <Route path={stripeFail} element={<Fail />} />
 
 
       {/* attempts */}
       <Route path='/attempt-quiz/:creatorId/:quizId' element={<AttemptingQuiz />} />
       <Route path='/attempt-survey/:slug/:id' element={<SrvyAttempt />} />
-      {/* 
-      <Route path="/start-quiz/:creatorId/:quizId" element={<StartingAttemptQuiz />} />
-      <Route path="/attempting-quiz/:creatorId/:quizId/:attemptId" element={<AttemptingQuestions />} /> */}
-      {/* <Route path="survey/thank-you" element={<Thankx />} /> */}
-      {/* for survey */}
+
       <Route path="/thank-you" element={<Thankx />} />
 
 

@@ -93,7 +93,7 @@ const SelectComponent = () => {
   return <div className="d-flex flex-column gap-5 light-bg form-component-item p-3 rounded-2">
     <span className="heading">Select Fields</span>
     <div className="d-flex flex-column gap-3">
-      <label>How would you rate the accessibility of Hadi E-Learning's platform on a scale of 1 to 10?</label>
+      <label>Please Select one option.</label>
       <Select placeholder={`Choose one`}>
         <Select.Option value={"Data Analysis with Looker Studio"}>Good 1-4</Select.Option>
         <Select.Option value={"Learn Content Creation Using Mobile Phone"}>Very Good 5-7</Select.Option>

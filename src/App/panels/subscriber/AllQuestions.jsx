@@ -35,9 +35,25 @@ const AllQuestions = () => {
     searchTerm,
     setSearchTerm,
 
+
+    handleBlankChange,
+    handleAddBlank,
+    handleRemoveBlank,
+    handleRangeChange,
+    handleDateChange,
+    handleSelectionLimitChange
+
   } = _useQuestionTest(id, 100, sortByToughest, sortedBy)
 
-  const { options, correctAnswer, questionType, text, } = questionData
+  const {
+    options,
+    correctAnswer,
+    questionType,
+    text,
+    blanks,
+    dateAnswer,
+    rangeAnswer,
+  } = questionData
 
 
 
@@ -73,7 +89,7 @@ const AllQuestions = () => {
   return (
     <SubcriberLayout from="quiz-detail" id={id}>
 
-      <BgHeading title={quizDataLoading ? "..." : quizData?.title} desc={"Here is the list of all questions."} />
+      <BgHeading title={quizDataLoading ? "..." : quizData?.title} desc={"Hold and drag questions to re-order them. Select the dropdown to view enabled or disabled questions."} />
 
       <div className="px-1">
         <div className="d-flex flex-wrap justify-content-between align-items-center mb-2 mt-4">
@@ -121,11 +137,11 @@ const AllQuestions = () => {
         <AddQuestionModal
           loading={isAdded}
           text={text}
+          questionData={questionData}
           setQuestionData={setQuestionData}
           questionType={questionType}
           options={options}
           correctAnswer={correctAnswer}
-          setText={() => { }}
           addQuestion={addQuestion}
           handleAddOption={handleAddOption}
           handleRemoveOption={handleRemoveOption}
@@ -135,6 +151,15 @@ const AllQuestions = () => {
           setOpen={setAddQuestionsModal}
           quizId={id}
           setQuestions={setQuestions}
+          blanks={blanks}
+          dateAnswer={dateAnswer}
+          rangeAnswer={rangeAnswer}
+          handleBlankChange={handleBlankChange}
+          handleAddBlank={handleAddBlank}
+          handleRemoveBlank={handleRemoveBlank}
+          handleRangeChange={handleRangeChange}
+          handleDateChange={handleDateChange}
+          handleSelectionLimitChange={handleSelectionLimitChange}
         />
       </div>
     </SubcriberLayout>

@@ -36,7 +36,7 @@ const Navbar = () => {
             <button className='button'>Get started for free</button>
           </Link>}
 
-          {auth?.token && auth?.user?.role === "subscriber" && <Link to={'/subscribe'}>
+          {auth?.token && (auth?.user?.role === "subscriber" || auth?.user?.role === "super-user") && <Link to={'/subscribe'}>
             <Button className='button' icon={<LoginOutlined className='mx-2' />} >Dashboard</Button>
           </Link>}
         </div>

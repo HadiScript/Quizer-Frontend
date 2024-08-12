@@ -38,48 +38,73 @@ export const useAttemptUsersTest = (quizId) => {
   };
 };
 
-export const useAttemptUsers = (quizId) => {
-  const [searchEmail, setSearchEmail] = useState("");
-  const [pagination, setPagination] = useState({ page: 1, pageSize: 10 });
+// OLD CODE
+// export const useAttemptUsers = (quizId) => {
+//   const [searchEmail, setSearchEmail] = useState("");
+//   const [pagination, setPagination] = useState({ page: 1, pageSize: 10 });
+//   const [dates, setDates] = useState([]);
+//   const [minScore, setMinScore] = useState(null);
+//   const [maxScore, setMaxScore] = useState(null);
 
-  const fetchQuizAttempts = async () => {
-    const response = await axios.get(`${reportApi}/attempter/${quizId}`, {
-      params: {
-        page: pagination?.page,
-        pageSize: pagination?.pageSize,
-        email: searchEmail,
-      },
-    });
+//   const fetchQuizAttempts = async () => {
+//     const response = await axios.get(`${reportApi}/attempter/${quizId}`, {
+//       params: {
+//         page: pagination?.page,
+//         pageSize: pagination?.pageSize,
+//         email: searchEmail,
+//         startDate: dates.length > 0 ? dates[0] : undefined,
+//         endDate: dates.length > 0 ? dates[1] : undefined,
+//         minScore: minScore !== null ? minScore : undefined,
+//         maxScore: maxScore !== null ? maxScore : undefined,
+//       },
+//     });
 
-    return response.data;
-  };
+//     return response.data;
+//   };
 
-  const { data, error, isLoading } = useQuery(
-    ["quizAttempters", { page: pagination.page, pageSize: pagination.pageSize, email: searchEmail }],
-    fetchQuizAttempts
-  );
+//   const { data, error, isLoading } = useQuery(
+//     [
+//       "quizAttempters",
+//       {
+//         page: pagination.page,
+//         pageSize: pagination.pageSize,
+//         email: searchEmail,
+//         startDate: dates.length > 0 ? dates[0] : undefined,
+//         endDate: dates.length > 0 ? dates[1] : undefined,
+//         minScore: minScore !== null ? minScore : undefined,
+//         maxScore: maxScore !== null ? maxScore : undefined,
+//       },
+//     ],
+//     fetchQuizAttempts,
+//     {
+//       keepPreviousData: true, // Keeps previous data until new data is fetched
+//     }
+//   );
 
-  const handleTableChange = (page, pageSize) => {
-    setPagination((prev) => ({ ...prev, page, pageSize }));
-  };
+//   const handleTableChange = (page, pageSize) => {
+//     setPagination((prev) => ({ ...prev, page, pageSize }));
+//   };
 
-  const handleSearch = () => {
-    setPagination((prev) => ({ ...prev, page: 1 }));
-  };
+//   const handleSearch = () => {
+//     setPagination((prev) => ({ ...prev, page: 1 }));
+//   };
 
-  if (error) {
-    return toast.error("There is an error while fetching data");
-  }
+//   if (error) {
+//     return toast.error("There is an error while fetching data");
+//   }
 
-  return {
-    data: data,
-    setSearchEmail,
-    handleSearch,
-    handleTableChange,
-    loading: isLoading,
-    pagination,
-  };
-};
+//   return {
+//     data: data,
+//     setSearchEmail,
+//     handleSearch,
+//     handleTableChange,
+//     loading: isLoading,
+//     pagination,
+//     setDates,
+//     setMinScore,
+//     setMaxScore,
+//   };
+// };
 
 // export const useAttemptUsers = (quizId) => {
 //   const [data, setData] = useState([]);
@@ -129,6 +154,86 @@ export const useAttemptUsers = (quizId) => {
 //     pagination,
 //   };
 // };
+
+// NEW CODE
+export const useAttemptUsers = (quizId) => {
+  const [searchEmail, setSearchEmail] = useState("");
+  const [pagination, setPagination] = useState({ page: 1, pageSize: 10 });
+  const [dates, setDates] = useState([]);
+  const [minScore, setMinScore] = useState(null);
+  const [maxScore, setMaxScore] = useState(null);
+
+  const fetchQuizAttempts = async ({ queryKey }) => {
+    const [, { page, pageSize, email, startDate, endDate, minScore, maxScore }] = queryKey;
+
+    const response = await axios.get(`${reportApi}/attempter/${quizId}`, {
+      params: {
+        page,
+        pageSize,
+        email: email || undefined,
+        startDate: startDate || undefined,
+        endDate: endDate || undefined,
+        minScore: minScore !== null ? minScore : undefined,
+        maxScore: maxScore !== null ? maxScore : undefined,
+      },
+    });
+
+    return response.data;
+  };
+
+  const { data, error, isLoading, refetch } = useQuery(
+    [
+      "quizAttempters",
+      {
+        page: pagination.page,
+        pageSize: pagination.pageSize,
+        email: searchEmail,
+        startDate: dates.length > 0 ? dates[0] : undefined,
+        endDate: dates.length > 0 ? dates[1] : undefined,
+        minScore: minScore !== null ? minScore : undefined,
+        maxScore: maxScore !== null ? maxScore : undefined,
+      },
+    ],
+    fetchQuizAttempts,
+    {
+      keepPreviousData: true, // Keeps previous data until new data is fetched
+      staleTime: 5000, // Prevents refetching too frequently
+    }
+  );
+
+  const handleTableChange = (page, pageSize) => {
+    setPagination({ page, pageSize });
+  };
+
+  const handleSearch = () => {
+    setPagination({ page: 1, pageSize: pagination.pageSize }); // Reset to first page
+    refetch(); // Trigger refetch with new parameters
+  };
+
+  const reset = () => {
+    setDates([]);
+    setMinScore(null);
+    setMaxScore(null);
+    setSearchEmail("");
+  };
+
+  if (error) {
+    toast.error("There is an error while fetching data");
+  }
+
+  return {
+    data: data,
+    setSearchEmail,
+    handleSearch,
+    handleTableChange,
+    loading: isLoading,
+    pagination,
+    setDates,
+    setMinScore,
+    setMaxScore,
+    reset,
+  };
+};
 
 export const useToughestQuestions = (quizId) => {
   const [list, setList] = useState([]);

@@ -79,6 +79,10 @@ const QuestionListEdit = ({
                     {(provided) => (
                       <>
                         <div ref={provided.innerRef} {...provided.draggableProps} className={`question-box mb-2 `}>
+                          <div className="mb-2 d-flex justify-content-between">
+                            <span> <strong>Question: {1 + index}</strong></span>
+                            {/* <span>{chapter.type}</span> */}
+                          </div>
                           <div className="question-box1">
                             <div {...provided.dragHandleProps}>
                               <HolderOutlined />

@@ -13,9 +13,30 @@
 }
 
 .services-section .col-5 {
-  height: 400px !important;
+  height: 600px !important;
   margin-top: 50px;
   width: 100%;
+  /* background-color: red; */
+}
+
+.col-5 img {
+  border: none !important;
+}
+
+.col-5 .inner {
+  height: 90%;
+  position: relative;
+  border-radius: 10px;
+}
+
+.col-5 .inner .thisBtn {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  /* background-color: red; */
 }
 
 .services-section .col-5 .second-col {
@@ -34,10 +55,13 @@
   .myrow {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 50px !important;
+    /* gap: 50px !important; */
   }
 
   .services-section .second-col {
-    margin-top: 200px;
+    margin-top: 0px;
+  }
+  .services-section .col-5 {
+    width: 350px;
   }
 }

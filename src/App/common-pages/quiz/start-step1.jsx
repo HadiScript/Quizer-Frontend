@@ -6,6 +6,14 @@ import toast from "react-hot-toast";
 import { Button, Form, Input, Watermark } from "antd";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import moment from "moment";
+import PhoneInput from "react-phone-input-2";
+
+
+const isPhoneNumberField = (fieldName) => {
+  // List all possible phone field labels
+  const phoneFieldLabels = ['Phone', 'Mobile Number', 'Phone Number'];
+  return phoneFieldLabels.includes(fieldName);
+};
 
 const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs, setUserInputs }) => {
   const [loading, setLoading] = useState(false);
@@ -72,7 +80,7 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
     <div style={{ minHeight: "100vh" }} className="d-flex justify-content-center align-items-center p-2 attempt">
       <div className="my-shadow"></div>
 
-      <div className="d-flex flex-column gap-4 card-shadow">
+      <div className="d-flex flex-column gap-2 card-shadow">
         {loading && <p className="text-center">loading...</p>}
 
         {notAvailable && (
@@ -95,13 +103,14 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
         )}
         {!notAvailable && <div className="time-stamp" style={{ width: "100%" }}>
           <div>
-            Timelimit : {info?.timeLimit} Minutes
+            Time Limit : {info?.timeLimit} Minutes
           </div>
           <div className="mt-2">
-            <small> Note* Please avoid to refresh page</small>
+            <b> Note : Please avoid to refresh page</b>
           </div>
 
         </div>}
+
 
         <Form
           // form={form}
@@ -111,13 +120,13 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
         >
           {info?.requiredFields?.map((field, index) => (
             <React.Fragment key={index}>
-              <label className="text-secondary mt-2">{field}</label>
+              {!isPhoneNumberField(field) && <label className="text-dark mt-2">{field}</label>}
               <Form.Item
                 name={field}
                 rules={[
                   { required: true, message: `${field} is required` },
                   field === 'Email' ? { type: 'email', message: 'Please enter a valid email' } : {},
-                  field === 'Phone Number'
+                  field === 'Phone'
                     ? {
                       pattern: /^[0-9]+$/,
                       message: 'Please enter a valid phone number',
@@ -125,11 +134,32 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
                     : {},
                 ]}
               >
-                <Input
+
+                {/* {field === "Phone" && "hadi"} */}
+
+                {/* <Input
                   type={field === 'Email' ? 'email' : 'text'}
                   value={userInputs[field]}
                   onChange={(e) => handleInputChange(field, e.target.value)}
-                />
+                /> */}
+
+
+                {isPhoneNumberField(field) ? (
+                  <PhoneInput
+                    country={"pk"}
+                    value={userInputs[field]}
+                    onChange={(value) => handleInputChange(field, value)}
+                    containerStyle={{ width: '100%' }} // Make sure the input fits the form
+                    inputStyle={{ width: '100%' }} // Styling the input field
+                  />
+                ) : (
+                  <Input
+                    type={field === 'Email' ? 'email' : 'text'}
+                    value={userInputs[field]}
+                    onChange={(e) => handleInputChange(field, e.target.value)}
+                  />
+                )}
+
               </Form.Item>
             </React.Fragment>
           ))}
@@ -138,7 +168,7 @@ const StartStep1 = ({ setStep, creatorId, quizId, setAttemptId, step, userInputs
               <Button
                 htmlType="submit"
                 icon={<ClockCircleOutlined />}
-                className="myBtn text-light mt-3"
+                className="myBtn  mt-3"
                 loading={loading}
               >
                 Start Quiz

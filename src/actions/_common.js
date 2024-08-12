@@ -24,7 +24,7 @@ export const _useCommon = () => {
 
   const router = useNavigate();
 
-  const Login = async (e) => {
+  const Login = async (navigatePath) => {
     // e.preventDefault();
     setLoading(true);
     try {
@@ -32,7 +32,9 @@ export const _useCommon = () => {
       setAuth({ ...auth, user: res.data.user, token: res.data.token });
       Cookies.set("session", Crypto.AES.encrypt(JSON.stringify(res.data), APIKEY).toString());
       Alerting({ msg: "Login" });
-      router("/");
+      if (navigatePath) {
+        router("/");
+      }
     } catch (error) {
       Errs(error);
     } finally {

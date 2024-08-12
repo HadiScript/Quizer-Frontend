@@ -9,6 +9,7 @@ import { IoBarChartOutline } from "react-icons/io5";
 
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../../../context/authContext';
 
 class GridLayout {
   constructor(rect, width, height) {
@@ -133,6 +134,22 @@ class Point extends React.PureComponent {
   }
 }
 
+
+export const HeroButtons = () => {
+  const [auth] = useAuth()
+
+  return (
+    <div className="d-flex flex-wrap justify-content-center  align-items-center gap-3">
+      <Link to={auth?.token ? "subscribe/create-quiz" : '/signin'} className='text-decoration-none' style={{ width: "200px" }}>
+        <Button className='linearBgRounded d-flex align-items-center' style={{ width: "100%" }} >Create Quiz <HiOutlineExternalLink className='' size={16} /></Button>
+      </Link>
+      <Link to={auth?.token ? "subscribe/surveys" : "/signin"} className='text-decoration-none' style={{ width: "200px" }}>
+        <Button className='linearBgRoundedSecondary d-flex align-items-center' style={{ width: "100%" }} >Create Survey <HiOutlineExternalLink className='' size={16} /></Button>
+      </Link>
+    </div>
+  )
+}
+
 class Hero extends React.Component {
   static defaultProps = {
     className: 'linked-animate-demo',
@@ -224,14 +241,7 @@ class Hero extends React.Component {
           <p >
             Engage, Explore, and Excel With our Supreme Quality Quiz and Survey Generator app.
           </p>
-          <div className="d-flex flex-wrap justify-content-center  align-items-center gap-3">
-            <Link to={'/signin'} className='text-decoration-none' style={{ width: "200px" }}>
-              <Button className='linearBgRounded d-flex align-items-center' style={{ width: "100%" }} >Create Quiz <HiOutlineExternalLink className='' size={16} /></Button>
-            </Link>
-            <Link to="/signin" className='text-decoration-none' style={{ width: "200px" }}>
-              <Button className='linearBgRoundedSecondary d-flex align-items-center' style={{ width: "100%" }} >Create Survey <HiOutlineExternalLink className='' size={16} /></Button>
-            </Link>
-          </div>
+          <HeroButtons />
 
           <div className="img-container">
             {/* <Image src='/images/main.png' className='img' /> */}

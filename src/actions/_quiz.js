@@ -12,7 +12,7 @@ import { useAuth } from "../context/authContext";
 
 let initValues = {
   title: "",
-  requiredFields: ["Email"],
+  requiredFields: ["Name", "Phone", "Email"],
   timeLimit: 30,
   quizInstructions: null,
 };
@@ -56,6 +56,14 @@ export const _useQuizCreatations = () => {
   const handleRemoveField = (index) => {
     if (quizData.requiredFields[index] === "Email") {
       alert("Email field is compulsory and cannot be removed.");
+      return;
+    }
+    if (quizData.requiredFields[index] === "Name") {
+      alert("Name field is compulsory and cannot be removed.");
+      return;
+    }
+    if (quizData.requiredFields[index] === "Phone") {
+      alert("Phone field is compulsory and cannot be removed.");
       return;
     }
 
@@ -168,7 +176,7 @@ export const _useQuizModifications = (quizId) => {
 
   const [quizData, setQuizData] = useState({
     title: "",
-    requiredFields: ["Email"],
+    requiredFields: ["Name", "Phone", "Email"],
     timeLimit: 30,
     maxAttempts: 1,
     quizInstructions: null,
@@ -199,8 +207,12 @@ export const _useQuizModifications = (quizId) => {
   };
 
   const handleRemoveField = (index) => {
-    if (quizData.requiredFields[index] === "Email") {
-      alert("Email field is compulsory and cannot be removed.");
+    if (
+      quizData.requiredFields[index] === "Email" ||
+      quizData.requiredFields[index] === "Phone" ||
+      quizData.requiredFields[index] === "Name"
+    ) {
+      alert("Email, Name, Phone fields are compulsory and cannot be removed.");
       return;
     }
 
@@ -350,5 +362,57 @@ export const _useQuizModifications = (quizId) => {
     handleMaxLimit,
     setQuizData,
     generateAIInstructions,
+  };
+};
+
+export const _exportQuiz = () => {
+  const queryClient = useQueryClient();
+  const router = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
+  // done
+  const doIt = async (quizId) => {
+    setLoading(true);
+    try {
+      const res = await axios.put(`${quizApi}/do-export/${quizId}`);
+
+      if (res.status === 200) {
+        Alerting({ msg: "Quiz Exported!", type: "success" });
+        router(`/subscribe/quizzes`);
+        queryClient.invalidateQueries("quizList");
+        queryClient.invalidateQueries("quizExportedList");
+      }
+    } catch (error) {
+      console.log(error);
+      Errs(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const reset = async (quizId) => {
+    setLoading(true);
+    try {
+      const res = await axios.put(`${quizApi}/reset-export/${quizId}`);
+
+      if (res.status === 200) {
+        Alerting({ msg: "Reset!", type: "success" });
+        router(`/subscribe/quizzes`);
+        queryClient.invalidateQueries("quizList");
+        queryClient.invalidateQueries("quizExportedList");
+      }
+    } catch (error) {
+      console.log(error);
+      Errs(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    doIt,
+    reset,
+    loading,
   };
 };

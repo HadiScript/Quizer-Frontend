@@ -1,7 +1,7 @@
 import { BugOutlined, CloseOutlined, LogoutOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Drawer, Dropdown, Grid } from "antd";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useAuth } from "../../../context/authContext";
 import "../../../assets/css/layout.css";
@@ -62,6 +62,12 @@ const LayoutHeader = ({ from }) => {
         <small>{auth?.user?.role[0]?.toUpperCase() + auth?.user?.role?.slice(1)}</small>
       </div>,
       key: '3',
+
+    },
+
+    {
+      label: <Link className="_link" to='/'>Home Page</Link>,
+      key: '4',
 
     },
   ];

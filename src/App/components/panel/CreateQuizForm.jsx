@@ -48,9 +48,9 @@ const CreateQuizForm = ({
           <div className="row ">
             {quizData.requiredFields.map((field, index) => (
               <div className="col-md-4 d-flex gap-2  mb-1" key={index} align="baseline">
-                <Input placeholder={field} value={field} disabled={field === "email"} onChange={(e) => handleRequiredFieldChange(e.target.value, index)} />
+                <Input placeholder={field} value={field} disabled={field === "Email" || field === "Name" || field === "Phone"} onChange={(e) => handleRequiredFieldChange(e.target.value, index)} />
 
-                {quizData.requiredFields.length > 1 ? (
+                {quizData.requiredFields.length > 3 ? (
                   <>
                     <MinusCircleOutlined onClick={() => handleRemoveField(index)} />
                   </>

@@ -179,7 +179,7 @@ const SubscriberDashboard = () => {
       {/* {JSON.stringify(data)} */}
 
 
-      <BgHeading title={"Dashboard"} desc={"Complete Stats of all the quizzes and surveys created so far."} />
+      <BgHeading title={"Dashboard"} desc={"Select the quiz to edit questions, configure settings and analyze results."} />
       {/* {
         data?.summary?.totalQuizzes === 0 ?
           <CreateQuizCTAHeading />

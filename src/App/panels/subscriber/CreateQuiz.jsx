@@ -12,7 +12,7 @@ const CreateQuiz = () => {
   return (
     <SubcriberLayout>
       <BgHeading title={"Create Quiz"}
-        desc={"After creating the quiz, please make sure to set the minimum number of reattempts allowed. The default setting of reattempt is zero. You can also use AI quiz instructions."}
+        desc={"After creating the quiz, please ensure to set the minimum number of re-attempts allowed, as the default setting is zero. Additionally, you can utilize AI quiz instructions."}
         Icon={<DiffOutlined className="its-icon" />}
         AlertDesc="After creating the quiz, please ensure to set the minimum number of re-attempts allowed, as the default setting is zero re-attempts. Additionally, you can utilize AI quiz instructions."
       />
@@ -25,6 +25,7 @@ const CreateQuiz = () => {
       /> */}
 
       <Card className="mt-4">
+        {/* {JSON.stringify(quizData)} */}
         <CreateQuizForm
           quizData={quizData}
           loading={loading}

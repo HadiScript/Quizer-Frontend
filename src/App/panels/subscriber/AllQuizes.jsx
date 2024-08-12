@@ -39,17 +39,14 @@ const AllQuizes = () => {
   const ShowInIcons = () => showIn === 'grid' ?
     <Button icon={<TableOutlined />} onClick={() => changeHandler('table')} /> :
     <Button icon={<InsertRowAboveOutlined />} onClick={() => changeHandler('grid')} />
+  console.log({ list });
 
 
   return (
     <SubcriberLayout>
-      {/* <Heading title={"All Quizes"} Icon={<OrderedListOutlined className="its-icon" />} desc={`${loading ? "loading... " : list.length}/10 Questions`} /> */}
       <BgHeading
         title={"All Quizes"}
         desc={"List of all the quizzes you have created. Manage, edit and analyze results of your quizzes through their separate dashboards."}
-      // desc={`${loading ? "loading... " : list?.length}/10 Questions`}
-      // AlertDesc={list.length === 0 && "Please Add Your First Quiz"}
-
       />
 
 
@@ -61,6 +58,7 @@ const AllQuizes = () => {
 
 
       <div className="row">
+
         {
 
           showIn === 'grid' ?

@@ -40,7 +40,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
       case 'email':
         return (
           <Form.Item
-            style={{ minWidth: "400px" }}
+            // style={{ minWidth: "400px" }}
             name={field._id}
             label={field.label}
             key={index}
@@ -168,9 +168,9 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
           {renderField(field, index)}
         </div>)}
       </div>
-      <Form.Item>
+      {submiting && <Form.Item>
         <Button loading={submittingLoading} className='myBtn' htmlType='submit'>Submit Survey</Button>
-      </Form.Item>
+      </Form.Item>}
     </Form>
   );
 };

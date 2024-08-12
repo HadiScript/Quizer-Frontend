@@ -12,7 +12,7 @@ const CreateSurvey = () => {
 
   return (
     <SubcriberLayout>
-      <BgHeading title={"Create Survey"} desc={"Create a survey as per your requirements in a few easy steps."} />
+      <BgHeading title={"Create Survey"} desc={"Create and manage your survey in few easy steps."} />
 
       <Card className="mt-4">
         <SrvyCreateEditForm submit={createSurvey} isLoading={isLoading} />
