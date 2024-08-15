@@ -15,12 +15,9 @@ const ModelLogin = ({ open, setOpen, mesg }) => {
 
 
   return (
-    <Modal open={open} onCancel={() => setOpen(false)} className='' centered footer={null}>
-      <div className="d-flex bg-danger align-items-center flex-column gap-2 mt-3">
-        {/* <div className='px-3' style={{ maxWidth: "400px" }}>
-          <p >In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual </p>
-          <Divider />
-        </div> */}
+    <Modal open={open} onCancel={() => setOpen(false)} className='' width={'auto'} centered footer={null}>
+      <div className="d-flex align-items-center flex-column gap-2 mt-3">
+
         <LoginComponent
           from={"modal"}
           email={email}

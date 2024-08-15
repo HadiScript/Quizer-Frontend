@@ -41,6 +41,7 @@ import Disclaimer from "./common-pages/Disclaimer";
 import DmcaPolicy from "./common-pages/DmcaPolicy";
 import TermAndConditions from "./common-pages/TermAndConditions";
 import TemplatePreview from "./common-pages/templates/TemplatePreview";
+import ScrollToTop from "../helper/ScrollToTop";
 
 
 const {
@@ -76,64 +77,68 @@ const App = () => {
 
   return (
 
+    <>
 
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/how-it-works" element={<HowItWorksPage />} />
-      <Route path="/privacy-and-policy" element={<PrivacyAndPolicy />} />
-      <Route path="/disclaimer" element={<Disclaimer />} />
-      <Route path="/dmca-policy" element={<DmcaPolicy />} />
-      <Route path="/terms-and-conditions" element={<TermAndConditions />} />
-      <Route path="/template-preview/:slug/:id" element={<TemplatePreview />} />
-
-
-      <Route path={'signin'} element={<Login />} />
-      <Route path={register} element={<Register />} />
-      <Route path={stripePass} element={<Pass />} />
-      <Route path={stripeFail} element={<Fail />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/how-it-works" element={<HowItWorksPage />} />
+        <Route path="/privacy-and-policy" element={<PrivacyAndPolicy />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
+        <Route path="/dmca-policy" element={<DmcaPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermAndConditions />} />
+        <Route path="/template-preview/:slug/:id" element={<TemplatePreview />} />
 
 
-      {/* attempts */}
-      <Route path='/attempt-quiz/:creatorId/:quizId' element={<AttemptingQuiz />} />
-      <Route path='/attempt-survey/:slug/:id' element={<SrvyAttempt />} />
-
-      <Route path="/thank-you" element={<Thankx />} />
-
-
-      {/* admin routes */}
-
-      {/* subscriber routes */}
-      <Route path={subs} element={<SubscriberRoutes />}>
-        <Route path={subsDashboard} element={<SubscriberDashboard />} />
-        <Route path={profile} element={<SubscriberProfile />} />
-        {/* <Route path={CreateHome} element={<CreateHomePage />} /> */}
-        <Route path={SingleHomePage()} element={<DetailHomePage />} />
-
-        <Route path={createQuiz} element={<CreateQuiz />} />
-        <Route path={createQuizAi} element={<CreateQuizAI />} />
-        <Route path={Quizzes} element={<AllQuizes />} />
-        <Route path={SingleQuiz()} element={<QuizDetail />} />
-        {/* <Route path="quize/:id/templates" element={<Templates />} /> */}
-        {/* subscribe/quize/65c1d83b9ab27bb310d933f1 */}
-        <Route path={AttemptersUser()} element={<Attempters />} />
-        <Route path={AttemptsStats()} element={<AttemptDashboard />} />
-        <Route path={globalSettings} element={<GlobalSettings />} />
-        <Route path={Questions()} element={<AllQuestions />} />
+        <Route path={'signin'} element={<Login />} />
+        <Route path={register} element={<Register />} />
+        <Route path={stripePass} element={<Pass />} />
+        <Route path={stripeFail} element={<Fail />} />
 
 
-        <Route path={createSurvey} element={<CreateSurvey />} />
-        <Route path={surveys} element={<Surveys />} />
+        {/* attempts */}
+        <Route path='/attempt-quiz/:creatorId/:quizId' element={<AttemptingQuiz />} />
+        <Route path='/attempt-survey/:slug/:id' element={<SrvyAttempt />} />
 
-        <Route path={surveyDetail()} element={<SurveyDetail />} />
-        <Route path={serveyFields()} element={<SrvyFields />} />
-        <Route path={serveyStats()} element={<SrvyStats />} />
-        <Route path={serveyResponses()} element={<Responses />} />
+        <Route path="/thank-you" element={<Thankx />} />
 
 
-      </Route>
+        {/* admin routes */}
 
-      <Route path="*" element={<NotFound />} />
-    </Routes >
+        {/* subscriber routes */}
+        <Route path={subs} element={<SubscriberRoutes />}>
+          <Route path={subsDashboard} element={<SubscriberDashboard />} />
+          <Route path={profile} element={<SubscriberProfile />} />
+          {/* <Route path={CreateHome} element={<CreateHomePage />} /> */}
+          <Route path={SingleHomePage()} element={<DetailHomePage />} />
+
+          <Route path={createQuiz} element={<CreateQuiz />} />
+          <Route path={createQuizAi} element={<CreateQuizAI />} />
+          <Route path={Quizzes} element={<AllQuizes />} />
+          <Route path={SingleQuiz()} element={<QuizDetail />} />
+          {/* <Route path="quize/:id/templates" element={<Templates />} /> */}
+          {/* subscribe/quize/65c1d83b9ab27bb310d933f1 */}
+          <Route path={AttemptersUser()} element={<Attempters />} />
+          <Route path={AttemptsStats()} element={<AttemptDashboard />} />
+          <Route path={globalSettings} element={<GlobalSettings />} />
+          <Route path={Questions()} element={<AllQuestions />} />
+
+
+          <Route path={createSurvey} element={<CreateSurvey />} />
+          <Route path={surveys} element={<Surveys />} />
+
+          <Route path={surveyDetail()} element={<SurveyDetail />} />
+          <Route path={serveyFields()} element={<SrvyFields />} />
+          <Route path={serveyStats()} element={<SrvyStats />} />
+          <Route path={serveyResponses()} element={<Responses />} />
+
+
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+
+      </Routes >
+      <ScrollToTop />
+    </>
 
   );
 };

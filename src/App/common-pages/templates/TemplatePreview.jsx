@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { _useFields } from "../../../actions/_survey"
 import BgHeading from "../../components/common/BgHeading"
 import { Button } from "antd"
@@ -49,10 +49,10 @@ const TemplatePreview = () => {
 
   return (
     <>
-      <div className="container py-3  bg-white rounded ">
-        <div className="d-flex justify-content-between align-items-center">
+      <div className="container   bg-white rounded ">
+        <div className="d-flex py-3 flex-wrap gap-2 justify-content-between align-items-center">
           <img src={logoImage} alt='logo' height={60} />
-          <div className="d-flex gap-3 align-items-center">
+          <div className="d-flex  gap-3 align-items-center">
             {auth?.token ?
               <Button type="dashed" icon={<ImportOutlined />} loading={cloneLoading} onClick={() => cloneAndRedirect(slug, id)} >Use This Template</Button> :
               <Button type="dashed" icon={<ImportOutlined />} onClick={() => setOpen(true)}>Use This Template</Button>
@@ -75,6 +75,7 @@ const TemplatePreview = () => {
             preview={false}
             submiting={undefined}
             submittingLoading={false}
+            from="templates"
 
           />}
         </div>

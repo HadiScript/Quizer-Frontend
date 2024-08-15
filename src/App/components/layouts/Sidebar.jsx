@@ -1,11 +1,8 @@
-import { LogoutOutlined, } from "@ant-design/icons";
-import { Menu, Tag } from "antd";
+import { Menu, } from "antd";
 import { Link } from "react-router-dom";
 import useActive from "../../../hooks/useActive";
 import { _useCommon } from "../../../actions/_common";
 import WhichNavLink from "./WhichNavLink";
-import Logo from "./Logo";
-import BgHeading from "../common/BgHeading";
 
 
 const Sidebar = ({ from = "notSubscriber", title }) => {

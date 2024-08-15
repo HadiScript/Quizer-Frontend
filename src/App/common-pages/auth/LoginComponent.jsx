@@ -34,7 +34,7 @@ const LoginComponent = ({
 
   return (
 
-    <div className="d-flex flex-column gap-4 justify-content-center align-items-center px-3 " style={{ width: "400px" }}>
+    <div className={`d-flex flex-column gap-4 justify-content-center align-items-center ${from === "modal" ? "" : "px-3"} `} style={{ width: "400px" }}>
 
       <div style={{ width: "100%" }}>
         {from === "page" && <div onClick={() => router(-1)} className="d-flex align-items-center  mb-5 _link text-dark" role="button" style={{ fontSize: "18px" }}>

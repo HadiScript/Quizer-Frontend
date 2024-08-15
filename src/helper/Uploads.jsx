@@ -86,8 +86,8 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
         previousImage && !previewUrl &&
         <div className="col-12 col-md-5">
           <div className='d-flex gap-2 flex-column mb-2'>
-            <img src={previousImage} alt="Preview" style={{ width: '50%', height: cover ? "150px" : "300px", marginTop: '20px', borderRadius: "10px" }} />
-            <span className='text-danger' role='button' onClick={handleDelete}>Delete Cover Image</span>
+            <img src={previousImage} alt="Preview" style={{ width: '100%', height: cover ? "150px" : "300px", marginTop: '20px', borderRadius: "10px" }} />
+            <Button className='mt-3 myBtn' onClick={handleDelete}>Delete Image</Button>
           </div>
         </div>
       }
@@ -103,8 +103,8 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
                 borderRadius: "10px"
               }}
             />
-            {!uploaded && <Button  className='mt-3 myBtn' onClick={handleUpload}>Upload Image</Button>}
-            {uploaded && <Button  className='mt-3 myBtn' onClick={handleDelete}>Delete Image</Button>}
+            {!uploaded && <Button className='mt-3 myBtn' onClick={handleUpload}>Upload Image</Button>}
+            {uploaded && <Button className='mt-3 myBtn' onClick={handleDelete}>Delete Image</Button>}
           </div>
         </div>
       )}

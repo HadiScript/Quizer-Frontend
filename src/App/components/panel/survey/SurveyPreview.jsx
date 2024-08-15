@@ -17,10 +17,8 @@ const customIcons = {
 };
 
 
-const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = false }) => {
+const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = false, from = "dashboard" }) => {
   const [form] = Form.useForm();
-
-  console.log(fields)
 
   const onFinish = (values) => {
     if (!preview) {
@@ -159,7 +157,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
   };
 
   return (
-    <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{}} >
+    <Form form={form} layout="vertical" style={{ width: from === "dashboard" ? "700px" : "" }} onFinish={onFinish} initialValues={{}} >
       <div className='mt-4' >
         {preview && <BgHeading title={"Preview"} desc={"Here is the preview of your form"} />}
 
