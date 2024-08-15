@@ -35,6 +35,8 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
             <thead>
               <tr>
                 <th scope="col">{loading ? "..." : "#"}</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
                 <th scope="col">Email</th>
                 {from === "page" && <th scope="col">Attempt At</th>}
                 {from === "page" && <th scope="col">Score</th>}
@@ -49,9 +51,11 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
               {data?.map((x, index) => (
                 <tr key={index}>
                   <th scope="row">{++index}</th>
+                  <td>{x?.studentDetails?.Name}</td>
+                  <td>{x?.studentDetails?.Phone}</td>
                   <td>{x?.studentDetails?.Email}</td>
                   {from === "page" && <td>{x?.createdAt.slice(0, 10)}</td>}
-                  {from === "page" && <td className="">{x?.score}</td>}
+                  {from === "page" && <td className="">{x.score === 100 ? x?.score : x?.score.toPrecision(2)}</td>}
                   {from === "page" && <td className="">{TimeCal(x.startTime, x.endTime)}</td>}
                   {from === "page" ? <td> {x?.isPass ? <Tag color="blue">Pass</Tag> : <Tag color="red">Fail</Tag>} </td> :
 

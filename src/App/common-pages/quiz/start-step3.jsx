@@ -91,7 +91,7 @@ const StartStep3 = ({ attemptId, quizId, setStep, setAttemptId }) => {
           !result?.isPass && <Result
             status="500"
             title={<div>{result.message}</div>}
-            subTitle={<b>{result.isPass ? `You have Passed this test. Your score is ${result.score} out of ${result.passingScore}% .` : `You have Failed this test. Your score is ${result.score}. And passing score is ${result.passingScore}%`}</b>}
+            subTitle={<b>{result.isPass ? `You have Passed this test. Your score is ${result.score}.` : `You have Failed this test. Your score is ${result.score}. And passing score is ${result.passingScore}%`}</b>}
             extra={<Button type="" onClick={goBack} className="myBtn">Try Again</Button>}
           />
         }
@@ -100,7 +100,7 @@ const StartStep3 = ({ attemptId, quizId, setStep, setAttemptId }) => {
           result?.isPass && <Result
             status="success"
             title={<div>{result.message}</div>}
-            subTitle={<b>{result.isPass ? `You have Passed this test. Your score is ${result.score} out of ${result.passingScore}% .` : `You have Failed this test. Your score is ${result.score}. And passing score is ${result.passingScore}%`}</b>}
+            subTitle={<b>{result.isPass ? `You have Passed this test. Your score is ${result.score}.` : `You have Failed this test. Your score is ${result.score}. And passing score is ${result.passingScore}%`}</b>}
             extra={<Button type="" onClick={goBack} className="myBtn">Try Again</Button>}
           />
         }

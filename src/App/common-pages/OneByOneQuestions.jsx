@@ -189,14 +189,14 @@ const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses, su
       </div>
 
       <div className="d-flex justify-content-between align-items-center">
-        <Button className="myBtn" icon={<RightOutlined />} onClick={goToNextQuestion} disabled={!isOptionSelected}>
-          {currentQuestionIndex === quizData.questions.length - 1 ? "Submit" : "Next"}
-        </Button>
         {currentQuestionIndex > 0 && (
           <Button loading={submitLoading} icon={<LeftOutlined />} onClick={goToPreviousQuestion}>
             Previous
           </Button>
         )}
+        <Button className="myBtn" icon={<RightOutlined />} onClick={goToNextQuestion} disabled={!isOptionSelected}>
+          {currentQuestionIndex === quizData.questions.length - 1 ? "Submit" : "Next"}
+        </Button>
       </div>
     </div>
   );

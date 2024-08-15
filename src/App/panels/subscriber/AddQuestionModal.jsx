@@ -67,27 +67,34 @@ const AddQuestionModal = ({
                     theme="snow"
                     value={text}
                     onChange={(value) => setQuestionData((prev) => ({ ...prev, text: value }))}
-                    style={{ minHeight: "150px" }}
+                  // style={{ minHeight: "80px" }}
                   />
                 </Form.Item>
+
+
                 <Form.Item label="Question Type">
                   <Radio.Group
                     value={questionType}
                     onChange={(e) => setQuestionData((prev) => ({
                       ...prev,
                       questionType: e.target.value,
-                      options: [
+                      options: e.target.value === 'true-false' ? [
                         { text: "True", isCorrect: false },
                         { text: "False", isCorrect: false },
+                      ] : [
+                        { text: "", isCorrect: false },
+                        { text: "", isCorrect: false },
+                        { text: "", isCorrect: false },
+                        { text: "", isCorrect: false },
                       ]
                     }))}
                   >
                     <Radio value="multiple-choice">Multiple Choice</Radio>
                     <Radio value="short-answer">Short Answer</Radio>
                     <Radio value="fill-in-the-blank">Fill in the Blank</Radio>
+                    <Radio value="true-false">True/False</Radio>
                     {/* <Radio value="date">Date</Radio>
                     <Radio value="range">Range</Radio> */}
-                    <Radio value="true-false">True/False</Radio>
                   </Radio.Group>
                 </Form.Item>
 
@@ -144,7 +151,7 @@ const AddQuestionModal = ({
                         Correct
                       </Checkbox>
                       {options.length > 2 && (
-                        <Button type="danger" onClick={() => handleRemoveOption(index)}>
+                        <Button type="link" className="text-danger mt-2" onClick={() => handleRemoveOption(index)}>
                           Remove
                         </Button>
                       )}
@@ -199,30 +206,7 @@ const AddQuestionModal = ({
                 </div>
               )}
 
-              {/* {questionType === "date" && (
-                <div className="col-xs-12 col-md-6">
-                  <Form.Item label="Select Date">
-                    <DatePicker
-                      value={dateAnswer ? moment(dateAnswer) : null}
-                      onChange={(date) => handleDateChange(date)}
-                    />
-                  </Form.Item>
-                </div>
-              )} */}
 
-              {/* {questionType === "range" && (
-                <div className="col-xs-12 col-md-6">
-                  <Form.Item label="Select Range">
-                    <Slider
-                      range
-                      min={0}
-                      max={100}
-                      value={[rangeAnswer.min, rangeAnswer.max]}
-                      onChange={(values) => handleRangeChange(values[0], values[1])}
-                    />
-                  </Form.Item>
-                </div>
-              )} */}
 
               {questionType === "true-false" && (
                 <div className="col-xs-12 col-md-6">
@@ -250,6 +234,32 @@ const AddQuestionModal = ({
                   </div>
                 </div>
               )}
+
+
+              {/* {questionType === "date" && (
+                <div className="col-xs-12 col-md-6">
+                  <Form.Item label="Select Date">
+                    <DatePicker
+                      value={dateAnswer ? moment(dateAnswer) : null}
+                      onChange={(date) => handleDateChange(date)}
+                    />
+                  </Form.Item>
+                </div>
+              )} */}
+
+              {/* {questionType === "range" && (
+                <div className="col-xs-12 col-md-6">
+                  <Form.Item label="Select Range">
+                    <Slider
+                      range
+                      min={0}
+                      max={100}
+                      value={[rangeAnswer.min, rangeAnswer.max]}
+                      onChange={(values) => handleRangeChange(values[0], values[1])}
+                    />
+                  </Form.Item>
+                </div>
+              )} */}
 
             </div>
           </Form>

@@ -53,13 +53,23 @@ const AllQuizes = () => {
 
       <div className="d-flex justify-content-between align-items-center mt-4">
         <Button onClick={() => router("/subscribe/create-quiz")} className="myBtn" icon={<PlusCircleOutlined />}>Create Quiz</Button>
-        <ShowInIcons />
+        {/* <ShowInIcons /> */}
       </div>
 
 
       <div className="row">
 
-        {
+        <QuizTable
+          setSearch={setSearch}
+          handleSearch={handleSearch}
+          handleTableChange={handleTableChange}
+          pagination={pagination}
+          list={list}
+          loading={loading}
+          data={data}
+        />
+
+        {/* {
 
           showIn === 'grid' ?
             <QuizGrid list={list} loading={loading} />
@@ -74,7 +84,7 @@ const AllQuizes = () => {
               data={data}
             />
 
-        }
+        } */}
 
       </div>
 

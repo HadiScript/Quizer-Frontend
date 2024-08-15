@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
 import { Button, Card } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import { BorderInnerOutlined, DiffOutlined, SnippetsOutlined } from "@ant-design/icons";
+import { DiffOutlined, SnippetsOutlined } from "@ant-design/icons";
 
 import CopyLinkModal from "./CopyLink";
 import AddQuestionModal from "./AddQuestionModal";
-import Heading from "../../components/common/Heading";
 import { _useQuestionTest } from "../../../actions/_questions";
 import { _useQuizModifications } from "../../../actions/_quiz";
 import CreateQuizForm from "../../components/panel/CreateQuizForm";
@@ -13,7 +12,6 @@ import SettingsSidebar from "../../components/common/SettingsSidebar";
 import QuestionListEdit from "../../components/panel/QuestionListEdit";
 import QuizOptions from "../../components/panel/QuizOptions";
 import SubcriberLayout from "../../components/layouts/Layout";
-import QuizDetailTour from "../../components/panel-tours/QuizDetailTour";
 import BgHeading from "../../components/common/BgHeading";
 
 const QuizDetail = () => {
@@ -34,8 +32,10 @@ const QuizDetail = () => {
   const [openTour, setOpenTour] = useState(true)
 
 
+
   const {
     questions,
+
     setQuestions,
     loading: QuestionLoading,
     deleteQuestion,
@@ -47,7 +47,28 @@ const QuizDetail = () => {
     handleCorrectChange,
     addQuestion,
     isAdded,
-  } = _useQuestionTest(id, 6)
+    searchTerm,
+    setSearchTerm,
+
+
+    handleBlankChange,
+    handleAddBlank,
+    handleRemoveBlank,
+    handleRangeChange,
+    handleDateChange,
+    handleSelectionLimitChange
+
+  } = _useQuestionTest(id, 6);
+
+  const {
+    options,
+    correctAnswer,
+    questionType,
+    text,
+    blanks,
+    dateAnswer,
+    rangeAnswer,
+  } = questionData
 
 
 
@@ -98,7 +119,7 @@ const QuizDetail = () => {
 
             <Card className="mt-2 light-bg">
               <div className="d-flex gap-2 justify-content-end">
-                {/* <Button onClick={() => setAddQuestionsModal(true)}>Add Questions</Button> */}
+                <Button onClick={() => setAddQuestionsModal(true)}>Add Questions</Button>
                 <Button onClick={() => router(`/subscribe/questions/${id}`)}>See All Questions</Button>
               </div>
 
@@ -110,13 +131,14 @@ const QuizDetail = () => {
         </div>
 
         {/* add question modal */}
-        {/* <AddQuestionModal
+        <AddQuestionModal
           loading={isAdded}
-          text={questionData.text}
+          text={text}
+          questionData={questionData}
           setQuestionData={setQuestionData}
-          questionType={questionData.questionType}
-          options={questionData.options}
-          correctAnswer={questionData.correctAnswer}
+          questionType={questionType}
+          options={options}
+          correctAnswer={correctAnswer}
           addQuestion={addQuestion}
           handleAddOption={handleAddOption}
           handleRemoveOption={handleRemoveOption}
@@ -126,7 +148,16 @@ const QuizDetail = () => {
           setOpen={setAddQuestionsModal}
           quizId={id}
           setQuestions={setQuestions}
-        /> */}
+          blanks={blanks}
+          dateAnswer={dateAnswer}
+          rangeAnswer={rangeAnswer}
+          handleBlankChange={handleBlankChange}
+          handleAddBlank={handleAddBlank}
+          handleRemoveBlank={handleRemoveBlank}
+          handleRangeChange={handleRangeChange}
+          handleDateChange={handleDateChange}
+          handleSelectionLimitChange={handleSelectionLimitChange}
+        />
 
 
         <CopyLinkModal open={openLinkModal} setOpen={setOpenLinkModal} quizId={id} creatorId={quizData?.creator} />
