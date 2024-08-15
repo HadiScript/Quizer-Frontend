@@ -96,7 +96,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
     try {
       const res = await axios.post(`${attemptApi}/finish`, payload);
       if (res.status === 200) {
-        toast.success("finished");
+        toast.success("Finished");
         setStep(3);
         setRemainingTime(null);
         queryClient.invalidateQueries(["attemptSummary"]);
@@ -171,7 +171,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
               </Affix>
             </div>
             <div className="d-flex flex-column  gap-4 card-shadow2">
-              <OneByOneQuestions submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
+              {/* <OneByOneQuestions submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} /> */}
             </div>
           </div>
         </div>

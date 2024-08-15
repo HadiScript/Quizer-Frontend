@@ -35,7 +35,7 @@ const PremuimSettings = (
             <b>Scoring Type</b>
           </label>
           <Select value={_settings?.scoringType} onChange={(e) => _setSettings((prev) => ({ ...prev, scoringType: e }))}>
-            <Select.Option value="grade">Grade</Select.Option>
+            {/* <Select.Option value="grade">Grade</Select.Option> */}
             <Select.Option value="percentage">Percentage</Select.Option>
             <Select.Option value="number">Numbers</Select.Option>
           </Select>

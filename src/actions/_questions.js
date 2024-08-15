@@ -87,7 +87,12 @@ import toast from "react-hot-toast";
 // };
 
 export let addQuestionInitValues = {
-  options: [],
+  options: [
+    { text: "", isCorrect: false },
+    { text: "", isCorrect: false },
+    { text: "", isCorrect: false },
+    { text: "", isCorrect: false },
+  ],
   questionType: "multiple-choice",
   text: "",
   correctAnswer: "", // For short answer

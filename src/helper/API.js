@@ -1,7 +1,10 @@
 // export const API = "https://quizer.cycarts.com";
 
-// export const API = "http://localhost:8080";
 // export const API = "https://quizer-backendv2.vercel.app";
+<<<<<<< HEAD
+=======
+// export const API = "http://localhost:8080";
+>>>>>>> d3f7edd86938a77aeaee68bc11389b200a13996b
 export const API = "https://api.sawal.co";
 export const authApi = `${API}/api/auth`;
 export const quizApi = `${API}/api/quiz`;

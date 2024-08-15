@@ -139,11 +139,17 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
           </div>
 
           <div className="col-12 align-items-start px-4 gap-3">
-            <b>Responses:</b>
+            <div className="d-flex justify-content-between">
+              <b>Responses:</b>
+              <div className="d-flex gap-2">
+                <span style={{ borderLeft: "10px solid green" }} ><b className="px-1">Correct</b></span>
+                <span style={{ borderLeft: "10px solid red" }} ><b className="px-1">Incorrect</b></span>
+              </div>
+            </div>
             {loading && <LoadingOutlined />}
 
             {responses?.map((item, index) => (
-              <div key={index} style={{ marginTop: '10px', padding: '20px', border: '1px solid #ccc' }}>
+              <div key={index} style={{ marginTop: '10px', padding: '20px', border: '1px solid #ccc', borderLeft: `3px solid ${item?.isCorrect ? "green" : "red"}` }}>
                 Question {index + 1}:
 
                 <h6> <span className="text-capitalize" dangerouslySetInnerHTML={{ __html: item?.questionText }} /></h6>
@@ -152,12 +158,13 @@ const AttempterDrawser = ({ open, setOpen, current }) => {
                   {item?.options.map((option, idx) => (
                     <li key={idx} style={getStyle(option, item?.selectedOption)}>
                       {labelOptions[idx]}    {option.text}
+                      {/* {item?.isCorrect && option?.isCorrect && "correct"} */}
                     </li>
                   ))}
 
-                  {
+                  {/* {
                     JSON.stringify(item)
-                  }
+                  } */}
                 </ul>
                 }
 

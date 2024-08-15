@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SubcriberLayout from "../../components/layouts/Layout";
 import { useAttemptUsers, useAttemptUsersTest } from "../../../actions/_attempt-users";
-import { Button, DatePicker, Input, InputNumber, Pagination, } from "antd";
+import { Button, DatePicker, Input, InputNumber, Pagination, Select, } from "antd";
 import AttemptUserTable from "../../components/panel/AttemptUserTable";
 import Heading from "../../components/common/Heading";
 import { DownloadOutlined, SearchOutlined, UndoOutlined, UserOutlined } from "@ant-design/icons";
@@ -14,15 +14,31 @@ const { RangePicker } = DatePicker;
 const Attempters = () => {
   const { id } = useParams();
   const { data, handleSearch, setSearchEmail, handleTableChange, loading, pagination, setDates, setMinScore, setMaxScore, reset } = useAttemptUsers(id);
-
+  const [filteredData, setFilteredData] = useState()
 
   const handleExport = () => {
-    if (data?.data) {
+    if (filteredData) {
       exportDataToExcel(data.data, `quiz_attempts_${id}.xlsx`);
     } else {
       alert('No data available to export.');
     }
   };
+
+
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+    if (value === 'pass') {
+      // setFilteredData(x => (...))
+    }
+    else if (value === 'fail') {
+
+    }
+
+  };
+
+
+
+
 
 
 
@@ -54,6 +70,27 @@ const Attempters = () => {
           onChange={(value) => setMaxScore(value)}
           style={{ width: 120, marginRight: 8 }}
         />
+
+
+        {/* <Select
+          className="mx-2"
+          defaultValue="nothing"
+          style={{
+            width: 120,
+          }}
+          onChange={handleChange}
+          options={[
+            {
+              value: 'pass',
+              label: 'Pass',
+            },
+            {
+              value: 'fail',
+              label: 'Fail',
+            },
+          ]}
+        /> */}
+
         <Button icon={<SearchOutlined />} type="" className="myBtn" onClick={handleSearch} style={{ marginBottom: 16 }}>
           Search
         </Button>

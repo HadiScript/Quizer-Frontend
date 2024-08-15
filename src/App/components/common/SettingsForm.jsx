@@ -60,6 +60,27 @@ const SettingsForm = ({ _settings, _setSettings, onFinish, from = "globalSetting
           </Select>
           <small>In practise mode, user would see the answers</small>
         </Form.Item>
+        {/* shuffleAnswers */}
+
+        <Form.Item className="mb-3 " required>
+          <label htmlFor="title" className="form-label">
+            <b>Shuffle Questions</b>
+          </label>
+          <Select value={_settings?.shuffleQuestions} onChange={(e) => _setSettings((prev) => ({ ...prev, shuffleQuestions: e }))}>
+            <Select.Option value={true}>Do Shuffle</Select.Option>
+            <Select.Option value={false}>Do not Shuffle</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item className="mb-3 " required>
+          <label htmlFor="title" className="form-label">
+            <b>Shuffle Answers</b>
+          </label>
+          <Select value={_settings?.shuffleAnswers} onChange={(e) => _setSettings((prev) => ({ ...prev, shuffleAnswers: e }))}>
+            <Select.Option value={true}>Do Shuffle</Select.Option>
+            <Select.Option value={false}>Do not Shuffle</Select.Option>
+          </Select>
+        </Form.Item>
 
         <div className="mb-3">
           <label htmlFor="title" className="form-label">

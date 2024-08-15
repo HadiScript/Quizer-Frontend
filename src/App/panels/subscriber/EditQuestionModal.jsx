@@ -75,7 +75,7 @@ const EditQuestionModal = ({ id, open, handleCloseModel }) => {
       open={open}
       onOk={closeModel}
       onCancel={closeModel}
-      width={800} // Adjusted for better fit
+      width={1800}// Adjusted for better fit
     >
       <div className="container">
         <Form layout="vertical">
@@ -107,35 +107,10 @@ const EditQuestionModal = ({ id, open, handleCloseModel }) => {
               )}
             </div>
 
-            {/* {questionType === "multiple-choice" && (
-              <div className="col-xs-12 col-md-6">
-                {options.map((option, index) => (
-                  <div key={index} className="mb-3 d-flex align-items-center">
-                    <Input
-                      placeholder={`Option ${index + 1}`}
-                      value={option.text}
-                      onChange={(e) => handleOptionChange(index, e.target.value)}
-                      style={{ marginRight: "10px" }}
-                    />
-                    <Checkbox
-                      checked={option.isCorrect}
-                      onChange={() => handleCorrectChange(index)}
-                      style={{ marginRight: "10px" }}
-                    >
-                      Correct
-                    </Checkbox>
-                    {options.length > 2 && (
-                      <Button type="danger" onClick={() => handleRemoveOption(index)}>
-                        Remove
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )} */}
+
 
             {questionType === "multiple-choice" && (
-              <div>
+              <div className="col-xs-12 col-md-6">
                 {options.map((option, index) => (
                   <Form.Item key={index} label={`Option ${index + 1}`}>
                     <Input
@@ -207,31 +182,6 @@ const EditQuestionModal = ({ id, open, handleCloseModel }) => {
               </div>
             )}
 
-            {questionType === "date" && (
-              <div className="col-xs-12 col-md-6">
-                <Form.Item label="Select Date">
-                  <DatePicker
-                    value={dateAnswer ? moment(dateAnswer) : null}
-                    onChange={(date) => handleDateChange(date)}
-                  />
-                </Form.Item>
-              </div>
-            )}
-
-            {questionType === "range" && (
-              <div className="col-xs-12 col-md-6">
-                <Form.Item label="Select Range">
-                  <Slider
-                    range
-                    min={0}
-                    max={100}
-                    value={[rangeAnswer.min, rangeAnswer.max]}
-                    onChange={(values) => handleRangeChange(values[0], values[1])}
-                  />
-                </Form.Item>
-              </div>
-            )}
-
             {questionType === "true-false" && (
               <div className="col-xs-12 col-md-6">
                 <div className="mb-3 d-flex align-items-center">
@@ -258,6 +208,35 @@ const EditQuestionModal = ({ id, open, handleCloseModel }) => {
                 </div>
               </div>
             )}
+
+
+            {/* {questionType === "date" && (
+              <div className="col-xs-12 col-md-6">
+                <Form.Item label="Select Date">
+                  <DatePicker
+                    value={dateAnswer ? moment(dateAnswer) : null}
+                    onChange={(date) => handleDateChange(date)}
+                  />
+                </Form.Item>
+              </div>
+            )}
+
+            {questionType === "range" && (
+              <div className="col-xs-12 col-md-6">
+                <Form.Item label="Select Range">
+                  <Slider
+                    range
+                    min={0}
+                    max={100}
+                    value={[rangeAnswer.min, rangeAnswer.max]}
+                    onChange={(values) => handleRangeChange(values[0], values[1])}
+                  />
+                </Form.Item>
+              </div>
+            )} */}
+
+
+
           </div>
         </Form>
       </div>

@@ -122,7 +122,7 @@ const QuizAttemptingComponent = ({ quizData, handleSubmit, responses, setRespons
               {question.type === "fill-in-the-blank" && (
                 question.blanks.map((blank, idx) => (
                   <Input
-                  className="my-1"
+                    className="my-1"
                     key={idx}
                     placeholder={`Blank ${idx + 1}`}
                     onChange={(e) =>

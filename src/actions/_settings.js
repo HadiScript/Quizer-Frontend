@@ -61,6 +61,8 @@ let initSettings = {
   showScore: false, // pre
   showCertificate: false,
   certificateId: "",
+  shuffleQuestions: false,
+  shuffleAnswers: false,
 };
 
 export const _useQuizSettings = (quizId) => {
