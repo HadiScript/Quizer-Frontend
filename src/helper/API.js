@@ -1,5 +1,5 @@
-// export const API = "https://api.sawal.co";
-export const API = "http://localhost:8080";
+export const API = "https://api.sawal.co";
+// export const API = "http://localhost:8080";
 export const authApi = `${API}/api/auth`;
 export const quizApi = `${API}/api/quiz`;
 export const userApi = `${API}/api/user`;
