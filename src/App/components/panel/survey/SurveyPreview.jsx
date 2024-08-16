@@ -166,9 +166,9 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
           {renderField(field, index)}
         </div>)}
       </div>
-      {submiting && <Form.Item>
+      <Form.Item>
         <Button loading={submittingLoading} className='myBtn' htmlType='submit'>Submit Survey</Button>
-      </Form.Item>}
+      </Form.Item>
     </Form>
   );
 };

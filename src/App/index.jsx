@@ -42,6 +42,7 @@ import DmcaPolicy from "./common-pages/DmcaPolicy";
 import TermAndConditions from "./common-pages/TermAndConditions";
 import TemplatePreview from "./common-pages/templates/TemplatePreview";
 import ScrollToTop from "../helper/ScrollToTop";
+import AllTemplates from "./common-pages/templates/AllTemplates";
 
 
 const {
@@ -87,6 +88,7 @@ const App = () => {
         <Route path="/dmca-policy" element={<DmcaPolicy />} />
         <Route path="/terms-and-conditions" element={<TermAndConditions />} />
         <Route path="/template-preview/:slug/:id" element={<TemplatePreview />} />
+        <Route path="/all-templates" element={<AllTemplates />} />
 
 
         <Route path={'signin'} element={<Login />} />
@@ -108,7 +110,7 @@ const App = () => {
         <Route path={subs} element={<SubscriberRoutes />}>
           <Route path={subsDashboard} element={<SubscriberDashboard />} />
           <Route path={profile} element={<SubscriberProfile />} />
-          {/* <Route path={CreateHome} element={<CreateHomePage />} /> */}
+          <Route path={CreateHome} element={<CreateHomePage />} />
           <Route path={SingleHomePage()} element={<DetailHomePage />} />
 
           <Route path={createQuiz} element={<CreateQuiz />} />

@@ -2,13 +2,13 @@ import { useState } from "react";
 import { quizApi, surveyApi } from "../../../helper/API";
 import { useEffect } from "react";
 import axios from "axios";
-import { Card, Grid } from "antd";
+import { Button, Card, Grid } from "antd";
 import { Link } from "react-router-dom";
 const { Meta } = Card;
 
 
 
-const Items = ({ key, item, }) => {
+export const TemplateItems = ({ key, item, }) => {
   return <div className="col-12 col-md-3 mt-2" key={key} >
     <Link className="_link" to={`/template-preview/${item?.slug}/${item?.createdBy?._id}`}>
       <Card
@@ -72,7 +72,11 @@ const Templates = () => {
       <div className="container">
 
         <div className="row ">
-          {quizzes?.map((x, index) => <Items key={index} item={x} />)}
+          {quizzes?.map((x, index) => <TemplateItems key={index} item={x} />)}
+        </div>
+
+        <div className="text-center mt-4">
+          <Link className="_link" to={`/all-templates`}>  <Button type="" className="myBtn">See All</Button></Link>
         </div>
       </div>
 

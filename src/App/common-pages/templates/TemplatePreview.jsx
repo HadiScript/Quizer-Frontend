@@ -11,9 +11,30 @@ import axios from "axios"
 import { surveyApi } from "../../../helper/API"
 import { useQueryClient } from "react-query"
 import { BackwardOutlined, ImportOutlined } from "@ant-design/icons"
+import { FaWandMagicSparkles } from "react-icons/fa6";
 
 import logoImage from '../../../assets/imgs/logo.png'
-// import '../../../ass'
+import SidebarCustomize from "../../components/common/TemplatePreview/SidebarCustomize"
+
+
+const lightenColor = (color, percent) => {
+  let num = parseInt(color.replace("#", ""), 16),
+    amt = Math.round(2.55 * percent * 1.5),
+    R = (num >> 16) + amt,
+    G = (num >> 8 & 0x00FF) + amt,
+    B = (num & 0x0000FF) + amt;
+
+  R = R > 255 ? 255 : R < 0 ? 0 : R;
+  G = G > 255 ? 255 : G < 0 ? 0 : G;
+  B = B > 255 ? 255 : B < 0 ? 0 : B;
+
+  return "#" + (
+    0x1000000 +
+    (R * 0x10000) +
+    (G * 0x100) +
+    B
+  ).toString(16).slice(1).toUpperCase();
+};
 
 const TemplatePreview = () => {
 
@@ -24,8 +45,22 @@ const TemplatePreview = () => {
   const [open, setOpen] = useState(false)
   const [cloneLoading, setCloneLoading] = useState(false)
   const queryClient = useQueryClient()
+  const [customizeOpen, setCustomizeOpen] = useState(false);
 
-  // const { submiting, isLoading: submittingLoading } = _useSubmitSurvey(slug, id);
+  const [settings, setSettings] = useState({
+    headerColor: null,
+    textColor: null,
+    buttonColor: null,
+    bgColor: null
+  });
+
+  const onChange = (key, value) => {
+    const newSettings = { ...settings, [key]: value };
+    if (key === 'headerColor') {
+      newSettings.bgColor = lightenColor(value, 50); // Adjust background based on header color
+    }
+    setSettings(newSettings);
+  };
 
 
   const cloneAndRedirect = async (slug, id) => {
@@ -58,28 +93,38 @@ const TemplatePreview = () => {
               <Button type="dashed" icon={<ImportOutlined />} onClick={() => setOpen(true)}>Use This Template</Button>
             }
 
+            <Button className="myBtn _link" icon={<FaWandMagicSparkles />} onClick={() => setCustomizeOpen(true)}> Customize </Button>
             <Button className="myBtn _link" icon={<BackwardOutlined />} onClick={() => router(-1)}> Back</Button>
           </div>
         </div>
       </div>
 
 
-      <div className="survey lightgrey-bg">
+      <div className={`survey ${!settings?.bgColor && 'lightgrey-bg'}`} style={{ backgroundColor: settings.bgColor }}>
         <div className="its-container  ">
 
-          <BgHeading title={data?.title} desc={data?.description} />
+          <BgHeading title={data?.title} desc={data?.description} bgColor={settings.headerColor} />
 
 
           {fetchingLoading ? <>Please wait...</> : <SurveyPreview
             fields={data?.fields}
             preview={false}
-            submiting={undefined}
+            submiting={() => alert("Ok")}
             submittingLoading={false}
             from="templates"
 
           />}
         </div>
       </div>
+
+      <SidebarCustomize
+        open={customizeOpen}
+        setOpen={setCustomizeOpen}
+        settings={settings}
+        onChange={onChange}
+      />
+
+
       <ModelLogin open={open} setOpen={setOpen} />
     </>
   )

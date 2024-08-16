@@ -49,6 +49,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
       const res = await axios.get(`${attemptApi}/quiz/${creatorId}/${quizId}`);
       if (res.status === 200) {
         setQuizData(res.data);
+        console.log(res, "here is ")
         setRemainingTime(res.data.timeLimit * 60);
       }
     } catch (error) {
@@ -171,7 +172,7 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
               </Affix>
             </div>
             <div className="d-flex flex-column  gap-4 card-shadow2">
-              {/* <OneByOneQuestions submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} /> */}
+              <OneByOneQuestions submitLoading={loading} quizData={quizData} setResponses={setResponses} responses={responses} handleSubmit={handleSubmit} />
             </div>
           </div>
         </div>
