@@ -49,7 +49,6 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
       const res = await axios.get(`${attemptApi}/quiz/${creatorId}/${quizId}`);
       if (res.status === 200) {
         setQuizData(res.data);
-        console.log(res, "here is ")
         setRemainingTime(res.data.timeLimit * 60);
       }
     } catch (error) {
@@ -65,28 +64,9 @@ const StartStep2 = ({ setStep, attemptId, creatorId, quizId, setRemainingTime, r
   const handleSubmit = async (x) => {
     setLoading(true);
 
-    // console.log(responses); // Debug: Log current responses
 
-    const emptyResponses = responses.some((response) => {
-      if (Array.isArray(response.selectedOption)) {
-        // Check if any blank is empty in fill-in-the-blank
-        return response.selectedOption.includes("") || response.selectedOption.length === 0;
-      }
-      if (response.selectedOption === "" && response.answer === "") {
-        // Check for empty selection or answer
-        return true;
-      }
-      return false;
-    });
-
-    if (emptyResponses) {
-      toast.error(
-        "I think you missed a question. Please review it. All questions must be answered before submitting.",
-        { position: "bottom-left" }
-      );
-      setLoading(false);
-      return;
-    }
+    // console.log(responses, "here isthe reqpons");
+    // return;
 
     const payload = {
       attemptId,

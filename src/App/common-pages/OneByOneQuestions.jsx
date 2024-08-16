@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Input, Radio } from "antd";
+import { Button, Checkbox, Form, Input, Radio } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 import ReactQuill from "react-quill";
@@ -22,72 +22,67 @@ const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses, su
     return <div>Loading...</div>;
   }
 
-  // const handleOptionChange = (questionId, value, isShortAnswer = false) => {
-  //   setIsOptionSelected(true);
-  //   const updatedResponses = responses.map((response) => {
-  //     if (response.question === questionId) {
-  //       return {
-  //         ...response,
-  //         selectedOption: isShortAnswer ? "" : value,
-  //         answer: isShortAnswer ? value : "",
-  //         question: questionId,
-  //       };
-  //     }
-  //     return response;
-  //   });
-  //   setResponses(updatedResponses);
-  // };
+  const handleOptionChange = (questionId, value, questionType, maxSelectableOptions = 1) => {
 
-  const handleOptionChange = (questionId, value, questionType, blankIndex) => {
     const updatedResponses = responses.map((response) => {
       if (response.question === questionId) {
-        if (questionType === "multiple-choice" && Array.isArray(value) && value.length > blankIndex) {
-          // Prevent selecting more options than allowed
+        // Check if it's a multiple-choice question with maxSelectableOptions > 1
+        if (questionType === "multiple-choice" && Array.isArray(value) && value.length > maxSelectableOptions) {
+          // Prevent selecting more options than allowed for checkboxes
           return response;
         }
-        console.log(blankIndex)
+
+        // Handle different question types
         switch (questionType) {
           case "multiple-choice":
           case "true-false":
             return {
               ...response,
-              selectedOption: Array.isArray(value) ? value : [value],
-              answer: "",
+              selectedOption: maxSelectableOptions === 1 ? value : Array.isArray(value) ? value : [value],
+              answer: "", // Clear the answer field for multiple-choice or true-false
             };
+
           case "short-answer":
             return {
               ...response,
-              selectedOption: "", // Short answers use the `answer` field
+              selectedOption: "",
               answer: value,
             };
+
           case "fill-in-the-blank":
             const updatedBlanks = response.selectedOption || [];
-            updatedBlanks[blankIndex] = value; // Update specific blank
+            updatedBlanks[maxSelectableOptions] = value;
             return {
               ...response,
               selectedOption: updatedBlanks,
               answer: "",
             };
+
           case "date":
             return {
               ...response,
               selectedOption: value ? value.toISOString() : "", // Ensure a valid date string
               answer: "",
             };
+
           case "range":
             return {
               ...response,
               selectedOption: value,
               answer: "",
             };
+
           default:
             return response;
         }
       }
       return response;
     });
+
+
     setResponses(updatedResponses);
   };
+
 
 
   const goToNextQuestion = () => {
@@ -111,7 +106,7 @@ const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses, su
 
 
   return (
-    <div>
+    <Form layout="vertical" onFinish={handleSubmit}>
       <div className="d-flex justify-content-start align-items-start gap-1 mb-5">
         <b style={{ width: "10%" }}>Q {currentQuestionIndex + 1}:</b>
         <div style={{ width: "90%" }}>
@@ -119,33 +114,48 @@ const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses, su
             <p dangerouslySetInnerHTML={{ __html: currentQuestion.text }} />
           </div>
 
-          {/* {currentQuestion.type === "short-answer" ? (
-            <Input.TextArea onChange={(e) => handleOptionChange(currentQuestion._id, e.target.value, true)} />
-          ) : (
-            <Radio.Group value={currentResponse ? currentResponse.selectedOption : null} onChange={(e) => handleOptionChange(currentQuestion._id, e.target.value)}>
-              {currentQuestion.options.map((option) => (
-                <div className="d-flex mb-1" key={option.text}>
-                  <Radio value={option.text}>{option.text}</Radio>
-                </div>
-              ))}
-            </Radio.Group>
-          )} */}
+
 
 
 
           {currentQuestion.type === "multiple-choice" && (
-            <Checkbox.Group
-              className="d-flex flex-column"
-              value={responses.find((r) => r.question === currentQuestion._id)?.selectedOption || []}
-              onChange={(value) => handleOptionChange(currentQuestion._id, value, currentQuestion.type, currentQuestion.maxSelectableOptions)}
-            >
-              {currentQuestion.options.map((option) => (
-                <div className="d-flex mb-1" key={option.text}>
-                  <Checkbox value={option.text}>{option.text}</Checkbox>
-                </div>
-              ))}
-              <small className="mt-3">Please select {currentQuestion.maxSelectableOptions} option</small>
-            </Checkbox.Group>
+            currentQuestion.maxSelectableOptions === 1 ? (
+              <Form.Item
+                name={`question-${currentQuestion._id}`}
+                rules={[{ required: true, message: 'Please select an option' }]}
+              >
+                <Radio.Group
+                  className="d-flex flex-column"
+                  value={responses.find((r) => r.question === currentQuestion._id)?.selectedOption || ''}
+                  onChange={(e) => handleOptionChange(currentQuestion._id, e.target.value, currentQuestion.type)}
+                >
+                  {currentQuestion.options.map((option) => (
+                    <div className="d-flex mb-1" key={option.text}>
+                      <Radio value={option.text}>{option.text}</Radio>
+                    </div>
+                  ))}
+                  <small className="mt-3">Please select one option</small>
+                </Radio.Group>
+              </Form.Item>
+            ) : (
+              <Form.Item
+                name={`question-${currentQuestion._id}`}
+                rules={[{ required: true, message: `Please select up to ${currentQuestion.maxSelectableOptions} options` }]}
+              >
+                <Checkbox.Group
+                  className="d-flex flex-column"
+                  value={responses.find((r) => r.question === currentQuestion._id)?.selectedOption || []}
+                  onChange={(value) => handleOptionChange(currentQuestion._id, value, currentQuestion.type, currentQuestion.maxSelectableOptions)}
+                >
+                  {currentQuestion.options.map((option) => (
+                    <div className="d-flex mb-1" key={option.text}>
+                      <Checkbox value={option.text}>{option.text}</Checkbox>
+                    </div>
+                  ))}
+                  <small className="mt-3">Please select up to {currentQuestion.maxSelectableOptions} options</small>
+                </Checkbox.Group>
+              </Form.Item>
+            )
           )}
 
 
@@ -198,7 +208,7 @@ const OneByOneQuestions = ({ quizData, handleSubmit, responses, setResponses, su
           {currentQuestionIndex === quizData.questions.length - 1 ? "Submit" : "Next"}
         </Button>
       </div>
-    </div>
+    </Form>
   );
 };
 
