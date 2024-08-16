@@ -39,7 +39,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
                 <th scope="col">Phone</th>
                 <th scope="col">Email</th>
                 {from === "page" && <th scope="col">Attempt At</th>}
-                {from === "page" && <th scope="col">Score</th>}
+                {from === "page" && <th scope="col">Score (%) </th>}
                 {from === "page" && <th scope="col">Time Taken</th>}
                 {from === "page" ? <th scope="col">Status</th> : <th scope="col">Score</th>}
                 <th scope="col"></th>

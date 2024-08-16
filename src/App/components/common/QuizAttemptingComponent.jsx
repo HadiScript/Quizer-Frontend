@@ -9,54 +9,119 @@ const QuizAttemptingComponent = ({ quizData, handleSubmit, responses, setRespons
   const [visibleAnswers, setVisibleAnswers] = useState({});
 
 
-  const handleOptionChange = (questionId, value, questionType, blankIndex) => {
+  // const handleOptionChange = (questionId, value, questionType, blankIndex) => {
+  //   const updatedResponses = responses.map((response) => {
+  //     if (response.question === questionId) {
+  //       if (questionType === "multiple-choice" && Array.isArray(value) && value.length > blankIndex) {
+  //         // Prevent selecting more options than allowed
+  //         return response;
+  //       }
+  //       console.log(blankIndex)
+  //       switch (questionType) {
+  //         case "multiple-choice":
+  //         case "true-false":
+  //           return {
+  //             ...response,
+  //             selectedOption: Array.isArray(value) ? value : [value],
+  //             answer: "",
+  //           };
+  //         case "short-answer":
+  //           return {
+  //             ...response,
+  //             selectedOption: "", // Short answers use the `answer` field
+  //             answer: value,
+  //           };
+  //         case "fill-in-the-blank":
+  //           const updatedBlanks = response.selectedOption || [];
+  //           updatedBlanks[blankIndex] = value; // Update specific blank
+  //           return {
+  //             ...response,
+  //             selectedOption: updatedBlanks,
+  //             answer: "",
+  //           };
+  //         case "date":
+  //           return {
+  //             ...response,
+  //             selectedOption: value ? value.toISOString() : "", // Ensure a valid date string
+  //             answer: "",
+  //           };
+  //         case "range":
+  //           return {
+  //             ...response,
+  //             selectedOption: value,
+  //             answer: "",
+  //           };
+  //         default:
+  //           return response;
+  //       }
+  //     }
+  //     return response;
+  //   });
+  //   setResponses(updatedResponses);
+  // };
+
+
+  const handleOptionChange = (questionId, value, questionType, maxSelectableOptions = 1) => {
+    console.log('Selected Value:', value); // Debugging line
+    console.log('Question Type:', questionType); // Debugging line
+
     const updatedResponses = responses.map((response) => {
       if (response.question === questionId) {
-        if (questionType === "multiple-choice" && Array.isArray(value) && value.length > blankIndex) {
-          // Prevent selecting more options than allowed
+        // Check if it's a multiple-choice question with maxSelectableOptions > 1
+        if (questionType === "multiple-choice" && Array.isArray(value) && value.length > maxSelectableOptions) {
+          // Prevent selecting more options than allowed for checkboxes
           return response;
         }
-        console.log(blankIndex)
+
+        // Handle different question types
         switch (questionType) {
           case "multiple-choice":
           case "true-false":
             return {
               ...response,
-              selectedOption: Array.isArray(value) ? value : [value],
-              answer: "",
+              selectedOption: maxSelectableOptions === 1 ? value : Array.isArray(value) ? value : [value],
+              answer: "", // Clear the answer field for multiple-choice or true-false
             };
+
           case "short-answer":
             return {
               ...response,
               selectedOption: "", // Short answers use the `answer` field
               answer: value,
             };
+
           case "fill-in-the-blank":
             const updatedBlanks = response.selectedOption || [];
-            updatedBlanks[blankIndex] = value; // Update specific blank
+            updatedBlanks[maxSelectableOptions] = value; // Update specific blank
             return {
               ...response,
               selectedOption: updatedBlanks,
               answer: "",
             };
+
           case "date":
             return {
               ...response,
               selectedOption: value ? value.toISOString() : "", // Ensure a valid date string
               answer: "",
             };
+
           case "range":
             return {
               ...response,
               selectedOption: value,
               answer: "",
             };
+
           default:
             return response;
         }
       }
       return response;
     });
+
+    console.log('Updated Responses:', updatedResponses); // Debugging line
+
     setResponses(updatedResponses);
   };
 
@@ -81,8 +146,9 @@ const QuizAttemptingComponent = ({ quizData, handleSubmit, responses, setRespons
                 <p dangerouslySetInnerHTML={{ __html: question.text }} />
               </div>
 
-              {question.type === "multiple-choice" && (
+              {/* {question.type === "multiple-choice" && (
                 <Checkbox.Group
+
                   className="d-flex flex-column"
                   value={responses.find((r) => r.question === question._id)?.selectedOption || []}
                   onChange={(value) => handleOptionChange(question._id, value, question.type, question.maxSelectableOptions)}
@@ -94,6 +160,36 @@ const QuizAttemptingComponent = ({ quizData, handleSubmit, responses, setRespons
                   ))}
                   <small className="mt-3">Please select {question.maxSelectableOptions} option</small>
                 </Checkbox.Group>
+              )} */}
+
+              {question.type === "multiple-choice" && (
+                question.maxSelectableOptions === 1 ? (
+                  <Radio.Group
+                    className="d-flex flex-column"
+                    value={responses.find((r) => r.question === question._id)?.selectedOption || ''}
+                    onChange={(e) => handleOptionChange(question._id, e.target.value, question.type)}
+                  >
+                    {question.options.map((option) => (
+                      <div className="d-flex mb-1" key={option.text}>
+                        <Radio value={option.text}>{option.text}</Radio>
+                      </div>
+                    ))}
+                    <small className="mt-3">Please select one option</small>
+                  </Radio.Group>
+                ) : (
+                  <Checkbox.Group
+                    className="d-flex flex-column"
+                    value={responses.find((r) => r.question === question._id)?.selectedOption || []}
+                    onChange={(value) => handleOptionChange(question._id, value, question.type, question.maxSelectableOptions)}
+                  >
+                    {question.options.map((option) => (
+                      <div className="d-flex mb-1" key={option.text}>
+                        <Checkbox value={option.text}>{option.text}</Checkbox>
+                      </div>
+                    ))}
+                    <small className="mt-3">Please select up to {question.maxSelectableOptions} options</small>
+                  </Checkbox.Group>
+                )
               )}
 
 

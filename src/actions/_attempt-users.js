@@ -162,6 +162,7 @@ export const useAttemptUsers = (quizId) => {
   const [dates, setDates] = useState([]);
   const [minScore, setMinScore] = useState(null);
   const [maxScore, setMaxScore] = useState(null);
+  const [passFilter, setPassFilter] = useState(false);
 
   const fetchQuizAttempts = async ({ queryKey }) => {
     const [, { page, pageSize, email, startDate, endDate, minScore, maxScore }] = queryKey;
@@ -175,6 +176,7 @@ export const useAttemptUsers = (quizId) => {
         endDate: endDate || undefined,
         minScore: minScore !== null ? minScore : undefined,
         maxScore: maxScore !== null ? maxScore : undefined,
+        passFilter: passFilter ? "true" : undefined,
       },
     });
 
@@ -192,6 +194,7 @@ export const useAttemptUsers = (quizId) => {
         endDate: dates.length > 0 ? dates[1] : undefined,
         minScore: minScore !== null ? minScore : undefined,
         maxScore: maxScore !== null ? maxScore : undefined,
+        passFilter,
       },
     ],
     fetchQuizAttempts,
@@ -215,6 +218,7 @@ export const useAttemptUsers = (quizId) => {
     setMinScore(null);
     setMaxScore(null);
     setSearchEmail("");
+    setPassFilter(false);
   };
 
   if (error) {
@@ -232,6 +236,7 @@ export const useAttemptUsers = (quizId) => {
     setMinScore,
     setMaxScore,
     reset,
+    setPassFilter,
   };
 };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SubcriberLayout from "../../components/layouts/Layout";
 import { useAttemptUsers, useAttemptUsersTest } from "../../../actions/_attempt-users";
-import { Button, DatePicker, Input, InputNumber, Pagination, Select, } from "antd";
+import { Button, Checkbox, DatePicker, Input, InputNumber, Pagination, Select, } from "antd";
 import AttemptUserTable from "../../components/panel/AttemptUserTable";
 import Heading from "../../components/common/Heading";
 import { DownloadOutlined, SearchOutlined, UndoOutlined, UserOutlined } from "@ant-design/icons";
@@ -13,11 +13,12 @@ const { RangePicker } = DatePicker;
 
 const Attempters = () => {
   const { id } = useParams();
-  const { data, handleSearch, setSearchEmail, handleTableChange, loading, pagination, setDates, setMinScore, setMaxScore, reset } = useAttemptUsers(id);
-  const [filteredData, setFilteredData] = useState()
+  const { data, handleSearch, setSearchEmail, handleTableChange, loading, pagination, setDates, setMinScore, setMaxScore, reset, setPassFilter } = useAttemptUsers(id);
+
+
 
   const handleExport = () => {
-    if (filteredData) {
+    if (data) {
       exportDataToExcel(data.data, `quiz_attempts_${id}.xlsx`);
     } else {
       alert('No data available to export.');
@@ -25,16 +26,6 @@ const Attempters = () => {
   };
 
 
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-    if (value === 'pass') {
-      // setFilteredData(x => (...))
-    }
-    else if (value === 'fail') {
-
-    }
-
-  };
 
 
 
@@ -72,24 +63,9 @@ const Attempters = () => {
         />
 
 
-        {/* <Select
-          className="mx-2"
-          defaultValue="nothing"
-          style={{
-            width: 120,
-          }}
-          onChange={handleChange}
-          options={[
-            {
-              value: 'pass',
-              label: 'Pass',
-            },
-            {
-              value: 'fail',
-              label: 'Fail',
-            },
-          ]}
-        /> */}
+        <Checkbox onChange={(e) => setPassFilter(e.target.checked)}>
+          Show Only Passed
+        </Checkbox>
 
         <Button icon={<SearchOutlined />} type="" className="myBtn" onClick={handleSearch} style={{ marginBottom: 16 }}>
           Search
@@ -102,7 +78,6 @@ const Attempters = () => {
           Export Data
         </Button>
       </div>
-
 
 
       <AttemptUserTable loading={loading} handleSearch={handleSearch} setSearchEmail={setSearchEmail} from="page" data={data?.data} />

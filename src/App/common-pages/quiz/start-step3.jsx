@@ -101,7 +101,7 @@ const StartStep3 = ({ attemptId, quizId, setStep, setAttemptId }) => {
             status="success"
             title={<div>{result.message}</div>}
             subTitle={<b>{result.isPass ? `You have Passed this test. Your score is ${result.score}.` : `You have Failed this test. Your score is ${result.score}. And passing score is ${result.passingScore}%`}</b>}
-            extra={<Button type="" onClick={goBack} className="myBtn">Try Again</Button>}
+          // extra={<Button type="" onClick={goBack} className="myBtn">Try Again</Button>}
           />
         }
 
