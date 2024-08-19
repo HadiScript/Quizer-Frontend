@@ -17,7 +17,7 @@ const customIcons = {
 };
 
 
-const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = false, from = "dashboard" }) => {
+const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = false, from = "dashboard", settings }) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -167,9 +167,19 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
         </div>)}
       </div>
       <Form.Item>
-        <Button loading={submittingLoading} className='myBtn' htmlType='submit'>Submit Survey</Button>
+        <Button
+          style={{
+            backgroundColor: from === "templates" && settings?.mainColor ? settings?.mainColor : "",
+            color: from === "templates" && settings?.textColor ? settings?.textColor : "",
+          }}
+          loading={submittingLoading}
+          className='myBtn'
+          htmlType='submit'
+        >
+          Submit Survey
+        </Button>
       </Form.Item>
-    </Form>
+    </Form >
   );
 };
 

@@ -7,6 +7,7 @@ import AttemptUserTable from "../../components/panel/AttemptUserTable";
 import Heading from "../../components/common/Heading";
 import { DownloadOutlined, SearchOutlined, UndoOutlined, UserOutlined } from "@ant-design/icons";
 import { exportDataToExcel } from "../../../helper/ExportData";
+import { _useQuizModifications } from "../../../actions/_quiz";
 
 
 const { RangePicker } = DatePicker;
@@ -14,28 +15,34 @@ const { RangePicker } = DatePicker;
 const Attempters = () => {
   const { id } = useParams();
   const { data, handleSearch, setSearchEmail, handleTableChange, loading, pagination, setDates, setMinScore, setMaxScore, reset, setPassFilter } = useAttemptUsers(id);
-
+  const { quizData, loading: quizDataLoading } = _useQuizModifications(id);
 
 
   const handleExport = () => {
     if (data) {
-      exportDataToExcel(data.data, `quiz_attempts_${id}.xlsx`);
+      // console.log(data?.data)
+      const filteredData = data.data.map((item) => ({
+        createdAt: item.createdAt?.slice(0, 10),
+        studentName: item.studentDetails.Name,
+        studentEmail: item.studentDetails.Email,
+        studentPhone: item.studentDetails.Phone,
+        score: item.score,
+        // passingScore: item.passingScore,
+        Result: item.isPass ? "Pass" : "Fail",
+        // _id: item._id,
+      }));
+      // console.log(filteredData, "filter data")
+      exportDataToExcel(filteredData, `${quizData?.title}_Attempts.xlsx`);
     } else {
       alert('No data available to export.');
     }
   };
 
 
-
-
-
-
-
-
-
   return (
     <SubcriberLayout from="quiz-detail">
-      <Heading title={"Quiz users"} desc={"View detailed quiz report and responses of each individual user."} Icon={<UserOutlined className="its-icon" />} />
+      {/* {JSON.stringify(data)} */}
+      <Heading title={quizDataLoading ? "..." : quizData?.title} desc={"View detailed quiz report and responses of each individual user."} Icon={<UserOutlined className="its-icon" />} />
 
       <div className="mt-4 mb-1 ">
         <Input

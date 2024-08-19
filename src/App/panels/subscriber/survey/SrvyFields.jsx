@@ -9,6 +9,7 @@ import { Modal } from 'antd'
 import SurveyPreview from '../../../components/panel/survey/SurveyPreview'
 import { TableLoading } from '../../../components/loadings'
 import SrvyFloatBtns from '../../../components/panel/survey/SrvyFloatBtns'
+import { useAuth } from '../../../../context/authContext'
 
 
 const surveyFields = [
@@ -27,6 +28,8 @@ const surveyFields = [
 const SrvyFields = () => {
   const { slug } = useParams();
   const [openPreview, setOpenPreview] = useState(false);
+  const [auth] = useAuth()
+  const previewUrl = `/template-preview/${slug}/${auth?.user?.userId}?from=dashboard`
 
   const { data: basic, isLoading: fetechingData } = useBasicInfoServey(slug);
   const { updateSurveyFields, isLoading: updateLoading } = useUpdateSurveyFields(slug)
@@ -49,7 +52,7 @@ const SrvyFields = () => {
 
   return (
     <SrvyLayout>
-      <BgHeading title={basic?.title}  desc={"You can edit and add different type of fields."}/>
+      <BgHeading title={basic?.title} desc={"You can edit and add different type of fields."} />
       <SrvyFormsTabs />
       {fetechingDataLoading
         ?
@@ -65,6 +68,7 @@ const SrvyFields = () => {
           fields={fields}
           setFields={setFields}
           data={data}
+          previewUrl={previewUrl}
         />
       }
 
@@ -75,7 +79,7 @@ const SrvyFields = () => {
       </Modal>
 
       <div className="d-none d-md-block">
-        <SrvyFloatBtns setOpenPreview={setOpenPreview} updateLoading={updateLoading} updateSurveyFields={onFinish} />
+        <SrvyFloatBtns previewUrl={previewUrl} setOpenPreview={setOpenPreview} updateLoading={updateLoading} updateSurveyFields={onFinish} />
       </div>
     </SrvyLayout>
   )

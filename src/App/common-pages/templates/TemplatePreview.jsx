@@ -1,11 +1,11 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { _useFields } from "../../../actions/_survey"
 import BgHeading from "../../components/common/BgHeading"
 import { Button } from "antd"
 import SurveyPreview from "../../components/panel/survey/SurveyPreview"
 import { useAuth } from "../../../context/authContext"
 import ModelLogin from "../auth/ModelLogin"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Errs } from "../../../helper/Errs"
 import axios from "axios"
 import { surveyApi } from "../../../helper/API"
@@ -37,6 +37,7 @@ const lightenColor = (color, percent) => {
 };
 
 const TemplatePreview = () => {
+  const from = useLocation().search.split("=")[1]
 
   const { slug, id } = useParams()
   const router = useNavigate();
@@ -48,19 +49,30 @@ const TemplatePreview = () => {
   const [customizeOpen, setCustomizeOpen] = useState(false);
 
   const [settings, setSettings] = useState({
-    headerColor: null,
-    textColor: null,
-    buttonColor: null,
-    bgColor: null
+    mainColor: "",
+    textColor: "",
+    bgColor: ""
   });
 
   const onChange = (key, value) => {
     const newSettings = { ...settings, [key]: value };
-    if (key === 'headerColor') {
+    if (key === 'mainColor') {
       newSettings.bgColor = lightenColor(value, 50); // Adjust background based on header color
     }
     setSettings(newSettings);
   };
+
+
+  useEffect(() => {
+    if (data?.settings) {
+      setSettings({
+        ...settings,
+        bgColor: data?.settings?.bgColor ? data?.settings?.bgColor : "",
+        textColor: data?.settings?.textColor ? data?.settings?.textColor : "",
+        mainColor: data?.settings?.mainColor ? data?.settings?.mainColor : "",
+      })
+    }
+  }, [data])
 
 
   const cloneAndRedirect = async (slug, id) => {
@@ -69,7 +81,7 @@ const TemplatePreview = () => {
         alert("Please do not cloning! as you are super user.")
       } else {
         setCloneLoading(true)
-        const { data } = await axios.post(`${surveyApi}/clone/${slug}/${id}`);
+        const { data } = await axios.post(`${surveyApi}/clone/${slug}/${id}`, { settings });
         router(data.url);
         queryClient.invalidateQueries("mySurveys");
 
@@ -89,8 +101,8 @@ const TemplatePreview = () => {
           <img src={logoImage} alt='logo' height={60} />
           <div className="d-flex  gap-3 align-items-center">
             {auth?.token ?
-              <Button type="dashed" icon={<ImportOutlined />} loading={cloneLoading} onClick={() => cloneAndRedirect(slug, id)} >Use This Template</Button> :
-              <Button type="dashed" icon={<ImportOutlined />} onClick={() => setOpen(true)}>Use This Template</Button>
+              from === "home" && <Button type="dashed" icon={<ImportOutlined />} loading={cloneLoading} onClick={() => cloneAndRedirect(slug, id)} >Use This Template</Button> :
+              from === "home" && <Button type="dashed" icon={<ImportOutlined />} onClick={() => setOpen(true)}>Use This Template</Button>
             }
 
             <Button className="myBtn _link" icon={<FaWandMagicSparkles />} onClick={() => setCustomizeOpen(true)}> Customize </Button>
@@ -103,8 +115,7 @@ const TemplatePreview = () => {
       <div className={`survey ${!settings?.bgColor && 'lightgrey-bg'}`} style={{ backgroundColor: settings.bgColor }}>
         <div className="its-container  ">
 
-          <BgHeading title={data?.title} desc={data?.description} bgColor={settings.headerColor} />
-
+          <BgHeading title={data?.title} desc={data?.description} bgColor={settings.mainColor} textColor={settings?.textColor} />
 
           {fetchingLoading ? <>Please wait...</> : <SurveyPreview
             fields={data?.fields}
@@ -112,6 +123,7 @@ const TemplatePreview = () => {
             submiting={() => alert("Ok")}
             submittingLoading={false}
             from="templates"
+            settings={settings}
 
           />}
         </div>
@@ -122,6 +134,8 @@ const TemplatePreview = () => {
         setOpen={setCustomizeOpen}
         settings={settings}
         onChange={onChange}
+        from={from}
+        slug={slug}
       />
 
 

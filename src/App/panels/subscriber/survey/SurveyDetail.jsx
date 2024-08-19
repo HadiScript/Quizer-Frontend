@@ -74,7 +74,7 @@ const SurveyDetail = () => {
       </div>
 
       <div className="my-4" />
-      <SrvyCreateEditForm fetechingData={fetechingData} data={data} submit={updateSurvey} isLoading={updateLoading} />
+      <SrvyCreateEditForm fetechingData={fetechingData} data={data} submit={updateSurvey} isLoading={updateLoading} slug={slug} />
     </SrvyLayout>
   )
 }

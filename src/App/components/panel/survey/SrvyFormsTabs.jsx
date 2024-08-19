@@ -4,6 +4,7 @@ import { Button } from "antd";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../../context/authContext";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 
 const SrvyFormsTabs = () => {
   const { slug } = useParams();
@@ -55,8 +56,10 @@ const SrvyFormsTabs = () => {
 
 
         {/* {JSON.stringify(auth)} */}
-
-        {!auth?.user?.userId ? "..." : <Button className="dottedBtn mt-4" onClick={() => copyToClipboard(link)} icon={<CopyOutlined />}> Copy Link </Button>}
+        <div className="d-flex gap-2">
+          {!auth?.user?.userId ? "..." : <Button className="dottedBtn mt-4" onClick={() => copyToClipboard(link)} icon={<CopyOutlined />}> Copy Link </Button>}
+          <Button className="dottedBtn myBtn _link mt-4" icon={<FaWandMagicSparkles />} onClick={() => router(`/template-preview/${slug}/${auth?.user?.userId}?from=dashboard`)}> Customize </Button>
+        </div>
       </div>
 
 

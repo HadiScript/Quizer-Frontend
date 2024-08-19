@@ -1,13 +1,16 @@
 import { Form, Input, Button, Select, Space, Checkbox, Radio, InputNumber, Row, Col, Collapse, Rate, } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
 
-const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, setOpenPreview, fields, setFields, data }) => {
+const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, setOpenPreview, fields, setFields, data, previewUrl }) => {
 
 
 
   const [form] = Form.useForm();
+
+
 
   // useEffect(() => {
   //   // Save fields to local storage whenever they change
@@ -191,9 +194,11 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
             Save
           </Button>
 
-          <Button className={"dottedBtn"} onClick={() => setOpenPreview(true)} >
-            Preview
-          </Button>
+          <Link to={previewUrl}>
+            <Button className={"dottedBtn"}>
+              Preview
+            </Button>
+          </Link>
         </div>
       </Form.Item>
     </Form>

@@ -1,8 +1,12 @@
 import { Button, Input, Form } from 'antd'
 import { useEffect, useRef } from 'react';
+import { useAuth } from '../../../../context/authContext';
 
 
-const SrvyCreateEditForm = ({ submit, isLoading, data, fetechingData }) => {
+const SrvyCreateEditForm = ({ submit, isLoading, data, fetechingData, slug }) => {
+  // /template-preview/${slug}/${auth?.user?.userId}?from=dashboard
+
+  const [auth] = useAuth()
 
   const formRef = useRef(null);
 

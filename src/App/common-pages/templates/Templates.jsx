@@ -10,7 +10,7 @@ const { Meta } = Card;
 
 export const TemplateItems = ({ key, item, }) => {
   return <div className="col-12 col-md-3 mt-2" key={key} >
-    <Link className="_link" to={`/template-preview/${item?.slug}/${item?.createdBy?._id}`}>
+    <Link className="_link" to={`/template-preview/${item?.slug}/${item?.createdBy?._id}?from=home`}>
       <Card
         hoverable
         cover={<img alt="example" src={item?.templateImage?.url} />}

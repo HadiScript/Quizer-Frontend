@@ -87,7 +87,7 @@ const App = () => {
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="/dmca-policy" element={<DmcaPolicy />} />
         <Route path="/terms-and-conditions" element={<TermAndConditions />} />
-        <Route path="/template-preview/:slug/:id" element={<TemplatePreview />} />
+        <Route path="/template-preview/:slug/:id" element={<TemplatePreview from="home" />} />
         <Route path="/all-templates" element={<AllTemplates />} />
 
 
