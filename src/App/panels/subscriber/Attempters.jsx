@@ -90,8 +90,13 @@ const Attempters = () => {
       <AttemptUserTable loading={loading} handleSearch={handleSearch} setSearchEmail={setSearchEmail} from="page" data={data?.data} />
 
       <div className="my-2 px-1">
-        <Pagination total={data?.pagination.total} current={data?.pagination?.page} onChange={handleTableChange}
+        <Pagination
+          total={data?.pagination.total}
+          current={data?.pagination?.page}
+          onChange={handleTableChange}
           showTotal={() => `Total ${data?.pagination.total} items`}
+          showSizeChanger
+          showQuickJumper
         />
       </div>
     </SubcriberLayout >

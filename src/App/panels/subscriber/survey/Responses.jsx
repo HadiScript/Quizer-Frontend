@@ -58,7 +58,10 @@ const Responses = () => {
         />
         <Table loading={loading} columns={columns} dataSource={data?.data} pagination={false} />
         <div className="text-end">
-          <Pagination total={data?.total} current={data?.page} onChange={handleTableChange}
+          <Pagination
+            total={data?.total}
+            current={data?.page}
+            onChange={handleTableChange}
             showSizeChanger
             showQuickJumper
             showTotal={() => `Total ${data?.total} items`}

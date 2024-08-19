@@ -78,7 +78,7 @@ const TemplatePreview = () => {
   const cloneAndRedirect = async (slug, id) => {
     try {
       if (auth?.user?.role === "super-user") {
-        alert("Please do not cloning! as you are super user.")
+        alert("Please do not clone this survey.")
       } else {
         setCloneLoading(true)
         const { data } = await axios.post(`${surveyApi}/clone/${slug}/${id}`, { settings });
