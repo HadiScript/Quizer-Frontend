@@ -16,7 +16,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           # port: 22 (default port, can be omitted if 22)
           script: |
-            cd /root/sawal/Quizer-Frontend
+            cd /root/sawal/QUIZER_BACKEND_NEW
             git pull
             npm install -f
             pm2 restart backend
@@ -59,7 +59,7 @@ jobs:
             cd /root/sawal/Quizer-Frontend
             git pull
             npm run build
-            pm2 stop test
+            #pm2 stop test
             pm2 stop frontend
             kill -9 $(lsof -t -i:3001)
             pm2 restart frontend
