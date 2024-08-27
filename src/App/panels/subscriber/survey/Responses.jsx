@@ -42,6 +42,8 @@ const Responses = () => {
     }
   ];
 
+  console.log(data?.data, "responses")
+
   return (
     <SrvyLayout >
       <BgHeading title={"Responses of" + " " + basicData?.title} desc={"View responses of each individual participant."} />

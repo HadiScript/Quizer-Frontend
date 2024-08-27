@@ -26,18 +26,52 @@ const SurveyDetail = () => {
   };
 
 
+  let uploadOrNot = auth?.user?.role === "super-user" && true;
+
   return (
     <SrvyLayout >
       <BgHeading title={data?.title} desc="Create survey questions and their options using different field types. Copy the link to share your survey." />
 
       <SrvyFormsTabs />
 
-      <div>
 
-        {
-          auth?.user?.role === "super-user" &&
-          <>
-            {/* <div className="mb-2 mt-4">
+
+      <div className="row">
+
+        <div className={`${uploadOrNot ? "col-md-6" : "col-md-12"} col-xs-12`}>
+          <div className="my-4" />
+          <SrvyCreateEditForm fetechingData={fetechingData} data={data} submit={updateSurvey} isLoading={updateLoading} />
+        </div>
+
+        {uploadOrNot && <div className="col-md-6 col-xs-12">
+          {
+            auth?.user?.role === "super-user" &&
+            <>
+              <div className="mb-2 mt-4">
+                <span> <b>Cover Image (Template Card Image)</b></span>
+                {
+                  fetechingData ? "..." :
+                    <DraggableUploader
+                      preImage={data?.templateImage?.url}
+                      slug={slug}
+                      cover={false}
+                    />
+                }
+              </div>
+            </>
+          }
+        </div>}
+
+
+      </div>
+    </SrvyLayout>
+  )
+}
+
+export default SurveyDetail
+
+
+{/* <div className="mb-2 mt-4">
               <span> <b>Cover Image</b></span>
               {
                 fetechingData ? "..." :
@@ -48,35 +82,3 @@ const SurveyDetail = () => {
                   />
               }
             </div> */}
-            <div className="mb-2 mt-4">
-
-              <span> <b>Cover Image (Template Card Image)</b></span>
-              {
-                fetechingData ? "..." :
-                  <DraggableUploader
-                    preImage={data?.templateImage?.url}
-                    slug={slug}
-                    cover={false}
-                  />
-              }
-            </div>
-          </>
-        }
-
-
-
-        {/* <h2>Upload Template Image</h2> */}
-        {/* <DraggableUploader
-          actionUrl="/survey/upload-template/123" // Update with the actual ID and endpoint
-          onSuccess={handleSuccess}
-          onError={handleError}
-        /> */}
-      </div>
-
-      <div className="my-4" />
-      <SrvyCreateEditForm fetechingData={fetechingData} data={data} submit={updateSurvey} isLoading={updateLoading} slug={slug} />
-    </SrvyLayout>
-  )
-}
-
-export default SurveyDetail

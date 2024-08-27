@@ -7,7 +7,7 @@ import AllSurveysTable from '../../../components/panel/survey/AllSurveysTable'
 
 const Surveys = () => {
   const { data, setSearch, handleSearch, handleTableChange, loading: isLoading, pagination } = useGetSurveys()
-  console.log({ data });
+  // console.log({ data });
 
   return (
     <SubcriberLayout>

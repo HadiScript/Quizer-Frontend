@@ -374,3 +374,12 @@ h5 {
 .ant-drawer-header-title .mobile-drawer {
   background-color: red !important;
 }
+
+/* UPLOAD */
+:where(.css-dev-only-do-not-override-3rel02).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select,
+:where(.css-dev-only-do-not-override-3rel02).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload.ant-upload-select {
+  width: 100% !important;
+  margin-top: 10px;
+  height: 200px;
+  /* background-color: red !important; */
+}

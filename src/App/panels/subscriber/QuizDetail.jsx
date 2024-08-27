@@ -13,6 +13,8 @@ import QuestionListEdit from "../../components/panel/QuestionListEdit";
 import QuizOptions from "../../components/panel/QuizOptions";
 import SubcriberLayout from "../../components/layouts/Layout";
 import BgHeading from "../../components/common/BgHeading";
+import axios from "axios";
+import { surveyApi } from "../../../helper/API";
 
 const QuizDetail = () => {
 

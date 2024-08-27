@@ -28,6 +28,7 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
   };
 
   const handleTypeChange = (value, index) => {
+    // console.log("type", value)
     const updatedFields = [...fields];
     updatedFields[index].type = value;
     if (["radio", "dropdown", "checkbox"].includes(value)) {
@@ -39,12 +40,18 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
       updatedFields[index].value = 0; // Initialize with default rate value
       updatedFields[index].maxRate = 5; // Default max rate
     }
+    if (value === 'email') {
+      // field.type
+      updatedFields[index].label = 'Email';
+    }
     setFields(updatedFields);
   };
 
-  const handleFieldChange = (index, event) => {
+  const handleFieldChange = (index, event, type) => {
     const updatedFields = [...fields];
+
     updatedFields[index][event.target.name] = event.target.value;
+
     setFields(updatedFields);
   };
 
@@ -117,8 +124,9 @@ const FieldsForm = ({ updateSurveyFields, updateLoading, fetechingDataLoading, s
                   <Input
                     name="label"
                     value={field.label}
-                    onChange={(event) => handleFieldChange(index, event)}
+                    onChange={(event) => handleFieldChange(index, event, field.type)}
                     placeholder="Label"
+                    disabled={field.type === 'email'}
                     style={{ width: "90%" }}
                   />
                   <Checkbox
