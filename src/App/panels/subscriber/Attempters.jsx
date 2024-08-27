@@ -87,7 +87,7 @@ const Attempters = () => {
       </div>
 
 
-      <AttemptUserTable loading={loading} handleSearch={handleSearch} setSearchEmail={setSearchEmail} from="page" data={data?.data} />
+      <AttemptUserTable loading={loading} handleSearch={handleSearch} setSearchEmail={setSearchEmail} from="page" data={data?.data} quizId={id} />
 
       <div className="my-2 px-1">
         <Pagination

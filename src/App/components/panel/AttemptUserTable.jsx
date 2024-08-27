@@ -3,21 +3,21 @@ import { Empty, Input, Tag, } from "antd";
 
 import { useState } from "react";
 import AttempterDrawser from "./AttempterDrawser";
-import { useNavigate, useParams } from "react-router-dom";
-import Heading from "../common/Heading";
+import { useParams } from "react-router-dom";
 import { TableLoading } from "../loadings";
 
 import { TimeCal } from "../../../hooks/TimeCal";
+import { useDeleteQuizAttempt } from "../../../actions/_attempt-users";
 
 
 
 
-const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, loading = false }) => {
+const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, loading = false, quizId }) => {
   const { id } = useParams();
   const [current, setCurrent] = useState({});
   const [open, setOpen] = useState(false);
+  const { loading: deleteLoading, deleteAttemtp } = useDeleteQuizAttempt()
 
-  const router = useNavigate();
 
   return (
     <>
@@ -71,7 +71,7 @@ const AttemptUserTable = ({ from = "page", data, handleSearch, setSearchEmail, l
                     <EyeOutlined />
                   </td>
                   {from === "page" && <td role="button">
-                    <DeleteOutlined />
+                    <DeleteOutlined onClick={() => deleteAttemtp(quizId, x?._id)} />
                   </td>}
                 </tr>
               ))}

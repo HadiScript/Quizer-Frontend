@@ -1,11 +1,14 @@
 import { Button, Table, Tag, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../../context/authContext";
-import { _surveyQuiz } from "../../../../actions/_survey";
+import { _surveyQuiz, useDeleteSurvey } from "../../../../actions/_survey";
 
 const AllSurveysTable = ({ data, loading }) => {
   const [auth] = useAuth()
-  const { doIt, reset, loading: exportLoading } = _surveyQuiz()
+  const { doIt, reset, loading: exportLoading } = _surveyQuiz();
+  const { deleteSurvey, loading: deleteLoading } = useDeleteSurvey();
+
+
   const columns = [
     {
       title: 'Title',
@@ -40,7 +43,10 @@ const AllSurveysTable = ({ data, loading }) => {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
-        <Link className="text-decoration-none" to={`/subscribe/surveys/${record.slug}/detail`}>Dashboard</Link>
+        <div className="d-flex gap-4">
+          <Link className="text-decoration-none" to={`/subscribe/surveys/${record.slug}/detail`}>Dashboard</Link>
+          <span role="button" onClick={() => deleteSurvey(record?._id)} className="text-danger">{!deleteLoading ? "Delete" : "wait..."} </span>
+        </div>
       ),
     },
   ];

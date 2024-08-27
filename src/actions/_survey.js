@@ -445,3 +445,35 @@ export const _surveyQuiz = () => {
     loading,
   };
 };
+
+// mySurveys
+export const useDeleteSurvey = () => {
+  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
+
+  const deleteSurvey = async (id) => {
+    let ok = confirm("Are you sure?");
+
+    if (ok) {
+      try {
+        setLoading(true);
+        const { data } = await axios.delete(`${surveyApi}/survey-delete/${id}`, { withCredentials: true });
+        if (data.ok) {
+          toast.success("Deleted");
+
+          queryClient.invalidateQueries("mySurveys");
+        }
+      } catch (error) {
+        console.log(error);
+        Errs(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  return {
+    loading,
+    deleteSurvey,
+  };
+};

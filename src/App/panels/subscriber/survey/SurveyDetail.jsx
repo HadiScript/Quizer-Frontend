@@ -17,6 +17,7 @@ const SurveyDetail = () => {
   const { updateSurvey, isLoading: updateLoading } = useUpdateBasicInfo(slug)
 
 
+
   const handleSuccess = (data) => {
     console.log('Image Data:', data);
   };
@@ -41,6 +42,7 @@ const SurveyDetail = () => {
         <div className={`${uploadOrNot ? "col-md-6" : "col-md-12"} col-xs-12`}>
           <div className="my-4" />
           <SrvyCreateEditForm fetechingData={fetechingData} data={data} submit={updateSurvey} isLoading={updateLoading} />
+
         </div>
 
         {uploadOrNot && <div className="col-md-6 col-xs-12">

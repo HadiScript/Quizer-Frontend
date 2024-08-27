@@ -1,7 +1,7 @@
 // quiz Dashboard, and
 
 import { useCallback, useEffect, useState } from "react";
-import { reportApi } from "../helper/API";
+import { quizApi, reportApi } from "../helper/API";
 import axios from "axios";
 import { Errs } from "../helper/Errs";
 import { useMutation, useQuery, useQueryClient } from "react-query";
@@ -336,5 +336,34 @@ export const useSummaryForGraph = () => {
   return {
     data,
     isLoading,
+  };
+};
+
+export const useDeleteQuizAttempt = () => {
+  // quizAttempters
+
+  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
+
+  const deleteAttemtp = async (quizId, id) => {
+    let ok = confirm("Are you sure?");
+    if (ok) {
+      try {
+        setLoading(true);
+        const { data } = await axios.delete(`${quizApi}/delete/quiz-attempt/${quizId}/${id}`, { withCredentials: true });
+        if (data.ok) {
+          toast.success("Deleted successfully");
+          queryClient.invalidateQueries("quizAttempters");
+        }
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  return {
+    deleteAttemtp,
+    loading,
   };
 };

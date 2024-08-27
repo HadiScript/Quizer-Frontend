@@ -157,7 +157,7 @@ const SurveyPreview = ({ fields, preview = true, submiting, submittingLoading = 
   };
 
   return (
-    <Form form={form} layout="vertical" style={{ width: from === "dashboard" ? "700px" : "" }} onFinish={onFinish} initialValues={{}} >
+    <Form form={form} layout="vertical" className='survey-form' style={{ width: from === "dashboard" ? "" : "" }} onFinish={onFinish} initialValues={{}} >
       <div className='mt-4' >
         {preview && <BgHeading title={"Preview"} desc={"Here is the preview of your form"} />}
 
