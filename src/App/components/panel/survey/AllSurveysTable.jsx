@@ -44,6 +44,7 @@ const AllSurveysTable = ({ data, loading }) => {
       key: 'action',
       render: (text, record) => (
         <div className="d-flex gap-4">
+
           <Link className="text-decoration-none" to={`/subscribe/surveys/${record.slug}/detail`}>Dashboard</Link>
           <span role="button" onClick={() => deleteSurvey(record?._id)} className="text-danger">{!deleteLoading ? "Delete" : "wait..."} </span>
         </div>
