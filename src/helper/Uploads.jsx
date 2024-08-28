@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, Button, message } from 'antd';
-import ImgCrop from 'antd-img-crop';
+// import ImgCrop from 'antd-img-crop';
 import { useAuth } from '../context/authContext';
 import { API } from './API';
 import axios from 'axios';
@@ -98,7 +98,7 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
         <div className="col-12 col-md-12 mb-5">
 
           <div className="" style={{ height: "180px", width: '100%' }}>
-            <ImgCrop rotate aspect={cover ? 16 / 9 : 4 / 3}  >
+            {/* <ImgCrop rotate aspect={cover ? 16 / 9 : 4 / 3}  >
               <Upload
                 name="file"
                 listType="picture-card"
@@ -120,7 +120,7 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
                   </>
                 )}
               </Upload>
-            </ImgCrop>
+            </ImgCrop> */}
           </div>
         </div>
       )}
