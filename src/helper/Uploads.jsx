@@ -6,6 +6,8 @@ import { API } from './API';
 import axios from 'axios';
 import { InboxOutlined } from '@ant-design/icons';
 
+const { Dragger } = Upload
+
 const DraggableUploader = ({ slug, preImage, cover = true }) => {
   const [auth] = useAuth();
   const DeleteUrl = cover ? `${API}/api/uploads/survey/delete-cover/${slug}` : `${API}/api/uploads/survey/delete-template/${slug}`;
@@ -66,6 +68,39 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
     return false;
   };
 
+
+  const props = {
+    name: 'file',
+    multiple: false,
+    action: '#',
+    onChange: () => { }, // Make onChange effectively a no-op
+    beforeUpload(file) {
+      const fileReader = new FileReader();
+      // fileReader.onload = (e) => {
+      //   setPreviewUrl(e.target.result);
+      //   setFile(file);
+      // };
+      fileReader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = () => {
+          if (!cover && (img.width <= 800 || img.height <= 600)) {
+            message.error('Template image must be 800x600 pixels');
+            return;
+          }
+          setPreviewUrl(e.target.result);
+          setFile(file);
+        };
+      };
+      fileReader.readAsDataURL(file);
+      // Prevent automatic upload
+      return false;
+    },
+    onDrop(e) {
+      console.log('Dropped files', e.dataTransfer.files);
+    },
+  };
+
   return (
     <div className='row gap-2'>
       {previousImage && !previewUrl && (
@@ -93,12 +128,27 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
           </div>
         </div>
       )}
-
       {!uploaded && !previousImage && (
+        <div className="col-12 col-md-12 mb-5">
+          <div className="" style={{ height: "180px", width: '100%%' }}>
+            <Dragger {...props} >
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p className="ant-upload-text">Click or drag file to this area to upload</p>
+              <p className="ant-upload-hint">
+                Support for a single upload. Strictly prohibited from uploading company data or other
+                banned files.
+              </p>
+            </Dragger>
+          </div>
+        </div>
+      )}
+      {/* {!uploaded && !previousImage && (
         <div className="col-12 col-md-12 mb-5">
 
           <div className="" style={{ height: "180px", width: '100%' }}>
-            {/* <ImgCrop rotate aspect={cover ? 16 / 9 : 4 / 3}  >
+            <ImgCrop rotate aspect={cover ? 16 / 9 : 4 / 3}  >
               <Upload
                 name="file"
                 listType="picture-card"
@@ -120,10 +170,10 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
                   </>
                 )}
               </Upload>
-            </ImgCrop> */}
+            </ImgCrop>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

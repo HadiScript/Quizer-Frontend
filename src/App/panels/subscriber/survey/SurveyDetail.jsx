@@ -46,22 +46,23 @@ const SurveyDetail = () => {
         </div>
 
         {uploadOrNot && <div className="col-md-6 col-xs-12">
-          {
-            auth?.user?.role === "super-user" &&
-            <>
-              <div className="mb-2 mt-4">
-                <span> <b>Cover Image (Template Card Image)</b></span>
-                {
-                  fetechingData ? "..." :
-                    <DraggableUploader
-                      preImage={data?.templateImage?.url}
-                      slug={slug}
-                      cover={false}
-                    />
-                }
-              </div>
-            </>
-          }
+          {/* {
+            auth?.user?.role === "super-user" && */}
+
+          <>
+            <div className="mb-2 mt-4">
+              <span> <b>Cover Image (Template Card Image)</b></span>
+              {
+                fetechingData ? "..." :
+                  <DraggableUploader
+                    preImage={data?.templateImage?.url}
+                    slug={slug}
+                    cover={false}
+                  />
+              }
+            </div>
+          </>
+
         </div>}
 
 
