@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Errs } from "../helper/Errs";
 
 import axios from "axios";
@@ -12,6 +12,8 @@ import Crypto from "crypto-js";
 import Alerting from "../App/components/common/Alerting";
 import { loadStripe } from "@stripe/stripe-js";
 import { useGoogleLogin } from "@react-oauth/google";
+import { message } from "antd";
+import toast from "react-hot-toast";
 
 export const _useCommon = () => {
   const [auth, setAuth] = useAuth();
@@ -21,6 +23,7 @@ export const _useCommon = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ResendMsg, setResendMsg] = useState(false);
 
   const router = useNavigate();
 
@@ -36,7 +39,9 @@ export const _useCommon = () => {
         router("/");
       }
     } catch (error) {
-      Errs(error);
+      if ((error === "Please verify your email before logging in.")) {
+        setResendMsg(true);
+      } else Errs(error);
     } finally {
       setLoading(false);
     }
@@ -46,9 +51,16 @@ export const _useCommon = () => {
     // e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(`${API}/api/auth/signup`, { email, password, name }, { withCredentials: true });
-      Alerting({ msg: "Register Successfully, you can login now." });
-      router("/signin");
+      // const res = await axios.post(`${API}/api/auth/signup`, { email, password, name }, { withCredentials: true });
+      // Alerting({ msg: "Register Successfully, you can login now." });
+      // message.success(<React.Fragment>asdsad</React.Fragment>, 10);
+      // toast((t) => (
+      //   <span>
+      //     Custom and <b>bold</b>
+      //     <button>Dismiss</button>
+      //   </span>
+      // ));
+      // router("/signin");
     } catch (error) {
       Errs(error);
       console.log(error);
@@ -140,6 +152,8 @@ export const _useCommon = () => {
 
   return {
     Login,
+    ResendMsg,
+    setResendMsg,
     email,
     setEmail,
     password,

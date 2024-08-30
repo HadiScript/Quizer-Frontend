@@ -43,6 +43,9 @@ import TermAndConditions from "./common-pages/TermAndConditions";
 import TemplatePreview from "./common-pages/templates/TemplatePreview";
 import ScrollToTop from "../helper/ScrollToTop";
 import AllTemplates from "./common-pages/templates/AllTemplates";
+import VerifyEmailPage from "./common-pages/VerifyEmailPage";
+import ForgotPassword from "./common-pages/ForgotPassword";
+import ResetPassword from "./common-pages/ResetPassword";
 
 
 const {
@@ -89,6 +92,9 @@ const App = () => {
         <Route path="/terms-and-conditions" element={<TermAndConditions />} />
         <Route path="/template-preview/:slug/:id" element={<TemplatePreview from="home" />} />
         <Route path="/all-templates" element={<AllTemplates />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
 
         <Route path={'signin'} element={<Login />} />

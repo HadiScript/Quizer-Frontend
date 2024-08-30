@@ -1,19 +1,51 @@
-import { Button, Col, Input, Row, Form } from "antd";
+import { Button, Col, Input, Row, Form, message } from "antd";
 
 import { _useCommon } from "../../actions/_common";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
-import { FaLongArrowAltRight } from "react-icons/fa";
+import { FaExternalLinkAlt, FaLongArrowAltRight } from "react-icons/fa";
 import itsImg from '../../assets/imgs/register.webp'
-import { CheckOutlined } from "@ant-design/icons";
+import { CheckOutlined, InboxOutlined } from "@ant-design/icons";
 import { FcGoogle } from "react-icons/fc";
 import { IoIosArrowBack } from "react-icons/io";
+import { Errs } from "../../helper/Errs";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { API } from "../../helper/API";
+
 
 
 const Register = () => {
   const router = useNavigate()
-  const { Register, name, setName, email, setEmail, password, setPassword, signupwithgoogle, loading } = _useCommon();
+  const [loading, setLoading] = useState(false);
+
+  const {
+    //  Register,
+    name, setName, email, setEmail, password, setPassword, signupwithgoogle } = _useCommon();
+
+  const RegisterSubmit = async (e) => {
+    // e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await axios.post(`${API}/api/auth/signup`, { email, password, name }, { withCredentials: true });
+      toast(
+        (t) => (
+          <div>
+            <b>Registered Successfully</b>, We have send an email to verify, Please check
+            <a className="text-decoration-none mx-2" href="https://mail.google.com/mail" target="_">inbox <FaExternalLinkAlt size={10} /></a>
+          </div>
+        ),
+        { position: "bottom-center", duration: "" }
+      )
+      router("/signin");
+    } catch (error) {
+      Errs(error);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   const [auth] = useAuth();
@@ -25,7 +57,7 @@ const Register = () => {
   }, [auth]);
 
   const onFinish = () => {
-    Register();
+    RegisterSubmit()
   };
 
 

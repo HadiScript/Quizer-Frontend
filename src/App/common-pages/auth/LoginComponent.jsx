@@ -5,6 +5,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { _useCommon } from '../../../actions/_common'
 import { useAuth } from '../../../context/authContext'
 import { FcGoogle } from 'react-icons/fc'
+import { FaExternalLinkAlt } from 'react-icons/fa'
+import { Errs } from '../../../helper/Errs'
+import axios from 'axios'
+import { authApi } from '../../../helper/API'
+import toast from 'react-hot-toast'
 
 const LoginComponent = ({
   from = "page",
@@ -15,7 +20,10 @@ const LoginComponent = ({
   Login,
   loginwithgoogle,
   loading,
-  onFinish, }) => {
+  onFinish,
+  ResendMsg,
+  setResendMsg
+}) => {
 
 
   const router = useNavigate();
@@ -29,6 +37,19 @@ const LoginComponent = ({
 
 
 
+  setTimeout(() => {
+    setResendMsg(false)
+  }, 100000);
+
+
+  const resendEmail = async () => {
+    try {
+      const { data } = await axios.put(`${authApi}/resend-verifying-email`, { email: email })
+      toast.success(data.message, { position: "bottom-center" });
+    } catch (error) {
+      Errs(error);
+    }
+  }
 
 
 
@@ -71,7 +92,6 @@ const LoginComponent = ({
         </Form.Item>
 
 
-
         <Form.Item style={{ width: "100%" }}>
           <Button style={{ width: "100%" }} loading={loading} type="primary" htmlType="submit" className="primaryBtn mt-3">
             Login
@@ -81,11 +101,27 @@ const LoginComponent = ({
             Login with Google
           </Button>
         </Form.Item>
+
+        {
+          ResendMsg &&
+          <div>
+            <span>
+              We have sent you an email to verify, Please check your
+            </span>
+            <a className="text-decoration-none mx-2" href="https://mail.google.com/mail" target="_">inbox <FaExternalLinkAlt size={10} /></a>
+            <br />
+            <span className='text-primary' role='primary' onClick={resendEmail}>Resend</span>
+          </div>
+        }
+
       </Form>
 
-      <p className="mt-2">
-        Have an account? <Link to="/signup" className="_link">Register</Link>
-      </p>
+      <div className='mt-3 d-flex gap-4'>
+        <p className="">
+          Have an account? <Link to="/signup" className="_link">Register</Link>
+        </p>
+        <Link to="/forgot-password" className="_link">Forgot password</Link>
+      </div>
     </div>
   )
 }

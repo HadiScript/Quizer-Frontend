@@ -68,7 +68,7 @@ const ResponsesDrawer = ({ current, open, setOpen }) => {
 
 
 
-        {responses?.slice(1)?.map((x, index) =>
+        {responses?.map((x, index) =>
           <Col xs={24} md={12} lg={12} key={index + 1}>
             <div className="lightgrey-bg p-3 rounded-3 m-2">
               <div className="d-flex flex-column">
