@@ -12,9 +12,13 @@ import { surveyApi } from "../../../helper/API"
 import { useQueryClient } from "react-query"
 import { BackwardOutlined, ImportOutlined } from "@ant-design/icons"
 import { FaWandMagicSparkles } from "react-icons/fa6";
+import { HiOutlineViewList } from "react-icons/hi";
+
 
 import logoImage from '../../../assets/imgs/logo.png'
 import SidebarCustomize from "../../components/common/TemplatePreview/SidebarCustomize"
+import { FaCheck } from "react-icons/fa"
+import Thankx from "../Thankx"
 
 
 const lightenColor = (color, percent) => {
@@ -39,7 +43,8 @@ const lightenColor = (color, percent) => {
 const TemplatePreview = () => {
   const from = useLocation().search.split("=")[1]
 
-  const { slug, id } = useParams()
+  const { slug, id } = useParams();
+  const [current, setCurrent] = useState("survey")
   const router = useNavigate();
   const { data, isLoading: fetchingLoading } = _useFields(slug, id)
   const [auth] = useAuth()
@@ -105,27 +110,63 @@ const TemplatePreview = () => {
               from === "home" && <Button type="dashed" icon={<ImportOutlined />} onClick={() => setOpen(true)}>Use This Template</Button>
             }
 
-            <Button className="myBtn _link" icon={<FaWandMagicSparkles />} onClick={() => setCustomizeOpen(true)}> Customize </Button>
+            <Button className="myBtn _link" icon={<FaWandMagicSparkles />} onClick={() => setCustomizeOpen(true)}> Colors </Button>
             <Button className="myBtn _link" icon={<BackwardOutlined />} onClick={() => router(-1)}> Back</Button>
           </div>
         </div>
       </div>
 
 
+
       <div className={`survey ${!settings?.bgColor && 'lightgrey-bg'}`} style={{ backgroundColor: settings.bgColor }}>
         <div className="its-container  ">
 
-          <BgHeading title={data?.title} desc={data?.description} bgColor={settings.mainColor} textColor={settings?.textColor} />
+          {/* {JSON.stringify(from)} */}
 
-          {fetchingLoading ? <>Please wait...</> : <SurveyPreview
-            fields={data?.fields}
-            preview={false}
-            submiting={() => alert("Ok")}
-            submittingLoading={false}
-            from="templates"
-            settings={settings}
+          {from === 'dashboard' &&
+            <ul className="nav nav-tabs mb-3">
+              <li className="nav-item" role="button" >
+                <span className={`nav-link ${current === 'survey' && 'active'} text-dark d-flex align-items-center gap-2`} onClick={() => setCurrent('survey')} >
+                  <HiOutlineViewList />
+                  <b>Survey</b>
+                </span>
+              </li>
 
-          />}
+              <li className="nav-item" role="button" >
+                <span className={`nav-link ${current === 'thanks' && 'active'} text-dark d-flex align-items-center gap-2`} onClick={() => setCurrent('thanks')} >
+                  <FaCheck />
+                  <b>Thank You Page</b>
+                </span>
+              </li>
+            </ul>
+          }
+
+
+          {
+            current === 'survey' ? <>
+              <BgHeading title={data?.title} desc={data?.description} bgColor={settings.mainColor} textColor={settings?.textColor} />
+              {
+                fetchingLoading ? <>Please wait...</> :
+                  <SurveyPreview
+                    fields={data?.fields}
+                    preview={false}
+                    submiting={() => alert("Ok")}
+                    submittingLoading={false}
+                    from="templates"
+                    settings={settings}
+
+                  />
+              }
+            </>
+              :
+              <Thankx
+                preview={true}
+                settings={settings}
+                slug={slug}
+                data={data?.settings}
+              />
+          }
+
         </div>
       </div>
 

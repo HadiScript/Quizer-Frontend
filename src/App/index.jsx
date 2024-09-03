@@ -110,7 +110,7 @@ const App = () => {
         <Route path="/thank-you" element={<Thankx />} />
 
 
-        {/* admin routes */}
+
 
         {/* subscriber routes */}
         <Route path={subs} element={<SubscriberRoutes />}>

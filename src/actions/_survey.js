@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alerting from "../App/components/common/Alerting";
+import { slugify } from "../helper/SlugifyUn";
 
 export const useSurveyCreate = () => {
   const queryClient = useQueryClient();
@@ -208,7 +209,12 @@ export const _useSubmitSurvey = (slug, id) => {
     onSuccess: (data) => {
       // queryClient.invalidateQueries(["surveyFields", slug]);
       // sessionStorage.setItem("serveySubmittedId", data?.responseId);
-      router("/thank-you");
+      console.log(data?.settings?.thanksBtn, "here is the data after submitting survey");
+      router(
+        `/thank-you?thanksBtn=${slugify(data?.settings?.thanksBtn)}&thanksHeading=${slugify(
+          data?.settings?.thanksHeading
+        )}&thanksPara=${slugify(data?.settings?.thanksPara)} `
+      );
       toast.success("Response submitted successfully");
     },
     onError: (error) => {

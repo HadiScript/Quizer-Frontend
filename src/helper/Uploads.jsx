@@ -1,12 +1,48 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Upload, Button, message } from 'antd';
 // import ImgCrop from 'antd-img-crop';
 import { useAuth } from '../context/authContext';
 import { API } from './API';
 import axios from 'axios';
 import { InboxOutlined } from '@ant-design/icons';
+import Cropper from 'react-easy-crop';
 
-const { Dragger } = Upload
+
+const { Dragger } = Upload;
+
+
+function getCroppedImg(imageSrc, crop, width, height) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = width;
+  canvas.height = height;
+
+  const img = new Image();
+  img.src = imageSrc;
+  return new Promise((resolve, reject) => {
+    img.onload = function () {
+      ctx.drawImage(
+        img,
+        crop.x,
+        crop.y,
+        crop.width,
+        crop.height,
+        0,
+        0,
+        width,
+        height
+      );
+      canvas.toBlob((blob) => {
+        resolve(blob);
+      }, 'image/jpeg');
+    };
+    img.onerror = function (error) {
+      reject(error);
+    };
+  });
+}
+
 
 const DraggableUploader = ({ slug, preImage, cover = true }) => {
   const [auth] = useAuth();
@@ -18,9 +54,20 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
   const [uploaded, setUploaded] = useState(false);
   const [previousImage, setPreviousImage] = useState(preImage ? preImage : null);
 
+  // Crop state
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
   const handleUpload = async () => {
+    const croppedBlob = await getCroppedImg(previewUrl, croppedAreaPixels, 500, 350);
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', croppedBlob, file.name);
 
     try {
       const response = await fetch(UploadUrl, {
@@ -68,34 +115,12 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
     return false;
   };
 
-
   const props = {
     name: 'file',
     multiple: false,
     action: '#',
     onChange: () => { }, // Make onChange effectively a no-op
-    beforeUpload(file) {
-      const fileReader = new FileReader();
-      // fileReader.onload = (e) => {
-      //   setPreviewUrl(e.target.result);
-      //   setFile(file);
-      // };
-      fileReader.onload = (e) => {
-        const img = new Image();
-        img.src = e.target.result;
-        img.onload = () => {
-          if (!cover && (img.width <= 800 || img.height <= 600)) {
-            message.error('Template image must be 800x600 pixels');
-            return;
-          }
-          setPreviewUrl(e.target.result);
-          setFile(file);
-        };
-      };
-      fileReader.readAsDataURL(file);
-      // Prevent automatic upload
-      return false;
-    },
+    beforeUpload,
     onDrop(e) {
       console.log('Dropped files', e.dataTransfer.files);
     },
@@ -106,13 +131,13 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
       {previousImage && !previewUrl && (
         <div className="col-12 col-md-12">
           <div className='d-flex gap-2 flex-column mb-2'>
-            <img src={previousImage} alt="Preview" style={{ width: '100%', height: cover ? "150px" : "300px", marginTop: '20px', borderRadius: "10px" }} />
+            <img src={previousImage} alt="Preview" style={{ width: '500px', height: cover ? "150px" : "600px", marginTop: '20px', borderRadius: "10px" }} />
             <Button className='mt-3 myBtn' onClick={handleDelete}>Delete Image</Button>
           </div>
         </div>
       )}
 
-      {previewUrl && (
+      {/* {previewUrl && (
         <div className="col-12 col-md-12">
           <div className='d-flex gap-2 flex-column my-2'>
             <img src={previewUrl} alt="Preview"
@@ -127,7 +152,29 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
             {uploaded && <Button className='mt-3 myBtn' onClick={handleDelete}>Delete Image</Button>}
           </div>
         </div>
+      )} */}
+
+
+      {previewUrl && (
+        <div className="col-12 col-md-12">
+          <div className='d-flex gap-2 flex-column my-2'>
+            <div className="crop-container" style={{ position: 'relative', width: '100%', height: '300px' }}>
+              <Cropper
+                image={previewUrl}
+                crop={crop}
+                zoom={zoom}
+                aspect={15 / 15}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+              />
+            </div>
+            {!uploaded && <Button className='mt-3 myBtn' onClick={handleUpload}>Upload Image</Button>}
+            {uploaded && <Button className='mt-3 myBtn' onClick={handleDelete}>Delete Image</Button>}
+          </div>
+        </div>
       )}
+      
       {!uploaded && !previousImage && (
         <div className="col-12 col-md-12 mb-5">
           <div className="" style={{ height: "180px", width: '100%%' }}>
@@ -144,36 +191,6 @@ const DraggableUploader = ({ slug, preImage, cover = true }) => {
           </div>
         </div>
       )}
-      {/* {!uploaded && !previousImage && (
-        <div className="col-12 col-md-12 mb-5">
-
-          <div className="" style={{ height: "180px", width: '100%' }}>
-            <ImgCrop rotate aspect={cover ? 16 / 9 : 4 / 3}  >
-              <Upload
-                name="file"
-                listType="picture-card"
-                showUploadList={false}
-                beforeUpload={beforeUpload}
-              >
-
-                {previewUrl ? (
-                  <img src={previewUrl} alt="preview" style={{ width: '100%' }} />
-                ) : (
-                  <>
-                    <p className="ant-upload-drag-icon">
-                      <InboxOutlined size={"large"} />
-                    </p>
-                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                    <p className="ant-upload-hint">
-                      Support for a single upload. Strictly prohibited from uploading company data or other banned files.
-                    </p>
-                  </>
-                )}
-              </Upload>
-            </ImgCrop>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };

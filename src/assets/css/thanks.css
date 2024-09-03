@@ -1,0 +1,117 @@
+.thanks h1 {
+  font-size: 150px;
+}
+
+.thanks .mainh1 {
+  font-size: 150px;
+  background: transparent;
+}
+.thanks .icon {
+  font-size: 100px;
+  color: #047857;
+  /* color: rgb(12, 167, 12); */
+}
+
+.thanks p {
+  font-size: 20px;
+}
+
+.thanks .mainP {
+  font-size: 20px;
+  background: transparent;
+}
+
+/* For large screens (desktops, larger than 1200px) */
+@media only screen and (min-width: 1200px) {
+  .thanks h1 {
+    font-size: 150px;
+  }
+  .thanks .mainh1 {
+    font-size: 150px;
+  }
+
+  .thanks .icon {
+    font-size: 100px;
+  }
+
+  .thanks p {
+    font-size: 20px;
+  }
+  .thanks .mainP {
+    font-size: 20px;
+  }
+}
+
+/* For medium screens (tablets, 768px to 1199px) */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .thanks h1 {
+    font-size: 100px;
+  }
+  .thanks .mainh1 {
+    font-size: 100px;
+  }
+
+  .thanks .icon {
+    font-size: 75px;
+  }
+
+  .thanks p {
+    font-size: 18px;
+  }
+  .thanks .mainP {
+    font-size: 18px;
+  }
+}
+
+.div {
+  background: radial-gradient(
+    144.3% 173.7% at 71.41% 94.26%,
+    rgba(99, 101, 241, 0.586) 0%,
+    rgba(219, 70, 239, 0.47) 32.49%,
+    rgba(241, 244, 253, 0.134) 82.52%
+  );
+}
+
+/* For small screens (phones, less than 768px) */
+@media only screen and (max-width: 767px) {
+  .thanks h1 {
+    font-size: 70px;
+  }
+  .thanks .mainh1 {
+    font-size: 70px;
+  }
+
+  .thanks .icon {
+    font-size: 50px;
+  }
+
+  .thanks p {
+    font-size: 16px;
+  }
+
+  .thanks .mainP {
+    font-size: 16px;
+  }
+}
+
+/* For extra small screens (very small phones, less than 480px) */
+@media only screen and (max-width: 479px) {
+  .thanks h1 {
+    font-size: 50px;
+  }
+  .thanks .mainh1 {
+    font-size: 50px;
+  }
+
+  .thanks .icon {
+    font-size: 35px;
+  }
+
+  .thanks p {
+    font-size: 14px;
+  }
+
+  .thanks .mainP {
+    font-size: 14px;
+  }
+}
