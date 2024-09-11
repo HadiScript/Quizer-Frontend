@@ -2,11 +2,12 @@ import { useParams } from "react-router-dom"
 import { useBasicInfoServey, useResponses } from "../../../../actions/_survey"
 import BgHeading from "../../../components/common/BgHeading"
 import SrvyLayout from "../../../components/layouts/survey-detail-dashboard/SrvyLayout"
-import { Input, Pagination, Table } from "antd"
+import { Button, Input, Pagination, Table } from "antd"
 import moment from "moment"
 import { useState } from "react"
-import { EyeOutlined, FolderOutlined } from "@ant-design/icons"
+import { DownloadOutlined, EyeOutlined, FolderOutlined } from "@ant-design/icons"
 import ResponsesDrawer from "../../../components/panel/survey/ResponsesDrawer"
+import { exportDataToExcel } from "../../../../helper/ExportData"
 
 const Responses = () => {
   const { slug } = useParams();
@@ -42,7 +43,26 @@ const Responses = () => {
     }
   ];
 
-  console.log(data?.data, "responses")
+
+  const handleExport = () => {
+    if (data) {
+      // console.log(data?.data)
+      // const filteredData = data.data.map((item) => ({
+      //   createdAt: item.createdAt?.slice(0, 10),
+      //   studentName: item.studentDetails.Name,
+      //   studentEmail: item.studentDetails.Email,
+      //   studentPhone: item.studentDetails.Phone,
+      //   score: item.score,
+      //   // passingScore: item.passingScore,
+      //   Result: item.isPass ? "Pass" : "Fail",
+      //   // _id: item._id,
+      // }));
+      // console.log(filteredData, "filter data")
+      exportDataToExcel(data?.data, `${basicData?.title}_responses.xlsx`);
+    } else {
+      alert('No data available to export.');
+    }
+  };
 
   return (
     <SrvyLayout >
@@ -58,6 +78,13 @@ const Responses = () => {
           onChange={(e) => setSearch(e.target.value)}
           style={{ width: "100%", marginBottom: 20 }}
         />
+
+        <div className="d-flex justify-content-end">
+          <Button icon={<DownloadOutlined />} className="myBtn mx-2" onClick={handleExport} style={{ marginBottom: 16 }}>
+            Export Data
+          </Button>
+        </div>
+
         <Table loading={loading} columns={columns} dataSource={data?.data} pagination={false} />
         <div className="text-end">
           <Pagination
