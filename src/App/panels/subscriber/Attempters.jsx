@@ -27,6 +27,8 @@ const Attempters = () => {
     try {
       setExportLoading(true);
       const gettingData = await axios.get(`${attemptApi}/export/${id}`);
+      console.log(gettingData.data);
+
       exportDataToExcel(gettingData.data, `${quizData?.title}_Attempts.xlsx`);
     } catch (error) {
       console.log(error);
