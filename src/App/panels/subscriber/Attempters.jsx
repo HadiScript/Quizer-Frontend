@@ -27,9 +27,20 @@ const Attempters = () => {
     try {
       setExportLoading(true);
       const gettingData = await axios.get(`${attemptApi}/export/${id}`);
-      console.log(gettingData.data);
 
-      exportDataToExcel(gettingData.data, `${quizData?.title}_Attempts.xlsx`);
+      const updated = gettingData.data.map((item) => ({
+        _id: item._id,
+        Email: item.studentDetails.Email,
+        Name: item.studentDetails.Name,
+        Phone: item.studentDetails.Phone,
+        score: item.score,
+        startTime: item.startTime,
+        createdAt: item.createdAt,
+        endTime: item.endTime,
+        isPass: item.isPass,
+      }));
+
+      exportDataToExcel(updated, `${quizData?.title}_Attempts.xlsx`);
     } catch (error) {
       console.log(error);
       toast.error("Please try again.");

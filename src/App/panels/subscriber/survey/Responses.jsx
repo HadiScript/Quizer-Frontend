@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useBasicInfoServey, useResponses } from "../../../../actions/_survey";
 import BgHeading from "../../../components/common/BgHeading";
 import SrvyLayout from "../../../components/layouts/survey-detail-dashboard/SrvyLayout";
-import { Button, Input, Pagination, Table } from "antd";
+import { Button, Input, message, Pagination, Table } from "antd";
 import moment from "moment";
 import { useState } from "react";
 import { DownloadOutlined, EyeOutlined, FolderOutlined } from "@ant-design/icons";
@@ -18,6 +18,8 @@ const Responses = () => {
   const { data: basicData, isLoading: fetechingData } = useBasicInfoServey(slug);
   const [current, setCurrent] = useState("");
   const [open, setOpen] = useState(false);
+
+  const [exportingLoading, setExportingLoading] = useState(false);
 
   const columns = [
     {
@@ -49,21 +51,34 @@ const Responses = () => {
   ];
 
   const exportingData = async () => {
-    try {
-      const gettingData = await axios.get(`${surveyApi}/export/${basicData._id}`);
-      exportDataToExcel(gettingData.data, `${basicData?.title}_responses.xlsx`);
-    } catch (error) {
-      toast.error("Please try again");
-      console.log(error);
-    }
+    // Make a request to the backend to get the CSV
+    setExportingLoading(true);
+    message.info("This may take time :(", { duration: 4 });
+    axios({
+      url: `${surveyApi}/export/${basicData._id}`, // Your API endpoint
+      method: "GET",
+      responseType: "blob", // Important: Tell axios to expect a blob response
+    })
+      .then((response) => {
+        // Create a URL for the file
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `survey_${basicData._id}_responses.csv`); // File name
+        document.body.appendChild(link);
+        link.click(); // Trigger the download
+
+        link.remove(); // Clean up
+        setExportingLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error downloading the CSV file", error);
+        setExportingLoading(false);
+      });
   };
 
   const handleExport = () => {
-    if (data && data.data) {
-      exportingData();
-    } else {
-      alert("No data available to export.");
-    }
+    exportingData();
   };
 
   return (
@@ -80,7 +95,7 @@ const Responses = () => {
         />
 
         <div className="d-flex justify-content-end">
-          <Button icon={<DownloadOutlined />} className="myBtn mx-2" onClick={handleExport} style={{ marginBottom: 16 }}>
+          <Button loading={exportingLoading} icon={<DownloadOutlined />} className="myBtn mx-2" onClick={handleExport} style={{ marginBottom: 16 }}>
             Export Data
           </Button>
         </div>

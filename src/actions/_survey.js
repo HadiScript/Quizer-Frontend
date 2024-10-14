@@ -211,9 +211,9 @@ export const _useSubmitSurvey = (slug, id) => {
       // sessionStorage.setItem("serveySubmittedId", data?.responseId);
       console.log(data?.settings?.thanksBtn, "here is the data after submitting survey");
       router(
-        `/thank-you?thanksBtn=${slugify(data?.settings?.thanksBtn)}&thanksHeading=${slugify(
-          data?.settings?.thanksHeading
-        )}&thanksPara=${slugify(data?.settings?.thanksPara)} `
+        `/thank-you?thanksBtn=${slugify(data?.settings?.thanksBtn)}&thanksHeading=${slugify(data?.settings?.thanksHeading)}&thanksPara=${slugify(
+          data?.settings?.thanksPara
+        )} `
       );
       toast.success("Response submitted successfully");
     },
@@ -318,10 +318,7 @@ export const useResponses = (slug) => {
     return response.data;
   };
 
-  const { data, error, isLoading } = useQuery(
-    ["srvyResponses", { page: pagination.page, pageSize: pagination.pageSize, search }],
-    fetchData
-  );
+  const { data, error, isLoading } = useQuery(["srvyResponses", { page: pagination.page, pageSize: pagination.pageSize, search }], fetchData);
 
   const handleTableChange = (page, pageSize) => {
     setPagination((prev) => ({ ...prev, page, pageSize }));
@@ -369,14 +366,10 @@ export const useSrvyOverview = (slug) => {
 
 // Main dashboard
 export const useMainSrvySummary = () => {
-  const { data, isLoading } = useQuery(
-    ["mainSrvySummary"],
-    () => axios.get(`${surveyApi}/dashboard/main/?from=summary`).then((res) => res.data),
-    {
-      staleTime: Infinity,
-      onError: (error) => Errs(error),
-    }
-  );
+  const { data, isLoading } = useQuery(["mainSrvySummary"], () => axios.get(`${surveyApi}/dashboard/main/?from=summary`).then((res) => res.data), {
+    staleTime: Infinity,
+    onError: (error) => Errs(error),
+  });
 
   return {
     data,
