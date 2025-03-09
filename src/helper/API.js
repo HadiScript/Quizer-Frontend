@@ -1,8 +1,7 @@
-export const API = "https://api.sawal.co";
+export const API = "https://quizer-backendv2.vercel.app/";
 // export const API = "http://localhost:8080";
 export const authApi = `${API}/api/auth`;
 export const quizApi = `${API}/api/quiz`;
-
 
 export const userApi = `${API}/api/user`;
 export const questionApi = `${API}/api/question`;
